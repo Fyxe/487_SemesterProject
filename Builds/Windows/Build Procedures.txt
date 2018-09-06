@@ -1,0 +1,79 @@
+
+
+	/// Since git cant push empty folders i'm putting build procedues in here so we can have the same file structure. ///
+
+
+Folder Structure
+In the base level of the plastic workspace there should be the unity project folder and a folder called Builds.
+
+There need to be sub folders called by their operating system names.
+
+Example Structure:
+Base Source Control Folder
+	- UnityProjectName
+	  - Assets, etc.
+	- Builds
+	  - Windows
+	  - Android
+	  - AppleTV
+	  
+Build Naming
+The naming of a build will be not only for our internal benefit but also externally as a benefit for users. Because of this we need to communicate two things.
+
+ - What this file is going to run.
+ - What version or revision this file is.
+
+To effectively do this we will structure our builds as ProjectName_OperatingSystem_Version which will satisfy both of our communication needs.
+
+Project Name
+Builds first need to have their project name stated, separate this by an underscore. Regardless of the games actual name do not use special characters with accents or anything else of the like. 
+
+Example:
+EngineeringResearch_Windows_v0.8.0
+ArteAlgebra_Windows_v0.9.0
+ArteAlgebra_Windows_v0.9.1D
+ArteAlgebra_Adroid_v0.8.1
+
+Operating System
+Builds then must have their operating system stated. Unity calls it a targeted platform and it will allow us to distinguish different builds in case files get misplaced.
+
+Example:
+EngineeringResearch_Windows_v0.8.0
+ArteAlgebra_Windows_v0.9.0
+ArteAlgebra_Windows_v0.9.1D
+ArteAlgebra_Adroid_v0.8.1
+Version Number
+
+Version numbers are very helpful for client to dev communication. With it, we can track which issues were related to which version number, as well as subliminally inform the users of their current version's state.
+
+Our versioning scheme is a "v" follow by the appropriate RELEASE.MAJOR.MINOR numbering scheme. 
+
+RELEASE
+- This number is seldom updated, and should only be iterated when completing a pass-off milestone, or some other major system change. If the contract is to deliver a product as normal, then it will be delivered at 1.0.0 and if there are any bug fixes or revisions after the lab passes it off, we will update the numbers accordingly.
+MAJOR
+- This number is still updated on shorter time intervals if one of these things occur:
+    - Any of the previous API has become obsolete.
+    - Game breaking bugs were fixed.
+    - A new (normally larger) system was finalized and added to the project.
+    - The project was built and pushed to main. (not dev main)
+MINOR
+    - This number is fairly regularly updated towards the end of the development cycle. It represents:
+    - Game limiting bugs were fixed.
+    - A new (normally smaller) system was finalized and added to the project.
+    - The project was built and pushed to dev main. (not main)
+
+
+Example:
+EngineeringResearch_Windows_v0.8.0
+ArteAlgebra_Windows_v0.9.0
+ArteAlgebra_Windows_v0.9.1D
+ArteAlgebra_Adroid_v0.8.1
+
+
+If a build is a development build (which can be specified when building the project in "build settings") you must put a capital D after the version number to denote this.
+
+Example:
+EngineeringResearch_Windows_v0.8.0
+ArteAlgebra_Windows_v0.9.0
+ArteAlgebra_Windows_v0.9.1D
+ArteAlgebra_Adroid_v0.8.1

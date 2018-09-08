@@ -59,7 +59,7 @@ public static class PermanentlyBreakPrefab
 
         foreach (var gameObject in selected)
         {
-            var prefabType = PrefabUtility.GetPrefabType(gameObject);
+            PrefabType prefabType = PrefabUtility.GetPrefabType(gameObject);
 
             //Don't do the thing for PrefabType.None (not a prefab), Prefab (prefab asset) or ModelPrefab (model asset)
             if (prefabType != PrefabType.PrefabInstance &&

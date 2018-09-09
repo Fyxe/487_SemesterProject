@@ -10,8 +10,8 @@ public class SplitScreenManager : MonoBehaviour
 
     [Header("References")]
     public List<Camera> cameras = new List<Camera>();
-    public Camera cameraPrimary;   
-        
+    public Camera cameraPrimary;
+   
     [ContextMenu("Setup Splitscreen")]
     void SetupSplitScreen()
     {        

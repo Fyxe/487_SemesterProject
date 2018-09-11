@@ -6,8 +6,7 @@ using UnityEngine;
 public class ControllerMultiPlayer : MonoBehaviour
 {
 
-    [Header("Settings")]
-    public int playerIndex;   
+    [Header("Settings")]   
     public bool invertAxis1Z = false;
 
     [Header("References")]
@@ -35,11 +34,6 @@ public class ControllerMultiPlayer : MonoBehaviour
     void Awake()
     {
         input = GetComponent<InputController3D>();      
-        foreach (var i in GetComponentsInChildren<Renderer>())
-        {
-            i.material.color = colorPlayer;
-        }
-        GetComponentInChildren<Camera>().backgroundColor = colorPlayer;
     }
 
     void Update()
@@ -47,43 +41,43 @@ public class ControllerMultiPlayer : MonoBehaviour
         if (invertAxis1Z)
         {
             input.SetAxis(
-                Input.GetAxis("P" + playerIndex.ToString() + "_Axis0Horizontal"),
-                Input.GetAxis("P" + playerIndex.ToString() + "_Axis0Vertical"),
-                Input.GetAxis("P" + playerIndex.ToString() + "_Axis1Horizontal"),
-                Input.GetAxis("P" + playerIndex.ToString() + "_Axis1Vertical") * (-1f)
+                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis0Horizontal"),
+                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis0Vertical"),
+                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis1Horizontal"),
+                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis1Vertical") * (-1f)
                 );
         }
         else
         {        
             input.SetAxis(
-                Input.GetAxis("P" + playerIndex.ToString() + "_Axis0Horizontal"),
-                Input.GetAxis("P" + playerIndex.ToString() + "_Axis0Vertical"),
-                Input.GetAxis("P" + playerIndex.ToString() + "_Axis1Horizontal"),
-                Input.GetAxis("P" + playerIndex.ToString() + "_Axis1Vertical")
+                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis0Horizontal"),
+                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis0Vertical"),
+                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis1Horizontal"),
+                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis1Vertical")
                 );
         }
 
-        if (Input.GetKeyDown("joystick " + playerIndex.ToString() + " button 0"))
+        if (Input.GetKeyDown("joystick " + indexPlayer.ToString() + " button 0"))
         {
             AttemptSwapWeapons();
         }
-        if (Input.GetKeyDown("joystick " + playerIndex.ToString() + " button 1"))
+        if (Input.GetKeyDown("joystick " + indexPlayer.ToString() + " button 1"))
         {
             AttemptUseAbility();
         }
-        if (Input.GetKeyDown("joystick " + playerIndex.ToString() + " button 2"))
+        if (Input.GetKeyDown("joystick " + indexPlayer.ToString() + " button 2"))
         {
             AttemptRevive();   
         }
-        if (Input.GetKeyDown("joystick " + playerIndex.ToString() + " button 3"))
+        if (Input.GetKeyDown("joystick " + indexPlayer.ToString() + " button 3"))
         {
             AttemptThrowWeapon();
         }
-        if (Input.GetKeyDown("joystick " + playerIndex.ToString() + " button 4"))
+        if (Input.GetKeyDown("joystick " + indexPlayer.ToString() + " button 4"))
         {
             AttemptInteract();
         }
-        if (Input.GetKeyDown("joystick " + playerIndex.ToString() + " button 5"))
+        if (Input.GetKeyDown("joystick " + indexPlayer.ToString() + " button 5"))
         {
             AttemptAttack();
         }
@@ -91,42 +85,49 @@ public class ControllerMultiPlayer : MonoBehaviour
 
     public void Setup(PlayerAttibutes newAttribute)
     {
+        Debug.Log(newAttribute.indexPlayer);
         colorPlayer = newAttribute.colorPlayer;
         indexPlayer = newAttribute.indexPlayer;
         pointsCurrent = newAttribute.pointsCurrent;
         speedMoveCurrent = newAttribute.speedMoveCurrent;
         damageBaseCurrent = newAttribute.damageBaseCurrent;
-        countReviveCurrent = newAttribute.countReviveCurrent;        
+        countReviveCurrent = newAttribute.countReviveCurrent;
+
+        foreach (var i in GetComponentsInChildren<Renderer>())
+        {
+            i.material.color = colorPlayer;
+        }
+        GetComponentInChildren<Camera>().backgroundColor = colorPlayer;
     }
 
     public void AttemptInteract()
     {
-        Debug.Log("P" +playerIndex.ToString() + " tried to interact.");
+        Debug.Log("P" + indexPlayer.ToString() + " tried to interact.");
     }
 
     public void AttemptRevive()
     {
-        Debug.Log("P" + playerIndex.ToString() + " tried to revive.");
+        Debug.Log("P" + indexPlayer.ToString() + " tried to revive.");
     }
 
     public void AttemptAttack()
     {
-        Debug.Log("P" + playerIndex.ToString() + " tried to attack.");
+        Debug.Log("P" + indexPlayer.ToString() + " tried to attack.");
     }
 
     public void AttemptSwapWeapons()
     {
-        Debug.Log("P" + playerIndex.ToString() + " tried to swap weapons.");
+        Debug.Log("P" + indexPlayer.ToString() + " tried to swap weapons.");
     }
 
     public void AttemptThrowWeapon()
     {
-        Debug.Log("P" + playerIndex.ToString() + " tried to throw their weapon.");
+        Debug.Log("P" + indexPlayer.ToString() + " tried to throw their weapon.");
     }
 
     public void AttemptUseAbility()
     {
-        Debug.Log("P" + playerIndex.ToString() + " tried to use an ability.");
+        Debug.Log("P" + indexPlayer.ToString() + " tried to use an ability.");
     }
 
 }

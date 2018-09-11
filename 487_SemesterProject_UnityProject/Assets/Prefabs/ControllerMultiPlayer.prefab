@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114426084222644282}
   - component: {fileID: 143337160514211182}
   m_Layer: 0
-  m_Name: PlayerController
+  m_Name: ControllerMultiPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -373,12 +373,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e92d7f33adedee345bbedf57972bbf76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerIndex: 1
+  playerIndex: 8
   invertAxis1Z: 0
   colorPlayer: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   indexPlayer: 0
   pointsCurrent: 0
-  speedMoveCurrent: 3
   damageBaseCurrent: 0
   countReviveCurrent: 1
 --- !u!114 &114426084222644282

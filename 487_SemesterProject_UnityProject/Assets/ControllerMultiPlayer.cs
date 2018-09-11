@@ -9,6 +9,24 @@ public class ControllerMultiPlayer : Damageable
     [Header("Settings")]   
     public bool invertAxis1Z = false;
 
+    [Header("Delays")]
+    public float delaySwapWeapon = 0.1f;
+    float nextSwapWeapon = 0f;
+    public float delayUseAbility = 0.1f;
+    float nextUseAbility = 0f;
+    public float delayRevive = 0f;
+    float nextRevive = 0f;
+    public float delayThrowWeapon = 0.1f;
+    float nextThrowWeapon = 0f;
+    public float delayInteract = 0.1f;
+    float nextInteract = 0f;
+    public float delayAttack = 0f;
+    float nextAttack = 0f;
+    public float delayDisplayInformation = 0f;
+    float nextDisplayInformation = 0f;
+    public float delayThrowPoints = 0.1f;
+    float nextThrowPoints = 0f;
+
     [Header("References")]
     public Color colorPlayer;
     public int indexJoystick = 0;
@@ -31,6 +49,7 @@ public class ControllerMultiPlayer : Damageable
 
     InputController3D controller;
     Animator anim;
+    Coroutine coroutineInvulnerable;
 
     void Awake()
     {
@@ -79,13 +98,17 @@ public class ControllerMultiPlayer : Damageable
         {
             AttemptInteract();
         }
-        if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 5"))
+        if (Input.GetKey("joystick " + indexJoystick.ToString() + " button 5"))
         {
             AttemptAttack();
         }
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 6"))
         {
             AttemptDisplayMoreInformation();
+        }        
+        if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 7"))
+        {
+            // pause menu?
         }
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 8") && Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 9"))
         {
@@ -94,8 +117,7 @@ public class ControllerMultiPlayer : Damageable
     }
 
     public void Setup(PlayerAttibutes newAttribute)
-    {
-        Debug.Log(newAttribute.indexJoystick);
+    {        
         colorPlayer = newAttribute.colorPlayer;
         indexJoystick = newAttribute.indexJoystick;
         pointsCurrent = newAttribute.pointsCurrent;
@@ -113,47 +135,127 @@ public class ControllerMultiPlayer : Damageable
 
     public void AttemptInteract()
     {
-        Debug.Log("P" + indexJoystick.ToString() + " tried to interact.");
+        if (Time.time > nextInteract)
+        {
+            nextInteract = Time.time + delayInteract;
+            Debug.Log("P" + indexJoystick.ToString() + " interacted.");
+            if (anim != null)
+            {
+                anim.SetTrigger("interact");
+            }
+        }        
     }
 
     public void AttemptRevive()
     {
-        Debug.Log("P" + indexJoystick.ToString() + " tried to revive.");
+        if (Time.time > nextRevive)
+        {
+            nextRevive = Time.time + delayRevive;
+            Debug.Log("P" + indexJoystick.ToString() + " hit a revive.");   
+            if (anim != null)
+            {
+                anim.SetTrigger("revive");
+            }
+        }        
     }
 
     public void AttemptAttack()
     {
-        Debug.Log("P" + indexJoystick.ToString() + " tried to attack.");
+        if (Time.time > nextAttack)
+        {
+            nextAttack = Time.time + delayAttack;
+            Debug.Log("P" + indexJoystick.ToString() + " Attacked.");   
+            if (anim != null)
+            {
+                anim.SetTrigger("attack");
+            }
+        }        
     }
 
     public void AttemptSwapWeapons()
     {
-        Debug.Log("P" + indexJoystick.ToString() + " tried to swap weapons.");
+        if (Time.time > nextSwapWeapon)
+        {
+            nextSwapWeapon = Time.time + delaySwapWeapon;
+            Debug.Log("P" + indexJoystick.ToString() + " swapped weapons.");   
+            if (anim != null)
+            {
+                anim.SetTrigger("swapWeapons");
+            }
+        }        
     }
 
     public void AttemptThrowWeapon()
     {
-        Debug.Log("P" + indexJoystick.ToString() + " tried to throw their weapon.");
+        if (Time.time > nextThrowWeapon)
+        {
+            nextThrowWeapon = Time.time + delayThrowWeapon;
+            Debug.Log("P" + indexJoystick.ToString() + " threw their weapon.");
+            if (anim != null)
+            {
+                anim.SetTrigger("throwWeapon");
+            }
+        }        
     }
 
     public void AttemptUseAbility()
     {
-        Debug.Log("P" + indexJoystick.ToString() + " tried to use an ability.");
+        if (Time.time > nextUseAbility)
+        {
+            nextUseAbility = Time.time + delayUseAbility;
+            Debug.Log("P" + indexJoystick.ToString() + " used an ability.");   
+            if (anim != null)
+            {
+                anim.SetTrigger("useAbility");
+            }
+        }        
     }
 
     public void AttemptThrowPoints()
     {
-        Debug.Log("P" + indexJoystick.ToString() + " tried to throw points.");
+        if (Time.time > nextThrowPoints)
+        {
+            nextThrowPoints = Time.time + delayThrowPoints;
+            Debug.Log("P" + indexJoystick.ToString() + " threw points.");    
+            if (anim != null)
+            {
+                anim.SetTrigger("throwPoints");
+            }
+        }        
     }
 
     public void AttemptDisplayMoreInformation()
     {
-        Debug.Log("P" + indexJoystick.ToString() + " tried to display more HUD information.");
+        if (Time.time > nextDisplayInformation)
+        {
+            nextDisplayInformation = Time.time + nextDisplayInformation;
+            Debug.Log("P" + indexJoystick.ToString() + " displayed more HUD information."); 
+            
+        }    
     }
 
-    void SetInvulnerable()
+    public void SetInvulnerable(float timeInvulnerable)
     {
+        if (coroutineInvulnerable != null)
+        {            
+            StopCoroutine(coroutineInvulnerable);
+        }        
+        coroutineInvulnerable = StartCoroutine(Invulerability(timeInvulnerable));
+    }
 
+    IEnumerator Invulerability(float timeInvulnerable)
+    {
+        blockAllDamage = true;
+        foreach (var i in GetComponentsInChildren<Renderer>())
+        {
+            i.material.color = Color.white;
+        } 
+        yield return new WaitForSeconds(timeInvulnerable);
+        blockAllDamage = false;
+        foreach (var i in GetComponentsInChildren<Renderer>())
+        {
+            i.material.color = colorPlayer;
+        } 
     }
 
 }

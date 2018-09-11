@@ -6,6 +6,9 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
 
+    [Header("Settings")]
+    public float timeInvulnerable = 1f;
+
     [Header("References")]
     public List<ControllerMultiPlayer> allControllers = new List<ControllerMultiPlayer>();
     public List<Transform> spawnPoints = new List<Transform>();
@@ -36,12 +39,11 @@ public class LevelManager : MonoBehaviour
         else
         {
             spawnedControllerObject.transform.position = allControllers[Random.Range(0, allControllers.Count)].transform.position;
-        }
-        
-        // Invulnerable state
+        }                
 
         ControllerMultiPlayer spawnedController = spawnedControllerObject.GetComponent<ControllerMultiPlayer>();
         spawnedController.Setup(newAttributes);
+        spawnedController.SetInvulnerable(timeInvulnerable);
         allControllers.Add(spawnedController);
     }
 
@@ -63,12 +65,11 @@ public class LevelManager : MonoBehaviour
                 int index = Random.Range(0, spawnCopies.Count);
 
                 spawnedControllerObject.transform.position = spawnCopies[index].position;
-                spawnCopies.RemoveAt(index);
-
-                // Invulnerable state
+                spawnCopies.RemoveAt(index);                
 
                 ControllerMultiPlayer spawnedController = spawnedControllerObject.GetComponent<ControllerMultiPlayer>();
                 spawnedController.Setup(i);
+                spawnedController.SetInvulnerable(timeInvulnerable);
                 allControllers.Add(spawnedController);
             }
         }

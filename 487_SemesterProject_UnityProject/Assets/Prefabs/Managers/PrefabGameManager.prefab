@@ -80,6 +80,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1890859541092504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4151076040385830}
+  - component: {fileID: 114703930483877616}
+  m_Layer: 0
+  m_Name: PlayerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4151076040385830
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1890859541092504}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.4765316, y: 1.0799999, z: 3.1915135}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4956794724856630}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4787993714140220
 Transform:
   m_ObjectHideFlags: 1
@@ -92,7 +121,7 @@ Transform:
   m_Children:
   - {fileID: 224298363897457496}
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4956794724856630
 Transform:
@@ -104,6 +133,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4151076040385830}
   - {fileID: 4787993714140220}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -166,6 +196,63 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114703930483877616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1890859541092504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57b64a8d4dbf4a04198f58d191d6afa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possableMaxPlayers: 4
+  allPlayerAttributes:
+  - isSpawned: 0
+    colorPlayer: {r: 0, g: 0.38793108, b: 0.66176474, a: 0}
+    indexJoystick: 0
+    pointsCurrent: 0
+    hpCurrent: 3
+    hpMax: 3
+    speedMoveCurrent: 0
+    damageBaseCurrent: 0
+    countReviveCurrent: 0
+    prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
+      type: 2}
+  - isSpawned: 0
+    colorPlayer: {r: 0.66176474, g: 0, b: 0, a: 0}
+    indexJoystick: 0
+    pointsCurrent: 0
+    hpCurrent: 3
+    hpMax: 3
+    speedMoveCurrent: 0
+    damageBaseCurrent: 0
+    countReviveCurrent: 0
+    prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
+      type: 2}
+  - isSpawned: 0
+    colorPlayer: {r: 0.65263695, g: 0.66176474, b: 0, a: 0}
+    indexJoystick: 0
+    pointsCurrent: 0
+    hpCurrent: 3
+    hpMax: 3
+    speedMoveCurrent: 0
+    damageBaseCurrent: 0
+    countReviveCurrent: 0
+    prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
+      type: 2}
+  - isSpawned: 0
+    colorPlayer: {r: 0, g: 0.66176474, b: 0.004563858, a: 0}
+    indexJoystick: 0
+    pointsCurrent: 0
+    hpCurrent: 3
+    hpMax: 3
+    speedMoveCurrent: 0
+    damageBaseCurrent: 0
+    countReviveCurrent: 0
+    prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
+      type: 2}
 --- !u!114 &114722024201700226
 MonoBehaviour:
   m_ObjectHideFlags: 1

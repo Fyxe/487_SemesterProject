@@ -46,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1617358216596854
 GameObject:
   m_ObjectHideFlags: 0
@@ -55,6 +55,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4269490580104904}
+  - component: {fileID: 95298958928598476}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -231,7 +232,7 @@ Camera:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1455686610870018}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -362,6 +363,23 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1455686610870018}
   m_Enabled: 0
+--- !u!95 &95298958928598476
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1617358216596854}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9040f1a8caaebfa4a99c6ebb0d571693, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114186442045624042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -373,10 +391,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e92d7f33adedee345bbedf57972bbf76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerIndex: 8
+  hpMax: 0
+  hpCurrent: 0
+  blockAllDamage: 0
+  blockAllHealing: 0
+  isDead: 0
   invertAxis1Z: 0
+  delaySwapWeapon: 0.1
+  delayUseAbility: 0.1
+  delayRevive: 0
+  delayThrowWeapon: 0.1
+  delayInteract: 0.1
+  delayAttack: 0
+  delayDisplayInformation: 0
+  delayThrowPoints: 0.1
   colorPlayer: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  indexPlayer: 0
+  indexJoystick: 0
   pointsCurrent: 0
   damageBaseCurrent: 0
   countReviveCurrent: 1
@@ -393,6 +423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isControlled: 1
   useFirstPerson: 0
+  lookLerpSpeed: 0.2
   canMove: 1
   canLookOrAim: 1
   delayResetAim: 1.5

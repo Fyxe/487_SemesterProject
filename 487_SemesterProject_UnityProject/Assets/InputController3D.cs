@@ -7,12 +7,14 @@ public class InputController3D : MonoBehaviour
 {
     [Header("Input Controller Settings")]
     public bool isControlled = true;
+    public bool useFirstPerson = false;
     [Space]
     public bool canMove = true;
-    public bool canMoveInLocalSpace = true;
     [Space]
     public bool canLookOrAim = true;
-    public bool useAimInsteadOfLook = false;
+    bool isAimingInDirectionOfMovement = false;
+    public float delayResetAim = 1.5f;
+    float nextResetAim = 0;
     [Space]
     public float speedMove = 6f;
     public float speedJump = 8f;
@@ -50,13 +52,13 @@ public class InputController3D : MonoBehaviour
         }
         if (canLookOrAim)
         {
-            if (useAimInsteadOfLook)
-            {
-                RotationController();
-            }
-            else
+            if (useFirstPerson)
             {
                 RotationCamera();
+            }            
+            else            
+            {
+                RotationController();
             }
         }        
     }
@@ -81,7 +83,7 @@ public class InputController3D : MonoBehaviour
         if (controllerCurrent.isGrounded)
         {
             directionMove = new Vector3(axis0X, 0, axis0Z).normalized;
-            if (canMoveInLocalSpace)
+            if (useFirstPerson)
             {
                 directionMove = transform.TransformDirection(directionMove);
             }            
@@ -93,7 +95,7 @@ public class InputController3D : MonoBehaviour
         controllerCurrent.Move(directionMove * Time.deltaTime);
     }
 
-    void RotationCamera()
+    void RotationCamera()   // FPS
     {        
         transform.rotation *= Quaternion.Euler(0f, axis1X * speedRotationX, 0f);        
 
@@ -106,19 +108,37 @@ public class InputController3D : MonoBehaviour
     }
 
     void RotationController()
-    {
-        transform.rotation = Quaternion.Euler(0f,Mathf.Atan2(axis1X,axis1Z) * Mathf.Rad2Deg,0f);
-    }
-
-    public void AttemptJump()
-    {
-        if (controllerCurrent.isGrounded)
+    {        
+        if (Mathf.Approximately(axis1X + axis1Z, 0f))
         {
-            directionMove.y = speedJump;
-            controllerCurrent.Move(directionMove * Time.deltaTime);
+            if (Time.time > nextResetAim)
+            {
+                
+                isAimingInDirectionOfMovement = true;
+            }
+        }
+        else 
+        {
+            isAimingInDirectionOfMovement = false;
+            nextResetAim = Time.time + delayResetAim;
+        }
+
+        if (isAimingInDirectionOfMovement)
+        {
+            if (!Mathf.Approximately(axis0X + axis0Z, 0f))
+            {                
+                transform.rotation = Quaternion.LookRotation(new Vector3(axis0X,0f,axis0Z));
+            }            
+        }
+        else
+        {
+            float angleY = Mathf.Atan2(axis1X, axis1Z) * Mathf.Rad2Deg;
+            if (!Mathf.Approximately(angleY,0f))
+            {
+                transform.rotation = Quaternion.Euler(0f, angleY, 0f);
+            }            
         }
     }
-
 
     Quaternion ClampRotationAroundXAxis(Quaternion q)
     {

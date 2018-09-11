@@ -62,7 +62,15 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
                 i.ResetValues();
                 i.isSpawned = true;
                 i.indexJoystick = indexJoystick;
-                FindObjectOfType<LevelManager>().SpawnPlayer(i);
+                
+                if (ShopManager.instance != null)
+                {
+                    ShopManager.instance.SpawnPlayer(i);
+                }
+                else if (LevelManager.instance != null)
+                {
+                    LevelManager.instance.SpawnPlayer(i);
+                }                
                 return;
             }
         }

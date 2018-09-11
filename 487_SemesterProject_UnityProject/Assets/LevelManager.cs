@@ -10,8 +10,8 @@ public class LevelManager : MonoBehaviour
     public List<ControllerMultiPlayer> allControllers = new List<ControllerMultiPlayer>();
     public List<Transform> spawnPoints = new List<Transform>();
 
-    [Header("Prefabs")]
-    public GameObject controllerMultiPlayer;
+    //[Header("Prefabs")]
+    
 
     [ContextMenu("StartLevel")]
     public void StartLevel()
@@ -21,13 +21,13 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnPlayer(PlayerAttibutes newAttributes)
     {
-        if (controllerMultiPlayer == null)
+        if (newAttributes.prefabController == null)
         {
-            Debug.LogError("No prefab for the player controller when attempting to spawn: " + newAttributes.indexPlayer.ToString());
+            Debug.LogError("No prefab for the player controller when attempting to spawn: P" + newAttributes.indexJoystick.ToString());
             return;
         }
-        GameObject spawnedControllerObject = Instantiate(controllerMultiPlayer);
-        spawnedControllerObject.name = "[P" + newAttributes.indexPlayer.ToString() + "]PlayerController";
+        GameObject spawnedControllerObject = Instantiate(newAttributes.prefabController);
+        spawnedControllerObject.name = "[P" + newAttributes.indexJoystick.ToString() + "]PlayerController";
 
         if (allControllers.Count == 0)
         {
@@ -52,13 +52,13 @@ public class LevelManager : MonoBehaviour
         {
             if (i.isSpawned)
             {
-                if (controllerMultiPlayer == null)
+                if (i.prefabController == null)
                 {
-                    Debug.LogError("No prefab for the player controller when attempting to spawn: " + i.indexPlayer.ToString());
+                    Debug.LogError("No prefab for the player controller when attempting to spawn: P" + i.indexJoystick.ToString());
                     return;
                 }
-                GameObject spawnedControllerObject = Instantiate(controllerMultiPlayer);
-                spawnedControllerObject.name = "[P" + i.indexPlayer.ToString() + "]PlayerController";
+                GameObject spawnedControllerObject = Instantiate(i.prefabController);
+                spawnedControllerObject.name = "[P" + i.indexJoystick.ToString() + "]PlayerController";
 
                 int index = Random.Range(0, spawnCopies.Count);
 

@@ -565,7 +565,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   possableMaxPlayers: 4
-  allPlayerAttributes: []
+  allPlayerAttributes:
+  - isSpawned: 0
+    colorPlayer: {r: 0, g: 0.38793108, b: 0.66176474, a: 0}
+    indexJoystick: 0
+    pointsCurrent: 0
+    hpCurrent: 3
+    hpMax: 3
+    speedMoveCurrent: 0
+    damageBaseCurrent: 0
+    countReviveCurrent: 0
+    prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
+      type: 2}
+  - isSpawned: 0
+    colorPlayer: {r: 0.66176474, g: 0, b: 0, a: 0}
+    indexJoystick: 0
+    pointsCurrent: 0
+    hpCurrent: 3
+    hpMax: 3
+    speedMoveCurrent: 0
+    damageBaseCurrent: 0
+    countReviveCurrent: 0
+    prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
+      type: 2}
+  - isSpawned: 0
+    colorPlayer: {r: 0.65263695, g: 0.66176474, b: 0, a: 0}
+    indexJoystick: 0
+    pointsCurrent: 0
+    hpCurrent: 3
+    hpMax: 3
+    speedMoveCurrent: 0
+    damageBaseCurrent: 0
+    countReviveCurrent: 0
+    prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
+      type: 2}
+  - isSpawned: 0
+    colorPlayer: {r: 0, g: 0.66176474, b: 0.004563858, a: 0}
+    indexJoystick: 0
+    pointsCurrent: 0
+    hpCurrent: 3
+    hpMax: 3
+    speedMoveCurrent: 0
+    damageBaseCurrent: 0
+    countReviveCurrent: 0
+    prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
+      type: 2}
 --- !u!4 &939965061
 Transform:
   m_ObjectHideFlags: 0
@@ -962,8 +1006,6 @@ MonoBehaviour:
   - {fileID: 1636870585}
   - {fileID: 557627805}
   - {fileID: 863758173}
-  controllerMultiPlayer: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
-    type: 2}
 --- !u!4 &2023394248
 Transform:
   m_ObjectHideFlags: 0

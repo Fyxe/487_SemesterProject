@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(InputController3D))]
-public class ControllerMultiPlayer : MonoBehaviour
+public class ControllerMultiPlayer : Damageable
 {
 
     [Header("Settings")]   
@@ -11,8 +11,8 @@ public class ControllerMultiPlayer : MonoBehaviour
 
     [Header("References")]
     public Color colorPlayer;
-    public int indexPlayer = 0;
-    public int pointsCurrent = 0;
+    public int indexJoystick = 0;
+    public int pointsCurrent = 0;    
     float m_speedMoveCurrent = 3f;
     public float speedMoveCurrent
     {
@@ -23,72 +23,84 @@ public class ControllerMultiPlayer : MonoBehaviour
         set
         {
             m_speedMoveCurrent = value;
-            input.speedMove = speedMoveCurrent;
+            controller.speedMove = speedMoveCurrent;
         }
     }
     public int damageBaseCurrent = 0;
     public int countReviveCurrent = 1;
 
-    InputController3D input;
+    InputController3D controller;
+    Animator anim;
 
     void Awake()
     {
-        input = GetComponent<InputController3D>();      
+        controller = GetComponent<InputController3D>();      
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
     {
         if (invertAxis1Z)
         {
-            input.SetAxis(
-                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis0Horizontal"),
-                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis0Vertical"),
-                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis1Horizontal"),
-                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis1Vertical") * (-1f)
+            controller.SetAxis(
+                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis0Horizontal"),
+                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis0Vertical"),
+                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis1Horizontal"),
+                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis1Vertical") * (-1f)
                 );
         }
         else
         {        
-            input.SetAxis(
-                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis0Horizontal"),
-                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis0Vertical"),
-                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis1Horizontal"),
-                Input.GetAxis("P" + indexPlayer.ToString() + "_Axis1Vertical")
+            controller.SetAxis(
+                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis0Horizontal"),
+                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis0Vertical"),
+                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis1Horizontal"),
+                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis1Vertical")
                 );
         }
 
-        if (Input.GetKeyDown("joystick " + indexPlayer.ToString() + " button 0"))
+        if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 0"))
         {
             AttemptSwapWeapons();
         }
-        if (Input.GetKeyDown("joystick " + indexPlayer.ToString() + " button 1"))
+        if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 1"))
         {
             AttemptUseAbility();
         }
-        if (Input.GetKeyDown("joystick " + indexPlayer.ToString() + " button 2"))
+        if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 2"))
         {
             AttemptRevive();   
         }
-        if (Input.GetKeyDown("joystick " + indexPlayer.ToString() + " button 3"))
+        if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 3"))
         {
             AttemptThrowWeapon();
         }
-        if (Input.GetKeyDown("joystick " + indexPlayer.ToString() + " button 4"))
+        if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 4"))
         {
             AttemptInteract();
         }
-        if (Input.GetKeyDown("joystick " + indexPlayer.ToString() + " button 5"))
+        if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 5"))
         {
             AttemptAttack();
+        }
+        if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 6"))
+        {
+            AttemptDisplayMoreInformation();
+        }
+        if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 8") && Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 9"))
+        {
+            AttemptThrowPoints();
         }
     }
 
     public void Setup(PlayerAttibutes newAttribute)
     {
-        Debug.Log(newAttribute.indexPlayer);
+        Debug.Log(newAttribute.indexJoystick);
         colorPlayer = newAttribute.colorPlayer;
-        indexPlayer = newAttribute.indexPlayer;
+        indexJoystick = newAttribute.indexJoystick;
         pointsCurrent = newAttribute.pointsCurrent;
+        hpCurrent = newAttribute.hpCurrent;
+        hpMax = newAttribute.hpMax;
         speedMoveCurrent = newAttribute.speedMoveCurrent;
         damageBaseCurrent = newAttribute.damageBaseCurrent;
         countReviveCurrent = newAttribute.countReviveCurrent;
@@ -96,38 +108,52 @@ public class ControllerMultiPlayer : MonoBehaviour
         foreach (var i in GetComponentsInChildren<Renderer>())
         {
             i.material.color = colorPlayer;
-        }
-        GetComponentInChildren<Camera>().backgroundColor = colorPlayer;
+        }        
     }
 
     public void AttemptInteract()
     {
-        Debug.Log("P" + indexPlayer.ToString() + " tried to interact.");
+        Debug.Log("P" + indexJoystick.ToString() + " tried to interact.");
     }
 
     public void AttemptRevive()
     {
-        Debug.Log("P" + indexPlayer.ToString() + " tried to revive.");
+        Debug.Log("P" + indexJoystick.ToString() + " tried to revive.");
     }
 
     public void AttemptAttack()
     {
-        Debug.Log("P" + indexPlayer.ToString() + " tried to attack.");
+        Debug.Log("P" + indexJoystick.ToString() + " tried to attack.");
     }
 
     public void AttemptSwapWeapons()
     {
-        Debug.Log("P" + indexPlayer.ToString() + " tried to swap weapons.");
+        Debug.Log("P" + indexJoystick.ToString() + " tried to swap weapons.");
     }
 
     public void AttemptThrowWeapon()
     {
-        Debug.Log("P" + indexPlayer.ToString() + " tried to throw their weapon.");
+        Debug.Log("P" + indexJoystick.ToString() + " tried to throw their weapon.");
     }
 
     public void AttemptUseAbility()
     {
-        Debug.Log("P" + indexPlayer.ToString() + " tried to use an ability.");
+        Debug.Log("P" + indexJoystick.ToString() + " tried to use an ability.");
+    }
+
+    public void AttemptThrowPoints()
+    {
+        Debug.Log("P" + indexJoystick.ToString() + " tried to throw points.");
+    }
+
+    public void AttemptDisplayMoreInformation()
+    {
+        Debug.Log("P" + indexJoystick.ToString() + " tried to display more HUD information.");
+    }
+
+    void SetInvulnerable()
+    {
+
     }
 
 }

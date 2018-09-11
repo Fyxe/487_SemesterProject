@@ -8,6 +8,7 @@ public class InputController3D : MonoBehaviour
     [Header("Input Controller Settings")]
     public bool isControlled = true;
     public bool useFirstPerson = false;
+    public float lookLerpSpeed = 0.2f;
     [Space]
     public bool canMove = true;
     [Space]
@@ -127,7 +128,7 @@ public class InputController3D : MonoBehaviour
         {
             if (!Mathf.Approximately(axis0X + axis0Z, 0f))
             {                
-                transform.rotation = Quaternion.LookRotation(new Vector3(axis0X,0f,axis0Z));
+                transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.LookRotation(new Vector3(axis0X,0f,axis0Z).normalized),lookLerpSpeed); 
             }            
         }
         else
@@ -135,7 +136,7 @@ public class InputController3D : MonoBehaviour
             float angleY = Mathf.Atan2(axis1X, axis1Z) * Mathf.Rad2Deg;
             if (!Mathf.Approximately(angleY,0f))
             {
-                transform.rotation = Quaternion.Euler(0f, angleY, 0f);
+                transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0f, angleY, 0f),lookLerpSpeed);
             }            
         }
     }

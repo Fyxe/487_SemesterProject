@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Damageable {
+public class Damageable : MonoBehaviour
+{
 
     public float hpMax;
     public float hpCurrent;

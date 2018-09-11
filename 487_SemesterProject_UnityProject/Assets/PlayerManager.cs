@@ -35,22 +35,38 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
         //        print("joystick 1 button " + i);
         //    }
         //}
-        for (int i = 1; i <= allPlayerAttributes.Count; i++)
-        {            
-            if (!allPlayerAttributes[i - 1].isSpawned && Input.GetKeyDown("joystick " + i + " button 7"))
+        for(int i = 1; i <= 8; i++)
+        {
+            if (Input.GetKeyDown("joystick " + i + " button 7"))
             {
-                Debug.Log(i);
-                SpawnPlayer(i - 1);
+                Debug.Log("P" + i + " pressed start.");
+                AttemptSpawnPlayer(i);
             }
         }
     }
 
-    void SpawnPlayer(int whichToSpawn)
+    void AttemptSpawnPlayer(int indexJoystick)
     {
-        allPlayerAttributes[whichToSpawn].ResetValues();
-        allPlayerAttributes[whichToSpawn].isSpawned = true;
-        allPlayerAttributes[whichToSpawn].indexPlayer = whichToSpawn;
-        FindObjectOfType<LevelManager>().SpawnPlayer(allPlayerAttributes[whichToSpawn + 1]);
+        foreach(var i in allPlayerAttributes)
+        {
+            if (i.indexJoystick == indexJoystick && i.isSpawned)
+            {
+                Debug.Log("Player already spawned for joystick P" + indexJoystick);
+                return;
+            }
+        }
+        foreach(var i in allPlayerAttributes)
+        {
+            if (!i.isSpawned)
+            {
+                i.ResetValues();
+                i.isSpawned = true;
+                i.indexJoystick = indexJoystick;
+                FindObjectOfType<LevelManager>().SpawnPlayer(i);
+                return;
+            }
+        }
+        Debug.Log("All players spawned already.");
     }
 
 }

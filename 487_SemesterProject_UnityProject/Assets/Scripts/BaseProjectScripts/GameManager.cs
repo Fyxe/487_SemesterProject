@@ -9,9 +9,16 @@ public class GameManager : SingletonDDOL<GameManager>
 
     protected override void Initialize()
     {
-                
+
     }
 
+    void Start()
+    {
+        if (GameManager.instance != this)
+        {
+            Destroy(this.gameObject);
+        }   
+    }
 
     void Update()
     {

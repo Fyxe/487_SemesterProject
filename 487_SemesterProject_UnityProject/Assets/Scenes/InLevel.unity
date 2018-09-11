@@ -447,7 +447,7 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1479688833}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!124 &1479688836
 Behaviour:
   m_ObjectHideFlags: 0
@@ -630,6 +630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0170653e50309764199261bae07fdb54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeInvulnerable: 1
   allControllers: []
   spawnPoints:
   - {fileID: 272426288}

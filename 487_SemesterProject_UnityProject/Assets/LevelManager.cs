@@ -62,11 +62,18 @@ public class LevelManager : Singleton<LevelManager>
                 GameObject spawnedControllerObject = Instantiate(i.prefabController);
                 spawnedControllerObject.name = "[P" + i.indexJoystick.ToString() + "]PlayerController";
 
-                int index = Random.Range(0, spawnCopies.Count);
+                if (spawnCopies.Count == 0)
+                {
+                    spawnedControllerObject.transform.position = Vector3.zero;
+                }
+                else
+                {
+                    int index = Random.Range(0, spawnCopies.Count);
 
-                spawnedControllerObject.transform.position = spawnCopies[index].position;
-                spawnCopies.RemoveAt(index);                
-
+                    spawnedControllerObject.transform.position = spawnCopies[index].position;
+                    spawnCopies.RemoveAt(index);                
+                }
+                
                 ControllerMultiPlayer spawnedController = spawnedControllerObject.GetComponent<ControllerMultiPlayer>();
                 spawnedController.Setup(i);
                 spawnedController.SetInvulnerable(timeInvulnerable);

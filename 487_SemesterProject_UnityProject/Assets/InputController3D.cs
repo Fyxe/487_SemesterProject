@@ -134,7 +134,7 @@ public class InputController3D : MonoBehaviour
         else
         {
             float angleY = Mathf.Atan2(axis1X, axis1Z) * Mathf.Rad2Deg;
-            if (!Mathf.Approximately(angleY,0f))
+            if (!Mathf.Approximately(angleY,0f))    // this is incorrectly displaying values
             {
                 transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0f, angleY, 0f),lookLerpSpeed);
             }            

@@ -62,6 +62,7 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
                 i.ResetValues();
                 i.isSpawned = true;
                 i.indexJoystick = indexJoystick;
+                i.indexPlayer = allPlayerAttributes.IndexOf(i);
                 
                 if (ShopManager.instance != null)
                 {

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Damageable : MonoBehaviour
 {
 
-    public float hpMax;
-    public float hpCurrent;
+    public int hpMax;
+    public int hpCurrent;
 
     public bool blockAllDamage;
     public bool blockAllHealing;
@@ -14,7 +14,7 @@ public class Damageable : MonoBehaviour
     public bool isDead = false;
 
 
-    public virtual void Hurt(float amount)
+    public virtual void Hurt(int amount)
     {
         if (blockAllDamage)
         {
@@ -37,7 +37,7 @@ public class Damageable : MonoBehaviour
         Hurt(hpCurrent);
     }
 
-    public virtual void Heal(float amount)
+    public virtual void Heal(int amount)
     {
         if (blockAllHealing || hpCurrent == hpMax)
         {
@@ -84,6 +84,11 @@ public class Damageable : MonoBehaviour
 
     }
     
+    public float GetHealthPercentage()
+    {
+        return (float)hpCurrent / (float)hpMax;   
+    }
+
     public virtual void Reset()
     {
         HealToMax();

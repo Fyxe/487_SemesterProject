@@ -28,9 +28,35 @@ public class ControllerMultiPlayer : Damageable
     float nextThrowPoints = 0f;
 
     [Header("References")]
-    public Color colorPlayer;
+    public PlayerUIBox ui;
+    Color m_colorPlayer;
+    public Color colorPlayer
+    {
+        get
+        {
+            return m_colorPlayer;
+        }
+        set
+        {
+            m_colorPlayer = value;
+            ui.imageHealthBar.color = colorPlayer;
+        }
+    }
     public int indexJoystick = 0;
-    public int pointsCurrent = 0;    
+
+    int m_pointsCurrent = 0;
+    public int pointsCurrent
+    {
+        get
+        {
+            return m_pointsCurrent;
+        }
+        set
+        {
+            m_pointsCurrent = value;
+            ui.textPoints.text = pointsCurrent.ToString();
+        }
+    }  
     float m_speedMoveCurrent = 3f;
     public float speedMoveCurrent
     {
@@ -42,10 +68,36 @@ public class ControllerMultiPlayer : Damageable
         {
             m_speedMoveCurrent = value;
             controller.speedMove = speedMoveCurrent;
+            ui.textSpeedMove.text = speedMoveCurrent.ToString();
         }
     }
-    public int damageBaseCurrent = 0;
-    public int countReviveCurrent = 1;
+    int m_damageBaseCurrent = 0;
+    public int damageBaseCurrent
+    {
+        get
+        {
+            return m_damageBaseCurrent;
+        }
+        set
+        {
+            m_damageBaseCurrent = value;
+            ui.textDamageBase.text = damageBaseCurrent.ToString();
+        }
+    }
+
+    int m_countReviveCurrent = 1;
+    public int countReviveCurrent
+    {
+        get
+        {
+            return m_countReviveCurrent;
+        }
+        set
+        {
+            m_countReviveCurrent = value;
+            ui.textReviveCount.text = countReviveCurrent.ToString();
+        }
+    }
 
     InputController3D controller;
     Animator anim;
@@ -59,6 +111,11 @@ public class ControllerMultiPlayer : Damageable
 
     void Update()
     {
+        if (ui != null)
+        {
+            ui.imageHealthBar.fillAmount = Mathf.Lerp(ui.imageHealthBar.fillAmount,GetHealthPercentage(),0.2f);
+        }
+
         if (invertAxis1Z)
         {
             controller.SetAxis(
@@ -116,8 +173,11 @@ public class ControllerMultiPlayer : Damageable
         }
     }
 
-    public void Setup(PlayerAttibutes newAttribute)
+    public void Setup(PlayerAttibutes newAttribute, PlayerUIBox newUI)
     {        
+        
+        ui = newUI;
+
         colorPlayer = newAttribute.colorPlayer;
         indexJoystick = newAttribute.indexJoystick;
         pointsCurrent = newAttribute.pointsCurrent;
@@ -126,6 +186,7 @@ public class ControllerMultiPlayer : Damageable
         speedMoveCurrent = newAttribute.speedMoveCurrent;
         damageBaseCurrent = newAttribute.damageBaseCurrent;
         countReviveCurrent = newAttribute.countReviveCurrent;
+
 
         foreach (var i in GetComponentsInChildren<Renderer>())
         {
@@ -228,9 +289,11 @@ public class ControllerMultiPlayer : Damageable
     {
         if (Time.time > nextDisplayInformation)
         {
-            nextDisplayInformation = Time.time + nextDisplayInformation;
+            nextDisplayInformation = Time.time + delayDisplayInformation;
             Debug.Log("P" + indexJoystick.ToString() + " displayed more HUD information."); 
-            
+                        
+            ui.anim.SetTrigger("ChangeDisplay");
+            ui.anim.SetBool("IsUp",!ui.anim.GetBool("IsUp"));
         }    
     }
 

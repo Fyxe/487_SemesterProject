@@ -12,6 +12,7 @@ public class LevelManager : Singleton<LevelManager>
     [Header("References")]
     public List<ControllerMultiPlayer> allControllers = new List<ControllerMultiPlayer>();
     public List<Transform> spawnPoints = new List<Transform>();
+    public List<PlayerUIBox> playerUIBoxes = new List<PlayerUIBox> ();
 
     //[Header("Prefabs")]
     
@@ -42,7 +43,7 @@ public class LevelManager : Singleton<LevelManager>
         }                
 
         ControllerMultiPlayer spawnedController = spawnedControllerObject.GetComponent<ControllerMultiPlayer>();
-        spawnedController.Setup(newAttributes);
+        spawnedController.Setup(newAttributes, playerUIBoxes[newAttributes.indexPlayer]);
         spawnedController.SetInvulnerable(timeInvulnerable);
         allControllers.Add(spawnedController);
     }
@@ -75,7 +76,7 @@ public class LevelManager : Singleton<LevelManager>
                 }
                 
                 ControllerMultiPlayer spawnedController = spawnedControllerObject.GetComponent<ControllerMultiPlayer>();
-                spawnedController.Setup(i);
+                spawnedController.Setup(i, playerUIBoxes[i.indexPlayer]);
                 spawnedController.SetInvulnerable(timeInvulnerable);
                 allControllers.Add(spawnedController);
             }

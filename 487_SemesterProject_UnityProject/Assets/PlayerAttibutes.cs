@@ -8,6 +8,7 @@ public class PlayerAttibutes
     public bool isSpawned = false;
     public Color colorPlayer = Color.blue;
     public int indexJoystick = 0;
+    public int indexPlayer = 0;
     public int pointsCurrent = 0;
     public int hpCurrent = 3;
     public int hpMax = 3;
@@ -22,6 +23,7 @@ public class PlayerAttibutes
         isSpawned = false;
         //colorPlayer = Color.blue;
         indexJoystick = 0;
+        indexPlayer = 0;
         pointsCurrent = 0;
         hpCurrent = 3;
         hpMax = 3;

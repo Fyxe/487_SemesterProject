@@ -25,13 +25,13 @@ InputManager:
     m_Name: P2_Axis0Horizontal
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: left
-    positiveButton: right
-    altNegativeButton: a
-    altPositiveButton: d
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 3
-    dead: 0.1
-    sensitivity: 3
+    dead: 0.2
+    sensitivity: 1
     snap: 1
     invert: 0
     type: 2
@@ -41,13 +41,13 @@ InputManager:
     m_Name: P3_Axis0Horizontal
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: left
-    positiveButton: right
-    altNegativeButton: a
-    altPositiveButton: d
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 3
-    dead: 0.1
-    sensitivity: 3
+    dead: 0.2
+    sensitivity: 1
     snap: 1
     invert: 0
     type: 2
@@ -57,13 +57,13 @@ InputManager:
     m_Name: P4_Axis0Horizontal
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: left
-    positiveButton: right
-    altNegativeButton: a
-    altPositiveButton: d
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 3
-    dead: 0.1
-    sensitivity: 3
+    dead: 0.2
+    sensitivity: 1
     snap: 1
     invert: 0
     type: 2
@@ -73,13 +73,13 @@ InputManager:
     m_Name: P1_Axis1Horizontal
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: left
-    positiveButton: right
-    altNegativeButton: a
-    altPositiveButton: d
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 3
-    dead: 0.1
-    sensitivity: 3
+    dead: 0.2
+    sensitivity: 1
     snap: 1
     invert: 0
     type: 2
@@ -89,13 +89,13 @@ InputManager:
     m_Name: P2_Axis1Horizontal
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: left
-    positiveButton: right
-    altNegativeButton: a
-    altPositiveButton: d
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 3
-    dead: 0.1
-    sensitivity: 3
+    dead: 0.2
+    sensitivity: 1
     snap: 1
     invert: 0
     type: 2
@@ -105,13 +105,13 @@ InputManager:
     m_Name: P3_Axis1Horizontal
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: left
-    positiveButton: right
-    altNegativeButton: a
-    altPositiveButton: d
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 3
-    dead: 0.1
-    sensitivity: 3
+    dead: 0.2
+    sensitivity: 1
     snap: 1
     invert: 0
     type: 2
@@ -121,13 +121,13 @@ InputManager:
     m_Name: P4_Axis1Horizontal
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: left
-    positiveButton: right
-    altNegativeButton: a
-    altPositiveButton: d
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 3
-    dead: 0.1
-    sensitivity: 3
+    dead: 0.2
+    sensitivity: 1
     snap: 1
     invert: 0
     type: 2
@@ -153,13 +153,13 @@ InputManager:
     m_Name: P2_Axis0Vertical
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: down
-    positiveButton: up
-    altNegativeButton: s
-    altPositiveButton: w
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 3
-    dead: 0.1
-    sensitivity: 3
+    dead: 0.2
+    sensitivity: 1
     snap: 1
     invert: 1
     type: 2
@@ -169,13 +169,13 @@ InputManager:
     m_Name: P3_Axis0Vertical
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: down
-    positiveButton: up
-    altNegativeButton: s
-    altPositiveButton: w
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 3
-    dead: 0.1
-    sensitivity: 3
+    dead: 0.2
+    sensitivity: 1
     snap: 1
     invert: 1
     type: 2
@@ -185,13 +185,13 @@ InputManager:
     m_Name: P4_Axis0Vertical
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: down
-    positiveButton: up
-    altNegativeButton: s
-    altPositiveButton: w
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 3
-    dead: 0.1
-    sensitivity: 3
+    dead: 0.2
+    sensitivity: 1
     snap: 1
     invert: 1
     type: 2
@@ -201,13 +201,13 @@ InputManager:
     m_Name: P1_Axis1Vertical
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: down
-    positiveButton: up
-    altNegativeButton: s
-    altPositiveButton: w
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 3
-    dead: 0.1
-    sensitivity: 3
+    dead: 0.2
+    sensitivity: 1
     snap: 1
     invert: 1
     type: 2
@@ -217,13 +217,13 @@ InputManager:
     m_Name: P2_Axis1Vertical
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: down
-    positiveButton: up
-    altNegativeButton: s
-    altPositiveButton: w
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 3
-    dead: 0.1
-    sensitivity: 3
+    dead: 0.2
+    sensitivity: 1
     snap: 1
     invert: 1
     type: 2
@@ -233,13 +233,13 @@ InputManager:
     m_Name: P3_Axis1Vertical
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: down
-    positiveButton: up
-    altNegativeButton: s
-    altPositiveButton: w
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 3
-    dead: 0.1
-    sensitivity: 3
+    dead: 0.2
+    sensitivity: 1
     snap: 1
     invert: 1
     type: 2
@@ -249,13 +249,13 @@ InputManager:
     m_Name: P4_Axis1Vertical
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: down
-    positiveButton: up
-    altNegativeButton: s
-    altPositiveButton: w
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 3
-    dead: 0.1
-    sensitivity: 3
+    dead: 0.2
+    sensitivity: 1
     snap: 1
     invert: 1
     type: 2

@@ -27,7 +27,7 @@ public class PlayerAttributes
         pointsCurrent = 0;
         hpCurrent = 3;
         hpMax = 3;
-        speedMoveCurrent = 10f;
+        speedMoveCurrent = 5f;
         damageBaseCurrent = 0;
         countReviveCurrent = 1;
     }

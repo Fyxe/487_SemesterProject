@@ -6,29 +6,41 @@ using UnityEngine.AI;
 public class AgentCameraController : MonoBehaviour 
 {
 
+    [Header("Settings")]
+    public float speedLerp = 0.1f;
+    public float cameraHeightMin = 10;
+    public float cameraHeightMax = 20;
+
     [Header("References")]
     public List<Transform> toFollow = new List<Transform>();
-    NavMeshAgent agent;
+    
+    Vector3 target;
 
-    void Awake()
-    {
-        agent = GetComponent<NavMeshAgent>();
-        agent.Warp(Vector3.zero);
-        agent.updateRotation = false;
-    }
-
-    void Update()
+    void LateUpdate()
     {
         if (toFollow.Count == 0)
         {
             return;
         }
 
-        agent.destination = GetCentralPoint();
+        NavMeshPath path = new NavMeshPath ();
+        Vector3 centralPoint = GetCentralPoint();
+        NavMeshHit h = new NavMeshHit ();
+        int mask = 1 << NavMesh.GetAreaFromName("CameraWalkable");
+        NavMesh.SamplePosition(centralPoint, out h, 4f, mask);
+
+        Debug.DrawLine(centralPoint, centralPoint + Vector3.up, Color.yellow);
+
+        Debug.DrawLine(h.position, h.position + Vector3.up, Color.red);
+
+        target = h.position;
+        target.y = transform.position.y;
+        
+        transform.position = Vector3.Slerp(transform.position, target, speedLerp);
         
     }
 
-    public Vector3 GetCentralPoint()
+    public Vector3 GetCentralPoint()    // use standard deviation for camera height
     {
         Vector3 retVec = Vector3.zero;
         foreach (Transform i in toFollow)

@@ -9,18 +9,20 @@ public class LevelManager : Singleton<LevelManager>
 
     [Header("Settings")]
     public float timeInvulnerable = 1f;
-    
+
     [Header("References")]
+    public DropSet dropSetBase;
     public List<ControllerMultiPlayer> allControllers = new List<ControllerMultiPlayer>();
     public List<Transform> spawnPoints = new List<Transform>();
-    public List<PlayerUIBox> playerUIBoxes = new List<PlayerUIBox> ();
-    AgentCameraController cameraController;
+    public List<PlayerUIBox> playerUIBoxes = new List<PlayerUIBox> ();    
 
     //[Header("Prefabs")]
     
+
     void Start()
     {
-        foreach(var i in playerUIBoxes)
+        LevelGenerationManager.instance.GenerateLevelDFS();
+        foreach (var i in playerUIBoxes)
         {
             i.Set(PlayerUIBox.BoxSetting.empty);
         }        

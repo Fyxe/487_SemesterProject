@@ -1,0 +1,46 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PickupStats : PooledObject
+{
+
+    [Header("Settings")]
+    public StatType type = StatType.points;
+    public int amount = 10;
+
+    ControllerMultiPlayer cachedPlayer;
+
+    void OnTriggerEnter(Collider col)
+    {
+        Debug.Log(col.name);
+        if (!col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null)
+        {
+            switch (type)
+            {
+                case StatType.points:
+                    cachedPlayer.pointsCurrent += amount;
+                    break;
+                case StatType.healthCurrent:
+                    cachedPlayer.hpCurrent += amount;
+                    break;
+                case StatType.healthMax:
+                    cachedPlayer.hpMax += amount;
+                    break;
+                case StatType.movementSpeed:
+                    cachedPlayer.speedMoveCurrent += amount;
+                    break;
+                case StatType.baseDamage:
+                    cachedPlayer.damageBaseCurrent += amount;
+                    break;
+                case StatType.reviveCount:
+                    cachedPlayer.countReviveCurrent += amount;
+                    break;
+                default:
+                    break;
+            }
+            DestroyThisObject();
+        }
+    }
+
+}

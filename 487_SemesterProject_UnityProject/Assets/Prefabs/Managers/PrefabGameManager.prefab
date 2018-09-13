@@ -103,7 +103,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1890859541092504}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.4765316, y: 1.0799999, z: 3.1915135}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   timeTransition: 0.4
-  timeLoadingMin: 2
+  timeLoadingMin: 0
   wipeImage: {fileID: 114699851604472026}
 --- !u!114 &114699851604472026
 MonoBehaviour:
@@ -210,8 +210,9 @@ MonoBehaviour:
   possableMaxPlayers: 4
   allPlayerAttributes:
   - isSpawned: 0
-    colorPlayer: {r: 0, g: 0.38793108, b: 0.66176474, a: 0}
+    colorPlayer: {r: 0, g: 0.38793108, b: 0.66176474, a: 1}
     indexJoystick: 0
+    indexPlayer: 0
     pointsCurrent: 0
     hpCurrent: 3
     hpMax: 3
@@ -221,8 +222,9 @@ MonoBehaviour:
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
   - isSpawned: 0
-    colorPlayer: {r: 0.66176474, g: 0, b: 0, a: 0}
+    colorPlayer: {r: 0.66176474, g: 0, b: 0, a: 1}
     indexJoystick: 0
+    indexPlayer: 0
     pointsCurrent: 0
     hpCurrent: 3
     hpMax: 3
@@ -232,8 +234,9 @@ MonoBehaviour:
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
   - isSpawned: 0
-    colorPlayer: {r: 0.65263695, g: 0.66176474, b: 0, a: 0}
+    colorPlayer: {r: 0.65263695, g: 0.66176474, b: 0, a: 1}
     indexJoystick: 0
+    indexPlayer: 0
     pointsCurrent: 0
     hpCurrent: 3
     hpMax: 3
@@ -243,8 +246,9 @@ MonoBehaviour:
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
   - isSpawned: 0
-    colorPlayer: {r: 0, g: 0.66176474, b: 0.004563858, a: 0}
+    colorPlayer: {r: 0, g: 0.66176474, b: 0.004563858, a: 1}
     indexJoystick: 0
+    indexPlayer: 0
     pointsCurrent: 0
     hpCurrent: 3
     hpMax: 3
@@ -299,6 +303,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04095cf0f0ec4da4f8c86d21dab90a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentLevel: 0
+  currentGameLevel: 0
+  currentGameExperience: 0
+  currentScore: 0
 --- !u!114 &114975718039966508
 MonoBehaviour:
   m_ObjectHideFlags: 1

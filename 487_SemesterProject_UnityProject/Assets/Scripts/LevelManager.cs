@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : Singleton<LevelManager>
 {
@@ -16,14 +17,71 @@ public class LevelManager : Singleton<LevelManager>
 
     //[Header("Prefabs")]
     
-
-    [ContextMenu("StartLevel")]
-    public void StartLevel()
+    void Start()
     {
+        foreach(var i in playerUIBoxes)
+        {
+            i.Set(PlayerUIBox.BoxSetting.empty);
+        }        
+        StartLevel();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            FindObjectOfType<ControllerMultiPlayer>().Hurt(1);
+        }
+    }
+
+    protected virtual IEnumerator WaitUntilFocused()
+    {
+        while (SceneManager.GetActiveScene().name == "LoadingScene")
+        {
+            yield return null;
+        }
         SpawnPlayersInitially();
     }
 
-    public void SpawnPlayer(PlayerAttibutes newAttributes)
+    public void StartLevel()
+    {
+        StartCoroutine(WaitUntilFocused());
+    }
+
+    public void EndLevel(bool isVictory)
+    {
+        if (isVictory)
+        {
+            UpdatePlayerInformation();
+            GameManager.instance.currentScore += 1000;
+            GameManager.instance.GoToNextLevel();
+        }
+        else
+        {
+            PlayerManager.instance.ResetAllPlayers();
+            GameManager.instance.GoToMainMenu();
+        }
+    }
+
+    void UpdatePlayerInformation()
+    {
+        foreach (var i in allControllers)
+        {
+            PlayerAttributes at = PlayerManager.instance.GetAttributeOfPlayer(i.indexPlayer);
+            if (at == null)
+            {                
+                continue;
+            }
+            at.pointsCurrent = i.pointsCurrent;
+            at.hpCurrent = i.hpCurrent;
+            at.hpMax = i.hpMax;
+            at.speedMoveCurrent = i.speedMoveCurrent;
+            at.damageBaseCurrent = i.damageBaseCurrent;
+            at.countReviveCurrent = i.countReviveCurrent;
+        }
+    }
+
+    public void SpawnPlayer(PlayerAttributes newAttributes)
     {
         if (newAttributes.prefabController == null)
         {
@@ -35,7 +93,14 @@ public class LevelManager : Singleton<LevelManager>
 
         if (allControllers.Count == 0)
         {
-            spawnedControllerObject.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].position;
+            if (spawnPoints.Count == 0)
+            {
+                spawnedControllerObject.transform.position = Vector3.zero;
+            }
+            else
+            {
+                spawnedControllerObject.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].position;
+            }            
         }
         else
         {
@@ -65,7 +130,14 @@ public class LevelManager : Singleton<LevelManager>
 
                 if (spawnCopies.Count == 0)
                 {
-                    spawnedControllerObject.transform.position = Vector3.zero;
+                    if (spawnPoints.Count == 0)
+                    {
+                        spawnedControllerObject.transform.position = Vector3.zero;
+                    }
+                    else
+                    {
+                        spawnedControllerObject.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].position;
+                    }
                 }
                 else
                 {
@@ -78,11 +150,21 @@ public class LevelManager : Singleton<LevelManager>
                 ControllerMultiPlayer spawnedController = spawnedControllerObject.GetComponent<ControllerMultiPlayer>();
                 spawnedController.Setup(i, playerUIBoxes[i.indexPlayer]);
                 spawnedController.SetInvulnerable(timeInvulnerable);
-                allControllers.Add(spawnedController);
+                allControllers.Add(spawnedController);                
             }
         }
     }
 
-
+    public void CheckForEnd()
+    {
+        foreach (var i in allControllers)
+        {
+            if (!i.isDead)
+            {
+                return;
+            }
+        }
+        EndLevel(false);
+    }
 }
 

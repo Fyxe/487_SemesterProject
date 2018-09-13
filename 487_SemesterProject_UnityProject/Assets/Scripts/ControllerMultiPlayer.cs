@@ -43,7 +43,7 @@ public class ControllerMultiPlayer : Damageable
         }
     }
     public int indexJoystick = 0;
-
+    public int indexPlayer = 0;
     int m_pointsCurrent = 0;
     public int pointsCurrent
     {
@@ -114,6 +114,10 @@ public class ControllerMultiPlayer : Damageable
         if (ui != null)
         {
             ui.imageHealthBar.fillAmount = Mathf.Lerp(ui.imageHealthBar.fillAmount,GetHealthPercentage(),0.2f);
+            if (ui.imageHealthBar.color.a == 0)
+            {
+                Debug.LogWarning("Healthbar color is transparent.");
+            }
         }
 
         if (invertAxis1Z)
@@ -166,20 +170,21 @@ public class ControllerMultiPlayer : Damageable
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 7"))
         {
             // pause menu?
+            HurtToDeath();
         }
-        if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 8") && Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 9"))
+        if (Input.GetKey("joystick " + indexJoystick.ToString() + " button 8") && Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 9"))
         {
             AttemptThrowPoints();
         }
     }
 
-    public void Setup(PlayerAttibutes newAttribute, PlayerUIBox newUI)
+    public void Setup(PlayerAttributes newAttribute, PlayerUIBox newUI)
     {        
-        
-        ui = newUI;
+        ui = newUI;        
 
         colorPlayer = newAttribute.colorPlayer;
         indexJoystick = newAttribute.indexJoystick;
+        indexPlayer = newAttribute.indexPlayer;
         pointsCurrent = newAttribute.pointsCurrent;
         hpCurrent = newAttribute.hpCurrent;
         hpMax = newAttribute.hpMax;
@@ -187,6 +192,7 @@ public class ControllerMultiPlayer : Damageable
         damageBaseCurrent = newAttribute.damageBaseCurrent;
         countReviveCurrent = newAttribute.countReviveCurrent;
 
+        ui.Set(PlayerUIBox.BoxSetting.alive);
 
         foreach (var i in GetComponentsInChildren<Renderer>())
         {
@@ -320,5 +326,10 @@ public class ControllerMultiPlayer : Damageable
             i.material.color = colorPlayer;
         } 
     }
-
+    
+    public override void OnDeath()
+    {
+        ui.Set(PlayerUIBox.BoxSetting.dead);
+        LevelManager.instance.CheckForEnd();
+    }
 }

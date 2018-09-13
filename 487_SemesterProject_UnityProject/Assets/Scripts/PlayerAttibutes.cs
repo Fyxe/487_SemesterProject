@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerAttibutes
+public class PlayerAttributes
 {
     public bool isSpawned = false;
     public Color colorPlayer = Color.blue;
@@ -27,7 +27,7 @@ public class PlayerAttibutes
         pointsCurrent = 0;
         hpCurrent = 3;
         hpMax = 3;
-        speedMoveCurrent = 3f;
+        speedMoveCurrent = 10f;
         damageBaseCurrent = 0;
         countReviveCurrent = 1;
     }

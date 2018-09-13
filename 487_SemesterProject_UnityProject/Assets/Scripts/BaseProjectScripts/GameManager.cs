@@ -5,7 +5,11 @@ using UnityEngine;
 public class GameManager : SingletonDDOL<GameManager>
 {
 
-    //[Header("GameManager")]
+    [Header("Settings")]
+    public int currentLevel = 1;
+    public int currentGameLevel = 0;
+    public int currentGameExperience = 0;
+    public int currentScore = 0;
 
     protected override void Initialize()
     {
@@ -26,6 +30,26 @@ public class GameManager : SingletonDDOL<GameManager>
         {
             Quit();
         }    
+    }
+
+    public void GoToNextLevel()
+    {
+        currentLevel++;
+        if (currentLevel % 2 == 0)
+        {
+            LoadSceneManager.instance.LoadScene("Shop");
+        }
+        else
+        {
+            LoadSceneManager.instance.LoadScene("InLevel");
+        }
+    }
+
+    public void GoToMainMenu()
+    {
+        currentGameExperience += currentScore;
+        currentScore = 0;
+        LoadSceneManager.instance.LoadScene("Menu");
     }
 
     /// <summary>

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114186442045624042}
   - component: {fileID: 114426084222644282}
   - component: {fileID: 143337160514211182}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ControllerMultiPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 20498781127265828}
   - component: {fileID: 124926680101825214}
   - component: {fileID: 81485427048284720}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CameraPlayer1
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4269490580104904}
   - component: {fileID: 95298958928598476}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 33232651760605412}
   - component: {fileID: 136360640958364202}
   - component: {fileID: 23263042359711526}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 33824468111641488}
   - component: {fileID: 65862724835271026}
   - component: {fileID: 23412923877320380}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4077999184490024}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ParentCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4880524034322012}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CameraBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,11 +405,8 @@ MonoBehaviour:
   delayAttack: 0
   delayDisplayInformation: 0
   delayThrowPoints: 0.1
-  colorPlayer: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  ui: {fileID: 0}
   indexJoystick: 0
-  pointsCurrent: 0
-  damageBaseCurrent: 0
-  countReviveCurrent: 1
 --- !u!114 &114426084222644282
 MonoBehaviour:
   m_ObjectHideFlags: 1

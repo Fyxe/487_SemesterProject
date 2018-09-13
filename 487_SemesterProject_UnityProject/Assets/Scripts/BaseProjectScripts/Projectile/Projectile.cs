@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : PooledObject
 {
     [Header("Projectile Settings")]
     public bool showTrail = true;
     [Space]
     public float speedMove = 1f;
+    public bool destroyOnHit = true;
     public Vector3 direction;
     public LayerMask layerMask;
 
@@ -41,10 +42,11 @@ public class Projectile : MonoBehaviour
                 UpdatePosition();
                 yield return null;
             }
-            else
+            else if (destroyOnHit)
             {
                 yield break;
             }            
+            // TODO limit time alive
         }        
     }
 

@@ -330,6 +330,6 @@ public class ControllerMultiPlayer : Damageable
     public override void OnDeath()
     {
         ui.Set(PlayerUIBox.BoxSetting.dead);
-        LevelManager.instance.CheckForEnd();
+        LevelManager.instance.CheckIfAllPlayersAreDead();
     }
 }

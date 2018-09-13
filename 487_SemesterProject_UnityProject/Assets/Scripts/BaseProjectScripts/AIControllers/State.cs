@@ -2,40 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "PluggableAI/State")]
+[CreateAssetMenu(menuName = "AI/State",order = -1)]
 public class State : ScriptableObject
 {
     public Action[] actions;
     public Transition[] transitions;
-    public Color sceneGizmoColor = Color.grey;
 
-    public void UpdateState(StateController stateController)
+    public void UpdateState(AI ai)
     {
-        DoActions(stateController);
-        CheckTransitions(stateController);
+        DoActions(ai);
+        CheckTransitions(ai);
     }
 
-    private void DoActions(StateController stateController)
+    private void DoActions(AI ai)
     {
         for (int i = 0; i < actions.Length; i++)
         {
-            actions[i].Act(stateController);
+            actions[i].Act(ai);
         }
     }
 
-    private void CheckTransitions(StateController stateController)
+    private void CheckTransitions(AI ai)
     {
         for (int i = 0; i < transitions.Length; i++)
         {
-            bool decisionSucceeded = transitions[i].decision.Decide(stateController);
+            bool decisionSucceeded = transitions[i].condition.CheckCondition(ai);
 
             if (decisionSucceeded)
             {
-                stateController.TransitionToState(transitions[i].trueState);
+                ai.ChangeState(transitions[i].stateTrue);
             }
             else
             {
-                stateController.TransitionToState(transitions[i].falseState);
+                ai.ChangeState(transitions[i].stateFalse);
             }
         }
     }

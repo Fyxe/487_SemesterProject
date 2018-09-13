@@ -114,7 +114,7 @@ public class LevelManager : Singleton<LevelManager>
         spawnedController.Setup(newAttributes, playerUIBoxes[newAttributes.indexPlayer]);
         spawnedController.SetInvulnerable(timeInvulnerable);
         allControllers.Add(spawnedController);
-        FindObjectOfType<AgentCameraController>().toFollow.Add(spawnedController.transform);
+        FindObjectOfType<NavMeshCameraController>().toFollow.Add(spawnedController.transform);
     }
 
     public void SpawnPlayersInitially()
@@ -155,12 +155,12 @@ public class LevelManager : Singleton<LevelManager>
                 spawnedController.Setup(i, playerUIBoxes[i.indexPlayer]);
                 spawnedController.SetInvulnerable(timeInvulnerable);
                 allControllers.Add(spawnedController);
-                FindObjectOfType<AgentCameraController>().toFollow.Add(spawnedController.transform);
+                FindObjectOfType<NavMeshCameraController>().toFollow.Add(spawnedController.transform);
             }
         }
     }
 
-    public void CheckForEnd()
+    public void CheckIfAllPlayersAreDead()
     {
         foreach (var i in allControllers)
         {
@@ -170,6 +170,18 @@ public class LevelManager : Singleton<LevelManager>
             }
         }
         EndLevel(false);
+    }
+
+    public Transform GetTarget()
+    {
+        foreach (var i in allControllers)
+        {
+            if (!i.isDead)
+            {
+                return i.transform;
+            }
+        }
+        return null;
     }
 }
 

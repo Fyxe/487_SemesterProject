@@ -17,10 +17,10 @@ TagManager:
   - Enemy
   - Interactable
   - LevelCollision
-  - 
-  - 
-  - 
-  - 
+  - Pickups
+  - NavigationIgnore
+  - NavigationCamera
+  - NavigationPlayer
   - 
   - 
   - 

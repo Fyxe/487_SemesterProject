@@ -81,6 +81,12 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
         {
             Debug.Log("Level Generated Successfully");
         }
+        else
+        {
+            Debug.Log("Level failed to generate.");
+        }
+
+        piecesSpawnedOrder = new List<LevelPiece>();
     }
 
     bool AddPieceDFS(List<LevelPiece> toSpawn)
@@ -118,15 +124,14 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                         continue;
                     }
 
-                    if (useConnectionTypes && (!j.connectableTypes.Contains(k.type) || !k.connectableTypes.Contains(j.type))
+                    if (useConnectionTypes && (!j.connectableTypes.Contains(k.type) || !k.connectableTypes.Contains(j.type)))
                     {
                         continue;
                     }
 
                     spawnedPieceObject.transform.position = j.transform.position + (k.transform.localPosition * (-1f));
 
-                    float angleToRotate = Vector3.SignedAngle(j.direction, k.direction * (-1f), Vector3.up);
-                    Debug.Log(k.transform.position);
+                    float angleToRotate = Vector3.SignedAngle(j.direction, k.direction * (-1f), Vector3.up);                   
                     spawnedPiece.transform.RotateAround(spawnedPieceObject.transform.position + k.transform.position, Vector3.up, angleToRotate);
 
                     if (spawnedPiece.FitsInPosition())

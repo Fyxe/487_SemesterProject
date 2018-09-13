@@ -10,9 +10,9 @@ public class LevelPiece : MonoBehaviour
     public List<BoxCollider> levelColliders = new List<BoxCollider>();
     public List<ConnectionPoint> connectionPoints = new List<ConnectionPoint>();
 
+    [ContextMenu("Setup Piece")]
     public void Setup()
     {
-        Debug.Log(name);
         levelColliders = GetComponentsInChildren<BoxCollider>().ToList();
         connectionPoints = GetComponentsInChildren<ConnectionPoint>().ToList();
     }

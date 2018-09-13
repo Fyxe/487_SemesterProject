@@ -145,10 +145,10 @@ MonoBehaviour:
     m_Bits: 2048
   type: 0
   useWidthMatching: 0
+  maxWidthDifference: 0.05
   useConnectionTypes: 0
   countToSpawnMin: 3
   countToSpawnMax: 3
-  maxFails: 0
   specialPiecesMin: 0
   specialPiecesMax: 0
   startPosition: {fileID: 1664496813}
@@ -160,14 +160,8 @@ MonoBehaviour:
   - {fileID: 114985423695476184, guid: 5fa3728662b0f244e8edfc8ab320d086, type: 2}
   piecesEnd:
   - {fileID: 114985423695476184, guid: 5fa3728662b0f244e8edfc8ab320d086, type: 2}
-  allSpawnedPieces:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  piecesSpawnedOrder:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  allSpawnedPieces: []
+  piecesSpawnedOrder: []
 --- !u!4 &28996879
 Transform:
   m_ObjectHideFlags: 0

@@ -67,6 +67,6 @@ public class SingletonDDOL<T> : MonoBehaviour where T : MonoBehaviour
     /// </summary>
     protected virtual void Initialize()
     {
-        Debug.Log("asdasd" + instance.name);
+        
     }
 }

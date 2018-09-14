@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 114933500951180624}
   - component: {fileID: 114918949457399450}
   - component: {fileID: 114975718039966508}
+  - component: {fileID: 114535733203665190}
   m_Layer: 0
   m_Name: PrefabGameManager
   m_TagString: Untagged
@@ -270,6 +271,18 @@ MonoBehaviour:
   levels: []
   currentGameLevel: -1
   currentScore: 0
+--- !u!114 &114535733203665190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1793377054292678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282a9725b0ecce64d8c357508949ba7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useJsonPretty: 0
 --- !u!114 &114638227885421350
 MonoBehaviour:
   m_ObjectHideFlags: 1

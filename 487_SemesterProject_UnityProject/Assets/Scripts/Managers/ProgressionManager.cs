@@ -41,7 +41,8 @@ public class ProgressionManager : Singleton<ProgressionManager>
 
     public bool SetLevel(int newLevel)
     {
-        if (newLevel >= levels.Count)
+        Debug.Log(newLevel);
+        if (newLevel >= levels.Count || newLevel == -1)
         {
             return false;
         }

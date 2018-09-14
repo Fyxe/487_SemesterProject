@@ -18,7 +18,15 @@ public class GameManager : SingletonDDOL<GameManager>
         if (GameManager.instance != this)
         {
             Destroy(this.gameObject);
-        }   
+        }
+        else
+        {
+            GameData data = new GameData();
+            if (LocalDataManager.instance.LoadObjectFromFile("Saves", "GameData.save", out data))
+            {
+                ProgressionManager.instance.SetLevel(data.gameLevelCurrent);
+            }
+        }
     }
 
     void Update()
@@ -76,9 +84,12 @@ public class GameManager : SingletonDDOL<GameManager>
 #endif
     }
 
+
     void OnApplicationQuit()
     {
-        // save progressionmanager   
+        GameData data = new GameData();
+        data.gameLevelCurrent = ProgressionManager.instance.currentGameLevel;
+        LocalDataManager.instance.SaveObjectToFile("Saves","GameData.save",data);
     }
 
 }

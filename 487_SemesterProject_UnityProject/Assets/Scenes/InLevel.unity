@@ -7562,6 +7562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb56f8fc588c8149a9e4ed23a417bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedLerp: 0.1
   cameraHeightMin: 10
   cameraHeightMax: 20
   toFollow:
@@ -8822,7 +8823,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.33333334
+  m_VoxelSize: 0.6666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: acef16eb8d6e9d646b453502dc1b28f9, type: 2}
 --- !u!1 &1861873696
@@ -9437,7 +9438,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeInvulnerable: 1
-  dropSetBase: {fileID: 0}
   allControllers: []
   spawnPoints:
   - {fileID: 272426288}

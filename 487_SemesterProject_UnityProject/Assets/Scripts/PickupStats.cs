@@ -12,8 +12,7 @@ public class PickupStats : PooledObject
     ControllerMultiPlayer cachedPlayer;
 
     void OnTriggerEnter(Collider col)
-    {
-        Debug.Log(col.name);
+    {        
         if (!col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null)
         {
             switch (type)

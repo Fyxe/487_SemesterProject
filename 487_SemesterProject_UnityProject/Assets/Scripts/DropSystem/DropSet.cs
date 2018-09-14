@@ -17,6 +17,11 @@ public class DropSet : ScriptableObject {
 
     public GameObject GetDrop()
     {
+        if (allDrops.Count == 0)
+        {
+            return null;
+        }
+
         List<GameObject> possibleDrops = new List<GameObject>();
         foreach (var i in allDrops)
         {

@@ -7,9 +7,6 @@ public class GameManager : SingletonDDOL<GameManager>
 
     [Header("Settings")]
     public int currentLevel = 1;
-    public int currentGameLevel = 0;
-    public int currentGameExperience = 0;
-    public int currentScore = 0;
 
     protected override void Initialize()
     {
@@ -47,8 +44,7 @@ public class GameManager : SingletonDDOL<GameManager>
 
     public void GoToMainMenu()
     {
-        currentGameExperience += currentScore;
-        currentScore = 0;
+        ProgressionManager.instance.OnGameEnd();
         LoadSceneManager.instance.LoadScene("Menu");
     }
 
@@ -78,6 +74,11 @@ public class GameManager : SingletonDDOL<GameManager>
 #else
         Application.Quit();
 #endif
+    }
+
+    void OnApplicationQuit()
+    {
+        // save progressionmanager   
     }
 
 }

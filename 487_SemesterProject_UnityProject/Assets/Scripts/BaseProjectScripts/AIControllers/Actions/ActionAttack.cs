@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "AI/Actions/UpdateTarget")]
-public class ActionUpdateTarget : Action
+[CreateAssetMenu(menuName = "AI/Actions/Attack")]
+public class ActionAttack : Action
 {
     public override void Act(AI ai)
     {
-        ai.AttemptUpdateTarget();
+        ai.AttemptAttack();
     }
 }

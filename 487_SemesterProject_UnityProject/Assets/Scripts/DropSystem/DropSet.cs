@@ -12,6 +12,7 @@ public class DropSet : ScriptableObject {
         public int weight;
     }
 
+    public int idDropSet = -1;
     public List<Drop> allDrops = new List<Drop>();
 
     public GameObject GetDrop()

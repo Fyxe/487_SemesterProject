@@ -11,7 +11,6 @@ public class LevelManager : Singleton<LevelManager>
     public float timeInvulnerable = 1f;
 
     [Header("References")]
-    public DropSet dropSetBase;
     public List<ControllerMultiPlayer> allControllers = new List<ControllerMultiPlayer>();
     public List<Transform> spawnPoints = new List<Transform>();
     public List<PlayerUIBox> playerUIBoxes = new List<PlayerUIBox> ();    
@@ -56,7 +55,7 @@ public class LevelManager : Singleton<LevelManager>
         if (isVictory)
         {
             UpdatePlayerInformation();
-            GameManager.instance.currentScore += 1000;
+            ProgressionManager.instance.currentScore += 1000;
             GameManager.instance.GoToNextLevel();
         }
         else

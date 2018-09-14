@@ -6,9 +6,15 @@ using UnityEngine.AI;
 public class AI : Damageable
 {
     [Header("Enemy Settings")]
+    public int damage = 1;
+    public float speedMove = 3f;
     public float radiusPlayerDetection = 3f;
     public float delayUpdateTarget = 0.1f;
+    public int pointsOnHit = 0;
+    public int pointsOnDeath = 10;
     float nextUpdateTarget = 0;
+    public float delayAttack = 1f;
+    float nextAttack = 0f;
 
     [Header("Enemy References")]
     public State stateCurrent;
@@ -68,33 +74,63 @@ public class AI : Damageable
         return target == null;
     }
 
-    public void UpdateTarget()
+    public void AttemptUpdateTarget()
     {
         if (Time.time > nextUpdateTarget)
         {
             nextUpdateTarget = Time.time + delayUpdateTarget;
+            UpdateTarget();
+        }
+    }
 
-            List<ControllerMultiPlayer> playersFound = new List<ControllerMultiPlayer>();
+    protected virtual void UpdateTarget()
+    {        
+        List<ControllerMultiPlayer> playersFound = new List<ControllerMultiPlayer>();
 
-            Collider[] cols = Physics.OverlapSphere(transform.position, radiusPlayerDetection, LayerMask.NameToLayer("Player"));
-            foreach (var i in cols)
+        Collider[] cols = Physics.OverlapSphere(transform.position, radiusPlayerDetection, LayerMask.NameToLayer("Player"));
+        foreach (var i in cols)
+        {
+            if (!i.isTrigger && (cachedPlayer = i.GetComponentInParent<ControllerMultiPlayer>()) != null && !playersFound.Contains(cachedPlayer))
             {
-                if (!i.isTrigger && (cachedPlayer = i.GetComponentInParent<ControllerMultiPlayer>()) != null && !playersFound.Contains(cachedPlayer))
-                {
-                    playersFound.Add(cachedPlayer);
-                }
-            }
-            float dist = float.MaxValue;
-            foreach (var i in playersFound)
-            {
-                float newDist = Vector3.Distance(transform.position, i.transform.position);
-                if (newDist < dist)
-                {
-                    dist = newDist;
-                    target = i.transform;
-                }
+                playersFound.Add(cachedPlayer);
             }
         }
+        float dist = float.MaxValue;
+        foreach (var i in playersFound)
+        {
+            float newDist = Vector3.Distance(transform.position, i.transform.position);
+            if (newDist < dist)
+            {
+                dist = newDist;
+                target = i.transform;
+            }
+        }        
+    }
+
+    public void AttemptAttack()
+    {
+        if (Time.time > nextAttack)
+        {
+            nextAttack = Time.time + delayAttack;
+            Attack();
+        }
+    }
+
+    protected virtual void Attack()
+    {
+
+    }
+
+    public override void OnHurt()
+    {
+        base.OnHurt();
+        ProgressionManager.instance.currentScore += pointsOnHit;
+    }
+
+    public override void OnDeath()
+    {
+        base.OnDeath();
+        ProgressionManager.instance.currentScore += pointsOnDeath;
     }
 
 }

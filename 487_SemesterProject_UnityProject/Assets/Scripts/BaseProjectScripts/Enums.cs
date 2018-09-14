@@ -4,5 +4,5 @@ public enum Sex { NONE, Male, Female, Other, Undisclosed }
 public enum Path2DTileType { NONE, walkable, unwalkable }
 public enum ConnectionType { ALL, connectionTestA, connectionTestB }
 public enum GenerationType { BFS, DFS, Synthesis }
-public enum StatType { points, healthCurrent, healthMax, movementSpeed, baseDamage, reviveCount }
+public enum StatType { points, healthCurrent, healthMax, movementSpeed, baseDamage, reviveCount, stalenessMeter }
 public enum Rarity { common, uncommon, rare, epic, legendary, artifact }

@@ -35,6 +35,9 @@ public class PickupStats : PooledObject
                 case StatType.reviveCount:
                     cachedPlayer.countReviveCurrent += amount;
                     break;
+                case StatType.stalenessMeter:
+                    // TODO - when InLevel
+                    break;
                 default:
                     break;
             }

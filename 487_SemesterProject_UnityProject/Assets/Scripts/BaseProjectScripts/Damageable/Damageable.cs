@@ -5,14 +5,16 @@ using UnityEngine;
 public class Damageable : MonoBehaviour
 {
 
-    public int hpMax;
-    public int hpCurrent;
-
+    [Header("Damageable Settings")]
     public bool blockAllDamage;
     public bool blockAllHealing;
-
+    [Space]
+    public int hpMax;
+    public int hpCurrent;
+    [Space]
     public bool isDead = false;
-
+    [Space]
+    public int team;
 
     public virtual void Hurt(int amount)
     {

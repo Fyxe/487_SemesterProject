@@ -5,23 +5,57 @@ using UnityEngine;
 
 public class LevelPiece : MonoBehaviour
 {
+    public bool hasPlayers
+    {
+        get
+        {
+            return detector.hasPlayers;
+        }
+    }
 
     [Header("References")]
     public List<BoxCollider> levelColliders = new List<BoxCollider>();
     public List<ConnectionPoint> connectionPoints = new List<ConnectionPoint>();
 
+    public List<LevelPiece> connectedTo
+    {
+        get
+        {
+            List<LevelPiece> retList = new List<LevelPiece>();
+
+            foreach (var i in connectionPoints)
+            {
+                if (i.attachedTo != null)
+                {
+                    retList.Add(i.attachedTo.piece);
+                }
+            }
+
+            return retList;
+        }
+    }
+
+    LevelPieceDetector detector;
+    
+
     [ContextMenu("Setup Piece")]
     public void Setup()
     {
-        levelColliders = GetComponentsInChildren<BoxCollider>().ToList();
+        levelColliders = GetComponentInChildren<LevelPieceDetector>().GetComponentsInChildren<BoxCollider>().ToList();
+
         connectionPoints = GetComponentsInChildren<ConnectionPoint>().ToList();
+        foreach (var i in connectionPoints)
+        {
+            i.piece = this;
+        }
+        detector = GetComponentInChildren<LevelPieceDetector>();
     }
 
-    public void RemoveColliders()   // TODO
+    public void RemoveColliders()  
     {
         foreach (var i in levelColliders)
         {
-            i.enabled = false;
+            i.isTrigger = true;
         }
     }
     

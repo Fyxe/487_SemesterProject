@@ -31,6 +31,8 @@ public class ConnectionPoint : MonoBehaviour
 
     bool connectionSpawned = false;
 
+    public LevelPiece piece;    
+
     public void Attach(ConnectionPoint newAttachedTo)
     {
         if (attachedTo != null)

@@ -5,17 +5,20 @@ using UnityEngine.AI;
 
 public class AI : Damageable
 {
-    //[Header("Enemy Settings")]
+    [Header("Enemy Settings")]
+    public float radiusPlayerDetection = 3f;
+    public float delayUpdateTarget = 0.1f;
+    float nextUpdateTarget = 0;
 
     [Header("Enemy References")]
     public State stateCurrent;
-    public State stateRemain;
-
-    public float timeElapsedInState;
+    
+    public float timeElapsedInState = 0;
 
     public Transform target;
 
     NavMeshAgent agent;
+    ControllerMultiPlayer cachedPlayer;
 
     void Awake()
     {
@@ -40,7 +43,7 @@ public class AI : Damageable
 
     public void ChangeState(State newState)
     {
-        if (newState != stateRemain)
+        if (newState != null)
         {
             OnExitState();
             stateCurrent = newState;            
@@ -64,4 +67,34 @@ public class AI : Damageable
         target = LevelManager.instance.GetTarget();
         return target == null;
     }
+
+    public void UpdateTarget()
+    {
+        if (Time.time > nextUpdateTarget)
+        {
+            nextUpdateTarget = Time.time + delayUpdateTarget;
+
+            List<ControllerMultiPlayer> playersFound = new List<ControllerMultiPlayer>();
+
+            Collider[] cols = Physics.OverlapSphere(transform.position, radiusPlayerDetection, LayerMask.NameToLayer("Player"));
+            foreach (var i in cols)
+            {
+                if (!i.isTrigger && (cachedPlayer = i.GetComponentInParent<ControllerMultiPlayer>()) != null && !playersFound.Contains(cachedPlayer))
+                {
+                    playersFound.Add(cachedPlayer);
+                }
+            }
+            float dist = float.MaxValue;
+            foreach (var i in playersFound)
+            {
+                float newDist = Vector3.Distance(transform.position, i.transform.position);
+                if (newDist < dist)
+                {
+                    dist = newDist;
+                    target = i.transform;
+                }
+            }
+        }
+    }
+
 }

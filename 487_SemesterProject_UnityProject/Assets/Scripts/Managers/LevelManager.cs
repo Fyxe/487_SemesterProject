@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class LevelManager : Singleton<LevelManager>
 {
 
-    [Header("Settings")]
-    public float timeInvulnerable = 1f;
+    //[Header("Settings")]
+    
 
     [Header("References")]
     public List<ControllerMultiPlayer> allControllers = new List<ControllerMultiPlayer>();
@@ -111,7 +111,7 @@ public class LevelManager : Singleton<LevelManager>
 
         ControllerMultiPlayer spawnedController = spawnedControllerObject.GetComponent<ControllerMultiPlayer>();
         spawnedController.Setup(newAttributes, playerUIBoxes[newAttributes.indexPlayer]);
-        spawnedController.SetInvulnerable(timeInvulnerable);
+        spawnedController.SetInvulnerable(PlayerManager.instance.timeInvulnerable);
         allControllers.Add(spawnedController);
         FindObjectOfType<NavMeshCameraController>().toFollow.Add(spawnedController.transform);
     }
@@ -152,7 +152,7 @@ public class LevelManager : Singleton<LevelManager>
                 
                 ControllerMultiPlayer spawnedController = spawnedControllerObject.GetComponent<ControllerMultiPlayer>();
                 spawnedController.Setup(i, playerUIBoxes[i.indexPlayer]);
-                spawnedController.SetInvulnerable(timeInvulnerable);
+                spawnedController.SetInvulnerable(PlayerManager.instance.timeInvulnerable);
                 allControllers.Add(spawnedController);
                 FindObjectOfType<NavMeshCameraController>().toFollow.Add(spawnedController.transform);
             }

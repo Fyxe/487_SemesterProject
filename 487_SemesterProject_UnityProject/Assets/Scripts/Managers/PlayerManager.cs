@@ -8,6 +8,8 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
 
     [Header("Settings")]
     public int possableMaxPlayers = 4;
+    public float timeIncapacitated = 10f;
+    public float timeInvulnerable = 1f;
 
     [Header("References")]
     public List<PlayerAttributes> allPlayerAttributes = new List<PlayerAttributes>();
@@ -40,9 +42,9 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            foreach (var i in Input.GetJoystickNames())
+            foreach (var i in FindObjectsOfType<ControllerMultiPlayer>())
             {
-                Debug.Log(i); 
+                i.Hurt(1);
             }
         }
         //for (int i = 0; i < 20; i++)

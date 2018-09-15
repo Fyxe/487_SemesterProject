@@ -8,6 +8,7 @@ public class ControllerMultiPlayer : Damageable
 
     [Header("Settings")]   
     public bool invertAxis1Z = false;
+    public float reviveRadius = 2f;
 
     [Header("Delays")]
     public float delaySwapWeapon = 0.1f;
@@ -28,6 +29,47 @@ public class ControllerMultiPlayer : Damageable
     float nextThrowPoints = 0f;
 
     [Header("References")]
+    PlayerState m_state = PlayerState.disconnected;
+    public PlayerState state
+    {
+        get
+        {
+            return m_state;
+        }
+        set
+        {
+            m_state = value;
+            if (state == PlayerState.dead)
+            {
+                isDead = true;
+            }
+            else if (state == PlayerState.alive)
+            {
+                isDead = false;
+            }
+
+            if (ui != null)
+            {
+                switch (state)
+                {
+                    case PlayerState.alive:
+                        ui.Set(PlayerUIBox.BoxSetting.alive);
+                        break;
+                    case PlayerState.incapacitated:
+                        ui.Set(PlayerUIBox.BoxSetting.incapacitated);
+                        break;
+                    case PlayerState.dead:
+                        ui.Set(PlayerUIBox.BoxSetting.dead);
+                        break;
+                    case PlayerState.disconnected:
+                        ui.Set(PlayerUIBox.BoxSetting.empty);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
     public PlayerUIBox ui;
     Color m_colorPlayer;
     public Color colorPlayer
@@ -99,9 +141,12 @@ public class ControllerMultiPlayer : Damageable
         }
     }
 
+    int revivesRemaining = 0;
+
     InputController3D controller;
     Animator anim;
     Coroutine coroutineInvulnerable;
+    Coroutine coroutineIncapacitate;
 
     void Awake()
     {
@@ -111,6 +156,13 @@ public class ControllerMultiPlayer : Damageable
 
     void Update()
     {
+        if (state != PlayerState.alive)
+        {            
+            ui.imageReviveCount.fillAmount = Mathf.Lerp(ui.imageReviveCount.fillAmount,(float)revivesRemaining / (float)countReviveCurrent,0.2f);
+            controller.SetAxis(0f, 0f, 0f, 0f);
+            return;
+        }
+
         if (ui != null)
         {
             ui.imageHealthBar.fillAmount = Mathf.Lerp(ui.imageHealthBar.fillAmount,GetHealthPercentage(),0.2f);
@@ -180,7 +232,9 @@ public class ControllerMultiPlayer : Damageable
 
     public void Setup(PlayerAttributes newAttribute, PlayerUIBox newUI)
     {        
-        ui = newUI;        
+        ui = newUI;
+
+        state = PlayerState.alive;
 
         colorPlayer = newAttribute.colorPlayer;
         indexJoystick = newAttribute.indexJoystick;
@@ -222,6 +276,31 @@ public class ControllerMultiPlayer : Damageable
             if (anim != null)
             {
                 anim.SetTrigger("revive");
+            }
+
+            int mask = 1 << LayerMask.NameToLayer("Player");
+            Collider[] cols = Physics.OverlapSphere(transform.position, reviveRadius, mask);            
+
+            ControllerMultiPlayer cachedController = null;
+            ControllerMultiPlayer closest = null;
+            float dist = float.MaxValue;
+            foreach (var i in cols)
+            {
+                if (!i.isTrigger && (cachedController = i.GetComponentInParent<ControllerMultiPlayer>()) != null && cachedController != this)
+                {
+                    float newDist = Vector3.Distance(transform.position, i.transform.position);
+                    if (newDist < dist)
+                    {
+                        closest = cachedController;
+                        dist = newDist;
+                    }
+                }
+            }
+
+            if (closest != null)
+            {
+                Debug.Log(closest.name);
+                closest.AttemptReviveThisPlayer();
             }
         }        
     }
@@ -296,10 +375,12 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextDisplayInformation)
         {
             nextDisplayInformation = Time.time + delayDisplayInformation;
-            Debug.Log("P" + indexJoystick.ToString() + " displayed more HUD information."); 
-                        
-            ui.anim.SetTrigger("ChangeDisplay");
-            ui.anim.SetBool("IsUp",!ui.anim.GetBool("IsUp"));
+            Debug.Log("P" + indexJoystick.ToString() + " displayed more HUD information.");
+
+            if (ui != null)
+            {
+                ui.ToggleSize();
+            }
         }    
     }
 
@@ -326,10 +407,82 @@ public class ControllerMultiPlayer : Damageable
             i.material.color = colorPlayer;
         } 
     }
-    
+
+    public void AttemptReviveThisPlayer()
+    {
+        if (state != PlayerState.incapacitated)
+        {
+            return;
+        }
+        revivesRemaining++;
+        if (revivesRemaining >= countReviveCurrent)
+        {
+            Revive();
+        }
+    }
+
+    public void Revive()
+    {
+        countReviveCurrent *= 2;
+        revivesRemaining = 0;
+        StopCoroutine(coroutineIncapacitate);
+        state = PlayerState.alive;
+        hpCurrent = 1;
+        SetInvulnerable(PlayerManager.instance.timeInvulnerable);
+    }
+
     public override void OnDeath()
     {
+        countReviveCurrent *= 2;
         ui.Set(PlayerUIBox.BoxSetting.dead);
         LevelManager.instance.CheckIfAllPlayersAreDead();
+    }
+
+    void OnIncapacitate()        
+    {
+        ui.imageReviveCount.fillAmount = 0;
+        ui.imageReviveTimer.fillAmount = 1;
+        revivesRemaining = 0;        
+    }
+
+    public override void Hurt(int amount)
+    {
+        if (blockAllDamage || state != PlayerState.alive)
+        {
+            return;
+        }
+
+        OnHurt();
+
+        hpCurrent = Mathf.Clamp(hpCurrent - amount, 0, hpMax);
+
+        if (hpCurrent == 0)
+        {
+            if (coroutineIncapacitate != null)
+            {
+                StopCoroutine(coroutineIncapacitate);
+            }
+            coroutineIncapacitate = StartCoroutine(Incapacitate());            
+        }
+    }
+
+    IEnumerator Incapacitate()
+    {
+        state = PlayerState.incapacitated;
+        OnIncapacitate();        
+        float currentTime = 0f;
+        float waitTime = PlayerManager.instance.timeIncapacitated;
+        while (currentTime < waitTime)
+        {
+            currentTime += Time.deltaTime;
+            if (ui != null)
+            {
+                ui.imageReviveTimer.fillAmount =  Mathf.Abs(1f - (currentTime / waitTime));
+            }
+            yield return null;
+        }        
+        state = PlayerState.dead;
+        isDead = true;
+        OnDeath();
     }
 }

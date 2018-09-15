@@ -147,10 +147,11 @@ MonoBehaviour:
   useWidthMatching: 0
   maxWidthDifference: 0.05
   useConnectionTypes: 0
-  countToSpawnMin: 3
-  countToSpawnMax: 3
+  countToSpawnMin: 6
+  countToSpawnMax: 6
   specialPiecesMin: 0
   specialPiecesMax: 0
+  flowIncreaseAmount: 100
   startPosition: {fileID: 1664496813}
   piecesGeneral:
   - {fileID: 114985423695476184, guid: 5fa3728662b0f244e8edfc8ab320d086, type: 2}
@@ -7418,6 +7419,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982c8c453525cbf49bc10eb0772f85e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 0
+  timeMaxStressed: 30
+  timeRelaxing: 10
+  stressCurrent: 0
+  stressMax: 10000
 --- !u!1 &1510739863
 GameObject:
   m_ObjectHideFlags: 0
@@ -7607,8 +7613,7 @@ MonoBehaviour:
   speedLerp: 0.1
   cameraHeightMin: 10
   cameraHeightMax: 20
-  toFollow:
-  - {fileID: 2048400956}
+  toFollow: []
 --- !u!1 &1596529022
 GameObject:
   m_ObjectHideFlags: 0

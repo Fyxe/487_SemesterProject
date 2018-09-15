@@ -16,6 +16,7 @@ public class LevelPiece : MonoBehaviour
     [Header("References")]
     public List<BoxCollider> levelColliders = new List<BoxCollider>();
     public List<ConnectionPoint> connectionPoints = new List<ConnectionPoint>();
+    public float flow = -1f;
 
     public List<LevelPiece> connectedTo
     {
@@ -36,7 +37,18 @@ public class LevelPiece : MonoBehaviour
     }
 
     LevelPieceDetector detector;
-    
+
+    public void SetFlow(float currentAmount, float increaseAmount)
+    {
+        flow = currentAmount + increaseAmount;        
+        foreach (var i in connectedTo)
+        {
+            if (i.flow < 0f)
+            {
+                i.SetFlow(flow,increaseAmount);
+            }
+        }
+    }
 
     [ContextMenu("Setup Piece")]
     public void Setup()

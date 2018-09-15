@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class GameDirector : Singleton<GameDirector>
 {
+    // TODO mob random spawn time
 
-    public bool isMaxStressed = false;
+    public enum DirectorMode { climbing, relaxing, maxStressed }
+    public DirectorMode mode = DirectorMode.climbing;
     public float timeMaxStressed = 30f;
+    public float timeRelaxing = 10f;
     public int stressCurrent = 0;
     public int stressMax = 10000;
 
     public void AddStress(int amount)
     {
-        if (isMaxStressed)
+        if (mode != DirectorMode.climbing)
         {
             return;
         }
@@ -22,7 +25,7 @@ public class GameDirector : Singleton<GameDirector>
 
     public void RemoveStress(int amount)
     {
-        if (isMaxStressed)
+        if (mode != DirectorMode.climbing)
         {
             return;
         }
@@ -44,9 +47,11 @@ public class GameDirector : Singleton<GameDirector>
 
     IEnumerator HoldMaxStress()
     {
-        isMaxStressed = true;
+        mode = DirectorMode.maxStressed;
         yield return new WaitForSeconds(timeMaxStressed);
-        isMaxStressed = false;
+        mode = DirectorMode.relaxing;
+        yield return new WaitForSeconds(timeRelaxing);
+        mode = DirectorMode.climbing;
         stressCurrent = 0;
     }
 }

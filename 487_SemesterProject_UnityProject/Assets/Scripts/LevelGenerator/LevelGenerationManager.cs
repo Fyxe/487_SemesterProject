@@ -17,6 +17,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     // public int maxFails;
     public int specialPiecesMin;
     public int specialPiecesMax;
+    public float flowIncreaseAmount = 100f;
 
     [Header("References")]
     public Transform startPosition;
@@ -42,9 +43,9 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
         spawnedStartPiece.Setup();
         piecesSpawnedOrder.Add(spawnedStartPiece);
         allSpawnedPieces.Add(spawnedStartPiece);
-        int countToSpawn = Random.Range(countToSpawnMin,countToSpawnMax) - 1;
-        int originalCountToSpawn = countToSpawn;
-        while (countToSpawn != 1)
+        int countToSpawn = Random.Range(countToSpawnMin,countToSpawnMax) - 2;   // -2 for end and start piece
+        int originalCountToSpawn = countToSpawn + 2;
+        while (countToSpawn != 0)
         {            
             if (AddPieceDFS(piecesGeneral))
             {                
@@ -60,24 +61,12 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                 }
             }
         }
-        while (countToSpawn != 0)
+        while (!AddPieceDFS(piecesEnd))
         {
-            if (AddPieceDFS(piecesEnd))
-            {
-                countToSpawn--;
-            }
-            else
-            {
-                piecesSpawnedOrder.RemoveAt(piecesSpawnedOrder.Count - 1);  // todo check has open connections
 
-                if (piecesSpawnedOrder.Count == 0)
-                {
-                    return;
-                }
-            }
         }
 
-        if (allSpawnedPieces.Count == originalCountToSpawn + 1)
+        if (allSpawnedPieces.Count == originalCountToSpawn)
         {
             Debug.Log("Level Generated Successfully");
         }
@@ -87,6 +76,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
         }
 
         piecesSpawnedOrder = new List<LevelPiece>();
+        spawnedStartPiece.SetFlow(0f, flowIncreaseAmount);
     }
 
     bool AddPieceDFS(List<LevelPiece> toSpawn)
@@ -99,12 +89,13 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
         myPointsToTry.Shuffle();
         foreach (var i in piecesLeftToTry)
         {
-            List<ConnectionPoint> theirPointsToTry = i.connectionPoints;
-            theirPointsToTry.Shuffle();
 
             GameObject spawnedPieceObject = Instantiate(i.gameObject);
             LevelPiece spawnedPiece = spawnedPieceObject.GetComponent<LevelPiece>();
             spawnedPiece.Setup();
+
+            List<ConnectionPoint> theirPointsToTry = spawnedPiece.connectionPoints;
+            theirPointsToTry.Shuffle();
 
             foreach (var j in myPointsToTry)
             {
@@ -114,10 +105,10 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                 }
                 foreach (var k in theirPointsToTry)
                 {
-                    if (k.attachedTo != null)
-                    {
-                        continue;
-                    }
+                    //if (k.attachedTo != null)
+                    //{
+                    //    continue;
+                    //}
 
                     if (useWidthMatching && Mathf.Abs(j.width - k.width) > maxWidthDifference)
                     {
@@ -130,9 +121,10 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                     }
 
                     spawnedPieceObject.transform.position = j.transform.position + (k.transform.localPosition * (-1f));
+                    
+                    float angleToRotate = Vector3.SignedAngle(j.direction, k.direction * (-1f), Vector3.up);                    
+                    spawnedPiece.transform.RotateAround(j.transform.position, Vector3.up, -angleToRotate);
 
-                    float angleToRotate = Vector3.SignedAngle(j.direction, k.direction * (-1f), Vector3.up);                   
-                    spawnedPiece.transform.RotateAround(spawnedPieceObject.transform.position + k.transform.position, Vector3.up, angleToRotate);
 
                     if (spawnedPiece.FitsInPosition())
                     {

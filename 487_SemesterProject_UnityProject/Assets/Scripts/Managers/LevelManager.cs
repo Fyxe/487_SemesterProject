@@ -2,60 +2,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : Singleton<LevelManager>
 {
 
     //[Header("Settings")]
-    
+    public bool isPlaying = false;
 
     [Header("References")]
     public List<ControllerMultiPlayer> allControllers = new List<ControllerMultiPlayer>();
     public List<Transform> spawnPoints = new List<Transform>();
-    public List<PlayerUIBox> playerUIBoxes = new List<PlayerUIBox> ();    
+    public List<PlayerUIBox> playerUIBoxes = new List<PlayerUIBox> ();
 
     //[Header("Prefabs")]
-    
 
     void Start()
-    {
-        LevelGenerationManager.instance.GenerateLevelDFS();
+    {        
         foreach (var i in playerUIBoxes)
         {
             i.Set(PlayerUIBox.BoxSetting.empty);
-        }        
-        StartLevel();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            FindObjectOfType<ControllerMultiPlayer>().Hurt(1);
         }
+
+        StartCoroutine(WaitUntilFocused());        
     }
 
-    protected virtual IEnumerator WaitUntilFocused()
+    IEnumerator WaitUntilFocused()
     {
         while (SceneManager.GetActiveScene().name == "LoadingScene")
         {
             yield return null;
         }
+        OnFocused();        
+    }
+
+    protected virtual void OnFocused()
+    {
         SpawnPlayersInitially();
     }
 
     public void StartLevel()
     {
-        StartCoroutine(WaitUntilFocused());
+        isPlaying = true;
     }
 
     public void EndLevel(bool isVictory)
     {
+        isPlaying = false;
         if (isVictory)
         {
             UpdatePlayerInformation();
-            ProgressionManager.instance.currentScore += 1000;
+            ProgressionManager.instance.currentScore += ProgressionManager.instance.scoreOnLevelCompletion;
             GameManager.instance.GoToNextLevel();
         }
         else

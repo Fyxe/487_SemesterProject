@@ -9,6 +9,8 @@ public class ControllerMultiPlayer : Damageable
     [Header("Settings")]   
     public bool invertAxis1Z = false;
     public float reviveRadius = 2f;
+    public float interactRadius = 1f;
+    public float forceThrow = 50f;
 
     [Header("Delays")]
     public float delaySwapWeapon = 0.1f;
@@ -30,6 +32,11 @@ public class ControllerMultiPlayer : Damageable
 
     [Header("References")]
     PlayerState m_state = PlayerState.disconnected;
+    public Transform positionThrow;
+    public Weapon weaponCurrent;
+    public Transform positionWeaponCurrent;
+    public Queue<Weapon> weaponsUnequipped = new Queue<Weapon> ();
+    public List<Transform> positionsWeaponsUnequipped = new List<Transform>();
     public PlayerState state
     {
         get
@@ -264,6 +271,32 @@ public class ControllerMultiPlayer : Damageable
             {
                 anim.SetTrigger("interact");
             }
+
+            int mask = 1 << LayerMask.NameToLayer("Interactable");
+            Collider[] cols = Physics.OverlapSphere(transform.position, interactRadius, mask);
+
+            Interactable cachedInteractalbe = null;
+            Interactable closest = null;
+            float dist = float.MaxValue;
+            foreach (var i in cols)
+            {
+                if (!i.isTrigger && (cachedInteractalbe = i.GetComponentInParent<Interactable>()) != null && cachedInteractalbe != this)
+                {
+                    float newDist = Vector3.Distance(transform.position, i.transform.position);
+                    if (newDist < dist)
+                    {
+                        closest = cachedInteractalbe;
+                        dist = newDist;
+                    }
+                }
+            }
+
+            if (closest != null && closest is Weapon)   // TODO override current weapon / etc.
+            {
+                (closest as Weapon).gameObject.SetLayer(LayerMask.NameToLayer("Player"));
+                AddWeaponToInventory(closest as Weapon);
+            }
+
         }        
     }
 
@@ -311,6 +344,14 @@ public class ControllerMultiPlayer : Damageable
         {
             nextAttack = Time.time + delayAttack;
             Debug.Log("P" + indexJoystick.ToString() + " Attacked.");   
+            if (weaponCurrent != null)
+            {
+                weaponCurrent.AttemptAttack();
+            }
+            else
+            {
+                Debug.LogError("No current weapon equipped on P" + indexPlayer);
+            }
             if (anim != null)
             {
                 anim.SetTrigger("attack");
@@ -323,12 +364,22 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextSwapWeapon)
         {
             nextSwapWeapon = Time.time + delaySwapWeapon;
-            Debug.Log("P" + indexJoystick.ToString() + " swapped weapons.");   
-            if (anim != null)
-            {
-                anim.SetTrigger("swapWeapons");
-            }
+            SwapWeapons();
         }        
+    }
+
+    void SwapWeapons()
+    {
+        Debug.Log("P" + indexJoystick.ToString() + " swapped weapons.");
+        if (anim != null)
+        {
+            anim.SetTrigger("swapWeapons");
+        }
+
+        AddWeaponToInventory(weaponCurrent);
+
+        SetCurrentWeapon(weaponsUnequipped.Dequeue());
+        ArrangeUnequippedWeapons();
     }
 
     public void AttemptThrowWeapon()
@@ -336,10 +387,37 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextThrowWeapon)
         {
             nextThrowWeapon = Time.time + delayThrowWeapon;
-            Debug.Log("P" + indexJoystick.ToString() + " threw their weapon.");
-            if (anim != null)
+            if (PlayerManager.instance.prefabBaseWeapon.iDWeapon != weaponCurrent.iDWeapon)
             {
-                anim.SetTrigger("throwWeapon");
+                Debug.Log("P" + indexJoystick.ToString() + " threw their weapon.");
+                if (anim != null)
+                {
+                    anim.SetTrigger("throwWeapon");
+                }
+                weaponCurrent.OnDrop();
+                weaponCurrent.transform.SetParent(null);
+                weaponCurrent.transform.position = positionThrow.position;
+                weaponCurrent.rb.AddForce(positionThrow.forward * forceThrow);
+                weaponCurrent.gameObject.SetLayer(LayerMask.NameToLayer("Interactable"));
+
+                if (weaponsUnequipped.Count > 0)
+                {
+                    SwapWeapons();
+                }
+                else
+                {
+                    SetCurrentWeapon(PlayerManager.instance.prefabBaseWeapon, true);                    
+                }
+
+                if (weaponsUnequipped.Count < PlayerManager.instance.weaponCount - 1)
+                {
+                    for (int i = 0; i < PlayerManager.instance.weaponCount - (weaponsUnequipped.Count - 1); i++)
+                    {
+                        AddWeaponToInventory(PlayerManager.instance.prefabBaseWeapon,true);
+                    }
+
+                    ArrangeUnequippedWeapons();
+                }
             }
         }        
     }
@@ -362,10 +440,32 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextThrowPoints)
         {
             nextThrowPoints = Time.time + delayThrowPoints;
-            Debug.Log("P" + indexJoystick.ToString() + " threw points.");    
-            if (anim != null)
+
+            if (pointsCurrent > 0)
             {
-                anim.SetTrigger("throwPoints");
+                Debug.Log("P" + indexJoystick.ToString() + " threw points.");
+                if (anim != null)
+                {
+                    anim.SetTrigger("throwPoints");
+                }
+
+                GameObject spawnedPointsObject = Instantiate(PlayerManager.instance.prefabMoney.gameObject);
+                PickupStats spawnedPoints = spawnedPointsObject.GetComponent<PickupStats>();
+
+                spawnedPoints.type = StatType.points;
+                if (pointsCurrent > PlayerManager.instance.pointsToThrow)
+                {
+                    pointsCurrent -= PlayerManager.instance.pointsToThrow;
+                    spawnedPoints.amount = PlayerManager.instance.pointsToThrow;
+                }
+                else
+                {                    
+                    spawnedPoints.amount = pointsCurrent;
+                    pointsCurrent = 0;
+                }
+
+                spawnedPoints.transform.position = positionThrow.position;
+                spawnedPoints.rb.AddForce(positionThrow.forward * forceThrow);
             }
         }        
     }
@@ -484,5 +584,55 @@ public class ControllerMultiPlayer : Damageable
         state = PlayerState.dead;
         isDead = true;
         OnDeath();
+    }
+
+    void SetCurrentWeapon(Weapon toSet, bool isPrefab = false)
+    {
+        if (isPrefab)
+        {
+            GameObject spawnedWeaponObject = Instantiate(toSet.gameObject);
+            Weapon spawnedWeapon = spawnedWeaponObject.GetComponent<Weapon>();
+            weaponCurrent = spawnedWeapon;
+        }
+        else
+        {
+            weaponCurrent = toSet;
+        }
+        
+        weaponCurrent.transform.SetParent(positionWeaponCurrent);
+        weaponCurrent.transform.Reset();
+        weaponCurrent.OnEquip();
+    }
+
+    void AddWeaponToInventory(Weapon toAdd, bool isPrefab = false)
+    {
+        if (isPrefab)
+        {
+            GameObject spawnedWeaponObject = Instantiate(toAdd.gameObject);
+            Weapon spawnedWeapon = spawnedWeaponObject.GetComponent<Weapon>();
+            spawnedWeapon.OnUnequip();
+            weaponsUnequipped.Enqueue(spawnedWeapon);
+        }
+        else
+        {
+            toAdd.OnUnequip();
+            weaponsUnequipped.Enqueue(toAdd);
+        }
+    }
+
+    void ArrangeUnequippedWeapons()
+    {
+        int index = 0;
+        foreach (var i in weaponsUnequipped)
+        {
+            if (index >= positionsWeaponsUnequipped.Count)
+            {
+                Debug.LogError("Not enough weapon positions for unequipped weapons on P" + indexPlayer);
+                return;
+            }
+            i.transform.SetParent(positionsWeaponsUnequipped[index]);
+            i.transform.Reset();
+            index++;
+        }
     }
 }

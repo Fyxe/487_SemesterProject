@@ -108,7 +108,7 @@ public class InputController3D : MonoBehaviour
         parentCamera.localRotation = Quaternion.Slerp(parentCamera.localRotation, ClampRotationAroundXAxis(parentCamera.localRotation), 5f * Time.deltaTime);
     }
 
-    void RotationController()
+    void RotationController()   // top down
     {        
         if (Mathf.Approximately(axis1X + axis1Z, 0f))
         {
@@ -134,10 +134,8 @@ public class InputController3D : MonoBehaviour
         else
         {           
             float angleY = Mathf.Atan2(axis1X, axis1Z) * Mathf.Rad2Deg;
-            if (!Mathf.Approximately(angleY,0f))   
-            {
-                transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0f, angleY, 0f),lookLerpSpeed);
-            }            
+            Debug.Log(angleY);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, angleY, 0f), lookLerpSpeed);
         }
     }
 

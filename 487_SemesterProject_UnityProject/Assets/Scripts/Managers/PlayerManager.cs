@@ -10,8 +10,12 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     public int possableMaxPlayers = 4;
     public float timeIncapacitated = 10f;
     public float timeInvulnerable = 1f;
+    public int weaponCount = 2;
+    public int pointsToThrow = 100;
 
     [Header("References")]
+    public Weapon prefabBaseWeapon;
+    public PickupStats prefabMoney;
     public List<PlayerAttributes> allPlayerAttributes = new List<PlayerAttributes>();
 
     public int playersInGame

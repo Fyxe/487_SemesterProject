@@ -15,7 +15,7 @@ public class WeaponDetectorHighlight : MonoBehaviour
 
     void Awake()
     {
-        sphereCollider = GetComponent<SphereCollider>();
+        sphereCollider = GetComponent<SphereCollider>();        
         weapon = GetComponentInParent<Weapon>();
     }
 
@@ -51,6 +51,10 @@ public class WeaponDetectorHighlight : MonoBehaviour
 
     public void SetRange(float newRange)
     {
+        if (sphereCollider == null)
+        {
+            sphereCollider = GetComponent<SphereCollider>();
+        }
         sphereCollider.radius = newRange;
     }
 }

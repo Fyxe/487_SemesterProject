@@ -51,6 +51,10 @@ public class WeaponDetectorInformation : MonoBehaviour
 
     public void SetRange(float newRange)
     {
+        if (sphereCollider == null)
+        {
+            sphereCollider = GetComponent<SphereCollider>();
+        }
         sphereCollider.radius = newRange;
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Weapon : MonoBehaviour
+public class Weapon : Interactable
 {    
     public class CachedRenderer
     {
@@ -46,7 +46,8 @@ public class Weapon : MonoBehaviour
 
     List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
 
-    Rigidbody rb;
+    [HideInInspector]
+    public Rigidbody rb;
 
     WeaponDetectorHighlight detectorHighlight;
     WeaponDetectorInformation detectorInformation;
@@ -130,5 +131,20 @@ public class Weapon : MonoBehaviour
     public void DisableInformation()
     {
         // todo
+    }
+
+    public virtual void OnEquip()   // called when changed to current weapon
+    {
+        rb.isKinematic = true;
+    }
+
+    public virtual void OnUnequip() // called when enqueued in unequipped weapons
+    {
+        rb.isKinematic = true;
+    }
+
+    public virtual void OnDrop()    // called when thrown
+    {
+        rb.isKinematic = false;
     }
 }

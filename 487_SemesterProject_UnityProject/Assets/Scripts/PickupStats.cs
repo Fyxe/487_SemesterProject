@@ -11,6 +11,14 @@ public class PickupStats : PooledObject
 
     ControllerMultiPlayer cachedPlayer;
 
+    [HideInInspector]
+    public Rigidbody rb;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     void OnTriggerEnter(Collider col)
     {        
         if (!col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null)

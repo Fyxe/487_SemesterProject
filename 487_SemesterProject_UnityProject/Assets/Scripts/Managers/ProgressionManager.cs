@@ -15,6 +15,7 @@ public class ProgressionManager : Singleton<ProgressionManager>
 
 
     [Header("Settings")]
+    public int scoreOnLevelCompletion = 1000;
     public List<ProgressionLevel> levels = new List<ProgressionLevel>();
 
     [Header("References")]

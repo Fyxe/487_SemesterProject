@@ -128,7 +128,7 @@ public class LoadSceneManager : Singleton<LoadSceneManager>
         LoadingSceneManager loading = FindObjectOfType<LoadingSceneManager>();
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive); // Loads the current scene    
-
+        
         yield return operation;
 
         float timeRemaining = timeLoadingMin - (Time.time - startTime);

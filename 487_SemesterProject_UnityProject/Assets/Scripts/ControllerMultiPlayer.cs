@@ -154,6 +154,8 @@ public class ControllerMultiPlayer : Damageable
     Animator anim;
     Coroutine coroutineInvulnerable;
     Coroutine coroutineIncapacitate;
+    bool triggerInUseRight = false;
+    bool triggerInUseLeft = false;
 
     void Awake()
     {
@@ -163,6 +165,7 @@ public class ControllerMultiPlayer : Damageable
 
     void Update()
     {
+                
         if (state != PlayerState.alive)
         {            
             ui.imageReviveCount.fillAmount = Mathf.Lerp(ui.imageReviveCount.fillAmount,(float)revivesRemaining / (float)countReviveCurrent,0.2f);
@@ -182,19 +185,19 @@ public class ControllerMultiPlayer : Damageable
         if (invertAxis1Z)
         {
             controller.SetAxis(
-                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis0Horizontal"),
-                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis0Vertical"),
-                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis1Horizontal"),
-                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis1Vertical") * (-1f)
+                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Horizontal"),
+                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Vertical"),
+                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Horizontal"),
+                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Vertical") * (-1f)
                 );
         }
         else
         {        
             controller.SetAxis(
-                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis0Horizontal"),
-                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis0Vertical"),
-                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis1Horizontal"),
-                Input.GetAxis("P" + indexJoystick.ToString() + "_Axis1Vertical")
+                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Horizontal"),
+                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Vertical"),
+                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Horizontal"),
+                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Vertical")
                 );
         }
 
@@ -214,14 +217,27 @@ public class ControllerMultiPlayer : Damageable
         {
             AttemptThrowWeapon();
         }
-        if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 4"))
-        {
-            AttemptInteract();
-        }
-        if (Input.GetKey("joystick " + indexJoystick.ToString() + " button 5"))
-        {
+
+        if (Input.GetAxis("J" + indexJoystick.ToString() + "_ButtonTrigger") > 0)
+        {            
             AttemptAttack();
         }
+
+
+        
+        if (Input.GetAxis("J" + indexJoystick.ToString() + "_ButtonTrigger") < 0)
+        {            
+            if (!triggerInUseLeft)
+            {
+                triggerInUseLeft = true;
+                AttemptInteract();
+            }            
+        }
+        else
+        {
+            triggerInUseLeft = false;
+        }
+
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 6"))
         {
             AttemptDisplayMoreInformation();
@@ -239,6 +255,8 @@ public class ControllerMultiPlayer : Damageable
 
     public void Setup(PlayerAttributes newAttribute, PlayerUIBox newUI)
     {        
+        this.name = "[J" + newAttribute.indexJoystick.ToString() + ":P" + newAttribute.indexPlayer.ToString() + "]Controller";
+
         ui = newUI;
 
         state = PlayerState.alive;
@@ -266,7 +284,7 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextInteract)
         {
             nextInteract = Time.time + delayInteract;
-            Debug.Log("P" + indexJoystick.ToString() + " interacted.");
+            
             if (anim != null)
             {
                 anim.SetTrigger("interact");
@@ -291,10 +309,19 @@ public class ControllerMultiPlayer : Damageable
                 }
             }
 
-            if (closest != null && closest is Weapon)   // TODO override current weapon / etc.
+            if (closest != null)   
             {
-                (closest as Weapon).gameObject.SetLayer(LayerMask.NameToLayer("Player"));
-                AddWeaponToInventory(closest as Weapon);
+                Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " interacted with " + closest.name + ".");
+                if (closest is Weapon)  // TODO override current weapon / etc.
+                {
+                    (closest as Weapon).gameObject.SetLayer(LayerMask.NameToLayer("Player"));
+                    AddWeaponToInventory(closest as Weapon);
+                    ArrangeUnequippedWeapons();
+                }
+            }
+            else
+            {
+                Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " tried to interact, but nothing was found.");
             }
 
         }        
@@ -305,7 +332,7 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextRevive)
         {
             nextRevive = Time.time + delayRevive;
-            Debug.Log("P" + indexJoystick.ToString() + " hit a revive.");   
+            Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " hit a revive.");   
             if (anim != null)
             {
                 anim.SetTrigger("revive");
@@ -343,7 +370,7 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextAttack)
         {
             nextAttack = Time.time + delayAttack;
-            Debug.Log("P" + indexJoystick.ToString() + " Attacked.");   
+            Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " Attacked.");   
             if (weaponCurrent != null)
             {
                 weaponCurrent.AttemptAttack();
@@ -370,7 +397,7 @@ public class ControllerMultiPlayer : Damageable
 
     void SwapWeapons()
     {
-        Debug.Log("P" + indexJoystick.ToString() + " swapped weapons.");
+        Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " swapped weapons.");
         if (anim != null)
         {
             anim.SetTrigger("swapWeapons");
@@ -389,7 +416,7 @@ public class ControllerMultiPlayer : Damageable
             nextThrowWeapon = Time.time + delayThrowWeapon;
             if (PlayerManager.instance.prefabBaseWeapon.iDWeapon != weaponCurrent.iDWeapon)
             {
-                Debug.Log("P" + indexJoystick.ToString() + " threw their weapon.");
+                Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " threw their weapon.");
                 if (anim != null)
                 {
                     anim.SetTrigger("throwWeapon");
@@ -427,7 +454,7 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextUseAbility)
         {
             nextUseAbility = Time.time + delayUseAbility;
-            Debug.Log("P" + indexJoystick.ToString() + " used an ability.");   
+            Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " used an ability.");   
             if (anim != null)
             {
                 anim.SetTrigger("useAbility");
@@ -443,7 +470,7 @@ public class ControllerMultiPlayer : Damageable
 
             if (pointsCurrent > 0)
             {
-                Debug.Log("P" + indexJoystick.ToString() + " threw points.");
+                Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " threw points.");
                 if (anim != null)
                 {
                     anim.SetTrigger("throwPoints");
@@ -475,7 +502,7 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextDisplayInformation)
         {
             nextDisplayInformation = Time.time + delayDisplayInformation;
-            Debug.Log("P" + indexJoystick.ToString() + " displayed more HUD information.");
+            Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " displayed more HUD information.");
 
             if (ui != null)
             {

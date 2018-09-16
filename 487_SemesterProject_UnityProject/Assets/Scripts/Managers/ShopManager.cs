@@ -60,8 +60,7 @@ public class ShopManager : LevelManager
                 }
                 i.isDead = false;
 
-                GameObject spawnedControllerObject = Instantiate(i.prefabController);
-                spawnedControllerObject.name = "[P" + i.indexJoystick.ToString() + "]PlayerController";
+                GameObject spawnedControllerObject = Instantiate(i.prefabController);                
 
                 if (spawnCopies.Count == 0)
                 {

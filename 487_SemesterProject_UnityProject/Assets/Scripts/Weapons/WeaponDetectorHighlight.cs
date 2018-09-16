@@ -19,8 +19,10 @@ public class WeaponDetectorHighlight : MonoBehaviour
         weapon = GetComponentInParent<Weapon>();
     }
 
+    // TODO on drop, spherecase the collider to check collisisons, might not have to do this if ontriggerenter works when switching layers
+
     void OnTriggerEnter(Collider col)
-    {
+    {        
         if (!col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null && !playersInRange.Contains(cachedPlayer))
         {
             playersInRange.Add(cachedPlayer);

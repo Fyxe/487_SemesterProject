@@ -90,8 +90,7 @@ public class LevelManager : Singleton<LevelManager>
             Debug.LogError("No prefab for the player controller when attempting to spawn: P" + newAttributes.indexJoystick.ToString());
             return;
         }
-        GameObject spawnedControllerObject = Instantiate(newAttributes.prefabController);
-        spawnedControllerObject.name = "[P" + newAttributes.indexJoystick.ToString() + "]PlayerController";
+        GameObject spawnedControllerObject = Instantiate(newAttributes.prefabController);        
 
         if (allControllers.Count == 0)
         {

@@ -44,6 +44,7 @@ public class Weapon : Interactable
     public int clipMax = 10;
     public float timeReload = 2f;
     public bool isReloading = false;
+    bool isHeld = false;
 
     List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
 
@@ -110,9 +111,12 @@ public class Weapon : Interactable
 
     public void EnableHighlight()
     {
-        foreach (var i in cachedRenderers)
+        if (!isHeld)
         {
-            i.SetMaterial(WeaponManager.instance.GetMaterialForRarity(rarity));
+            foreach (var i in cachedRenderers)
+            {
+                i.SetMaterial(WeaponManager.instance.GetMaterialForRarity(rarity));
+            }
         }
     }
 
@@ -137,15 +141,20 @@ public class Weapon : Interactable
     public virtual void OnEquip()   // called when changed to current weapon
     {
         rb.isKinematic = true;
+        isHeld = true;
+        DisableHighlight();
     }
 
     public virtual void OnUnequip() // called when enqueued in unequipped weapons
     {
         rb.isKinematic = true;
+        isHeld = true;
+        DisableHighlight();
     }
 
     public virtual void OnDrop()    // called when thrown
     {
         rb.isKinematic = false;
+        isHeld = false;
     }
 }

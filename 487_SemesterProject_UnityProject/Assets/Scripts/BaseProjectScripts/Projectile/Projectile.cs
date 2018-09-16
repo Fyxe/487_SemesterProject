@@ -55,6 +55,7 @@ public class Projectile : PooledObject
         r = new Ray(transform.position,direction);
         h = default(RaycastHit);
 
+        // int mask = 1 << layerMask.value; Use?
         if (Physics.Raycast(r, out h, speedMove, layerMask.value))
         {
             OnHit(h.collider);

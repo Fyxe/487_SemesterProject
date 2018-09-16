@@ -34,7 +34,7 @@ public class GameManager : SingletonDDOL<GameManager>
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Quit();
-        }    
+        }
     }
 
     public void GoToNextLevel()

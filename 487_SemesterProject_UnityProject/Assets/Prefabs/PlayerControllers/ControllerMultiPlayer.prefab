@@ -856,7 +856,8 @@ MonoBehaviour:
   isDead: 0
   team: 0
   invertAxis1Z: 0
-  reviveRadius: 2
+  reviveRadius: 3
+  interactRadius: 2
   forceThrow: 50
   delaySwapWeapon: 0.1
   delayUseAbility: 0.1

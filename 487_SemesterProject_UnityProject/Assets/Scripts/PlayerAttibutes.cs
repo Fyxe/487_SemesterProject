@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerAttributes
 {
     public bool isSpawned = false;
+    public bool isDead = false;
     public Color colorPlayer = Color.blue;
     public int indexJoystick = 0;
     public int indexPlayer = 0;
@@ -21,6 +22,7 @@ public class PlayerAttributes
     public void ResetValues()
     {
         isSpawned = false;
+        isDead = false;
         //colorPlayer = Color.blue;
         indexJoystick = 0;
         indexPlayer = 0;

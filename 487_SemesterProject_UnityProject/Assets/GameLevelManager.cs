@@ -18,6 +18,7 @@ public class GameLevelManager : LevelManager
     void Awake()
     {
         generator = FindObjectOfType<LevelGenerationManager>();
+        staleFillImage.fillAmount = 0f;
     }
 
 
@@ -48,6 +49,13 @@ public class GameLevelManager : LevelManager
             generator.GenerateLevelDFS();
         }
         base.OnFocused();
+        StartLevel();
+    }
+
+    public override void SpawnPlayer(PlayerAttributes newAttributes)
+    {
+        playerUIBoxes[newAttributes.indexPlayer].Set(PlayerUIBox.BoxSetting.dead);
+        newAttributes.isDead = true;
     }
 
 }

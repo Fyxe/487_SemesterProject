@@ -12,6 +12,8 @@ public class LevelManager : Singleton<LevelManager>
     public bool isPlaying = false;
 
     [Header("References")]
+    public DropSet baseDropSetEnemy;
+    public DropSet baseDropSetBarrel;
     public List<ControllerMultiPlayer> allControllers = new List<ControllerMultiPlayer>();
     public List<Transform> spawnPoints = new List<Transform>();
     public List<PlayerUIBox> playerUIBoxes = new List<PlayerUIBox> ();
@@ -47,7 +49,7 @@ public class LevelManager : Singleton<LevelManager>
         isPlaying = true;
     }
 
-    public void EndLevel(bool isVictory)
+    public virtual void EndLevel(bool isVictory)
     {
         isPlaying = false;
         if (isVictory)
@@ -63,7 +65,7 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
-    void UpdatePlayerInformation()
+    protected void UpdatePlayerInformation()
     {
         foreach (var i in allControllers)
         {
@@ -81,7 +83,7 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
-    public void SpawnPlayer(PlayerAttributes newAttributes)
+    public virtual void SpawnPlayer(PlayerAttributes newAttributes)
     {
         if (newAttributes.prefabController == null)
         {
@@ -114,7 +116,7 @@ public class LevelManager : Singleton<LevelManager>
         FindObjectOfType<NavMeshCameraController>().toFollow.Add(spawnedController.transform);
     }
 
-    public void SpawnPlayersInitially()
+    public virtual void SpawnPlayersInitially()
     {
         List<Transform> spawnCopies = spawnPoints.ToList();
         foreach (var i in PlayerManager.instance.allPlayerAttributes)

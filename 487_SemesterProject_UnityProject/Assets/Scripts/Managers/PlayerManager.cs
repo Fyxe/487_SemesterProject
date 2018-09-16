@@ -25,7 +25,7 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
             int retInt = 0;
             foreach(var i in allPlayerAttributes)
             {
-                if (i.isSpawned)
+                if (i.isSpawned && !i.isDead)
                 {
                     retInt++;
                 }
@@ -89,17 +89,19 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
                 i.isSpawned = true;
                 i.indexJoystick = indexJoystick;
                 i.indexPlayer = allPlayerAttributes.IndexOf(i);
-                
-                if (ShopManager.instance != null)
+
+                if (GameLevelManager.instance is GameLevelManager)
+                {
+                    Debug.Log("Player P" + i.indexPlayer + " spawned in Level.");
+                    GameLevelManager.instance.SpawnPlayer(i);
+                }
+                if (ShopManager.instance is ShopManager)
                 {
                     Debug.Log("Player P" + i.indexPlayer + " spawned in Shop.");
                     ShopManager.instance.SpawnPlayer(i);
                 }
-                else if (LevelManager.instance != null)
-                {
-                    Debug.Log("Player P" + i.indexPlayer + " spawned in Level.");
-                    LevelManager.instance.SpawnPlayer(i);
-                }
+                
+                
                 
                 return;
             }

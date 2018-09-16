@@ -133,6 +133,10 @@ public class InputController3D : MonoBehaviour
         }
         else
         {           
+            if (axis1X == 0 && axis1Z == 0)
+            {
+                return;
+            }
             float angleY = Mathf.Atan2(axis1X, axis1Z) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, angleY, 0f), lookLerpSpeed);
         }

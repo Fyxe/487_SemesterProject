@@ -7,6 +7,7 @@ public class GameLevelManager : LevelManager
 {
 
     [Header("Settings")]
+    public bool allowPlayerSpawns = false;
     public float timeStaleFull = 120f;
     public float currentStaleness = 0f;
 
@@ -54,8 +55,15 @@ public class GameLevelManager : LevelManager
 
     public override void SpawnPlayer(PlayerAttributes newAttributes)
     {
-        playerUIBoxes[newAttributes.indexPlayer].Set(PlayerUIBox.BoxSetting.dead);
-        newAttributes.isDead = true;
+        if (allowPlayerSpawns)
+        {
+            base.SpawnPlayer(newAttributes);
+        }
+        else
+        {
+            playerUIBoxes[newAttributes.indexPlayer].Set(PlayerUIBox.BoxSetting.dead);
+            newAttributes.isDead = true;
+        }
     }
 
 }

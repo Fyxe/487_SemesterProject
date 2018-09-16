@@ -13117,6 +13117,7 @@ MonoBehaviour:
   - {fileID: 2111907596}
   - {fileID: 581453070}
   - {fileID: 560461438}
+  allowPlayerSpawns: 1
   timeStaleFull: 10
   currentStaleness: 0
   staleFillImage: {fileID: 1023298681}

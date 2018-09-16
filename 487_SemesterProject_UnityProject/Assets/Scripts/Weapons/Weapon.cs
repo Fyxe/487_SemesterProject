@@ -79,7 +79,7 @@ public class Weapon : Interactable
         detectorInformation.SetRange(WeaponManager.instance.rangeInformation);
     }
 
-    public void AttemptAttack()
+    public bool AttemptAttack()
     {
         if (!isReloading && Time.time > nextAttack)
         {
@@ -91,7 +91,9 @@ public class Weapon : Interactable
             {
                 StartCoroutine(Reload());
             }
+            return true;
         }
+        return false;
     }
 
     protected virtual void Attack()

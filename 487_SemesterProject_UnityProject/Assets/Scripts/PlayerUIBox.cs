@@ -28,6 +28,10 @@ public class PlayerUIBox : MonoBehaviour
 		anim = GetComponentInChildren<Animator>();
 	}
 
+    // TODO sync weapon names and bullets in clip
+
+    // TODO animation for aquiring points / spending points
+
 	public void Set(BoxSetting newSetting)
 	{
         setting = newSetting;

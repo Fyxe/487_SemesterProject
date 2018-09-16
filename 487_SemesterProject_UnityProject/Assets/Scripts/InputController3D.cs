@@ -36,6 +36,8 @@ public class InputController3D : MonoBehaviour
     [Header("References")]
     public Transform parentCamera;
 
+    public bool lookBehind = false;
+
     Vector3 directionMove = Vector3.zero;
 
     CharacterController controllerCurrent;
@@ -124,21 +126,28 @@ public class InputController3D : MonoBehaviour
             nextResetAim = Time.time + delayResetAim;
         }
 
-        if (isAimingInDirectionOfMovement)
+        if (lookBehind)
         {
-            if (!Mathf.Approximately(axis0X + axis0Z, 0f))
-            {                
-                transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.LookRotation(new Vector3(axis0X,0f,axis0Z).normalized),lookLerpSpeed); 
-            }            
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(-axis0X, 0f, -axis0Z).normalized), lookLerpSpeed);
         }
         else
-        {           
-            if (axis1X == 0 && axis1Z == 0)
+        {
+            if (isAimingInDirectionOfMovement)
             {
-                return;
+                if (!Mathf.Approximately(axis0X + axis0Z, 0f))
+                {
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(axis0X, 0f, axis0Z).normalized), lookLerpSpeed);
+                }
             }
-            float angleY = Mathf.Atan2(axis1X, axis1Z) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, angleY, 0f), lookLerpSpeed);
+            else
+            {
+                if (axis1X == 0 && axis1Z == 0)
+                {
+                    return;
+                }
+                float angleY = Mathf.Atan2(axis1X, axis1Z) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, angleY, 0f), lookLerpSpeed);
+            }
         }
     }
 

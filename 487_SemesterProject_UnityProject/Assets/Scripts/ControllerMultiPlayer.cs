@@ -218,6 +218,15 @@ public class ControllerMultiPlayer : Damageable
             AttemptThrowWeapon();
         }
 
+        if (Input.GetKey("joystick " + indexJoystick.ToString() + " button 4"))
+        {            
+            controller.lookBehind = true;
+        }
+        else
+        {
+            controller.lookBehind = false;
+        }
+
         if (Input.GetAxis("J" + indexJoystick.ToString() + "_ButtonTrigger") > 0)
         {            
             AttemptAttack();
@@ -369,11 +378,13 @@ public class ControllerMultiPlayer : Damageable
     {
         if (Time.time > nextAttack)
         {
-            nextAttack = Time.time + delayAttack;
-            Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " Attacked.");   
+            nextAttack = Time.time + delayAttack;              
             if (weaponCurrent != null)
-            {
-                weaponCurrent.AttemptAttack();
+            {                
+                if (weaponCurrent.AttemptAttack())
+                {
+                    Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " attacked with " + weaponCurrent.weaponName + ".");
+                }
             }
             else
             {
@@ -414,7 +425,7 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextThrowWeapon)
         {
             nextThrowWeapon = Time.time + delayThrowWeapon;
-            if (PlayerManager.instance.prefabBaseWeapon.iDWeapon != weaponCurrent.iDWeapon)
+            if (weaponCurrent != null && PlayerManager.instance.prefabBaseWeapon.iDWeapon != weaponCurrent.iDWeapon)
             {
                 Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " threw their weapon.");
                 if (anim != null)
@@ -633,6 +644,11 @@ public class ControllerMultiPlayer : Damageable
 
     void AddWeaponToInventory(Weapon toAdd, bool isPrefab = false)
     {
+        if (toAdd == null)
+        {
+            return;
+        }
+
         if (isPrefab)
         {
             GameObject spawnedWeaponObject = Instantiate(toAdd.gameObject);

@@ -214,12 +214,13 @@ MonoBehaviour:
   layerMaskLevelCollision:
     serializedVersion: 2
     m_Bits: 2048
-  type: 0
+  type: 1
   useWidthMatching: 0
   maxWidthDifference: 0.05
   useConnectionTypes: 0
   countToSpawnMin: 6
   countToSpawnMax: 6
+  maxFails: 3
   specialPiecesMin: 0
   specialPiecesMax: 0
   flowIncreaseAmount: 100

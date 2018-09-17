@@ -29,6 +29,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     [Space]
     public List<LevelPiece> allSpawnedPieces = new List<LevelPiece>();
     public List<LevelPiece> piecesSpawnedOrder = new List<LevelPiece>();
+    List<LevelPiece> piecesToAddTo = new List<LevelPiece>();
     
     public void GenerateLevel()
     {
@@ -51,8 +52,8 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     [ContextMenu("Generate Level Combination")]
     public bool GenerateLevelCombination()
     {
-        int attempts = 0;
-        while (attempts < maxFails)
+        int attempt = 0;
+        while (attempt < maxFails)
         {
             DestroyAllLevelPieces();
             return true;
@@ -63,13 +64,75 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     [ContextMenu("Generate Level Breath First")]
     public bool GenerateLevelBFS()
     {
-        int attempts = 0;
-        while (attempts < maxFails)
+        int attempt = 0;
+        while (attempt < maxFails)
         {
             DestroyAllLevelPieces();
+
+            allSpawnedPieces = new List<LevelPiece>();
+            piecesSpawnedOrder = new List<LevelPiece>();
+
+            GameObject spawnedStartPieceObject = Instantiate(piecesStart.GetRandomValue().gameObject);
+            spawnedStartPieceObject.name += " StartPiece";
+            spawnedStartPieceObject.transform.position = startPosition.position;
+
+            LevelPiece spawnedStartPiece = spawnedStartPieceObject.GetComponent<LevelPiece>();
+            spawnedStartPiece.Setup();
+
+            piecesSpawnedOrder.Add(spawnedStartPiece);
+            allSpawnedPieces.Add(spawnedStartPiece);
+
+            int countToSpawn = Random.Range(countToSpawnMin, countToSpawnMax);  
+            int currentSpawned = 0;
+            while (currentSpawned != countToSpawn)
+            {
+                List<LevelPiece> piecesToUse = new List<LevelPiece>();
+                if (currentSpawned == 0)
+                {
+                    piecesToUse = piecesStart;
+                }
+                else if (currentSpawned == countToSpawn)
+                {
+                    piecesToUse = piecesEnd;
+                }
+                else
+                {
+                    piecesToUse = piecesGeneral;
+                }
+
+                if (AddPieceDFS(piecesGeneral))
+                {
+                    currentSpawned++;
+                }
+                else
+                {
+                    piecesSpawnedOrder.RemoveAt(piecesSpawnedOrder.Count - 1);  // todo check has open connections
+
+                    if (piecesSpawnedOrder.Count == 0)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (currentSpawned == countToSpawn)
+            {
+                Debug.Log("Level Generated Successfully on attempt " + attempt.ToString() + ".");
+
+                piecesSpawnedOrder = new List<LevelPiece>();
+                spawnedStartPiece.SetFlow(0f, flowIncreaseAmount);
+                return true;
+            }
+            else
+            {
+                Debug.Log("Level failed to generate on attempt " + attempt.ToString() + ".");
+                attempt++;
+            }
+
             return true;
         }
-        return false; ;
+        Debug.Log("Level failed to generate after " + attempt.ToString() + " attempts.");
+        return false;
     }
 
     [ContextMenu("Generate Level Depth First")]
@@ -93,7 +156,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
             piecesSpawnedOrder.Add(spawnedStartPiece);
             allSpawnedPieces.Add(spawnedStartPiece);
 
-            int countToSpawn = Random.Range(countToSpawnMin, countToSpawnMax);   // -2 for end and start piece
+            int countToSpawn = Random.Range(countToSpawnMin, countToSpawnMax);   
             int currentSpawned = 0;
             while (currentSpawned != countToSpawn)
             {
@@ -196,6 +259,127 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
             }
 
             Destroy(spawnedPieceObject);
+        }
+        return false;
+    }
+
+    bool AddPiece(List<LevelPiece> toSpawn, LevelPiece toAddTo)
+    {
+        List<LevelPiece> piecesLeftToTry = toSpawn.ToList();
+        piecesLeftToTry.Shuffle();
+
+        List<ConnectionPoint> myPointsToTry = toAddTo.connectionPoints;
+        myPointsToTry.Shuffle();
+        foreach (var i in piecesLeftToTry)
+        {
+            GameObject spawnedPieceObject = Instantiate(i.gameObject);
+            LevelPiece spawnedPiece = spawnedPieceObject.GetComponent<LevelPiece>();
+            spawnedPiece.Setup();
+
+            List<ConnectionPoint> theirPointsToTry = spawnedPiece.connectionPoints;
+            theirPointsToTry.Shuffle();
+
+            foreach (var j in myPointsToTry)
+            {
+                if (j.attachedTo != null)
+                {
+                    continue;
+                }
+                foreach (var k in theirPointsToTry)
+                {
+                    if (useWidthMatching && Mathf.Abs(j.width - k.width) > maxWidthDifference)
+                    {
+                        continue;
+                    }
+
+                    if (useConnectionTypes && (!j.connectableTypes.Contains(k.type) || !k.connectableTypes.Contains(j.type)))
+                    {
+                        continue;
+                    }
+
+                    spawnedPieceObject.transform.position = j.transform.position + (k.transform.localPosition * (-1f));
+
+                    float angleToRotate = Vector3.SignedAngle(j.direction, k.direction * (-1f), Vector3.up);
+                    spawnedPiece.transform.RotateAround(j.transform.position, Vector3.up, -angleToRotate);
+
+
+                    if (spawnedPiece.FitsInPosition())
+                    {
+                        allSpawnedPieces.Add(spawnedPiece);
+                        piecesSpawnedOrder.Add(spawnedPiece);
+                        j.Attach(k);
+                        return true;
+                    }
+                }
+            }
+
+            Destroy(spawnedPieceObject);
+        }
+        return false;
+    }
+
+    bool AddPieces(List<LevelPiece> toSpawn, LevelPiece toAddTo, int maxToAdd)
+    {
+        List<LevelPiece> piecesLeftToTry = toSpawn.ToList();
+        piecesLeftToTry.Shuffle();
+
+        List<ConnectionPoint> myPointsToTry = toAddTo.connectionPoints;
+        myPointsToTry.Shuffle();
+
+        int numberAdded = 0;
+        foreach (var i in myPointsToTry)
+        {
+            foreach (var j in piecesLeftToTry)
+            {
+                GameObject spawnedPieceObject = Instantiate(i.gameObject);
+                LevelPiece spawnedPiece = spawnedPieceObject.GetComponent<LevelPiece>();
+                spawnedPiece.Setup();
+
+                List<ConnectionPoint> theirPointsToTry = spawnedPiece.connectionPoints;
+                theirPointsToTry.Shuffle();
+
+                bool fits = false;
+                foreach (var k in theirPointsToTry)
+                {
+                    if (useWidthMatching && Mathf.Abs(i.width - k.width) > maxWidthDifference)
+                    {
+                        continue;
+                    }
+
+                    if (useConnectionTypes && (!i.connectableTypes.Contains(k.type) || !k.connectableTypes.Contains(i.type)))
+                    {
+                        continue;
+                    }
+
+                    spawnedPieceObject.transform.position = i.transform.position + (k.transform.localPosition * (-1f));
+
+                    float angleToRotate = Vector3.SignedAngle(i.direction, k.direction * (-1f), Vector3.up);
+                    spawnedPiece.transform.RotateAround(i.transform.position, Vector3.up, -angleToRotate);
+
+
+                    if (spawnedPiece.FitsInPosition())
+                    {
+                        allSpawnedPieces.Add(spawnedPiece);
+                        piecesSpawnedOrder.Add(spawnedPiece);
+                        piecesToAddTo.Add(spawnedPiece);
+                        i.Attach(k);
+                        fits = true;
+                        break;
+                    }
+                }
+                if (fits)
+                {
+                    numberAdded++;
+                    if (numberAdded == maxToAdd)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    Destroy(spawnedPieceObject);
+                }
+            }            
         }
         return false;
     }

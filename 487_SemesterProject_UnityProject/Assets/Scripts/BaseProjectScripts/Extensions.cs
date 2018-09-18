@@ -228,6 +228,18 @@ public static class Extensions {
         }
     }
 
+    public static T GetLast<T>(this IList<T> toGetFrom)
+    {
+        if (toGetFrom.Count == 0)
+        {
+            return default(T);
+        }
+        else
+        {
+            return toGetFrom[toGetFrom.Count - 1];
+        }
+    }
+
     // ======================================================================================================
     // Transform
     // ======================================================================================================

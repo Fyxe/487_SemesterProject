@@ -9,6 +9,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     [Header("Settings")]
     public LayerMask layerMaskLevelCollision;
     public GenerationType type = GenerationType.DFS;
+    public float combinationSkew = 0.5f;
     public bool useWidthMatching = false;
     public float maxWidthDifference = 0.05f;
     public bool useConnectionTypes = false;
@@ -24,45 +25,147 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     public List<LevelPiece> piecesGeneral = new List<LevelPiece>();
     public List<LevelPiece> piecesSpecial = new List<LevelPiece>();
     public List<LevelPiece> piecesStart = new List<LevelPiece>();
-    public List<LevelPiece> piecesEnd = new List<LevelPiece>();
-
-    [Space]
-    public List<LevelPiece> allSpawnedPieces = new List<LevelPiece>();
-    public List<LevelPiece> piecesSpawnedOrder = new List<LevelPiece>();
-    List<LevelPiece> piecesToAddTo = new List<LevelPiece>();
+    public List<LevelPiece> piecesEnd = new List<LevelPiece>();    
     
     public void GenerateLevel()
     {
+        List<LevelPiece> placedPieces = new List<LevelPiece>();
         switch (type)
         {
             case GenerationType.BFS:
-                GenerateLevelBFS(null, Random.Range(countToSpawnMin, countToSpawnMax));
+                placedPieces = GenerateLevelBFS(null, Random.Range(countToSpawnMin, countToSpawnMax));
                 break;
             case GenerationType.DFS:
-                GenerateLevelDFS(null, Random.Range(countToSpawnMin, countToSpawnMax));
+                placedPieces = GenerateLevelDFS(null, Random.Range(countToSpawnMin, countToSpawnMax));
                 break;
-            case GenerationType.Synthesis:
-                GenerateLevelCombination(null, Random.Range(countToSpawnMin, countToSpawnMax));
+            case GenerationType.Combination:
+                placedPieces = GenerateLevelCombination(null, Random.Range(countToSpawnMin, countToSpawnMax));
                 break;
             default:
                 break;
         }
+        if (placedPieces.Count > 0)
+        {
+            placedPieces.GetLast().SetFlow(0,flowIncreaseAmount);
+            // succeeded
+        }
+        else
+        {
+            // failed
+        }
     }
 
     [ContextMenu("Generate Level Combination")]
-    public bool GenerateLevelCombination(LevelPiece toAddOnto, int amountToPlace)
+    public List<LevelPiece> GenerateLevelCombination(LevelPiece toAddOnto, int amountToPlace)
     {
+        List<LevelPiece> placedPieces = new List<LevelPiece>();
+        
         int attempt = 0;
         while (attempt < maxFails)
         {
-            
-            return true;
+            int placedPiecesCount = placedPieces.Count;
+            for (int i = placedPiecesCount - 1; i >= 0; i--)
+            {
+                Destroy(placedPieces[i].gameObject);
+            }
+            placedPieces.Clear();
+
+            List<GenerationType> typePerPiece = new List<GenerationType>();
+            for (int i = 0; i < amountToPlace; i++)
+            {
+                if (Random.Range(0f, 1f) < combinationSkew)
+                {
+                    typePerPiece.Add(GenerationType.BFS);
+                }
+                else
+                {
+                    typePerPiece.Add(GenerationType.DFS);
+                }
+            }
+
+            List<KeyValuePair<GenerationType, int>> generationPlan = new List<KeyValuePair<GenerationType, int>>();
+            int index = 0;
+            bool first = true;
+            GenerationType previousType = GenerationType.DFS;
+            foreach (var i in typePerPiece)
+            {
+                if (first)
+                {
+                    generationPlan.Add(new KeyValuePair<GenerationType, int> (i, 1));
+                    previousType = i;
+                    first = false;                    
+                }
+                else if (previousType != i)
+                {
+                    generationPlan.Add(new KeyValuePair<GenerationType, int> (i, 1));
+                    previousType = i;
+                    index++;                    
+                }
+                else
+                {                    
+                    int newValue = generationPlan[index].Value + 1;
+                    generationPlan[index] = new KeyValuePair<GenerationType, int> (i,newValue);
+                }
+            }
+
+            bool failed = false;
+            LevelPiece lastPlacedPiece = null;
+            List<LevelPiece> cachedList = new List<LevelPiece>();
+            foreach (var i in generationPlan)
+            {
+                Debug.Log(i.Key + ": " + i.Value);
+                if (i.Key == GenerationType.BFS)
+                {
+                    cachedList = GenerateLevelBFS(lastPlacedPiece, i.Value);
+                    if (cachedList != null)
+                    {
+                        lastPlacedPiece = cachedList.GetLast();
+                    }
+                    else
+                    {
+                        lastPlacedPiece = null;
+                    }
+                }
+                else if (i.Key == GenerationType.DFS)
+                {
+                    cachedList = GenerateLevelDFS(lastPlacedPiece, i.Value);
+                    if (cachedList != null)
+                    {
+                        lastPlacedPiece = cachedList.GetLast();
+                    }
+                    else
+                    {
+                        lastPlacedPiece = null;
+                    }
+                }
+
+                if (lastPlacedPiece == null)
+                {
+                    failed = true;
+                    break;
+                }
+                else
+                {
+                    placedPieces.AddRange(cachedList.ToList());
+                }
+            }
+            if (failed)
+            {
+                attempt++;
+                continue;
+            }
+            else
+            {
+                Debug.Log("Level Generated Successfully on attempt " + attempt.ToString() + ".");
+                return placedPieces;
+            }
         }
-        return false;
+        Debug.Log("Level failed to generate after " + attempt.ToString() + " attempts.");
+        return null;
     }
 
     [ContextMenu("Generate Level Breath First")]
-    public bool GenerateLevelBFS(LevelPiece toAddOnto, int amountToPlace)
+    public List<LevelPiece> GenerateLevelBFS(LevelPiece toAddOnto, int amountToPlace)
     {
         List<LevelPiece> placedPieces = new List<LevelPiece>();        
 
@@ -130,22 +233,22 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
 
             if (placedPieces.Count == amountToPlace)
             {
-                Debug.Log("Level Generated Successfully on attempt " + attempt.ToString() + ".");
-                return true;
+                //Debug.Log("Level Generated Successfully on attempt " + attempt.ToString() + ".");
+                return placedPieces;
             }
             else
             {
-                Debug.Log("Level failed to generate on attempt " + attempt.ToString() + ".");
+                //Debug.Log("Level failed to generate on attempt " + attempt.ToString() + ".");
                 attempt++;
             }
 
         }
         Debug.Log("Level failed to generate after " + attempt.ToString() + " attempts.");
-        return false;
+        return null;
     }
 
     [ContextMenu("Generate Level Depth First")]
-    public bool GenerateLevelDFS(LevelPiece toAddOnto, int amountToPlace)
+    public List<LevelPiece> GenerateLevelDFS(LevelPiece toAddOnto, int amountToPlace)
     {
         List<LevelPiece> placedPieces = new List<LevelPiece>();
         List<LevelPiece> placedPiecesOrder = new List<LevelPiece>();        
@@ -206,14 +309,14 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                 }
                 else
                 {
-                    if (piecesSpawnedOrder.Count == 0)
+                    if (placedPiecesOrder.Count == 0)
                     {
                         break;
                     }
 
                     placedPiecesOrder.RemoveAt(placedPiecesOrder.Count - 1);  // todo check has open connections
 
-                    if (piecesSpawnedOrder.Count == 0)
+                    if (placedPiecesOrder.Count == 0)
                     {
                         break;
                     }
@@ -222,18 +325,18 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
 
             if (placedPieces.Count == amountToPlace)
             {
-                Debug.Log("Level Generated Successfully on attempt " + attempt.ToString() + ".");                                
-                return true;
+                //Debug.Log("Level Generated Successfully on attempt " + attempt.ToString() + ".");                                
+                return placedPieces;
             }
             else
             {
-                Debug.Log("Level failed to generate on attempt " + attempt.ToString() + ".");
+                //Debug.Log("Level failed to generate on attempt " + attempt.ToString() + ".");
                 attempt++;
             }
 
         }
         Debug.Log("Level failed to generate after " + attempt.ToString() + " attempts.");
-        return false;
+        return null;
     }
 
     LevelPiece AddPiece(List<LevelPiece> toSpawn, LevelPiece toAddTo)

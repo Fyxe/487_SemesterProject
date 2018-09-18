@@ -214,12 +214,13 @@ MonoBehaviour:
   layerMaskLevelCollision:
     serializedVersion: 2
     m_Bits: 2048
-  type: 0
+  type: 2
+  combinationSkew: 0.75
   useWidthMatching: 0
   maxWidthDifference: 0.05
   useConnectionTypes: 0
-  countToSpawnMin: 20
-  countToSpawnMax: 20
+  countToSpawnMin: 50
+  countToSpawnMax: 50
   maxFails: 3
   specialPiecesMin: 0
   specialPiecesMax: 0
@@ -233,8 +234,6 @@ MonoBehaviour:
   - {fileID: 114985423695476184, guid: 5fa3728662b0f244e8edfc8ab320d086, type: 2}
   piecesEnd:
   - {fileID: 114985423695476184, guid: 5fa3728662b0f244e8edfc8ab320d086, type: 2}
-  allSpawnedPieces: []
-  piecesSpawnedOrder: []
 --- !u!4 &28996879
 Transform:
   m_ObjectHideFlags: 0

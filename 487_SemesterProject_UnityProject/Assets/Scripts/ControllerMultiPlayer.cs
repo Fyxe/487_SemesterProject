@@ -33,6 +33,7 @@ public class ControllerMultiPlayer : Damageable
     [Header("References")]
     PlayerState m_state = PlayerState.disconnected;
     public Transform positionThrow;
+    public GameObject incapacitatedObject;
     public Weapon weaponCurrent;
     public Transform positionWeaponCurrent;
     public Queue<Weapon> weaponsUnequipped = new Queue<Weapon> ();
@@ -44,7 +45,7 @@ public class ControllerMultiPlayer : Damageable
             return m_state;
         }
         set
-        {
+        {            
             m_state = value;
             if (state == PlayerState.dead)
             {
@@ -61,15 +62,19 @@ public class ControllerMultiPlayer : Damageable
                 {
                     case PlayerState.alive:
                         ui.Set(PlayerUIBox.BoxSetting.alive);
+                        incapacitatedObject.SetActive(false);
                         break;
                     case PlayerState.incapacitated:
                         ui.Set(PlayerUIBox.BoxSetting.incapacitated);
+                        incapacitatedObject.SetActive(true);
                         break;
                     case PlayerState.dead:
                         ui.Set(PlayerUIBox.BoxSetting.dead);
+                        incapacitatedObject.SetActive(false);
                         break;
                     case PlayerState.disconnected:
                         ui.Set(PlayerUIBox.BoxSetting.empty);
+                        incapacitatedObject.SetActive(false);
                         break;
                     default:
                         break;
@@ -78,78 +83,86 @@ public class ControllerMultiPlayer : Damageable
         }
     }
     public PlayerUIBox ui;
-    Color m_colorPlayer;
     public Color colorPlayer
     {
         get
         {
-            return m_colorPlayer;
+            return attributes.colorPlayer;
         }
         set
         {
-            m_colorPlayer = value;
+            attributes.colorPlayer = value;
             ui.imageHealthBar.color = colorPlayer;
         }
     }
-    public int indexJoystick = 0;
-    public int indexPlayer = 0;
-    int m_pointsCurrent = 0;
     public int pointsCurrent
     {
         get
         {
-            return m_pointsCurrent;
+            return attributes.pointsCurrent;
         }
         set
         {
-            m_pointsCurrent = value;
+            attributes.pointsCurrent = value;
             ui.textPoints.text = pointsCurrent.ToString();
         }
     }  
-    float m_speedMoveCurrent = 3f;
     public float speedMoveCurrent
     {
         get
         {
-            return m_speedMoveCurrent;
+            return attributes.speedMoveCurrent;
         }
         set
         {
-            m_speedMoveCurrent = value;
+            attributes.speedMoveCurrent = value;
             controller.speedMove = speedMoveCurrent;
             ui.textSpeedMove.text = speedMoveCurrent.ToString();
         }
-    }
-    int m_damageBaseCurrent = 0;
+    }    
     public int damageBaseCurrent
     {
         get
         {
-            return m_damageBaseCurrent;
+            return attributes.damageBaseCurrent;
         }
         set
         {
-            m_damageBaseCurrent = value;
+            attributes.damageBaseCurrent = value;
             ui.textDamageBase.text = damageBaseCurrent.ToString();
         }
-    }
-
-    int m_countReviveCurrent = 1;
+    }    
     public int countReviveCurrent
     {
         get
         {
-            return m_countReviveCurrent;
+            return attributes.countReviveCurrent;
         }
         set
         {
-            m_countReviveCurrent = value;
+            attributes.countReviveCurrent = value;
             ui.textReviveCount.text = countReviveCurrent.ToString();
         }
     }
 
     int revivesRemaining = 0;
 
+    int indexJoystick
+    {
+        get
+        {
+            return attributes.indexJoystick;
+        }
+    }
+    int indexPlayer
+    {
+        get
+        {
+            return attributes.indexPlayer;
+        }
+    }
+
+    PlayerAttributes attributes;
     InputController3D controller;
     Animator anim;
     Coroutine coroutineInvulnerable;
@@ -263,9 +276,11 @@ public class ControllerMultiPlayer : Damageable
         }
     }
 
-    public void Setup(PlayerAttributes newAttribute, PlayerUIBox newUI)
+    public void Setup(PlayerAttributes newAttributes, PlayerUIBox newUI)
     {        
-        this.name = "[J" + newAttribute.indexJoystick.ToString() + ":P" + newAttribute.indexPlayer.ToString() + "]Controller";
+        this.name = "[J" + newAttributes.indexJoystick.ToString() + ":P" + newAttributes.indexPlayer.ToString() + "]Controller";
+
+        attributes = newAttributes;
 
         ui = newUI;
 
@@ -274,20 +289,9 @@ public class ControllerMultiPlayer : Damageable
         foreach (var i in projectors)
         {
             Material newMaterial = new Material(i.material);
-            newMaterial.color = newAttribute.colorPlayer;
+            newMaterial.color = newAttributes.colorPlayer;
             i.material = newMaterial;
-        }
-        
-
-        colorPlayer = newAttribute.colorPlayer;
-        indexJoystick = newAttribute.indexJoystick;
-        indexPlayer = newAttribute.indexPlayer;
-        pointsCurrent = newAttribute.pointsCurrent;
-        hpCurrent = newAttribute.hpCurrent;
-        hpMax = newAttribute.hpMax;
-        speedMoveCurrent = newAttribute.speedMoveCurrent;
-        damageBaseCurrent = newAttribute.damageBaseCurrent;
-        countReviveCurrent = newAttribute.countReviveCurrent;
+        }        
 
         ui.Set(PlayerUIBox.BoxSetting.alive);
 

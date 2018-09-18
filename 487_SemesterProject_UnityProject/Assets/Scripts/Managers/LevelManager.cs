@@ -54,7 +54,7 @@ public class LevelManager : Singleton<LevelManager>
         isPlaying = false;
         if (isVictory)
         {
-            UpdatePlayerInformation();
+            //UpdatePlayerInformation();
             ProgressionManager.instance.currentScore += ProgressionManager.instance.scoreOnLevelCompletion;
             GameManager.instance.GoToNextLevel();
         }
@@ -65,23 +65,23 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
-    protected void UpdatePlayerInformation()
-    {
-        foreach (var i in allControllers)
-        {
-            PlayerAttributes at = PlayerManager.instance.GetAttributeOfPlayer(i.indexPlayer);
-            if (at == null)
-            {                
-                continue;
-            }
-            at.pointsCurrent = i.pointsCurrent;
-            at.hpCurrent = i.hpCurrent;
-            at.hpMax = i.hpMax;
-            at.speedMoveCurrent = i.speedMoveCurrent;
-            at.damageBaseCurrent = i.damageBaseCurrent;
-            at.countReviveCurrent = i.countReviveCurrent;
-        }
-    }
+    //protected void UpdatePlayerInformation()
+    //{
+    //    foreach (var i in allControllers)
+    //    {
+    //        PlayerAttributes at = PlayerManager.instance.GetAttributeOfPlayer(i.indexPlayer);
+    //        if (at == null)
+    //        {                
+    //            continue;
+    //        }
+    //        at.pointsCurrent = i.pointsCurrent;
+    //        at.hpCurrent = i.hpCurrent;
+    //        at.hpMax = i.hpMax;
+    //        at.speedMoveCurrent = i.speedMoveCurrent;
+    //        at.damageBaseCurrent = i.damageBaseCurrent;
+    //        at.countReviveCurrent = i.countReviveCurrent;
+    //    }
+    //}
 
     public virtual void SpawnPlayer(PlayerAttributes newAttributes)
     {

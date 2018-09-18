@@ -30,7 +30,6 @@ public class ShopManager : LevelManager
         isPlaying = false;
         if (isVictory)
         {
-            UpdatePlayerInformation();            
             GameManager.instance.GoToNextLevel();
         }
         else

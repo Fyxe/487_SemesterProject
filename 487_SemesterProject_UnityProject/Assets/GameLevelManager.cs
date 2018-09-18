@@ -47,7 +47,7 @@ public class GameLevelManager : LevelManager
     {        
         if (generator != null)
         {
-            generator.GenerateLevelDFS();
+            generator.GenerateLevel();
         }
         base.OnFocused();
         StartLevel();

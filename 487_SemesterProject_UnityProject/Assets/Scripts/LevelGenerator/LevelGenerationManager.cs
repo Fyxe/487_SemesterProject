@@ -39,7 +39,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                 GenerateLevelBFS();
                 break;
             case GenerationType.DFS:
-                GenerateLevelDFS();
+                GenerateLevelDFS(null, Random.Range(countToSpawnMin, countToSpawnMax));
                 break;
             case GenerationType.Synthesis:
                 GenerateLevelCombination();
@@ -68,104 +68,56 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
         while (attempt < maxFails)
         {
             DestroyAllLevelPieces();
-
-            allSpawnedPieces = new List<LevelPiece>();
-            piecesSpawnedOrder = new List<LevelPiece>();
-
-            GameObject spawnedStartPieceObject = Instantiate(piecesStart.GetRandomValue().gameObject);
-            spawnedStartPieceObject.name += " StartPiece";
-            spawnedStartPieceObject.transform.position = startPosition.position;
-
-            LevelPiece spawnedStartPiece = spawnedStartPieceObject.GetComponent<LevelPiece>();
-            spawnedStartPiece.Setup();
-
-            piecesSpawnedOrder.Add(spawnedStartPiece);
-            allSpawnedPieces.Add(spawnedStartPiece);
-
-            int countToSpawn = Random.Range(countToSpawnMin, countToSpawnMax);  
-            int currentSpawned = 0;
-            while (currentSpawned != countToSpawn)
-            {
-                List<LevelPiece> piecesToUse = new List<LevelPiece>();
-                if (currentSpawned == 0)
-                {
-                    piecesToUse = piecesStart;
-                }
-                else if (currentSpawned == countToSpawn)
-                {
-                    piecesToUse = piecesEnd;
-                }
-                else
-                {
-                    piecesToUse = piecesGeneral;
-                }
-
-                if (AddPieceDFS(piecesGeneral))
-                {
-                    currentSpawned++;
-                }
-                else
-                {
-                    piecesSpawnedOrder.RemoveAt(piecesSpawnedOrder.Count - 1);  // todo check has open connections
-
-                    if (piecesSpawnedOrder.Count == 0)
-                    {
-                        break;
-                    }
-                }
-            }
-
-            if (currentSpawned == countToSpawn)
-            {
-                Debug.Log("Level Generated Successfully on attempt " + attempt.ToString() + ".");
-
-                piecesSpawnedOrder = new List<LevelPiece>();
-                spawnedStartPiece.SetFlow(0f, flowIncreaseAmount);
-                return true;
-            }
-            else
-            {
-                Debug.Log("Level failed to generate on attempt " + attempt.ToString() + ".");
-                attempt++;
-            }
-
             return true;
         }
-        Debug.Log("Level failed to generate after " + attempt.ToString() + " attempts.");
         return false;
     }
 
     [ContextMenu("Generate Level Depth First")]
-    public bool GenerateLevelDFS()
+    public bool GenerateLevelDFS(LevelPiece toAddOnto, int amountToPlace)
     {
+        List<LevelPiece> placedPieces = new List<LevelPiece>();
+        List<LevelPiece> placedPiecesOrder = new List<LevelPiece>();        
+
         int attempt = 0;
         while (attempt < maxFails)
         {
-            DestroyAllLevelPieces();
+            int placedPiecesCount = placedPieces.Count;
+            for (int i = placedPiecesCount - 1; i >= 0; i--)
+            {
+                Destroy(placedPieces[i].gameObject);
+            }
+            placedPieces.Clear();
+            placedPiecesOrder.Clear();
 
-            allSpawnedPieces = new List<LevelPiece>();
-            piecesSpawnedOrder = new List<LevelPiece>();
+            LevelPiece currentPiece = null;
+            if (toAddOnto == null)
+            {
+                GameObject spawnedStartPieceObject = Instantiate(piecesStart.GetRandomValue().gameObject);
+                spawnedStartPieceObject.name += " StartPiece";
+                spawnedStartPieceObject.transform.position = startPosition.position;
 
-            GameObject spawnedStartPieceObject = Instantiate(piecesStart.GetRandomValue().gameObject);
-            spawnedStartPieceObject.name += " StartPiece";
-            spawnedStartPieceObject.transform.position = startPosition.position;
+                LevelPiece spawnedStartPiece = spawnedStartPieceObject.GetComponent<LevelPiece>();
+                spawnedStartPiece.Setup();
 
-            LevelPiece spawnedStartPiece = spawnedStartPieceObject.GetComponent<LevelPiece>();
-            spawnedStartPiece.Setup();
+                placedPieces.Add(spawnedStartPiece);
+                placedPiecesOrder.Add(spawnedStartPiece);
 
-            piecesSpawnedOrder.Add(spawnedStartPiece);
-            allSpawnedPieces.Add(spawnedStartPiece);
-
-            int countToSpawn = Random.Range(countToSpawnMin, countToSpawnMax);   
-            int currentSpawned = 0;
-            while (currentSpawned != countToSpawn)
+                currentPiece = spawnedStartPiece;
+            }
+            else
+            {
+                currentPiece = toAddOnto;
+            }            
+             
+            while (placedPieces.Count != amountToPlace)
             {
                 List<LevelPiece> piecesToUse = new List<LevelPiece>();
-                if (currentSpawned == 0)
+                if (placedPieces.Count == 0)
                 {
                     piecesToUse = piecesStart;
                 }
-                else if (currentSpawned == countToSpawn)
+                else if (placedPieces.Count == amountToPlace)
                 {
                     piecesToUse = piecesEnd;
                 }
@@ -174,13 +126,21 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                     piecesToUse = piecesGeneral;
                 }
 
-                if (AddPieceDFS(piecesGeneral))
-                {
-                    currentSpawned++;
+                LevelPiece addedPiece = AddPieceDFS(piecesGeneral,currentPiece);
+                if (addedPiece != null)
+                {                    
+                    currentPiece = addedPiece;
+                    placedPiecesOrder.Add(addedPiece);
+                    placedPieces.Add(addedPiece);
                 }
                 else
                 {
-                    piecesSpawnedOrder.RemoveAt(piecesSpawnedOrder.Count - 1);  // todo check has open connections
+                    if (piecesSpawnedOrder.Count == 0)
+                    {
+                        break;
+                    }
+
+                    placedPiecesOrder.RemoveAt(placedPiecesOrder.Count - 1);  // todo check has open connections
 
                     if (piecesSpawnedOrder.Count == 0)
                     {
@@ -189,12 +149,9 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                 }
             }
 
-            if (currentSpawned == countToSpawn)
+            if (placedPieces.Count == amountToPlace)
             {
-                Debug.Log("Level Generated Successfully on attempt " + attempt.ToString() + ".");
-
-                piecesSpawnedOrder = new List<LevelPiece>();
-                spawnedStartPiece.SetFlow(0f, flowIncreaseAmount);
+                Debug.Log("Level Generated Successfully on attempt " + attempt.ToString() + ".");                                
                 return true;
             }
             else
@@ -208,12 +165,12 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
         return false;
     }
 
-    bool AddPieceDFS(List<LevelPiece> toSpawn)
+    LevelPiece AddPieceDFS(List<LevelPiece> toSpawn, LevelPiece toAddTo)
     {
         List<LevelPiece> piecesLeftToTry = toSpawn.ToList();
         piecesLeftToTry.Shuffle();
         
-        List<ConnectionPoint> myPointsToTry = piecesSpawnedOrder[piecesSpawnedOrder.Count - 1].connectionPoints;
+        List<ConnectionPoint> myPointsToTry = toAddTo.connectionPoints;
         myPointsToTry.Shuffle();
         foreach (var i in piecesLeftToTry)
         {
@@ -247,20 +204,17 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                     float angleToRotate = Vector3.SignedAngle(j.direction, k.direction * (-1f), Vector3.up);                    
                     spawnedPiece.transform.RotateAround(j.transform.position, Vector3.up, -angleToRotate);
 
-
                     if (spawnedPiece.FitsInPosition())
                     {
-                        allSpawnedPieces.Add(spawnedPiece);
-                        piecesSpawnedOrder.Add(spawnedPiece);
                         j.Attach(k);                     
-                        return true;
+                        return spawnedPiece;
                     }
                 }
             }
 
             Destroy(spawnedPieceObject);
         }
-        return false;
+        return null;
     }
 
     bool AddPiece(List<LevelPiece> toSpawn, LevelPiece toAddTo)

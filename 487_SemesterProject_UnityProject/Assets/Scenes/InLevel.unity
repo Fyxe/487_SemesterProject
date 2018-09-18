@@ -215,7 +215,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   type: 2
-  combinationSkew: 0.75
+  combinationSkew: 0.8
   useWidthMatching: 0
   maxWidthDifference: 0.05
   useConnectionTypes: 0

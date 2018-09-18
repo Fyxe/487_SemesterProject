@@ -25,6 +25,8 @@ public class ControllerMultiPlayer : Damageable
     float nextInteract = 0f;
     public float delayAttack = 0f;
     float nextAttack = 0f;
+    public float delayAttackAlternate = 0f;
+    float nextAttackAlternate = 0f;
     public float delayDisplayInformation = 0f;
     float nextDisplayInformation = 0f;
     public float delayThrowPoints = 0.1f;
@@ -215,6 +217,12 @@ public class ControllerMultiPlayer : Damageable
                 );
         }
 
+        if (Mathf.Abs(Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Horizontal")) + 
+            Mathf.Abs(Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Vertical")) > 0)
+        {
+            AttemptAttack();
+        }
+
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 0"))
         {
             AttemptSwapWeapons();
@@ -235,6 +243,7 @@ public class ControllerMultiPlayer : Damageable
         if (Input.GetKey("joystick " + indexJoystick.ToString() + " button 4"))
         {            
             controller.lookBehind = true;
+            AttemptAttack();
         }
         else
         {
@@ -243,7 +252,7 @@ public class ControllerMultiPlayer : Damageable
 
         if (Input.GetAxis("J" + indexJoystick.ToString() + "_ButtonTrigger") > 0)
         {            
-            AttemptAttack();
+            AttemptAttackAlternate();
         }
 
 
@@ -407,7 +416,30 @@ public class ControllerMultiPlayer : Damageable
             {
                 anim.SetTrigger("attack");
             }
-        }        
+        }
+    }
+
+    public void AttemptAttackAlternate()
+    {
+        if (Time.time > nextAttackAlternate)
+        {
+            nextAttackAlternate = Time.time + delayAttackAlternate;
+            if (weaponCurrent != null)
+            {
+                if (weaponCurrent.AttemptAttackAlternate())
+                {
+                    Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " alternate attacked with " + weaponCurrent.weaponName + ".");
+                }
+            }
+            else
+            {
+                Debug.LogError("No current weapon equipped on P" + indexPlayer);
+            }
+            if (anim != null)
+            {
+                anim.SetTrigger("attack");
+            }
+        }
     }
 
     public void AttemptSwapWeapons()

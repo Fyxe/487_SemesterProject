@@ -38,6 +38,8 @@ public class Weapon : Interactable
     public int damage = 1;
     public float delayAttack = 1f;
     float nextAttack = 0f;
+    public float delayAttackAlternate = 1f;
+    float nextAttackAlternate = 0f;
     public float speedAttack = 1f;
     public float rangeAttack = 2f;
     public int clipCurrent = 10;
@@ -79,7 +81,7 @@ public class Weapon : Interactable
         detectorInformation.SetRange(WeaponManager.instance.rangeInformation);
     }
 
-    public bool AttemptAttack()
+    public virtual bool AttemptAttack()
     {
         if (!isReloading && Time.time > nextAttack)
         {
@@ -99,6 +101,28 @@ public class Weapon : Interactable
     protected virtual void Attack()
     {
         
+    }
+
+    public virtual bool AttemptAttackAlternate()
+    {
+        if (!isReloading && Time.time > nextAttack)
+        {
+            nextAttack = Time.time + delayAttack;
+            AttackAlternate();
+
+            clipCurrent--;
+            if (clipCurrent == 0)
+            {
+                StartCoroutine(Reload());
+            }
+            return true;
+        }
+        return false;
+    }
+
+    protected virtual void AttackAlternate()
+    {
+
     }
 
     protected virtual IEnumerator Reload()

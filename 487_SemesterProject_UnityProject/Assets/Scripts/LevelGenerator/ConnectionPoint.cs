@@ -33,20 +33,21 @@ public class ConnectionPoint : MonoBehaviour
 
     public LevelPiece piece;    
 
-    public void Attach(ConnectionPoint newAttachedTo)
+    public bool Attach(ConnectionPoint newAttachedTo)
     {
         if (attachedTo != null)
         {
             Debug.LogError("This Point is already connected, cannot connect again.");
-            return;
+            return false;
         }
         if (newAttachedTo.attachedTo != null)
         {
             Debug.LogError("Connected point is already connected, cannot connect again.");
-            return;
+            return false;
         }
         attachedTo = newAttachedTo;
         newAttachedTo.attachedTo = this;
+        return true;
     }
 
     public void SpawnAtConnection()

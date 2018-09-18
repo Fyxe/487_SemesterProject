@@ -214,12 +214,12 @@ MonoBehaviour:
   layerMaskLevelCollision:
     serializedVersion: 2
     m_Bits: 2048
-  type: 1
+  type: 0
   useWidthMatching: 0
   maxWidthDifference: 0.05
   useConnectionTypes: 0
-  countToSpawnMin: 6
-  countToSpawnMax: 6
+  countToSpawnMin: 20
+  countToSpawnMax: 20
   maxFails: 3
   specialPiecesMin: 0
   specialPiecesMax: 0
@@ -12065,6 +12065,7 @@ MonoBehaviour:
   iDWeapon: -1
   damage: 1
   delayAttack: 1
+  delayAttackAlternate: 1
   speedAttack: 1
   rangeAttack: 2
   clipCurrent: 10

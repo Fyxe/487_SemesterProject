@@ -154,7 +154,7 @@ public class ControllerMultiPlayer : Damageable
     Animator anim;
     Coroutine coroutineInvulnerable;
     Coroutine coroutineIncapacitate;
-    Projector projector;
+    public List<Projector> projectors = new List<Projector>();
     bool triggerInUseRight = false;
     bool triggerInUseLeft = false;
 
@@ -162,7 +162,6 @@ public class ControllerMultiPlayer : Damageable
     {
         controller = GetComponent<InputController3D>();      
         anim = GetComponentInChildren<Animator>();
-        projector = GetComponentInChildren<Projector>();
     }
 
     void Update()
@@ -272,9 +271,13 @@ public class ControllerMultiPlayer : Damageable
 
         state = PlayerState.alive;
 
-        Material newMaterial = new Material(projector.material);
-        newMaterial.color = newAttribute.colorPlayer;        
-        projector.material = newMaterial;
+        foreach (var i in projectors)
+        {
+            Material newMaterial = new Material(i.material);
+            newMaterial.color = newAttribute.colorPlayer;
+            i.material = newMaterial;
+        }
+        
 
         colorPlayer = newAttribute.colorPlayer;
         indexJoystick = newAttribute.indexJoystick;

@@ -44,7 +44,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
             default:
                 break;
         }
-        if (placedPieces.Count > 0)
+        if (placedPieces != null && placedPieces.Count > 0)
         {
             placedPieces.GetLast().SetFlow(0,flowIncreaseAmount);
             // succeeded
@@ -112,8 +112,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
             LevelPiece lastPlacedPiece = null;
             List<LevelPiece> cachedList = new List<LevelPiece>();
             foreach (var i in generationPlan)
-            {
-                Debug.Log(i.Key + ": " + i.Value);
+            {                
                 if (i.Key == GenerationType.BFS)
                 {
                     cachedList = GenerateLevelBFS(lastPlacedPiece, i.Value);
@@ -157,9 +156,20 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
             else
             {
                 Debug.Log("Level Generated Successfully on attempt " + attempt.ToString() + ".");
+                int nameIndex = 0;
+                foreach (var i in placedPieces)
+                {
+                    i.name += nameIndex++;
+                }
                 return placedPieces;
             }
         }
+        int piecesToDeleteCount = placedPieces.Count;
+        for (int i = piecesToDeleteCount - 1; i >= 0; i--)
+        {
+            Destroy(placedPieces[i].gameObject);
+        }
+        placedPieces.Clear();
         Debug.Log("Level failed to generate after " + attempt.ToString() + " attempts.");
         return null;
     }
@@ -243,7 +253,14 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
             }
 
         }
-        Debug.Log("Level failed to generate after " + attempt.ToString() + " attempts.");
+
+        int piecesToDeleteCount = placedPieces.Count;
+        for (int i = piecesToDeleteCount - 1; i >= 0; i--)
+        {
+            Destroy(placedPieces[i].gameObject);
+        }
+        placedPieces.Clear();
+        
         return null;
     }
 
@@ -335,7 +352,15 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
             }
 
         }
-        Debug.Log("Level failed to generate after " + attempt.ToString() + " attempts.");
+
+        int piecescToDeleteCount = placedPieces.Count;
+        for (int i = piecescToDeleteCount - 1; i >= 0; i--)
+        {
+            Destroy(placedPieces[i].gameObject);
+        }
+        placedPieces.Clear();
+        placedPiecesOrder.Clear();
+        
         return null;
     }
 

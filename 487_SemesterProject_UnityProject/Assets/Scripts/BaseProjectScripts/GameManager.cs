@@ -31,7 +31,7 @@ public class GameManager : SingletonDDOL<GameManager>
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             Quit();
         }
@@ -78,6 +78,7 @@ public class GameManager : SingletonDDOL<GameManager>
     public void Quit()
     {
 #if UNITY_EDITOR
+        Debug.Log("Closing Editor Application");
         UnityEditor.EditorApplication.isPlaying = false;
 #else
         Application.Quit();

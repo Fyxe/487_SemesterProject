@@ -287,6 +287,11 @@ public class ControllerMultiPlayer : Damageable
 
     public void Setup(PlayerAttributes newAttributes, PlayerUIBox newUI)
     {        
+        if (newAttributes.indexJoystick == 0)
+        {
+            Debug.LogError("Cannot have a joystick zero.");
+            return;
+        }
         this.name = "[J" + newAttributes.indexJoystick.ToString() + ":P" + newAttributes.indexPlayer.ToString() + "]Controller";
 
         attributes = newAttributes;

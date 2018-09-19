@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class LevelGenerationManager : Singleton<LevelGenerationManager>
 {
@@ -22,21 +23,24 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
 
     [Header("References")]
     public Transform startPosition;
+    // TODO make these into dropsets
     public List<LevelPiece> piecesGeneral = new List<LevelPiece>();
     public List<LevelPiece> piecesSpecial = new List<LevelPiece>();
     public List<LevelPiece> piecesStart = new List<LevelPiece>();
-    public List<LevelPiece> piecesEnd = new List<LevelPiece>();    
+    public List<LevelPiece> piecesEnd = new List<LevelPiece>();
+
+    public LevelPiece startPiece;
     
     public void GenerateLevel()
-    {
+    {        
         List<LevelPiece> placedPieces = new List<LevelPiece>();
         switch (type)
-        {
+        {            
             case GenerationType.BFS:
-                placedPieces = GenerateLevelBFS(null, Random.Range(countToSpawnMin, countToSpawnMax));
+                placedPieces = GenerateLevelBFS(null, Random.Range(countToSpawnMin, countToSpawnMax), false);
                 break;
             case GenerationType.DFS:
-                placedPieces = GenerateLevelDFS(null, Random.Range(countToSpawnMin, countToSpawnMax));
+                placedPieces = GenerateLevelDFS(null, Random.Range(countToSpawnMin, countToSpawnMax), false);
                 break;
             case GenerationType.Combination:
                 placedPieces = GenerateLevelCombination(null, Random.Range(countToSpawnMin, countToSpawnMax));
@@ -45,9 +49,22 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                 break;
         }
         if (placedPieces != null && placedPieces.Count > 0)
-        {
-            placedPieces.GetLast().SetFlow(0,flowIncreaseAmount);
-            // succeeded
+        {            
+            foreach (var i in placedPieces)
+            {
+                if (i.isStartPiece)
+                {
+                    startPiece = i;
+                    i.SetFlow(0f, flowIncreaseAmount);
+                    NavMeshSurface[] surfaces = i.GetComponents<NavMeshSurface>();
+                    foreach (var j in surfaces)
+                    {                        
+                        j.BuildNavMesh();
+                    }
+                    break;
+                }
+            }
+            
         }
         else
         {
@@ -58,6 +75,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     [ContextMenu("Generate Level Combination")]
     public List<LevelPiece> GenerateLevelCombination(LevelPiece toAddOnto, int amountToPlace)
     {
+        // TODO does not place end piece 
         List<LevelPiece> placedPieces = new List<LevelPiece>();
         
         int attempt = 0;
@@ -115,7 +133,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
             {                
                 if (i.Key == GenerationType.BFS)
                 {
-                    cachedList = GenerateLevelBFS(lastPlacedPiece, i.Value);
+                    cachedList = GenerateLevelBFS(lastPlacedPiece, i.Value, true);
                     if (cachedList != null)
                     {
                         lastPlacedPiece = cachedList.GetLast();
@@ -127,7 +145,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                 }
                 else if (i.Key == GenerationType.DFS)
                 {
-                    cachedList = GenerateLevelDFS(lastPlacedPiece, i.Value);
+                    cachedList = GenerateLevelDFS(lastPlacedPiece, i.Value, true);
                     if (cachedList != null)
                     {
                         lastPlacedPiece = cachedList.GetLast();
@@ -161,6 +179,13 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                 {
                     i.name += nameIndex++;
                 }
+
+                //NavMeshSurface[] surfaces = placedPieces[0].GetComponents<NavMeshSurface>();
+                //foreach (var i in surfaces)
+                //{
+                //    i.BuildNavMesh();
+                //}
+                
                 return placedPieces;
             }
         }
@@ -175,7 +200,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     }
 
     [ContextMenu("Generate Level Breath First")]
-    public List<LevelPiece> GenerateLevelBFS(LevelPiece toAddOnto, int amountToPlace)
+    public List<LevelPiece> GenerateLevelBFS(LevelPiece toAddOnto, int amountToPlace, bool isSecondaryGeneration)
     {
         List<LevelPiece> placedPieces = new List<LevelPiece>();        
 
@@ -211,11 +236,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
             while (placedPieces.Count != amountToPlace)
             {
                 List<LevelPiece> piecesToUse = new List<LevelPiece>();
-                if (placedPieces.Count == 0)
-                {
-                    piecesToUse = piecesStart;
-                }
-                else if (placedPieces.Count == amountToPlace)
+                if (!isSecondaryGeneration && placedPieces.Count + 1 == amountToPlace)
                 {
                     piecesToUse = piecesEnd;
                 }
@@ -265,7 +286,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     }
 
     [ContextMenu("Generate Level Depth First")]
-    public List<LevelPiece> GenerateLevelDFS(LevelPiece toAddOnto, int amountToPlace)
+    public List<LevelPiece> GenerateLevelDFS(LevelPiece toAddOnto, int amountToPlace, bool isSecondaryGeneration)
     {
         List<LevelPiece> placedPieces = new List<LevelPiece>();
         List<LevelPiece> placedPiecesOrder = new List<LevelPiece>();        
@@ -304,11 +325,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
             while (placedPieces.Count != amountToPlace)
             {
                 List<LevelPiece> piecesToUse = new List<LevelPiece>();
-                if (placedPieces.Count == 0)
-                {
-                    piecesToUse = piecesStart;
-                }
-                else if (placedPieces.Count == amountToPlace)
+                if (!isSecondaryGeneration && placedPieces.Count + 1 == amountToPlace)
                 {
                     piecesToUse = piecesEnd;
                 }

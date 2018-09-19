@@ -59,29 +59,12 @@ public class LevelManager : Singleton<LevelManager>
             GameManager.instance.GoToNextLevel();
         }
         else
-        {
-            PlayerManager.instance.ResetAllPlayers();
+        {            
             GameManager.instance.GoToMainMenu();
+            // TODO kill all players
+            PlayerManager.instance.ResetAllPlayers();
         }
-    }
-
-    //protected void UpdatePlayerInformation()
-    //{
-    //    foreach (var i in allControllers)
-    //    {
-    //        PlayerAttributes at = PlayerManager.instance.GetAttributeOfPlayer(i.indexPlayer);
-    //        if (at == null)
-    //        {                
-    //            continue;
-    //        }
-    //        at.pointsCurrent = i.pointsCurrent;
-    //        at.hpCurrent = i.hpCurrent;
-    //        at.hpMax = i.hpMax;
-    //        at.speedMoveCurrent = i.speedMoveCurrent;
-    //        at.damageBaseCurrent = i.damageBaseCurrent;
-    //        at.countReviveCurrent = i.countReviveCurrent;
-    //    }
-    //}
+    }    
 
     public virtual void SpawnPlayer(PlayerAttributes newAttributes)
     {

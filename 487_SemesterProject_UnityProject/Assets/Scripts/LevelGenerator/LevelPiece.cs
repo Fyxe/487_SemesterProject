@@ -13,9 +13,12 @@ public class LevelPiece : MonoBehaviour
         }
     }
 
+    public bool isStartPiece = false;
+
     [Header("References")]
     public List<BoxCollider> levelColliders = new List<BoxCollider>();
     public List<ConnectionPoint> connectionPoints = new List<ConnectionPoint>();
+    public List<SpawnPosition> spawnPositionsPlayer = new List<SpawnPosition> ();
     public float flow = -1f;
 
     public List<LevelPiece> connectedTo

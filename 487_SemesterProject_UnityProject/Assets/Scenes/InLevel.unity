@@ -214,7 +214,7 @@ MonoBehaviour:
   layerMaskLevelCollision:
     serializedVersion: 2
     m_Bits: 2048
-  type: 0
+  type: 1
   combinationSkew: 0.8
   useWidthMatching: 0
   maxWidthDifference: 0.05

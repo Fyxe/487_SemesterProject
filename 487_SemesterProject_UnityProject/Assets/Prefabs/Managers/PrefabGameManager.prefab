@@ -415,7 +415,8 @@ MonoBehaviour:
   weaponCount: 2
   pointsToThrow: 100
   prefabBaseWeapon: {fileID: 0}
-  prefabMoney: {fileID: 0}
+  prefabMoney: {fileID: 114265833007881906, guid: ce3177bf42c3c0141a96d5d694230941,
+    type: 2}
   allPlayerAttributes:
   - isSpawned: 0
     isDead: 0

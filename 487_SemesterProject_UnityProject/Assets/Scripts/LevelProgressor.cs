@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class LevelProgressor : MonoBehaviour 
 {
+
+    [Header("Settings")]
+
 	public List<ControllerMultiPlayer> playersEntered = new List<ControllerMultiPlayer>();
 
 	ControllerMultiPlayer cachedPlayer;

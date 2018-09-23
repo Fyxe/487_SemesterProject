@@ -6,6 +6,8 @@ using UnityEngine.AI;
 
 public class LevelGenerationManager : Singleton<LevelGenerationManager>
 {
+    // TODO - end piece on all generation types
+    // TODO - special pieces on all generation types
 
     [Header("Settings")]
     public LayerMask layerMaskLevelCollision;
@@ -29,6 +31,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     public List<LevelPiece> piecesStart = new List<LevelPiece>();
     public List<LevelPiece> piecesEnd = new List<LevelPiece>();
 
+    [HideInInspector]
     public LevelPiece startPiece;
     
     public void GenerateLevel()

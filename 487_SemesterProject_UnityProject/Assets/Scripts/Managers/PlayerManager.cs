@@ -58,7 +58,7 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
         //        print("joystick 1 button " + i);
         //    }
         //}
-        if (SceneManager.GetActiveScene().name == "InLevel" || SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name == "testing_AI")
+        if (SceneManager.GetActiveScene().name == "InLevel" || SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name.Contains("testing"))
         {
             for (int i = 1; i <= 8; i++)
             {

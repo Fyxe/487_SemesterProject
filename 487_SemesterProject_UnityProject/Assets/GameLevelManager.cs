@@ -50,8 +50,7 @@ public class GameLevelManager : LevelManager
         {
             generator.GenerateLevel();
         }
-        base.OnFocused();
-        StartLevel();
+        base.OnFocused();        
     }
 
     public override void SpawnPlayer(PlayerAttributes newAttributes)

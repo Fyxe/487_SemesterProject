@@ -6,22 +6,46 @@ public class LevelProgressor : MonoBehaviour
 {
 
     [Header("Settings")]
-
+    public bool isEnd = true;
 	public List<ControllerMultiPlayer> playersEntered = new List<ControllerMultiPlayer>();
 
+    [Header("References")]
+    public GameObject toDisable;
+
 	ControllerMultiPlayer cachedPlayer;
-	void OnTriggerEnter(Collider col)
+
+    void Awake()
+    {
+        if (toDisable != null)
+        {
+            toDisable.SetActive(true);
+        }
+    }
+
+    void OnTriggerEnter(Collider col)
 	{
 		if (col.isTrigger || ((cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) == null) || playersEntered.Contains(cachedPlayer))
-		{
-			return;
+		{            
+            return;
 		}
 		else
 		{
 			playersEntered.Add(cachedPlayer);
 			if (playersEntered.Count == PlayerManager.instance.playersInGame)
 			{
-				LevelManager.instance.EndLevel(true);
+                if (toDisable != null)
+                {
+                    toDisable.SetActive(false);
+                }
+
+                if (isEnd)
+                {
+                    LevelManager.instance.EndLevel(true);
+                }
+                else
+                {
+                    LevelManager.instance.StartLevel();
+                }
 			}
 		}
 	}

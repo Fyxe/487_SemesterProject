@@ -10650,6 +10650,7 @@ MonoBehaviour:
   iDWeapon: -1
   damage: 1
   delayAttack: 1
+  delayAttackAlternate: 1
   speedAttack: 1
   rangeAttack: 2
   clipCurrent: 10
@@ -11333,6 +11334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331d7daaf91dd9244a3fd7a9cfad0d23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnd: 1
   playersEntered: []
 --- !u!4 &1898908161
 Transform:

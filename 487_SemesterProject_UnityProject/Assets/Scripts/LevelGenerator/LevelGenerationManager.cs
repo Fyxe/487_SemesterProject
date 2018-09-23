@@ -62,16 +62,16 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                     NavMeshSurface[] surfaces = i.GetComponents<NavMeshSurface>();
                     foreach (var j in surfaces)
                     {                        
-                        j.BuildNavMesh();
+                        j.BuildNavMesh();   // wait a frame
                     }
                     break;
                 }
-            }
-            
+            }            
         }
         else
         {
             // failed
+            GenerateLevel();
         }
     }
 
@@ -132,30 +132,80 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
             bool failed = false;
             LevelPiece lastPlacedPiece = null;
             List<LevelPiece> cachedList = new List<LevelPiece>();
-            foreach (var i in generationPlan)
+            //foreach (var i in generationPlan)
+            for (int i = 0; i < generationPlan.Count; i++)
             {                
-                if (i.Key == GenerationType.BFS)
+                if (i == generationPlan.Count - 1)
                 {
-                    cachedList = GenerateLevelBFS(lastPlacedPiece, i.Value, true);
-                    if (cachedList != null)
+                    int nonEndPieces = generationPlan[i].Value;
+                    if (nonEndPieces < 2)
                     {
-                        lastPlacedPiece = cachedList.GetLast();
+                        nonEndPieces = 0;
                     }
                     else
                     {
-                        lastPlacedPiece = null;
+                        nonEndPieces--;
+                    }
+                    if (generationPlan[i].Key == GenerationType.BFS)
+                    {
+                        cachedList = GenerateLevelBFS(lastPlacedPiece, nonEndPieces, true);
+                        if (cachedList != null)
+                        {
+                            lastPlacedPiece = cachedList.GetLast();
+                            cachedList = GenerateLevelBFS(lastPlacedPiece, 1, false);
+                            if (cachedList != null)
+                            {
+                                lastPlacedPiece = cachedList.GetLast();
+                            }
+                        }
+                        else
+                        {
+                            lastPlacedPiece = null;
+                        }
+                    }
+                    else if (generationPlan[i].Key == GenerationType.DFS)
+                    {
+                        cachedList = GenerateLevelDFS(lastPlacedPiece, nonEndPieces, true);
+                        if (cachedList != null)
+                        {
+                            lastPlacedPiece = cachedList.GetLast();                            
+                            cachedList = GenerateLevelDFS(lastPlacedPiece, 1, false);
+                            if (cachedList != null)
+                            {
+                                lastPlacedPiece = cachedList.GetLast();
+                            }
+                        }
+                        else
+                        {
+                            lastPlacedPiece = null;
+                        }
                     }
                 }
-                else if (i.Key == GenerationType.DFS)
+                else
                 {
-                    cachedList = GenerateLevelDFS(lastPlacedPiece, i.Value, true);
-                    if (cachedList != null)
+                    if (generationPlan[i].Key == GenerationType.BFS)
                     {
-                        lastPlacedPiece = cachedList.GetLast();
+                        cachedList = GenerateLevelBFS(lastPlacedPiece, generationPlan[i].Value, true);
+                        if (cachedList != null)
+                        {
+                            lastPlacedPiece = cachedList.GetLast();
+                        }
+                        else
+                        {
+                            lastPlacedPiece = null;
+                        }
                     }
-                    else
+                    else if (generationPlan[i].Key == GenerationType.DFS)
                     {
-                        lastPlacedPiece = null;
+                        cachedList = GenerateLevelDFS(lastPlacedPiece, generationPlan[i].Value, true);
+                        if (cachedList != null)
+                        {
+                            lastPlacedPiece = cachedList.GetLast();
+                        }
+                        else
+                        {
+                            lastPlacedPiece = null;
+                        }
                     }
                 }
 
@@ -182,16 +232,11 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                 {
                     i.name += nameIndex++;
                 }
-
-                //NavMeshSurface[] surfaces = placedPieces[0].GetComponents<NavMeshSurface>();
-                //foreach (var i in surfaces)
-                //{
-                //    i.BuildNavMesh();
-                //}
                 
                 return placedPieces;
             }
         }
+
         int piecesToDeleteCount = placedPieces.Count;
         for (int i = piecesToDeleteCount - 1; i >= 0; i--)
         {
@@ -242,9 +287,11 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                 if (!isSecondaryGeneration && placedPieces.Count + 1 == amountToPlace)
                 {
                     piecesToUse = piecesEnd;
+                    Debug.Log("a");
                 }
                 else
                 {
+                    Debug.Log("b");
                     piecesToUse = piecesGeneral;
                 }
 
@@ -253,9 +300,10 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                 {
                     int piecesRemaining = amountToPlace - placedPieces.Count;
                     List<LevelPiece> addedPieces = AddPieces(piecesToUse, i, piecesRemaining);
-                    placedPieces.AddRange(addedPieces.ToList());                    
+                    placedPieces.AddRange(addedPieces.ToList());
                     newCurrentPieces.AddRange(addedPieces.ToList());
                 }
+
                 currentPieces.Clear();
                 currentPieces = newCurrentPieces.ToList();
 

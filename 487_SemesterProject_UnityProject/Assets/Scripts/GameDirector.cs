@@ -11,7 +11,7 @@ public class GameDirector : Singleton<GameDirector>
     public float timeMaxStressed = 30f;
     public float timeRelaxing = 10f;
     public int stressCurrent = 0;
-    public int stressMax = 10000;
+    public int stressMax = 10000;    
 
     public void AddStress(int amount)
     {
@@ -53,5 +53,6 @@ public class GameDirector : Singleton<GameDirector>
         yield return new WaitForSeconds(timeRelaxing);
         mode = DirectorMode.climbing;
         stressCurrent = 0;
+        yield break;
     }
 }

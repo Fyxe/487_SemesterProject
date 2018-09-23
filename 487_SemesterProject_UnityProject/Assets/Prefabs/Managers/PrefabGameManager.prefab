@@ -61,6 +61,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1235162251862572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4968453321023806}
+  - component: {fileID: 114528145429868988}
+  m_Layer: 0
+  m_Name: GameDirector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1445594657851456
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,8 +242,22 @@ Transform:
   - {fileID: 4401251702767532}
   - {fileID: 4915307435002236}
   - {fileID: 4226812323881358}
+  - {fileID: 4968453321023806}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4968453321023806
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1235162251862572}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4956794724856630}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114164805473970998
 MonoBehaviour:
@@ -268,9 +298,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745f12dc072cc3c408900831f028a07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreOnLevelCompletion: 1000
   levels: []
   currentGameLevel: -1
   currentScore: 0
+--- !u!114 &114528145429868988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1235162251862572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 982c8c453525cbf49bc10eb0772f85e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 0
+  timeMaxStressed: 30
+  timeRelaxing: 10
+  stressCurrent: 0
+  stressMax: 10000
 --- !u!114 &114535733203665190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -363,8 +410,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   possableMaxPlayers: 4
+  timeIncapacitated: 10
+  timeInvulnerable: 1
+  weaponCount: 2
+  pointsToThrow: 100
+  prefabBaseWeapon: {fileID: 0}
+  prefabMoney: {fileID: 0}
   allPlayerAttributes:
   - isSpawned: 0
+    isDead: 0
     colorPlayer: {r: 0, g: 0.38793108, b: 0.66176474, a: 1}
     indexJoystick: 0
     indexPlayer: 0
@@ -377,6 +431,7 @@ MonoBehaviour:
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
   - isSpawned: 0
+    isDead: 0
     colorPlayer: {r: 0.66176474, g: 0, b: 0, a: 1}
     indexJoystick: 0
     indexPlayer: 0
@@ -389,6 +444,7 @@ MonoBehaviour:
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
   - isSpawned: 0
+    isDead: 0
     colorPlayer: {r: 0.65263695, g: 0.66176474, b: 0, a: 1}
     indexJoystick: 0
     indexPlayer: 0
@@ -401,6 +457,7 @@ MonoBehaviour:
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
   - isSpawned: 0
+    isDead: 0
     colorPlayer: {r: 0, g: 0.66176474, b: 0.004563858, a: 1}
     indexJoystick: 0
     indexPlayer: 0

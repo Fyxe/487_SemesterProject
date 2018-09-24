@@ -10649,22 +10649,25 @@ MonoBehaviour:
   rarity: 0
   iDWeapon: -1
   damage: 1
-  delayAttack: 0.1
+  delayAttack: 1
   delayAttackAlternate: 1
-  speedAttack: 1
+  speedAttack: 25
   rangeAttack: 2
   clipCurrent: 10
   clipMax: 10
   timeReload: 2
   isReloading: 0
+  currentPlayerRB: {fileID: 0}
   rb: {fileID: 0}
   projectilePrefab: {fileID: 114375185774425922, guid: d1662618ffca3174aac6c190e6a8148f,
     type: 2}
-  projectileSpeed: 100
   projectileDestroyTime: 3
   layerMaskToShoot:
     serializedVersion: 2
     m_Bits: 512
+  amountOfBulletsPerShot: 3
+  spread: 0.5
+  knockbackForce: 50
 --- !u!54 &1800288385
 Rigidbody:
   m_ObjectHideFlags: 0

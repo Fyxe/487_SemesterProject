@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Weapon : Interactable
-{    
+{
     public class CachedRenderer
     {
         public Renderer renderer;
-        List<Material> materials = new List<Material> ();
+        List<Material> materials = new List<Material>();
 
         public CachedRenderer(Renderer newRenderer)
         {
@@ -20,7 +20,7 @@ public class Weapon : Interactable
 
         public void SetMaterial(Material material)
         {
-            renderer.materials = new Material[1]{ material };
+            renderer.materials = new Material[1] { material };
         }
 
         public void ResetMaterials()
@@ -47,6 +47,31 @@ public class Weapon : Interactable
     public float timeReload = 2f;
     public bool isReloading = false;
     bool isHeld = false;
+    GameObject m_currentPlayer;
+    public GameObject currentPlayer
+    {
+        get
+        {
+            return m_currentPlayer;
+        }
+        set
+        {
+            m_currentPlayer = value;
+            if (value != null)
+            {
+                if (m_currentPlayer.GetComponent<Rigidbody>() == null)
+                {
+                    Debug.LogError("No rigidbody found on player: " + value.name);
+                }
+                else
+                {
+                    currentPlayerRB = m_currentPlayer.GetComponent<Rigidbody>();
+                }
+            }
+        }
+    }
+
+    public Rigidbody currentPlayerRB;
 
     List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
 
@@ -62,7 +87,7 @@ public class Weapon : Interactable
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
         foreach (var i in renderers)
         {
-            cachedRenderers.Add(new CachedRenderer (i));
+            cachedRenderers.Add(new CachedRenderer(i));
         }
         detectorHighlight = GetComponentInChildren<WeaponDetectorHighlight>();
         detectorInformation = GetComponentInChildren<WeaponDetectorInformation>();
@@ -88,7 +113,7 @@ public class Weapon : Interactable
             nextAttack = Time.time + delayAttack;
             Attack();
 
-            clipCurrent--;            
+            clipCurrent--;
             if (clipCurrent == 0)
             {
                 StartCoroutine(Reload());
@@ -100,7 +125,7 @@ public class Weapon : Interactable
 
     protected virtual void Attack()
     {
-        
+
     }
 
     public virtual bool AttemptAttackAlternate()
@@ -164,9 +189,10 @@ public class Weapon : Interactable
         // todo
     }
 
-    public virtual void OnEquip()   // called when changed to current weapon
+    public virtual void OnEquip(GameObject player)   // called when changed to current weapon
     {
         rb.isKinematic = true;
+        currentPlayer = player;
         isHeld = true;
         DisableHighlight();
     }
@@ -174,6 +200,7 @@ public class Weapon : Interactable
     public virtual void OnUnequip() // called when enqueued in unequipped weapons
     {
         rb.isKinematic = true;
+        currentPlayer = null;
         isHeld = true;
         DisableHighlight();
     }

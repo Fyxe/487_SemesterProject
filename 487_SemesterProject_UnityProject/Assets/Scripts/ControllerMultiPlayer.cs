@@ -689,7 +689,7 @@ public class ControllerMultiPlayer : Damageable
         
         weaponCurrent.transform.SetParent(positionWeaponCurrent);
         weaponCurrent.transform.Reset();
-        weaponCurrent.OnEquip();
+        weaponCurrent.OnEquip(this.gameObject);
     }
 
     void AddWeaponToInventory(Weapon toAdd, bool isPrefab = false)

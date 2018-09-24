@@ -13,6 +13,8 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     public LayerMask layerMaskLevelCollision;
     public GenerationType type = GenerationType.DFS;
     public float combinationSkew = 0.5f;
+    public bool spawnAtConnected = false;
+    public bool spawnAtUnconnected = false;
     public bool useWidthMatching = false;
     public float maxWidthDifference = 0.05f;
     public bool useConnectionTypes = false;
@@ -40,10 +42,10 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
         switch (type)
         {            
             case GenerationType.BFS:
-                placedPieces = GenerateLevelBFS(null, Random.Range(countToSpawnMin, countToSpawnMax), false);
+                placedPieces = GenerateLevelBFS(null, Random.Range(countToSpawnMin, countToSpawnMax), true);
                 break;
             case GenerationType.DFS:
-                placedPieces = GenerateLevelDFS(null, Random.Range(countToSpawnMin, countToSpawnMax), false);
+                placedPieces = GenerateLevelDFS(null, Random.Range(countToSpawnMin, countToSpawnMax), true);
                 break;
             case GenerationType.Combination:
                 placedPieces = GenerateLevelCombination(null, Random.Range(countToSpawnMin, countToSpawnMax));
@@ -55,6 +57,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
         {            
             foreach (var i in placedPieces)
             {
+                i.SpawnAtConnections();
                 if (i.isStartPiece)
                 {
                     startPiece = i;
@@ -70,8 +73,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
         }
         else
         {
-            // failed
-            GenerateLevel();
+            // failed            
         }
     }
 
@@ -137,52 +139,6 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
             {                
                 if (i == generationPlan.Count - 1)
                 {
-                    int nonEndPieces = generationPlan[i].Value;
-                    if (nonEndPieces < 2)
-                    {
-                        nonEndPieces = 0;
-                    }
-                    else
-                    {
-                        nonEndPieces--;
-                    }
-                    if (generationPlan[i].Key == GenerationType.BFS)
-                    {
-                        cachedList = GenerateLevelBFS(lastPlacedPiece, nonEndPieces, true);
-                        if (cachedList != null)
-                        {
-                            lastPlacedPiece = cachedList.GetLast();
-                            cachedList = GenerateLevelBFS(lastPlacedPiece, 1, false);
-                            if (cachedList != null)
-                            {
-                                lastPlacedPiece = cachedList.GetLast();
-                            }
-                        }
-                        else
-                        {
-                            lastPlacedPiece = null;
-                        }
-                    }
-                    else if (generationPlan[i].Key == GenerationType.DFS)
-                    {
-                        cachedList = GenerateLevelDFS(lastPlacedPiece, nonEndPieces, true);
-                        if (cachedList != null)
-                        {
-                            lastPlacedPiece = cachedList.GetLast();                            
-                            cachedList = GenerateLevelDFS(lastPlacedPiece, 1, false);
-                            if (cachedList != null)
-                            {
-                                lastPlacedPiece = cachedList.GetLast();
-                            }
-                        }
-                        else
-                        {
-                            lastPlacedPiece = null;
-                        }
-                    }
-                }
-                else
-                {
                     if (generationPlan[i].Key == GenerationType.BFS)
                     {
                         cachedList = GenerateLevelBFS(lastPlacedPiece, generationPlan[i].Value, true);
@@ -198,6 +154,33 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                     else if (generationPlan[i].Key == GenerationType.DFS)
                     {
                         cachedList = GenerateLevelDFS(lastPlacedPiece, generationPlan[i].Value, true);
+                        if (cachedList != null)
+                        {
+                            lastPlacedPiece = cachedList.GetLast();
+                        }
+                        else
+                        {
+                            lastPlacedPiece = null;
+                        }
+                    }
+                }
+                else
+                {
+                    if (generationPlan[i].Key == GenerationType.BFS)
+                    {
+                        cachedList = GenerateLevelBFS(lastPlacedPiece, generationPlan[i].Value, false);
+                        if (cachedList != null)
+                        {
+                            lastPlacedPiece = cachedList.GetLast();
+                        }
+                        else
+                        {
+                            lastPlacedPiece = null;
+                        }
+                    }
+                    else if (generationPlan[i].Key == GenerationType.DFS)
+                    {
+                        cachedList = GenerateLevelDFS(lastPlacedPiece, generationPlan[i].Value, false);
                         if (cachedList != null)
                         {
                             lastPlacedPiece = cachedList.GetLast();
@@ -248,7 +231,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     }
 
     [ContextMenu("Generate Level Breath First")]
-    public List<LevelPiece> GenerateLevelBFS(LevelPiece toAddOnto, int amountToPlace, bool isSecondaryGeneration)
+    public List<LevelPiece> GenerateLevelBFS(LevelPiece toAddOnto, int amountToPlace, bool shouldPlaceEndPiece)
     {
         List<LevelPiece> placedPieces = new List<LevelPiece>();        
 
@@ -281,35 +264,101 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                 currentPieces.Add(toAddOnto);
             }
 
-            while (placedPieces.Count != amountToPlace)
+            if (shouldPlaceEndPiece)
             {
-                List<LevelPiece> piecesToUse = new List<LevelPiece>();
-                if (!isSecondaryGeneration && placedPieces.Count + 1 == amountToPlace)
+                while (placedPieces.Count < amountToPlace - 1)
                 {
-                    piecesToUse = piecesEnd;
-                    Debug.Log("a");
-                }
-                else
-                {
-                    Debug.Log("b");
+                    List<LevelPiece> piecesToUse = new List<LevelPiece>();
                     piecesToUse = piecesGeneral;
+
+                    List<LevelPiece> newCurrentPieces = new List<LevelPiece>();
+                    foreach (var i in currentPieces)
+                    {
+                        int piecesRemaining = (amountToPlace - 1) - placedPieces.Count;
+                        if (piecesRemaining == 0)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            List<LevelPiece> addedPieces = AddPieces(piecesToUse, i, piecesRemaining);
+                            placedPieces.AddRange(addedPieces.ToList());
+                            newCurrentPieces.AddRange(addedPieces.ToList());
+                        }
+                    }
+
+                    currentPieces.Clear();
+                    currentPieces = newCurrentPieces.ToList();
+
+                    if (currentPieces.Count == 0)
+                    {
+                        break;
+                    }
                 }
 
-                List<LevelPiece> newCurrentPieces = new List<LevelPiece>();
-                foreach (var i in currentPieces)
+                if (currentPieces.Count > 0)
                 {
-                    int piecesRemaining = amountToPlace - placedPieces.Count;
-                    List<LevelPiece> addedPieces = AddPieces(piecesToUse, i, piecesRemaining);
-                    placedPieces.AddRange(addedPieces.ToList());
-                    newCurrentPieces.AddRange(addedPieces.ToList());
+                    while (placedPieces.Count < amountToPlace)
+                    {
+                        List<LevelPiece> piecesToUse = new List<LevelPiece>();
+                        piecesToUse = piecesEnd;
+
+                        List<LevelPiece> newCurrentPieces = new List<LevelPiece>();
+                        foreach (var i in currentPieces)
+                        {
+                            int piecesRemaining = amountToPlace - placedPieces.Count;
+                            if (piecesRemaining == 0)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                List<LevelPiece> addedPieces = AddPieces(piecesToUse, i, piecesRemaining);
+                                placedPieces.AddRange(addedPieces.ToList());
+                                newCurrentPieces.AddRange(addedPieces.ToList());
+                            }
+                        }
+
+                        currentPieces.Clear();
+                        currentPieces = newCurrentPieces.ToList();
+
+                        if (currentPieces.Count == 0)
+                        {
+                            break;
+                        }
+                    }
                 }
-
-                currentPieces.Clear();
-                currentPieces = newCurrentPieces.ToList();
-
-                if (currentPieces.Count == 0)                
+            }
+            else
+            {
+                while (placedPieces.Count < amountToPlace)
                 {
-                    break;
+                    List<LevelPiece> piecesToUse = new List<LevelPiece>();
+                    piecesToUse = piecesGeneral;
+
+                    List<LevelPiece> newCurrentPieces = new List<LevelPiece>();
+                    foreach (var i in currentPieces)
+                    {
+                        int piecesRemaining = amountToPlace - placedPieces.Count;
+                        if (piecesRemaining == 0)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            List<LevelPiece> addedPieces = AddPieces(piecesToUse, i, piecesRemaining);
+                            placedPieces.AddRange(addedPieces.ToList());
+                            newCurrentPieces.AddRange(addedPieces.ToList());
+                        }
+                    }
+
+                    currentPieces.Clear();
+                    currentPieces = newCurrentPieces.ToList();
+
+                    if (currentPieces.Count == 0)
+                    {
+                        break;
+                    }
                 }
             }
 
@@ -337,7 +386,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     }
 
     [ContextMenu("Generate Level Depth First")]
-    public List<LevelPiece> GenerateLevelDFS(LevelPiece toAddOnto, int amountToPlace, bool isSecondaryGeneration)
+    public List<LevelPiece> GenerateLevelDFS(LevelPiece toAddOnto, int amountToPlace, bool shouldPlaceEndPiece)
     {
         List<LevelPiece> placedPieces = new List<LevelPiece>();
         List<LevelPiece> placedPiecesOrder = new List<LevelPiece>();        
@@ -373,10 +422,10 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                 currentPiece = toAddOnto;
             }            
              
-            while (placedPieces.Count != amountToPlace)
+            while (placedPieces.Count < amountToPlace)
             {
                 List<LevelPiece> piecesToUse = new List<LevelPiece>();
-                if (!isSecondaryGeneration && placedPieces.Count + 1 == amountToPlace)
+                if (shouldPlaceEndPiece && placedPieces.Count + 1 == amountToPlace)
                 {
                     piecesToUse = piecesEnd;
                 }

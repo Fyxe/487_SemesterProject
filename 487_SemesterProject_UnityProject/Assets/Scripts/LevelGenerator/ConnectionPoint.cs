@@ -52,7 +52,11 @@ public class ConnectionPoint : MonoBehaviour
 
     public void SpawnAtConnection()
     {
-        if (attachedTo == null)
+        if (!LevelGenerationManager.instance.spawnAtConnected && !LevelGenerationManager.instance.spawnAtUnconnected)
+        {
+            return;
+        }
+        else if (attachedTo == null && LevelGenerationManager.instance.spawnAtUnconnected)
         {
             GameObject spawnedPrefabObject = Instantiate(prefabSpawnInConnected.GetRandomValue());
             spawnedPrefabObject.transform.position = transform.position;
@@ -60,7 +64,7 @@ public class ConnectionPoint : MonoBehaviour
 
             connectionSpawned = true;
         }
-        else
+        else if (attachedTo != null && LevelGenerationManager.instance.spawnAtConnected)
         {
             if (attachedTo.connectionSpawned)
             {
@@ -97,6 +101,10 @@ public class ConnectionPoint : MonoBehaviour
 
             attachedTo.connectionSpawned = true;
             connectionSpawned = true;
+        }
+        else
+        {
+            return;
         }
     }
 

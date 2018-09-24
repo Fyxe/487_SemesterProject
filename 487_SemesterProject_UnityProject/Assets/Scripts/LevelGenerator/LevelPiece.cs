@@ -53,6 +53,14 @@ public class LevelPiece : MonoBehaviour
         }
     }
 
+    public void SpawnAtConnections()
+    {
+        foreach (var i in connectionPoints)
+        {
+            i.SpawnAtConnection();
+        }
+    }
+
     [ContextMenu("Setup Piece")]
     public void Setup()
     {

@@ -88,12 +88,23 @@ public class ConnectionPoint : MonoBehaviour
 
             if (useMine)
             {
+                if (prefabSpawnInConnected.Count == 0)
+                {
+                    Debug.LogError("No objects given to spawn at connection points.");
+                    return;
+                }
                 GameObject spawnedPrefabObject = Instantiate(prefabSpawnInConnected.GetRandomValue());
                 spawnedPrefabObject.transform.position = transform.position;
                 spawnedPrefabObject.transform.rotation = Quaternion.LookRotation(direction,Vector3.up);
             }
             else
             {
+                if (attachedTo.prefabSpawnInConnected.Count == 0)
+                {
+                    Debug.LogError("No objects given to spawn at connection points.");
+                    return;
+                }
+
                 GameObject spawnedPrefabObject = Instantiate(attachedTo.prefabSpawnInConnected.GetRandomValue());
                 spawnedPrefabObject.transform.position = attachedTo.transform.position;
                 spawnedPrefabObject.transform.rotation = Quaternion.LookRotation(attachedTo.direction, Vector3.up);

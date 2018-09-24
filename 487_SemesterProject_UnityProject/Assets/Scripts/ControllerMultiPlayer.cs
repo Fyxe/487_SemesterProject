@@ -181,7 +181,17 @@ public class ControllerMultiPlayer : Damageable
 
     void Update()
     {
-                
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            Ray r = new Ray(transform.position, Vector3.down);
+            RaycastHit h;
+            if (Physics.Raycast(r,out h))
+            {
+                Debug.Log(h.collider.name + " : " + h.transform.root.name);
+            }
+        }
+
         if (state != PlayerState.alive)
         {            
             ui.imageReviveCount.fillAmount = Mathf.Lerp(ui.imageReviveCount.fillAmount,(float)revivesRemaining / (float)countReviveCurrent,0.2f);

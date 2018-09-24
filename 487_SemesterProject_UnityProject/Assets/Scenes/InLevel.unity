@@ -216,6 +216,8 @@ MonoBehaviour:
     m_Bits: 2048
   type: 2
   combinationSkew: 0.8
+  spawnAtConnected: 0
+  spawnAtUnconnected: 0
   useWidthMatching: 0
   maxWidthDifference: 0.05
   useConnectionTypes: 0
@@ -12939,7 +12941,7 @@ MonoBehaviour:
   - {fileID: 581453070}
   - {fileID: 560461438}
   allowPlayerSpawns: 1
-  timeStaleFull: 10
+  timeStaleFull: 120
   currentStaleness: 0
   staleFillImage: {fileID: 1023298681}
 --- !u!4 &2023394248

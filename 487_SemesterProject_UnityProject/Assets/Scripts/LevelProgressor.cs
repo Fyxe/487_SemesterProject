@@ -12,6 +12,8 @@ public class LevelProgressor : MonoBehaviour
     [Header("References")]
     public GameObject toDisable;
 
+    bool fired = false;
+
 	ControllerMultiPlayer cachedPlayer;
 
     void Awake()
@@ -24,7 +26,7 @@ public class LevelProgressor : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
 	{
-		if (col.isTrigger || ((cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) == null) || playersEntered.Contains(cachedPlayer))
+		if (fired || col.isTrigger || ((cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) == null) || playersEntered.Contains(cachedPlayer))
 		{            
             return;
 		}
@@ -38,6 +40,7 @@ public class LevelProgressor : MonoBehaviour
                     toDisable.SetActive(false);
                 }
 
+                fired = true;
                 if (isEnd)
                 {
                     LevelManager.instance.EndLevel(true);
@@ -52,7 +55,7 @@ public class LevelProgressor : MonoBehaviour
 
 	void OnTriggerExit(Collider col)
 	{
-		if (col.isTrigger || ((cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) == null) || !playersEntered.Contains(cachedPlayer))
+		if (fired || col.isTrigger || ((cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) == null) || !playersEntered.Contains(cachedPlayer))
 		{
 			return;
 		}

@@ -26,10 +26,6 @@ public class GameLevelManager : LevelManager
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            FindObjectOfType<ControllerMultiPlayer>().Hurt(1);
-        }
         if (isPlaying)
         {
             currentStaleness += Time.deltaTime;

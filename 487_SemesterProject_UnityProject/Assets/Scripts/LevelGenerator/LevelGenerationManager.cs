@@ -57,7 +57,6 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
         {            
             foreach (var i in placedPieces)
             {
-                i.SpawnAtConnections();
                 if (i.isStartPiece)
                 {
                     startPiece = i;
@@ -69,7 +68,13 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                     }
                     break;
                 }
-            }            
+            }
+            int nameIndex = 0;
+            foreach (var i in placedPieces)
+            {
+                i.SpawnAtConnections();
+                i.name += nameIndex++;                
+            }
         }
         else
         {
@@ -210,12 +215,6 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
             else
             {
                 Debug.Log("Level Generated Successfully on attempt " + attempt.ToString() + ".");
-                int nameIndex = 0;
-                foreach (var i in placedPieces)
-                {
-                    i.name += nameIndex++;
-                }
-                
                 return placedPieces;
             }
         }

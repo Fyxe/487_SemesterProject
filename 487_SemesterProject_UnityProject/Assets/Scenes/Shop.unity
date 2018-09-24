@@ -5755,7 +5755,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.6666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 16cac517cdaf84d44828f9cafd259de7, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 3849112d2f83049408694ff7e4e93762, type: 2}
 --- !u!114 &1056030000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5783,7 +5783,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: e90d40663b23f694a8e7667102dce731, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 523e788ae73914e4ca4bd2004192bcf5, type: 2}
 --- !u!1 &1065662210
 GameObject:
   m_ObjectHideFlags: 0
@@ -11336,6 +11336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnd: 1
   playersEntered: []
+  toDisable: {fileID: 0}
 --- !u!4 &1898908161
 Transform:
   m_ObjectHideFlags: 0

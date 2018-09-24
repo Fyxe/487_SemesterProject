@@ -45,10 +45,10 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-        {
+        {            
             foreach (var i in FindObjectsOfType<ControllerMultiPlayer>())
             {
-                i.Hurt(1);
+                i.Hurt(Random.Range(0,2));
             }
         }
         //for (int i = 0; i < 20; i++)

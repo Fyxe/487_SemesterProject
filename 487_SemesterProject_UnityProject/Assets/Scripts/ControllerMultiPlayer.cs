@@ -425,7 +425,7 @@ public class ControllerMultiPlayer : Damageable
             }
             else
             {
-                Debug.LogError("No current weapon equipped on P" + indexPlayer);
+                // Debug.LogError("No current weapon equipped on P" + indexPlayer);
             }
             if (anim != null)
             {

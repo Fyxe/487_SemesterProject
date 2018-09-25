@@ -30,12 +30,11 @@ public class ShopManager : LevelManager
         isPlaying = false;
         if (isVictory)
         {
-            GameManager.instance.GoToNextLevel();
+            GameplayManager.instance.GoToNextLevel();
         }
         else
         {
-            PlayerManager.instance.ResetAllPlayers();
-            GameManager.instance.GoToMainMenu();
+            GameplayManager.instance.EndGame();
         }
     }
 

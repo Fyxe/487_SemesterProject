@@ -56,13 +56,12 @@ public class LevelManager : Singleton<LevelManager>
         {
             //UpdatePlayerInformation();
             ProgressionManager.instance.currentScore += ProgressionManager.instance.scoreOnLevelCompletion;
-            GameManager.instance.GoToNextLevel();
+            GameplayManager.instance.GoToNextLevel();
         }
         else
-        {            
-            GameManager.instance.GoToMainMenu();
+        {
+            GameplayManager.instance.EndGame();
             // TODO kill all players
-            PlayerManager.instance.ResetAllPlayers();
         }
     }    
 

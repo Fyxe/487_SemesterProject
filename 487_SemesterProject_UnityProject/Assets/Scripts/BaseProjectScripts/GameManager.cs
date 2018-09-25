@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : SingletonDDOL<GameManager>
-{
-
-    [Header("Settings")]
-    public int currentLevel = 1;
+{    
 
     protected override void Initialize()
     {
@@ -35,25 +32,6 @@ public class GameManager : SingletonDDOL<GameManager>
         {
             Quit();
         }
-    }
-
-    public void GoToNextLevel()
-    {
-        currentLevel++;
-        if (currentLevel % 2 == 0)
-        {
-            LoadSceneManager.instance.LoadScene("Shop");
-        }
-        else
-        {
-            LoadSceneManager.instance.LoadScene("InLevel");
-        }
-    }
-
-    public void GoToMainMenu()
-    {
-        ProgressionManager.instance.OnGameEnd();
-        LoadSceneManager.instance.LoadScene("Menu");
     }
 
     /// <summary>

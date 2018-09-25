@@ -7,3 +7,4 @@ public enum GenerationType { BFS, DFS, Combination }
 public enum StatType { points, healthCurrent, healthMax, movementSpeed, baseDamage, reviveCount, stalenessMeter }
 public enum Rarity { common, uncommon, rare, epic, legendary, artifact }
 public enum PlayerState { alive, incapacitated, dead, disconnected }
+public enum PositionToSpawn { ALL, behind, infront }

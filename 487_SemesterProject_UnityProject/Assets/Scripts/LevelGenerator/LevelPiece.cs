@@ -17,6 +17,7 @@ public class LevelPiece : MonoBehaviour
 
     [Header("References")]
     public List<BoxCollider> levelColliders = new List<BoxCollider>();
+    public List<BoxCollider> spawnColliders = new List<BoxCollider>();
     public List<ConnectionPoint> connectionPoints = new List<ConnectionPoint>();
     public List<SpawnPosition> spawnPositionsPlayer = new List<SpawnPosition> ();
     public float flow = -1f;
@@ -106,4 +107,19 @@ public class LevelPiece : MonoBehaviour
         return retBool;
     }
 
+    public Vector3? GetRandomSpawnPosition()
+    {
+        if (spawnColliders.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            int index = Random.Range(0,spawnColliders.Count);
+            BoxCollider box = spawnColliders[index];
+            Vector3 randomVector = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+            randomVector = box.transform.TransformPoint(randomVector);
+            return randomVector;
+        }
+    }
 }

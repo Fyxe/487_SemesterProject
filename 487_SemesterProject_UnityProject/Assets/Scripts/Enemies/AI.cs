@@ -23,8 +23,8 @@ public class AI : Damageable
     public float timeElapsedInState = 0;
 
     public Transform target;
-
-    NavMeshAgent agent;
+    
+    public NavMeshAgent agent;
     ControllerMultiPlayer cachedPlayer;
 
     void Awake()
@@ -132,6 +132,10 @@ public class AI : Damageable
     {
         base.OnDeath();
         ProgressionManager.instance.currentScore += pointsOnDeath;
+        if (GameLevelManager.instance is GameLevelManager)
+        {
+            (GameLevelManager.instance as GameLevelManager).allAI[pool.objectPrefab as AI].Remove(this);
+        }
     }
 
 }

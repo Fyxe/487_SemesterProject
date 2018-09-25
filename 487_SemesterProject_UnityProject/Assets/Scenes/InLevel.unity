@@ -12943,7 +12943,14 @@ MonoBehaviour:
   allowPlayerSpawns: 1
   timeStaleFull: 120
   currentStaleness: 0
+  distanceFromPlayersToSpawn: 2
+  spawnInPiecesPlayersAreIn: 1
+  setEnemies: 20
+  delaySpawn: 1
+  prefabEnemyBasic: {fileID: 114473578030747148, guid: c8ddfe067c448b04797d99b587ff4426,
+    type: 2}
   staleFillImage: {fileID: 1023298681}
+  piecesToSpawnIn: []
 --- !u!4 &2023394248
 Transform:
   m_ObjectHideFlags: 0

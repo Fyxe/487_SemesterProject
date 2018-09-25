@@ -16,6 +16,8 @@ public class NavMeshCameraController : MonoBehaviour
     
     Vector3 target;
 
+    // TODO remember last legal point and if cant find nav mesh point, use that
+
     void LateUpdate()
     {
         if (toFollow.Count == 0)

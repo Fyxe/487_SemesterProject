@@ -6,9 +6,10 @@ using UnityEngine;
 public class InputController3D : MonoBehaviour
 {
     [Header("Input Controller Settings")]
+    public bool useCharacterController = false;
     public bool isControlled = true;
     public bool useFirstPerson = false;
-    public float lookLerpSpeed = 0.2f;
+    public float lookLerpSpeed = 0.35f;
     [Space]
     public bool canMove = true;
     [Space]
@@ -40,18 +41,23 @@ public class InputController3D : MonoBehaviour
 
     Vector3 directionMove = Vector3.zero;
 
+    Rigidbody rb;
     CharacterController controllerCurrent;
 
     void Awake()
     {
+        rb = GetComponent<Rigidbody>();
         controllerCurrent = GetComponent<CharacterController>();
+        controllerCurrent.enabled = useCharacterController;
     }
 
     void Update()
     {
         if (canMove)
         {
-            Movement();
+            rb.MovePosition(transform.position + new Vector3(axis0X, 0, axis0Z) * speedMove * Time.deltaTime);
+            //transform.Translate(new Vector3(axis0X, 0, axis0Z) * speedMove * Time.deltaTime, Space.World);    // Doesn't have collisions
+            //Movement();
         }
         if (canLookOrAim)
         {
@@ -64,7 +70,7 @@ public class InputController3D : MonoBehaviour
                 RotationController();
             }
         }        
-    }
+    }    
 
     public void SetAxis(float newMoveX, float newMoveZ, float newLookX, float newLookZ)
     {
@@ -76,26 +82,35 @@ public class InputController3D : MonoBehaviour
 
     void Movement()
     {
-        if (!isControlled)
+        if (useCharacterController)
         {
-            directionMove.y -= forceGravity * Time.deltaTime;
-            controllerCurrent.Move(directionMove * Time.deltaTime);
-            return;
-        }
-
-        if (controllerCurrent.isGrounded)
-        {
-            directionMove = new Vector3(axis0X, 0, axis0Z).normalized;
-            if (useFirstPerson)
+            if (!isControlled)
             {
-                directionMove = transform.TransformDirection(directionMove);
-            }            
-            directionMove *= speedMove;
+                directionMove.y -= forceGravity * Time.deltaTime;
+                controllerCurrent.Move(directionMove * Time.deltaTime);
+                return;
+            }
+
+            if (controllerCurrent.isGrounded)
+            {
+                directionMove = new Vector3(axis0X, 0, axis0Z).normalized;
+                if (useFirstPerson)
+                {
+                    directionMove = transform.TransformDirection(directionMove);
+                }
+                directionMove *= speedMove;
+            }
+
+            directionMove.y -= forceGravity * Time.deltaTime;
+
+            controllerCurrent.Move(directionMove * Time.deltaTime);
         }
-
-        directionMove.y -= forceGravity * Time.deltaTime;
-
-        controllerCurrent.Move(directionMove * Time.deltaTime);
+        else
+        {
+            //directionMove = new Vector3(axis0X, 0, axis0Z).normalized * speedMove;
+            //rb.MovePosition(transform.position + directionMove * Time.deltaTime);
+            //rb.velocity = directionMove * Time.fixedDeltaTime;
+        }
     }
 
     void RotationCamera()   // FPS
@@ -128,7 +143,7 @@ public class InputController3D : MonoBehaviour
 
         if (lookBehind)
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(-axis0X, 0f, -axis0Z).normalized), lookLerpSpeed);
+            //.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(-axis0X, 0f, -axis0Z).normalized), lookLerpSpeed);
         }
         else
         {
@@ -136,7 +151,8 @@ public class InputController3D : MonoBehaviour
             {
                 if (!Mathf.Approximately(axis0X + axis0Z, 0f))
                 {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(axis0X, 0f, axis0Z).normalized), lookLerpSpeed);
+                    //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(axis0X, 0f, axis0Z).normalized), lookLerpSpeed);
+                    rb.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(axis0X, 0f, axis0Z).normalized), lookLerpSpeed));
                 }
             }
             else
@@ -146,7 +162,8 @@ public class InputController3D : MonoBehaviour
                     return;
                 }
                 float angleY = Mathf.Atan2(axis1X, axis1Z) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, angleY, 0f), lookLerpSpeed);
+                //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, angleY, 0f), lookLerpSpeed);
+                rb.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, angleY, 0f), lookLerpSpeed));
             }
         }
     }

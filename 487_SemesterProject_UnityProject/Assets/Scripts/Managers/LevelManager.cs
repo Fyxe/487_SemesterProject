@@ -163,41 +163,5 @@ public class LevelManager : Singleton<LevelManager>
         }
         return null;
     }
-
-    public ControllerMultiPlayer GetClosestPlayer(Transform fromHere)
-    {
-        ControllerMultiPlayer returnPlayer = null;
-        float dist = float.MaxValue;
-
-        foreach (var i in allControllers)
-        {
-            float newDist = Vector3.Distance(fromHere.position, i.transform.position);
-            if (newDist < dist)
-            {
-                dist = newDist;
-                returnPlayer = i;
-            }
-        }
-
-        return returnPlayer;
-    }
-
-    public ControllerMultiPlayer GetClosestPlayer(Vector3 fromHere)
-    {
-        ControllerMultiPlayer returnPlayer = null;
-        float dist = float.MaxValue;
-
-        foreach (var i in allControllers)
-        {
-            float newDist = Vector3.Distance(fromHere, i.transform.position);
-            if (newDist < dist)
-            {
-                dist = newDist;
-                returnPlayer = i;
-            }
-        }
-
-        return returnPlayer;
-    }
 }
 

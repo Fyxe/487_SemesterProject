@@ -1093,6 +1093,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e92d7f33adedee345bbedf57972bbf76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWaitingToBeDestroyed: 0
+  pool:
+    objectPrefab: {fileID: 0}
+    deactivatedObjects: []
   blockAllDamage: 0
   blockAllHealing: 0
   hpMax: 0
@@ -1109,6 +1113,7 @@ MonoBehaviour:
   delayThrowWeapon: 0.1
   delayInteract: 0.1
   delayAttack: 0
+  delayAttackAlternate: 0
   delayDisplayInformation: 0
   delayThrowPoints: 0.1
   positionThrow: {fileID: 4135792882655244}
@@ -1375,7 +1380,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
+  m_SlopeLimit: 10
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001

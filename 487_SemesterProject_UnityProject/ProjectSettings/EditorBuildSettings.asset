@@ -17,7 +17,3 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Shop.unity
     guid: 1de3fb92cab70f44ea36db98cb49f9bb
-  - enabled: 1
-    path: Assets/Scenes/testing_AI.unity
-    guid: cc4a82370bcda074483e917aa573f51e
-  m_configObjects: {}

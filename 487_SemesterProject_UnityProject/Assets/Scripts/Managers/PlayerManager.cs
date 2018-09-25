@@ -51,7 +51,7 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
         //        print("joystick 1 button " + i);
         //    }
         //}
-        if (SceneManager.GetActiveScene().name == "InLevel" || SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name.Contains("testing"))
+        if (SceneManager.GetActiveScene().name == "InLevel" || SceneManager.GetActiveScene().name == "Shop")
         {
             for (int i = 1; i <= 8; i++)
             {
@@ -66,7 +66,6 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
 
     void AttemptSpawnPlayer(int indexJoystick)
     {
-        Debug.Log(indexJoystick);
         foreach(var i in allPlayerAttributes)
         {
             if (i.indexJoystick == indexJoystick && i.isSpawned)
@@ -93,7 +92,8 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
                 {
                     Debug.Log("Player P" + i.indexPlayer + " spawned in Shop.");
                     ShopManager.instance.SpawnPlayer(i);
-                }                
+                }
+                
                 
                 
                 return;

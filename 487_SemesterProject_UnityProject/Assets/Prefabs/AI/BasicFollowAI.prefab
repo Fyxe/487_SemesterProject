@@ -188,7 +188,7 @@ MonoBehaviour:
   pointsOnHit: 0
   pointsOnDeath: 10
   delayAttack: 1
-  stateCurrent: {fileID: 11400000, guid: f44cf2f4911daf74faab661d9fe5bf2e, type: 2}
+  stateCurrent: {fileID: 11400000, guid: 236b58a889926734d90443d47d88ade4, type: 2}
   timeElapsedInState: 0
   target: {fileID: 0}
   agent: {fileID: 195013324590690414}

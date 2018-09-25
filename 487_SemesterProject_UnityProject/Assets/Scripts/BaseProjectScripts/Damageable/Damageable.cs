@@ -7,10 +7,15 @@ public class Damageable : PooledObject
 
     [Header("Damageable Settings")]
     public bool blockAllDamage;
-    public bool blockAllHealing;
-    [Space]
-    public int hpMax;
-    public int hpCurrent;
+    public bool blockAllHealing;    
+    public virtual int hpMax
+    {
+        get; set;
+    }
+    public virtual int hpCurrent
+    {
+        get; set;
+    }
     [Space]
     public bool isDead = false;
     [Space]

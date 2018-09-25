@@ -6,6 +6,30 @@ using UnityEngine;
 public class ControllerMultiPlayer : Damageable
 {
 
+    public override int hpCurrent
+    {
+        get
+        {
+            return attributes.hpCurrent;
+        }
+        set
+        {
+            attributes.hpCurrent = value;
+        }
+    }
+
+    public override int hpMax
+    {
+        get
+        {
+            return attributes.hpMax;
+        }
+        set
+        {
+            attributes.hpMax = value;
+        }
+    }
+
     [Header("Settings")]   
     public bool invertAxis1Z = false;
     public float reviveRadius = 2f;
@@ -174,7 +198,7 @@ public class ControllerMultiPlayer : Damageable
     bool triggerInUseLeft = false;
 
     void Awake()
-    {
+    {        
         controller = GetComponent<InputController3D>();      
         anim = GetComponentInChildren<Animator>();
     }
@@ -184,12 +208,7 @@ public class ControllerMultiPlayer : Damageable
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            Ray r = new Ray(transform.position, Vector3.down);
-            RaycastHit h;
-            if (Physics.Raycast(r,out h))
-            {
-                Debug.Log(h.collider.name + " : " + h.transform.root.name);
-            }
+            Hurt(1);
         }
 
         if (state != PlayerState.alive)
@@ -315,7 +334,9 @@ public class ControllerMultiPlayer : Damageable
             Material newMaterial = new Material(i.material);
             newMaterial.color = newAttributes.colorPlayer;
             i.material = newMaterial;
-        }        
+        }
+
+        ui.imageHealthBar.color = newAttributes.colorPlayer;
 
         ui.Set(PlayerUIBox.BoxSetting.alive);
 

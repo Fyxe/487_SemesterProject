@@ -58,7 +58,7 @@ public class ConnectionPoint : MonoBehaviour
         }
         else if (attachedTo == null && LevelGenerationManager.instance.spawnAtUnconnected)
         {
-            GameObject spawnedPrefabObject = Instantiate(prefabSpawnInConnected.GetRandomValue());
+            GameObject spawnedPrefabObject = Instantiate(prefabSpawnInNotConnected.GetRandomValue());
             spawnedPrefabObject.transform.position = transform.position;
             spawnedPrefabObject.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
 

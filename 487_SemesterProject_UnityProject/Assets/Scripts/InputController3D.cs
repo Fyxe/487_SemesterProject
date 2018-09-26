@@ -113,6 +113,8 @@ public class InputController3D : MonoBehaviour
             }
             directionMove *= speedMove * Time.deltaTime;
 
+            // TODO clamp the movement positions here to create gauntlet moving effect
+
             rb.MovePosition(transform.position + directionMove);
             //transform.Translate(new Vector3(axis0X, 0, axis0Z) * speedMove * Time.deltaTime, Space.World);    // Doesn't have collisions
 

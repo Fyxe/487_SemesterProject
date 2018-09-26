@@ -389,7 +389,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1704393716786864}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -7.5}
+  m_LocalPosition: {x: 0, y: 0.05, z: -7.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4240038137400404}
@@ -404,7 +404,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1109288435070798}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 0, z: 0}
+  m_LocalPosition: {x: 15, y: 0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4983172542507728}
@@ -527,7 +527,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1304145687261298}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -15, y: 0, z: 0}
+  m_LocalPosition: {x: -15, y: 0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4318373723904982}
@@ -614,7 +614,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1834771414730572}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 7.5}
+  m_LocalPosition: {x: 0, y: 0.05, z: 7.5}
   m_LocalScale: {x: 1.0000005, y: 1, z: 1.0000005}
   m_Children:
   - {fileID: 4129504926529174}
@@ -785,7 +785,8 @@ MonoBehaviour:
   transformDirection: {fileID: 4197372794034172}
   attachedTo: {fileID: 0}
   prefabSpawnInConnected: []
-  prefabSpawnInNotConnected: []
+  prefabSpawnInNotConnected:
+  - {fileID: 1874697789196624, guid: dbc5bfd8b1892f541b598601a54d9eee, type: 2}
   piece: {fileID: 114937637787073580}
 --- !u!114 &114462936901914532
 MonoBehaviour:
@@ -805,7 +806,8 @@ MonoBehaviour:
   transformDirection: {fileID: 4213541669527620}
   attachedTo: {fileID: 0}
   prefabSpawnInConnected: []
-  prefabSpawnInNotConnected: []
+  prefabSpawnInNotConnected:
+  - {fileID: 1127741987879570, guid: 1ebd76c3e704e874d9b037c2fb6ed85c, type: 2}
   piece: {fileID: 114937637787073580}
 --- !u!114 &114612622826855516
 MonoBehaviour:
@@ -839,7 +841,8 @@ MonoBehaviour:
   transformDirection: {fileID: 4045382541148746}
   attachedTo: {fileID: 0}
   prefabSpawnInConnected: []
-  prefabSpawnInNotConnected: []
+  prefabSpawnInNotConnected:
+  - {fileID: 1874697789196624, guid: dbc5bfd8b1892f541b598601a54d9eee, type: 2}
   piece: {fileID: 114937637787073580}
 --- !u!114 &114875276989376116
 MonoBehaviour:
@@ -870,7 +873,8 @@ MonoBehaviour:
   transformDirection: {fileID: 4779699321592972}
   attachedTo: {fileID: 0}
   prefabSpawnInConnected: []
-  prefabSpawnInNotConnected: []
+  prefabSpawnInNotConnected:
+  - {fileID: 1127741987879570, guid: 1ebd76c3e704e874d9b037c2fb6ed85c, type: 2}
   piece: {fileID: 114937637787073580}
 --- !u!114 &114937637787073580
 MonoBehaviour:
@@ -886,6 +890,7 @@ MonoBehaviour:
   isStartPiece: 0
   levelColliders:
   - {fileID: 65134802509548992}
+  spawnColliders: []
   connectionPoints:
   - {fileID: 114462936901914532}
   - {fileID: 114887181599357874}
@@ -904,3 +909,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28c4b760b8b348b4b8b852a0a5610e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_playersInPiece: []

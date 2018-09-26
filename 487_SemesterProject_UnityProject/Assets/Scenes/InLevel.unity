@@ -217,8 +217,8 @@ MonoBehaviour:
   type: 2
   combinationSkew: 0.8
   spawnAtConnected: 0
-  spawnAtUnconnected: 0
-  useWidthMatching: 0
+  spawnAtUnconnected: 1
+  useWidthMatching: 1
   maxWidthDifference: 0.05
   useConnectionTypes: 0
   countToSpawnMin: 20
@@ -13245,7 +13245,7 @@ MonoBehaviour:
   - {fileID: 581453070}
   - {fileID: 560461438}
   allowPlayerSpawns: 1
-  timeStaleFull: 5
+  timeStaleFull: 120
   currentStaleness: 0
   distanceFromPlayersToSpawn: 2
   spawnInPiecesPlayersAreIn: 1

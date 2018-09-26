@@ -506,7 +506,7 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextThrowWeapon)
         {
             nextThrowWeapon = Time.time + delayThrowWeapon;
-            if (weaponCurrent != null && PlayerManager.instance.prefabBaseWeapon.iDWeapon != weaponCurrent.iDWeapon)
+            if (weaponCurrent != null && PlayerManager.instance.prefabBaseWeapon.weaponID != weaponCurrent.weaponID)
             {
                 Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " threw their weapon.");
                 if (anim != null)

@@ -1,52 +1,22 @@
-﻿using System.Linq;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-[RequireComponent(typeof(Rigidbody))]
-public class Weapon : Interactable
+
+public class Ability : Interactable
 {
-    public class CachedRenderer
-    {
-        public Renderer renderer;
-        List<Material> materials = new List<Material>();
 
-        public CachedRenderer(Renderer newRenderer)
-        {
-            renderer = newRenderer;
-            materials = renderer.materials.ToList();
-        }
-
-        public void SetMaterial(Material material)
-        {
-            renderer.materials = new Material[1] { material };
-        }
-
-        public void ResetMaterials()
-        {
-            renderer.materials = materials.ToArray();
-        }
-    }
-
-
-    [Header("Weapon Settings")]
-    public int weaponID = -1;
-    public string weaponName = "?";
-    public string weaponDescription = "?";
-    public Rarity rarity = Rarity.common;
+    [Header("Ability Settings")]
+    public int abilityID = -1;
+    public string abilityName = "?";
+    public string abilityDescription = "?";
+    public Rarity rarity = Rarity.common;    
     [Space]
-    public int damage = 1;
     public float delayAttack = 1f;
     float nextAttack = 0f;
     public float delayAttackAlternate = 1f;
     float nextAttackAlternate = 0f;
-    public float speedAttack = 1f;
-    public float rangeAttack = 2f;
-    public int clipCurrent = 10;
-    public int clipMax = 10;
-    public float timeReload = 2f;
-    public bool isReloading = false;
+
     bool isHeld = false;
     GameObject m_currentPlayer;
     public GameObject currentPlayer
@@ -74,7 +44,7 @@ public class Weapon : Interactable
 
     public Rigidbody currentPlayerRB;
 
-    List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
+    List<Weapon.CachedRenderer> cachedRenderers = new List<Weapon.CachedRenderer>();
 
     [HideInInspector]
     public Rigidbody rb;
@@ -88,7 +58,7 @@ public class Weapon : Interactable
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
         foreach (var i in renderers)
         {
-            cachedRenderers.Add(new CachedRenderer(i));
+            cachedRenderers.Add(new Weapon.CachedRenderer(i));
         }
         detectorHighlight = GetComponentInChildren<WeaponDetectorHighlight>();
         detectorInformation = GetComponentInChildren<WeaponDetectorInformation>();
@@ -109,16 +79,11 @@ public class Weapon : Interactable
 
     public virtual bool AttemptAttack()
     {
-        if (!isReloading && Time.time > nextAttack)
+        if (Time.time > nextAttack)
         {
             nextAttack = Time.time + delayAttack;
             Attack();
-
-            clipCurrent--;
-            if (clipCurrent == 0)
-            {
-                StartCoroutine(Reload());
-            }
+            
             return true;
         }
         return false;
@@ -131,16 +96,11 @@ public class Weapon : Interactable
 
     public virtual bool AttemptAttackAlternate()
     {
-        if (!isReloading && Time.time > nextAttack)
+        if (Time.time > nextAttack)
         {
             nextAttack = Time.time + delayAttack;
             AttackAlternate();
-
-            clipCurrent--;
-            if (clipCurrent == 0)
-            {
-                StartCoroutine(Reload());
-            }
+            
             return true;
         }
         return false;
@@ -149,16 +109,6 @@ public class Weapon : Interactable
     protected virtual void AttackAlternate()
     {
 
-    }
-
-    protected virtual IEnumerator Reload()
-    {
-        isReloading = true;
-        yield return new WaitForSeconds(timeReload);
-
-        clipCurrent = clipMax;
-
-        isReloading = false;
     }
 
     public void EnableHighlight()

@@ -2115,10 +2115,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1dd394f1f18d6c41aa6ec51ff7624f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponID: -1
   weaponName: '?'
   weaponDescription: '?'
   rarity: 5
-  iDWeapon: -1
   damage: 1
   delayAttack: 0.05
   delayAttackAlternate: 1
@@ -4908,10 +4908,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1dd394f1f18d6c41aa6ec51ff7624f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponID: -1
   weaponName: '?'
   weaponDescription: '?'
   rarity: 4
-  iDWeapon: -1
   damage: 1
   delayAttack: 0.5
   delayAttackAlternate: 1
@@ -9375,10 +9375,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1dd394f1f18d6c41aa6ec51ff7624f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponID: -1
   weaponName: '?'
   weaponDescription: '?'
   rarity: 3
-  iDWeapon: -1
   damage: 1
   delayAttack: 1.5
   delayAttackAlternate: 1
@@ -11436,10 +11436,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1dd394f1f18d6c41aa6ec51ff7624f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponID: -1
   weaponName: '?'
   weaponDescription: '?'
   rarity: 0
-  iDWeapon: -1
   damage: 1
   delayAttack: 1
   delayAttackAlternate: 1

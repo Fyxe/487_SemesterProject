@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class ScreenAnimate : Screen
+    public class ScreenAnimate : ScreenBase
     {
 
         Animator anim;

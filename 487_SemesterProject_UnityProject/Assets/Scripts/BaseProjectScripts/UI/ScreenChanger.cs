@@ -6,29 +6,29 @@ namespace UI
 {
     public class ScreenChanger : MonoBehaviour
     {
-        Screen currentScreen;
+        ScreenBase currentScreen;
 
         [Header("Screen Changer Settings")]
         public bool waitForOtherTransitions = true;
 
         void Awake()
         {
-            currentScreen = GetComponentInParent<Screen>();
+            currentScreen = GetComponentInParent<ScreenBase>();
         }
 
-        public void CallbackScreenSet(Screen toChangeTo)
+        public void CallbackScreenSet(ScreenBase toChangeTo)
         {
             ScreenManager.instance.ScreenSet(toChangeTo, false, waitForOtherTransitions);
             //ScreenManager.instance.ScreenRemove(currentScreen, waitForOtherTransitions);
             //ScreenManager.instance.ScreenAdd(toChangeTo, waitForOtherTransitions);
         }
 
-        public void CallbackScreenAdd(Screen toAdd)
+        public void CallbackScreenAdd(ScreenBase toAdd)
         {
             ScreenManager.instance.ScreenAdd(toAdd, waitForOtherTransitions);
         }
 
-        public void CallbackScreenRemove(Screen toRemove)
+        public void CallbackScreenRemove(ScreenBase toRemove)
         {
             ScreenManager.instance.ScreenRemove(toRemove, waitForOtherTransitions);
         }

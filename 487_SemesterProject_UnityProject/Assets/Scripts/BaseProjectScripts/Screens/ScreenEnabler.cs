@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class ScreenEnabler : Screen
+    public class ScreenEnabler : ScreenBase
     {
         [Header("Screen Enabler Settings")]
         public bool beginningActiveState = false;

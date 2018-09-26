@@ -21,28 +21,28 @@ namespace UI
         }
 
         [Header("References")]
-        public List<Screen> currentlyDisplayedScreens = new List<Screen>();
-        public Screen debugStartOnThisScreen;
+        public List<ScreenBase> currentlyDisplayedScreens = new List<ScreenBase>();
+        public ScreenBase debugStartOnThisScreen;
 
         void Start()
         {
             ScreenAdd(debugStartOnThisScreen, false);
         }
 
-        public void Setup(Screen initialSetupScreen)
+        public void Setup(ScreenBase initialSetupScreen)
         {
 
         }
 
-        public void ScreenSet(Screen toSet, bool useDelay, bool waitForOtherTransitions)
+        public void ScreenSet(ScreenBase toSet, bool useDelay, bool waitForOtherTransitions)
         {
             ScreenRemoveAll(useDelay,waitForOtherTransitions);
             ScreenAdd(toSet,waitForOtherTransitions);
         }
 
-        public void ScreenAdd(Screen toAdd, bool waitForOtherTransitions)
+        public void ScreenAdd(ScreenBase toAdd, bool waitForOtherTransitions)
         {
-            StartCoroutine(ScreenChangeCoroutine(new List<Screen> { toAdd }, false, waitForOtherTransitions, true));
+            StartCoroutine(ScreenChangeCoroutine(new List<ScreenBase> { toAdd }, false, waitForOtherTransitions, true));
         }
 
         public void ScreenRemoveAll(bool useDelay, bool waitForOtherTransitions)
@@ -50,26 +50,26 @@ namespace UI
             ScreenMultipleRemove(currentlyDisplayedScreens, useDelay, waitForOtherTransitions);
         }
 
-        public void ScreenRemove(Screen toRemove, bool waitForOtherTransitions)
+        public void ScreenRemove(ScreenBase toRemove, bool waitForOtherTransitions)
         {
-            StartCoroutine(ScreenChangeCoroutine(new List<Screen> { toRemove }, false, waitForOtherTransitions, false));
+            StartCoroutine(ScreenChangeCoroutine(new List<ScreenBase> { toRemove }, false, waitForOtherTransitions, false));
         }
 
-        public void ScreenMultipleAdd(List<Screen> toAdd, bool useDelay, bool waitForOtherTransitions)
+        public void ScreenMultipleAdd(List<ScreenBase> toAdd, bool useDelay, bool waitForOtherTransitions)
         {
             StartCoroutine(ScreenChangeCoroutine(toAdd, useDelay, waitForOtherTransitions, true));
         }
 
-        public void ScreenMultipleRemove(List<Screen> toRemove, bool useDelay, bool waitForOtherTransitions)
+        public void ScreenMultipleRemove(List<ScreenBase> toRemove, bool useDelay, bool waitForOtherTransitions)
         {
             StartCoroutine(ScreenChangeCoroutine(toRemove, useDelay, waitForOtherTransitions, false));
         }
 
-        IEnumerator ScreenChangeCoroutine(List<Screen> toChange, bool useDelay, bool waitForOtherTransitions, bool isAdding)
+        IEnumerator ScreenChangeCoroutine(List<ScreenBase> toChange, bool useDelay, bool waitForOtherTransitions, bool isAdding)
         {
-            List<Screen> screensToTransition = toChange.ToList();
+            List<ScreenBase> screensToTransition = toChange.ToList();
 
-            foreach (Screen i in screensToTransition)
+            foreach (ScreenBase i in screensToTransition)
             {
                 if (i == null)
                 {

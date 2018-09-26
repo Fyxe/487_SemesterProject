@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 195013324590690414}
   - component: {fileID: 114473578030747148}
   - component: {fileID: 54227617970055526}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BasicFollowAI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33169463683555924}
   - component: {fileID: 23592542877430384}
   - component: {fileID: 136139974267727548}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4894905936855716}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,8 +177,6 @@ MonoBehaviour:
     deactivatedObjects: []
   blockAllDamage: 0
   blockAllHealing: 0
-  hpMax: 0
-  hpCurrent: 0
   isDead: 0
   team: 0
   damage: 1
@@ -188,7 +186,7 @@ MonoBehaviour:
   pointsOnHit: 0
   pointsOnDeath: 10
   delayAttack: 1
-  stateCurrent: {fileID: 11400000, guid: 236b58a889926734d90443d47d88ade4, type: 2}
+  stateCurrent: {fileID: 11400000, guid: f9bfbb14b0b4469479dea63ad7f215e0, type: 2}
   timeElapsedInState: 0
   target: {fileID: 0}
   agent: {fileID: 195013324590690414}

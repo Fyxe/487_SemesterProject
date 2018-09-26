@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class AI : Damageable
 {
     [Header("Enemy Settings")]
+    public int aiID = -1;
     public int damage = 1;
     public float speedMove = 3f;
     public float radiusPlayerDetection = 3f;
@@ -28,18 +29,28 @@ public class AI : Damageable
 
     void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();   
+        agent = GetComponent<NavMeshAgent>();
+        timeElapsedInState = 0;
     }
 
     void Update()
     {
-        timeElapsedInState += Time.deltaTime;
-        stateCurrent.UpdateState(this);
+        if (LevelManager.instance.isPlaying)
+        {
+            timeElapsedInState += Time.deltaTime;
+            stateCurrent.UpdateState(this);
+        }
+        else
+        {
+            agent.enabled = false;
+        }
     }
 
     public bool CheckIfCountDownElapsed(float duration)
     {
-        return (timeElapsedInState >= duration);
+        bool retBool = (timeElapsedInState >= duration);
+        //Debug.Log(timeElapsedInState + " : " + duration);
+        return retBool;
     }
 
     void OnExitState()
@@ -135,6 +146,7 @@ public class AI : Damageable
         {
             (GameLevelManager.instance as GameLevelManager).allAI[pool.objectPrefab as AI].Remove(this);
         }
+        DestroyThisObject();
     }
 
 }

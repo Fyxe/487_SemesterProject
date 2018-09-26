@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03b75522efb3a9c45b62b23142b2e0de, type: 3}
-  m_Name: Follow
+  m_Name: State_Follow
   m_EditorClassIdentifier: 
   actions:
   - {fileID: 11400000, guid: 5fe0fea814872f442881f560812f0dcd, type: 2}

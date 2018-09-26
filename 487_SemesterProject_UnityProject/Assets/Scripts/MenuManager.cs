@@ -9,4 +9,9 @@ public class MenuManager : MonoBehaviour
     {
         GameplayManager.instance.StartGame();
     }
+
+    public void CallbackQuitGame()
+    {
+        GameManager.instance.Quit();
+    }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
+using UI;
 
 public class GameLevelManager : LevelManager
 {
@@ -20,6 +21,7 @@ public class GameLevelManager : LevelManager
     float nextSpawn = 0f;
 
     [Header("References")]
+    public ScreenBase screenEnd;
     public AI prefabEnemyBasic;
 
     LevelGenerationManager generator;
@@ -57,6 +59,31 @@ public class GameLevelManager : LevelManager
                 SpawnEnemy(prefabEnemyBasic, PositionToSpawn.ALL);
             }
         }
+    }
+
+    public override void EndLevel(bool isVictory)
+    {
+        isPlaying = false;
+        if (isVictory)
+        {
+            //UpdatePlayerInformation();
+            ProgressionManager.instance.currentScore += ProgressionManager.instance.scoreOnLevelCompletion;
+            GameplayManager.instance.GoToNextLevel();
+        }
+        else
+        {
+            ScreenManager.instance.ScreenSet(screenEnd,false,false);
+            // TODO kill all players
+            foreach (var i in allControllers)
+            {
+                i.HurtToDeath();
+            }
+        }
+    }
+
+    public void CallbackEndGame()
+    {
+        GameplayManager.instance.EndGame();
     }
 
     protected override void OnFocused()

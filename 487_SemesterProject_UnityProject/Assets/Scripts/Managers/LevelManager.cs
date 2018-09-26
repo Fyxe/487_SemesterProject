@@ -142,6 +142,10 @@ public class LevelManager : Singleton<LevelManager>
 
     public void CheckIfAllPlayersAreDead()
     {
+        if (!isPlaying)
+        {
+            return;
+        }
         foreach (var i in allControllers)
         {
             if (!i.isDead)

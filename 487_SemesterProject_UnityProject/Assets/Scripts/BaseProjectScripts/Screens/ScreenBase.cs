@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class Screen : MonoBehaviour
+    public class ScreenBase : MonoBehaviour
     {
         //[Header("Settings")]
 

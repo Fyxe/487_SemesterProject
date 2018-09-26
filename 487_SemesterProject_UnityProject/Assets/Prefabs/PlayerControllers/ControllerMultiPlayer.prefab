@@ -1176,7 +1176,7 @@ MonoBehaviour:
   useCharacterController: 0
   isControlled: 1
   useFirstPerson: 0
-  lookLerpSpeed: 0.35
+  lookLerpSpeed: 100
   canMove: 1
   canLookOrAim: 1
   delayResetAim: 1.5

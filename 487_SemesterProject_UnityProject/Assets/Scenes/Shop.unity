@@ -2117,7 +2117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: '?'
   weaponDescription: '?'
-  rarity: 0
+  rarity: 5
   iDWeapon: -1
   damage: 1
   delayAttack: 0.05
@@ -4910,7 +4910,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: '?'
   weaponDescription: '?'
-  rarity: 0
+  rarity: 4
   iDWeapon: -1
   damage: 1
   delayAttack: 0.5
@@ -9382,7 +9382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: '?'
   weaponDescription: '?'
-  rarity: 0
+  rarity: 3
   iDWeapon: -1
   damage: 1
   delayAttack: 1.5

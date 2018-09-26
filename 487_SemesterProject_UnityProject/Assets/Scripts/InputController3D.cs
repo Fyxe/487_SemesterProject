@@ -40,6 +40,7 @@ public class InputController3D : MonoBehaviour
     public bool lookBehind = false;
 
     Vector3 directionMove = Vector3.zero;
+    Vector3 directionOppositeMove = Vector3.zero;
 
     Rigidbody rb;
     CharacterController controllerCurrent;
@@ -55,9 +56,7 @@ public class InputController3D : MonoBehaviour
     {
         if (canMove)
         {
-            rb.MovePosition(transform.position + new Vector3(axis0X, 0, axis0Z) * speedMove * Time.deltaTime);
-            //transform.Translate(new Vector3(axis0X, 0, axis0Z) * speedMove * Time.deltaTime, Space.World);    // Doesn't have collisions
-            //Movement();
+            Movement();
         }
         if (canLookOrAim)
         {
@@ -70,7 +69,7 @@ public class InputController3D : MonoBehaviour
                 RotationController();
             }
         }        
-    }    
+    }
 
     public void SetAxis(float newMoveX, float newMoveZ, float newLookX, float newLookZ)
     {
@@ -86,8 +85,8 @@ public class InputController3D : MonoBehaviour
         {
             if (!isControlled)
             {
-                directionMove.y -= forceGravity * Time.deltaTime;
-                controllerCurrent.Move(directionMove * Time.deltaTime);
+                //directionMove.y -= forceGravity * Time.deltaTime;
+                //controllerCurrent.Move(directionMove * Time.deltaTime);
                 return;
             }
 
@@ -107,9 +106,17 @@ public class InputController3D : MonoBehaviour
         }
         else
         {
+            directionMove = new Vector3(axis0X, 0, axis0Z);
+            if (directionMove.magnitude > 1f)
+            {
+                directionMove.Normalize();
+            }
+            directionMove *= speedMove * Time.deltaTime;
+
+            rb.MovePosition(transform.position + directionMove);
+            //transform.Translate(new Vector3(axis0X, 0, axis0Z) * speedMove * Time.deltaTime, Space.World);    // Doesn't have collisions
+
             //directionMove = new Vector3(axis0X, 0, axis0Z).normalized * speedMove;
-            //rb.MovePosition(transform.position + directionMove * Time.deltaTime);
-            //rb.velocity = directionMove * Time.fixedDeltaTime;
         }
     }
 
@@ -144,6 +151,12 @@ public class InputController3D : MonoBehaviour
         if (lookBehind)
         {
             //.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(-axis0X, 0f, -axis0Z).normalized), lookLerpSpeed);
+            directionOppositeMove = new Vector3(-axis0X, 0, -axis0Z);
+            if (directionOppositeMove.magnitude > 1f)
+            {
+                directionOppositeMove.Normalize();
+            }
+            rb.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(directionOppositeMove), lookLerpSpeed * Time.deltaTime));
         }
         else
         {
@@ -151,8 +164,18 @@ public class InputController3D : MonoBehaviour
             {
                 if (!Mathf.Approximately(axis0X + axis0Z, 0f))
                 {
+                    directionOppositeMove = new Vector3(axis0X, 0, axis0Z);
+                    if (directionOppositeMove.magnitude > 1f)
+                    {
+                        directionOppositeMove.Normalize();
+                    }
                     //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(axis0X, 0f, axis0Z).normalized), lookLerpSpeed);
-                    rb.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(axis0X, 0f, axis0Z).normalized), lookLerpSpeed));
+
+                    //rb.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(directionOppositeMove), lookLerpSpeed));
+                    
+                    float angleY = Mathf.Atan2(axis0X, axis0Z) * Mathf.Rad2Deg;
+                    //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, angleY, 0f), lookLerpSpeed);
+                    rb.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, angleY, 0f), lookLerpSpeed * Time.deltaTime));
                 }
             }
             else
@@ -163,7 +186,7 @@ public class InputController3D : MonoBehaviour
                 }
                 float angleY = Mathf.Atan2(axis1X, axis1Z) * Mathf.Rad2Deg;
                 //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, angleY, 0f), lookLerpSpeed);
-                rb.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, angleY, 0f), lookLerpSpeed));
+                rb.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, angleY, 0f), lookLerpSpeed * Time.deltaTime));
             }
         }
     }

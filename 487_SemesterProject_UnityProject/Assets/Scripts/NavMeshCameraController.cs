@@ -8,6 +8,7 @@ public class NavMeshCameraController : MonoBehaviour
 
     [Header("Settings")]
     public float speedLerp = 0.1f;
+    public float samplePositionDistance = 10f;
     public float cameraHeightMin = 10;
     public float cameraHeightMax = 20;
 
@@ -29,7 +30,7 @@ public class NavMeshCameraController : MonoBehaviour
         Vector3 centralPoint = GetCentralPoint();
         NavMeshHit h = new NavMeshHit ();
         int mask = 1 << NavMesh.GetAreaFromName("CameraWalkable");
-        NavMesh.SamplePosition(centralPoint, out h, 4f, mask);
+        NavMesh.SamplePosition(centralPoint, out h, samplePositionDistance, mask);
 
         Debug.DrawLine(centralPoint, centralPoint + Vector3.up, Color.yellow);
 

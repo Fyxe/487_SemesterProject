@@ -54,7 +54,13 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                 break;
         }
         if (placedPieces != null && placedPieces.Count > 0)
-        {            
+        {  
+            int nameIndex = 0;
+            foreach (var i in placedPieces)
+            {
+                i.SpawnAtConnections();
+                i.name += nameIndex++;
+            }
             foreach (var i in placedPieces)
             {
                 if (i.isStartPiece)
@@ -63,17 +69,11 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
                     i.SetFlow(0f, flowIncreaseAmount);
                     NavMeshSurface[] surfaces = i.GetComponents<NavMeshSurface>();
                     foreach (var j in surfaces)
-                    {                        
-                        j.BuildNavMesh();   // wait a frame
+                    {
+                        j.BuildNavMesh();   // TODO wait a frame
                     }
                     break;
                 }
-            }
-            int nameIndex = 0;
-            foreach (var i in placedPieces)
-            {
-                i.SpawnAtConnections();
-                i.name += nameIndex++;                
             }
         }
         else

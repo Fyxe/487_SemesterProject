@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UI;
 
 public class PlayerManager : SingletonDDOL<PlayerManager>
 {
@@ -72,7 +73,7 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
         {
             if (i.indexJoystick == indexJoystick && i.isSpawned)
             {
-                //Debug.Log("Player already spawned for joystick P" + indexJoystick);
+                LevelManager.instance.Pause();
                 return;
             }
         }

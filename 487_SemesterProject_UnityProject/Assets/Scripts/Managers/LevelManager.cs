@@ -4,12 +4,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UI;
 
 public class LevelManager : Singleton<LevelManager>
 {
 
     //[Header("Settings")]
-    public bool isPlaying = false;
+    bool isPaused = false;
+    bool m_isPlaying = false;
+    public bool isPlaying
+    {
+        get
+        {
+            if (isPaused)
+            {
+                return false;
+            }
+            else
+            {
+                return m_isPlaying;
+            }
+        }
+        set
+        {
+            m_isPlaying = value;
+        }
+    }
+    
 
     [Header("References")]
     public DropSet baseDropSetEnemy;
@@ -17,6 +38,7 @@ public class LevelManager : Singleton<LevelManager>
     public List<ControllerMultiPlayer> allControllers = new List<ControllerMultiPlayer>();
     public List<Transform> spawnPoints = new List<Transform>();
     public List<PlayerUIBox> playerUIBoxes = new List<PlayerUIBox> ();
+    public ScreenPause screenPause;
 
     //[Header("Prefabs")]
 
@@ -166,6 +188,20 @@ public class LevelManager : Singleton<LevelManager>
             }
         }
         return null;
+    }
+
+    public virtual void Pause()
+    {
+        //GameManager.instance.Pause();
+        isPaused = true;
+        ScreenManager.instance.ScreenAdd(screenPause,false);
+    }
+
+    public virtual void Resume()
+    {
+        //GameManager.instance.Resume();
+        isPaused = false;
+        ScreenManager.instance.ScreenRemove(screenPause, false);
     }
 }
 

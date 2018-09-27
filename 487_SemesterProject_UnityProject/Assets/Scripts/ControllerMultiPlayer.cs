@@ -207,12 +207,6 @@ public class ControllerMultiPlayer : Damageable
 
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            Hurt(1);
-        }
-
         if (state != PlayerState.alive)
         {            
             ui.imageReviveCount.fillAmount = Mathf.Lerp(ui.imageReviveCount.fillAmount,(float)revivesRemaining / (float)countReviveCurrent,0.2f);
@@ -300,8 +294,7 @@ public class ControllerMultiPlayer : Damageable
         }        
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 7"))
         {
-            // pause menu?
-            HurtToDeath();
+
         }
         if (Input.GetKey("joystick " + indexJoystick.ToString() + " button 8") && Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 9"))
         {

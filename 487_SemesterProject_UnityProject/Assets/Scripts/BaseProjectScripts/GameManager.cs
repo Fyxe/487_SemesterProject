@@ -8,6 +8,7 @@ public class GameManager : SingletonDDOL<GameManager>
     public GameData dataCurrent = new GameData ();
 
     public bool gameStartedCorrectly = false;
+    bool isPaused = false;
 
     protected override void Initialize()
     {
@@ -47,12 +48,25 @@ public class GameManager : SingletonDDOL<GameManager>
         }
     }
 
+    public void TogglePause()
+    {        
+        if (isPaused)
+        {
+            Resume();
+        }
+        else
+        {
+            Pause();
+        }
+    }
+
     /// <summary>
     /// Sets the time scale to zero.
     /// </summary>
     public void Pause()
     {
         Time.timeScale = 0f;
+        isPaused = true;
     }
 
     /// <summary>
@@ -61,6 +75,7 @@ public class GameManager : SingletonDDOL<GameManager>
     public void Resume()
     {
         Time.timeScale = 1f;
+        isPaused = false;
     }
 
     /// <summary>

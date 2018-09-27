@@ -568,7 +568,7 @@ public class ControllerMultiPlayer : Damageable
                     anim.SetTrigger("throwPoints");
                 }
 
-                GameObject spawnedPointsObject = Instantiate(PlayerManager.instance.prefabMoney.gameObject);
+                PooledObject spawnedPointsObject = ObjectPoolingManager.instance.CreateObject(PlayerManager.instance.prefabMoney);
                 PickupStats spawnedPoints = spawnedPointsObject.GetComponent<PickupStats>();
 
                 spawnedPoints.type = StatType.points;

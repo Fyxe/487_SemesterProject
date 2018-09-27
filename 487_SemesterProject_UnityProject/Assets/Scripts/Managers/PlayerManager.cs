@@ -85,12 +85,12 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
 
                 if (GameLevelManager.instance is GameLevelManager)
                 {
-                    Debug.Log("Player P" + i.indexPlayer + " spawned in Level.");
+                    Debug.Log("Player P" + i.indexPlayer + "J" + i.indexJoystick + " spawned in Level.");
                     GameLevelManager.instance.SpawnPlayer(i);
                 }
                 if (ShopManager.instance is ShopManager)
                 {
-                    Debug.Log("Player P" + i.indexPlayer + " spawned in Shop.");
+                    Debug.Log("Player P" + i.indexPlayer + "J" + i.indexJoystick + " spawned in Shop.");
                     ShopManager.instance.SpawnPlayer(i);
                 }
                 

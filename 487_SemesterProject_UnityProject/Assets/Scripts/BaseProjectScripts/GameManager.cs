@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonDDOL<GameManager>
 {
     public GameData dataCurrent = new GameData ();
+
+    public bool gameStartedCorrectly = false;
 
     protected override void Initialize()
     {
@@ -13,6 +16,7 @@ public class GameManager : SingletonDDOL<GameManager>
 
     void Start()
     {
+        gameStartedCorrectly = SceneManager.GetActiveScene().name == "Menu";
         if (GameManager.instance != this)
         {
             Destroy(this.gameObject);

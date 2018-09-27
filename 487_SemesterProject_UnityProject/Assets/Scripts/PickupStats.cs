@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PickupStats : PooledObject
 {
-
     [Header("Settings")]
     public StatType type = StatType.points;
     public int amount = 10;

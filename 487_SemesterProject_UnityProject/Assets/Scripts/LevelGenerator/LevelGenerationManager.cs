@@ -28,7 +28,21 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     [Header("References")]
     public Transform startPosition;
     // TODO make these into dropsets
-    public List<LevelPiece> piecesGeneral = new List<LevelPiece>();
+    [SerializeField] List<LevelPiece> m_piecesGeneral = new List<LevelPiece>();
+    public List<LevelPiece> piecesGeneral
+    {
+        get
+        {
+            if (GameManager.instance.gameStartedCorrectly)
+            {
+                return ProgressionManager.instance.allUnlockedLevelPiecesGeneral;
+            }
+            else
+            {
+                return m_piecesGeneral;
+            }
+        }
+    }
     public List<LevelPiece> piecesSpecial = new List<LevelPiece>();
     public List<LevelPiece> piecesStart = new List<LevelPiece>();
     public List<LevelPiece> piecesEnd = new List<LevelPiece>();

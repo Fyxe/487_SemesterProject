@@ -16,13 +16,14 @@ public class ShopManager : LevelManager
         base.OnFocused();
         foreach (var i in locationsPositions)
         {
-            if (Random.Range(0f,1f) < chanceOfSpawningLocaion)
+            if (chanceOfSpawningLocaion == 1f || Random.Range(0f,1f) < chanceOfSpawningLocaion)
             {
                 GameObject spawnedLocationObject = Instantiate(locations.GetDrop());
                 spawnedLocationObject.transform.position = i.position;
                 spawnedLocationObject.transform.rotation = i.rotation;
             }
         }
+        StartLevel();
     }
 
     public override void EndLevel(bool isVictory)

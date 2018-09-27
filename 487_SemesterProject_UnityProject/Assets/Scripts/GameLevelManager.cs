@@ -14,6 +14,7 @@ public class GameLevelManager : LevelManager
     public float currentStaleness = 0f;
     public int distanceFromPlayersToSpawn = 2;
     public bool spawnInPiecesPlayersAreIn = true;
+    public float endWaitDelay = 2f;
 
     [Header("Spawn Settings")]
     public int setEnemies = 20;
@@ -65,20 +66,25 @@ public class GameLevelManager : LevelManager
     {
         isPlaying = false;
         if (isVictory)
-        {
-            //UpdatePlayerInformation();
+        {            
             ProgressionManager.instance.scoreCurrentInLevel += ProgressionManager.instance.scoreOnLevelCompletion;
             GameplayManager.instance.GoToNextLevel();
         }
         else
         {
-            ScreenManager.instance.ScreenSet(screenEnd,false,false);
-            // TODO kill all players
-            foreach (var i in allControllers)
-            {
-                i.HurtToDeath();
-            }
+            StartCoroutine(EndWait());
         }
+    }
+
+    IEnumerator EndWait()
+    {
+        foreach (var i in allControllers)
+        {
+            i.HurtToDeath();
+        }
+
+        yield return new WaitForSeconds(endWaitDelay);
+        ScreenManager.instance.ScreenSet(screenEnd, false, false);
     }
 
     public void CallbackEndGame()
@@ -90,8 +96,11 @@ public class GameLevelManager : LevelManager
     {        
         if (generator != null)
         {
-            generator.countToSpawnMax = GameplayManager.instance.piecesMaxCurrent;
-            generator.countToSpawnMin = GameplayManager.instance.piecesMinCurrent;
+            if (GameManager.instance.gameStartedCorrectly)
+            {
+                generator.countToSpawnMax = GameplayManager.instance.piecesMaxCurrent;
+                generator.countToSpawnMin = GameplayManager.instance.piecesMinCurrent;
+            }
             generator.GenerateLevel();
         }
         base.OnFocused();        

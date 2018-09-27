@@ -228,7 +228,7 @@ MonoBehaviour:
   specialPiecesMax: 0
   flowIncreaseAmount: 100
   startPosition: {fileID: 1664496813}
-  piecesGeneral:
+  m_piecesGeneral:
   - {fileID: 114116465298269968, guid: 349ca8f8aefcb594198f7ed903725853, type: 2}
   piecesSpecial:
   - {fileID: 114985423695476184, guid: 5fa3728662b0f244e8edfc8ab320d086, type: 2}
@@ -12448,7 +12448,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.6666667
+  m_VoxelSize: 1.1666666
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: acef16eb8d6e9d646b453502dc1b28f9, type: 2}
 --- !u!1 &1894489858

@@ -67,7 +67,7 @@ public class GameLevelManager : LevelManager
         if (isVictory)
         {
             //UpdatePlayerInformation();
-            ProgressionManager.instance.currentScore += ProgressionManager.instance.scoreOnLevelCompletion;
+            ProgressionManager.instance.scoreCurrentInLevel += ProgressionManager.instance.scoreOnLevelCompletion;
             GameplayManager.instance.GoToNextLevel();
         }
         else

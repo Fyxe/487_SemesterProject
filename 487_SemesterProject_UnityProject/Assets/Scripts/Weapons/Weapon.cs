@@ -35,6 +35,7 @@ public class Weapon : Interactable
     public string weaponName = "?";
     public string weaponDescription = "?";
     public Rarity rarity = Rarity.common;
+    public Sprite weaponSprite;
     [Space]
     public int damage = 1;
     public float delayAttack = 1f;

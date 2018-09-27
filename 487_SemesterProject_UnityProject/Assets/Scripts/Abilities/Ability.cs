@@ -10,7 +10,8 @@ public class Ability : Interactable
     public int abilityID = -1;
     public string abilityName = "?";
     public string abilityDescription = "?";
-    public Rarity rarity = Rarity.common;    
+    public Rarity rarity = Rarity.common;
+    public Sprite abilitySprite;
     [Space]
     public float delayAttack = 1f;
     float nextAttack = 0f;

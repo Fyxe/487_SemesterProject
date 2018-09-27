@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,52 +7,123 @@ public class DropManager : Singleton<DropManager>
 {
 
     [Header("References")]
-    public DropSet dropSetBase;
-    DropSet dropSetMaster;
-    List<int> dropSetsAdded = new List<int>();
+    public DropSet dropSetWeapons;
+    [HideInInspector] public DropSet dropSetWeaponsInstantiated;
+
+    public DropSet dropSetAbilities;
+    [HideInInspector] public DropSet dropSetAbilitiesInstantiated;
+
+    public DropSet dropSetAIs;
+    [HideInInspector] public DropSet dropSetAIsInstantiated;
+
+    Weapon cachedWeapon = null;
+    Ability cachedAbility = null;
+    AI cachedAI = null;
 
     void Awake()
     {
-        if (dropSetBase == null)
+        if (dropSetWeapons == null)
         {
-            Debug.LogError("There is no provided base drop set. No drops will be enabled this game.");
+            Debug.LogError("There is no provided weapon drop set.");
         }
         else
         {
-            dropSetMaster = ScriptableObject.Instantiate(dropSetBase);
-            dropSetsAdded.Add(dropSetBase.idDropSet);
+            dropSetWeaponsInstantiated = ScriptableObject.Instantiate(dropSetWeapons);            
         }
-    }
 
-    public bool AddDropSetToMaster(DropSet toAdd)
-    {
-        if (dropSetsAdded.Contains(toAdd.idDropSet))
+        if (dropSetAbilities == null)
         {
-            return false;
+            Debug.LogError("There is no provided Ability drop set.");
         }
         else
         {
-            dropSetMaster.allDrops.AddRange(toAdd.allDrops);
-            dropSetsAdded.Add(toAdd.idDropSet);
-            return true;
-        }        
+            dropSetAbilitiesInstantiated = ScriptableObject.Instantiate(dropSetAbilities);
+        }
+
+        if (dropSetAIs == null)
+        {
+            Debug.LogError("There is no provided AI drop set.");
+        }
+        else
+        {
+            dropSetAIsInstantiated = ScriptableObject.Instantiate(dropSetAIs);
+        }
     }
 
-    public bool AddDropSetsToMaster(List<DropSet> toAdd)
+    public void AddDropSet(DropSet toAdd, Thing type)
     {
-        bool retBool = true;
-        foreach (var i in toAdd)
+        switch (type)
         {
-            if (!AddDropSetToMaster(i))
+            case Thing.weapon:
+                dropSetWeaponsInstantiated.CombineWith(toAdd);
+                UpdateUnlockedWeapons();
+                break;
+            case Thing.ability:
+                dropSetAbilitiesInstantiated.CombineWith(toAdd);
+                UpdateUnlockedAbilities();
+                break;
+            case Thing.ai:
+                dropSetAIsInstantiated.CombineWith(toAdd);
+                UpdateUnlockedAI();
+                break;
+            case Thing.levelpiece:
+                break;
+        }
+    }
+
+    public GameObject GetDrop(Thing type)
+    {
+        switch (type)
+        {
+            case Thing.weapon:
+                return dropSetWeaponsInstantiated.GetDrop();
+            case Thing.ability:
+                return dropSetAbilitiesInstantiated.GetDrop();
+            case Thing.ai:
+                return dropSetAIsInstantiated.GetDrop();
+            case Thing.levelpiece:
+                break;
+        }
+        return null;
+    }
+
+    public void UpdateUnlockedWeapons()
+    {
+        List<Weapon> tempList = new List<Weapon>();
+        foreach (var i in dropSetWeaponsInstantiated.allDrops)
+        {
+            if (((cachedWeapon = i.drop.GetComponent<Weapon>()) != null) && !tempList.Contains(cachedWeapon))
             {
-                retBool = false;
+                tempList.Add(cachedWeapon);
             }
         }
-        return retBool;
+        ProgressionManager.instance.allUnlockedWeapons = tempList.OrderBy(x => x.weaponID).ToList();
     }
 
-    public GameObject GetDrop()
+    public void UpdateUnlockedAbilities()
     {
-        return dropSetMaster.GetDrop();
+        List<Ability> tempList = new List<Ability>();
+        foreach (var i in dropSetAbilitiesInstantiated.allDrops)
+        {
+            if (((cachedAbility = i.drop.GetComponent<Ability>()) != null) && !tempList.Contains(cachedAbility))
+            {
+                tempList.Add(cachedAbility);
+            }
+        }
+        ProgressionManager.instance.allUnlockedAbilities = tempList.OrderBy(x => x.abilityID).ToList();
     }
+
+    public void UpdateUnlockedAI()
+    {
+        List<AI> tempList = new List<AI>();
+        foreach (var i in dropSetAIsInstantiated.allDrops)
+        {
+            if (((cachedAI = i.drop.GetComponent<AI>()) != null) && !tempList.Contains(cachedAI))
+            {
+                tempList.Add(cachedAI);
+            }
+        }
+        ProgressionManager.instance.allUnlockedAI = tempList.OrderBy(x => x.aiID).ToList();
+    }
+
 }

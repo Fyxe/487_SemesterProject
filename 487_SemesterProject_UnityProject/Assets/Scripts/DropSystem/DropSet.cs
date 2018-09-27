@@ -12,7 +12,8 @@ public class DropSet : ScriptableObject {
         public int weight;
     }
 
-    public int idDropSet = -1;
+    public int dropSetID = -1;
+    [HideInInspector] public List<int> dropSetsAdded = new List<int>();
     public List<Drop> allDrops = new List<Drop>();
 
     public GameObject GetDrop()
@@ -31,5 +32,11 @@ public class DropSet : ScriptableObject {
             }
         }
         return possibleDrops.GetRandomValue();
+    }
+
+    public void CombineWith(DropSet toAdd)
+    {
+        dropSetsAdded.Add(toAdd.dropSetID);
+        allDrops.AddRange(toAdd.allDrops);
     }
 }

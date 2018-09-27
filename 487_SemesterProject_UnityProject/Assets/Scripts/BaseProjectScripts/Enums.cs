@@ -9,3 +9,4 @@ public enum Rarity { common, uncommon, rare, epic, legendary, artifact }
 public enum PlayerState { alive, incapacitated, dead, disconnected }
 public enum PositionToSpawn { ALL, behind, infront }
 public enum SpawnType { playerAccessable, playerUnaccessable }
+public enum Thing { weapon, ability, ai, levelpiece }   // TODO rename

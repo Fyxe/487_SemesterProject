@@ -9,6 +9,9 @@ namespace UI
     {
         TabContainer container;
 
+        [Header("References")]
+        public Thing thing;
+        public ScreenRecipe screenRecpie;
         public GameObject attachedScreen;
 
         void Awake()
@@ -25,12 +28,12 @@ namespace UI
             if (container != null)
             {
                 container.CloseAllButThisScreen(attachedScreen);
+                screenRecpie.TabOpened(thing);
             }
             else
             {
                 Debug.LogError("There is no tab container for this tab.");
-            }
-            
+            }            
         }
 
     }

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : SingletonDDOL<GameManager>
-{    
+{
+    public GameData dataCurrent = new GameData ();
 
     protected override void Initialize()
     {
@@ -21,7 +22,15 @@ public class GameManager : SingletonDDOL<GameManager>
             GameData data = new GameData();
             if (LocalDataManager.instance.LoadObjectFromFile("Saves", "GameData.save", out data))
             {
-                ProgressionManager.instance.SetLevel(data.gameLevelCurrent);
+                ProgressionManager.instance.scoreCurrent = data.scoreCurrent;
+                foreach (var i in data.unlockedBaskets)
+                {
+                    ProgressionManager.instance.UnlockBasket(i);
+                }
+            }
+            else
+            {
+                data = new GameData();
             }
         }
     }
@@ -63,12 +72,8 @@ public class GameManager : SingletonDDOL<GameManager>
 #endif
     }
 
-
     void OnApplicationQuit()
     {
-        GameData data = new GameData();
-        data.gameLevelCurrent = ProgressionManager.instance.currentGameLevel;
-        LocalDataManager.instance.SaveObjectToFile("Saves","GameData.save",data);
+        LocalDataManager.instance.SaveObjectToFile("Saves","GameData.save",dataCurrent);
     }
-
 }

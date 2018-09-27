@@ -5,5 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
-    public int gameLevelCurrent;
+    public int scoreCurrent;
+    public List<int> unlockedBaskets = new List<int>();
 }

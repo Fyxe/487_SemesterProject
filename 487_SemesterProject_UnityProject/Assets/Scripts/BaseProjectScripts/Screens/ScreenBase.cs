@@ -29,7 +29,7 @@ namespace UI
             yield break;
         }
 
-        public virtual void OnTransitionedIn()
+        public virtual void OnTransitionedInStart()
         {
             if (transitionIn != null)
             {
@@ -37,7 +37,23 @@ namespace UI
             }
         }
 
-        public virtual void OnTransitionedOut()
+        public virtual void OnTransitionedOutStart()
+        {
+            if (transitionOut != null)
+            {
+                transitionOut.Invoke();
+            }
+        }
+
+        public virtual void OnTransitionedInEnd()
+        {
+            if (transitionIn != null)
+            {
+                transitionIn.Invoke();
+            }
+        }
+
+        public virtual void OnTransitionedOutEnd()
         {
             if (transitionOut != null)
             {

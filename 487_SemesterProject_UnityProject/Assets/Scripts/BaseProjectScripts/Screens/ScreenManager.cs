@@ -89,8 +89,9 @@ namespace UI
                 if (isAdding)
                 {
                     currentlyDisplayedScreens.Remove(i);
+                    i.OnTransitionedInStart();
                     yield return StartCoroutine(i.TransitionIn());
-                    i.OnTransitionedIn();
+                    i.OnTransitionedInEnd();
                     currentlyDisplayedScreens.Add(i);
                     if (useDelay)
                     {
@@ -100,8 +101,9 @@ namespace UI
                 else
                 {
                     currentlyDisplayedScreens.Remove(i);
+                    i.OnTransitionedOutStart();
                     yield return StartCoroutine(i.TransitionOut());
-                    i.OnTransitionedOut();                    
+                    i.OnTransitionedOutEnd();                    
                     if (useDelay)
                     {
                         yield return new WaitForSeconds(delayMultipleScreenTransitionOut);

@@ -41,6 +41,7 @@ public class InputController3D : MonoBehaviour
 
     Vector3 directionMove = Vector3.zero;
     Vector3 directionOppositeMove = Vector3.zero;
+    Rect cameraRect;
 
     Rigidbody rb;
     CharacterController controllerCurrent;
@@ -112,10 +113,9 @@ public class InputController3D : MonoBehaviour
                 directionMove.Normalize();
             }
             directionMove *= speedMove * Time.deltaTime;
-
-            // TODO clamp the movement positions here to create gauntlet moving effect
-
-            rb.MovePosition(transform.position + directionMove);
+            directionMove = transform.position + directionMove;            
+            
+            rb.MovePosition(directionMove);
             //transform.Translate(new Vector3(axis0X, 0, axis0Z) * speedMove * Time.deltaTime, Space.World);    // Doesn't have collisions
 
             //directionMove = new Vector3(axis0X, 0, axis0Z).normalized * speedMove;

@@ -7,6 +7,9 @@ public class AI : Damageable
 {
     [Header("Enemy Settings")]
     public int aiID = -1;
+    public string aiName;
+    public string aiDescription;
+    public Sprite aiSprite;
     public int damage = 1;
     public float speedMove = 3f;
     public float radiusPlayerDetection = 3f;
@@ -135,13 +138,13 @@ public class AI : Damageable
     public override void OnHurt()
     {
         base.OnHurt();
-        ProgressionManager.instance.currentScore += pointsOnHit;
+        ProgressionManager.instance.scoreCurrentInLevel += pointsOnHit;
     }
 
     public override void OnDeath()
     {
         base.OnDeath();
-        ProgressionManager.instance.currentScore += pointsOnDeath;
+        ProgressionManager.instance.scoreCurrentInLevel += pointsOnDeath;
         if (GameLevelManager.instance is GameLevelManager)
         {
             (GameLevelManager.instance as GameLevelManager).allAI[pool.objectPrefab as AI].Remove(this);

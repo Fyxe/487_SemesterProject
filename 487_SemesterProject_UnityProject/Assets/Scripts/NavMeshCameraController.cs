@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NavMeshCameraController : MonoBehaviour 
+public class NavMeshCameraController : Singleton<NavMeshCameraController> 
 {
 
     [Header("Settings")]

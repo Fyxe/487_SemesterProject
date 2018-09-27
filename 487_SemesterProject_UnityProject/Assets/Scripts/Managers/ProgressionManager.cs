@@ -5,93 +5,90 @@ using UnityEngine;
 
 public class ProgressionManager : Singleton<ProgressionManager>
 {
-    [System.Serializable]
-    public class ProgressionLevel
-    {
-        public int requiredXp = 0;
-        public List<DropSet> dropSetsUnlocked = new List<DropSet> ();
-        // other unlocks go here
-    }
-
 
     [Header("Settings")]
     public int scoreOnLevelCompletion = 1000;
-    public List<ProgressionLevel> levels = new List<ProgressionLevel>();
 
     [Header("References")]
-    public int currentGameLevel = -1;
-    int m_currentGameExperience = 0;
-    public int currentGameExperience
-    {
-        get
-        {
-            return m_currentGameExperience;
-        }
-        set
-        {
-            m_currentGameExperience = value;
-            CheckLevel();
-        }
-    }
-    public int currentScore = 0;    
+    public List<BreadBasket> allBaskets = new List<BreadBasket>();
+
+    // TODO sorted lists?
+    public List<Weapon> allWeapons = new List<Weapon>();            // automatically updated on start of the game by iterating through all available baskets 
+    public List<Weapon> allUnlockedWeapons = new List<Weapon>();    // automatically updated in drop manager when baskets are added
+
+    public List<Ability> allAbilities = new List<Ability>();            
+    public List<Ability> allUnlockedAbilities = new List<Ability>();
+
+    public List<AI> allAI = new List<AI>();
+    public List<AI> allUnlockedAI = new List<AI>();
+    
+    public int scoreCurrent = 0;
+    public int scoreCurrentInLevel = 0;
+
+    Weapon cachedWeapon;
+    Ability cachedAbility;
+    AI cachedAI;
 
     void Awake()
     {
-        levels = levels.OrderBy(x => x.requiredXp).ToList();
-    }
+        allBaskets = allBaskets.OrderBy(x => x.basketID).ToList();
 
-    public bool SetLevel(int newLevel)
-    {
-        if (newLevel >= levels.Count || newLevel == -1)
+        List<Weapon> tempListWeapon = new List<Weapon>();
+        List<Ability> tempListAbility = new List<Ability>();
+        List<AI> tempListAI = new List<AI>();
+        foreach (var i in allBaskets)
         {
-            return false;
-        }
-        else
-        {
-            currentGameLevel = newLevel;
-            currentGameExperience = levels[currentGameLevel].requiredXp;
-            for (int i = 0; i < currentGameLevel; i++)
+            foreach (var j in i.dropSetWeapons.allDrops)
             {
-                DropManager.instance.AddDropSetsToMaster(levels[i].dropSetsUnlocked);
-                // other unlocks go here
+                if (((cachedWeapon = j.drop.GetComponent<Weapon>()) != null) && !tempListWeapon.Contains(cachedWeapon))
+                {
+                    tempListWeapon.Add(cachedWeapon);
+                }
             }
-            return true;
+            foreach (var j in i.dropSetAbilities.allDrops)
+            {
+                if (((cachedAbility = j.drop.GetComponent<Ability>()) != null) && !tempListAbility.Contains(cachedAbility))
+                {
+                    tempListAbility.Add(cachedAbility);
+                }
+            }
+            foreach (var j in i.dropSetAIs.allDrops)
+            {
+                if (((cachedAI = j.drop.GetComponent<AI>()) != null) && !tempListAI.Contains(cachedAI))
+                {
+                    tempListAI.Add(cachedAI);
+                }
+            }
         }
-    }
-
-    void CheckLevel()
-    {
-        if (currentGameLevel + 1 < levels.Count && currentGameExperience >= levels[currentGameLevel + 1].requiredXp)
-        {
-            DropManager.instance.AddDropSetsToMaster(levels[currentGameLevel + 1].dropSetsUnlocked);
-            // other unlocks go here
-            currentGameLevel++;
-        }
+        allWeapons = tempListWeapon.OrderBy(x => x.weaponID).ToList();        
+        allAbilities = tempListAbility.OrderBy(x => x.abilityID).ToList();
+        allAI = tempListAI.OrderBy(x => x.aiID).ToList();
     }
 
     public void OnGameEnd()
     {
-        currentGameExperience += currentScore;
-        currentScore = 0;
+        scoreCurrent += scoreCurrentInLevel;
+        scoreCurrentInLevel = 0;
     }
 
-    public float GetPercentageToNextLevel()
+    public BreadBasket GetBasketByBasketID(int basketID)
     {
-        if (currentGameLevel + 1 < levels.Count)
+        foreach (var i in allBaskets)
         {
-            float numerator = 0;
-            if (currentGameLevel >= 0)
+            if (i.basketID == basketID)
             {
-                numerator = levels[currentGameLevel].requiredXp - currentGameExperience;
+                return i;
             }
-            
-            float denominator = levels[currentGameLevel + 1].requiredXp - currentGameExperience;
-            return numerator / denominator;
         }
-        else
-        {
-            return 1f;
-        }
+        return null;
+    }
+
+    public void UnlockBasket(int basketID)
+    {
+        BreadBasket basket = GetBasketByBasketID(basketID);
+        DropManager.instance.AddDropSet(basket.dropSetWeapons,Thing.weapon);
+        DropManager.instance.AddDropSet(basket.dropSetAbilities, Thing.ability);
+        DropManager.instance.AddDropSet(basket.dropSetAIs, Thing.ai);
     }
 
 }

@@ -109,14 +109,24 @@ namespace UI
             }
         }
 
-        public override void OnTransitionedIn()
+        public override void OnTransitionedInStart()
         {
-            base.OnTransitionedIn();
+            base.OnTransitionedInStart();
         }
 
-        public override void OnTransitionedOut()
+        public override void OnTransitionedOutStart()
         {
-            base.OnTransitionedOut();
+            base.OnTransitionedOutStart();
+        }
+
+        public override void OnTransitionedInEnd()
+        {
+            base.OnTransitionedInEnd();
+        }
+
+        public override void OnTransitionedOutEnd()
+        {
+            base.OnTransitionedOutEnd();
         }
     }
 

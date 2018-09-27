@@ -15,6 +15,7 @@ public class ControllerMultiPlayer : Damageable
         set
         {
             attributes.hpCurrent = value;
+            ui.SetHealth(hpCurrent, hpMax, attributes.colorPlayer);
         }
     }
 
@@ -27,6 +28,7 @@ public class ControllerMultiPlayer : Damageable
         set
         {
             attributes.hpMax = value;
+            ui.SetHealth(hpCurrent, hpMax, attributes.colorPlayer);
         }
     }
 
@@ -118,7 +120,7 @@ public class ControllerMultiPlayer : Damageable
         set
         {
             attributes.colorPlayer = value;
-            ui.imageHealthBar.color = colorPlayer;
+            ui.SetHealth(hpCurrent, hpMax, attributes.colorPlayer);
         }
     }
     public int pointsCurrent
@@ -218,14 +220,7 @@ public class ControllerMultiPlayer : Damageable
             return;
         }
 
-        if (ui != null)
-        {
-            ui.imageHealthBar.fillAmount = Mathf.Lerp(ui.imageHealthBar.fillAmount,GetHealthPercentage(),0.2f);
-            if (ui.imageHealthBar.color.a == 0)
-            {
-                Debug.LogWarning("Healthbar color is transparent.");
-            }
-        }
+        
 
         if (invertAxis1Z)
         {
@@ -334,11 +329,10 @@ public class ControllerMultiPlayer : Damageable
             Material newMaterial = new Material(i.material);
             newMaterial.color = newAttributes.colorPlayer;
             i.material = newMaterial;
-        }
-
-        ui.imageHealthBar.color = newAttributes.colorPlayer;
+        }        
 
         ui.Set(PlayerUIBox.BoxSetting.alive);
+        ui.SetHealth(hpCurrent,hpMax,newAttributes.colorPlayer);
 
         foreach (var i in GetComponentsInChildren<Renderer>())
         {

@@ -478,6 +478,8 @@ MonoBehaviour:
   timeInvulnerable: 1
   weaponCount: 2
   pointsToThrow: 100
+  spriteHealthFull: {fileID: 21300000, guid: 26f91e46dc80c5f48bc4b9eb00bf9c89, type: 3}
+  spriteHealthEmpty: {fileID: 21300000, guid: 3785da64ba8fd6242b2455269ea12f06, type: 3}
   prefabBaseWeapon: {fileID: 0}
   prefabMoney: {fileID: 114265833007881906, guid: ce3177bf42c3c0141a96d5d694230941,
     type: 2}
@@ -587,6 +589,7 @@ MonoBehaviour:
   dataCurrent:
     scoreCurrent: 0
     unlockedBaskets: 
+  gameStartedCorrectly: 0
 --- !u!114 &114975718039966508
 MonoBehaviour:
   m_ObjectHideFlags: 1

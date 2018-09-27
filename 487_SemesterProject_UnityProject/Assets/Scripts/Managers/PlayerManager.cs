@@ -14,6 +14,8 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     public int pointsToThrow = 100;
 
     [Header("References")]
+    public Sprite spriteHealthFull;
+    public Sprite spriteHealthEmpty;
     public Weapon prefabBaseWeapon;
     public PickupStats prefabMoney;
     public List<PlayerAttributes> allPlayerAttributes = new List<PlayerAttributes>();

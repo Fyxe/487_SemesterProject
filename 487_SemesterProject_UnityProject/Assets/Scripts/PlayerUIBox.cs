@@ -10,7 +10,6 @@ public class PlayerUIBox : MonoBehaviour
 	public BoxSetting setting = BoxSetting.empty;
 
 	[Header("References")]
-	public Image imageHealthBar;
     public Image imageReviveTimer;
     public Image imageReviveCount;
     public Text textPoints;
@@ -22,6 +21,10 @@ public class PlayerUIBox : MonoBehaviour
 	public GameObject objectDead;
     public GameObject objectIncapacitated;
     public GameObject objectEmpty;
+    public Transform parentHealth;
+
+    [Header("Prefabs")]
+    public GameObject prefabHealth;
 
 	void Awake()
 	{
@@ -74,4 +77,22 @@ public class PlayerUIBox : MonoBehaviour
         anim.SetBool("IsUp", !anim.GetBool("IsUp"));
     }
 
+    public void SetHealth(int amountCurrent, int amountMax, Color colorToUse)
+    {
+        parentHealth.DestroyChildren();
+        for (int i = 1; i <= amountMax; i++)
+        {
+            GameObject spawnedHealthObject = Instantiate(prefabHealth,parentHealth);
+            Image spawnedHealthImage = spawnedHealthObject.GetComponent<Image>();
+            spawnedHealthImage.color = colorToUse;
+            if (i > amountCurrent)
+            {
+                spawnedHealthImage.sprite = PlayerManager.instance.spriteHealthEmpty;
+            }
+            else
+            {
+                spawnedHealthImage.sprite = PlayerManager.instance.spriteHealthFull;
+            }
+        }
+    }
 }

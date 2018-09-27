@@ -188,7 +188,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4226812323881358
 Transform:
@@ -228,7 +228,7 @@ Transform:
   m_Children:
   - {fileID: 224298363897457496}
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4849089217056972
 Transform:
@@ -266,8 +266,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4151076040385830}
   - {fileID: 4787993714140220}
+  - {fileID: 4151076040385830}
   - {fileID: 4401251702767532}
   - {fileID: 4915307435002236}
   - {fileID: 4226812323881358}
@@ -300,7 +300,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b40540f01297a2440af5d806b632d8c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropSetBase: {fileID: 11400000, guid: e856c76986de4324fa3a0dbbafb32f99, type: 2}
+  dropSetWeapons: {fileID: 0}
+  dropSetWeaponsInstantiated: {fileID: 0}
+  dropSetAbilities: {fileID: 0}
+  dropSetAbilitiesInstantiated: {fileID: 0}
+  dropSetAIs: {fileID: 0}
+  dropSetAIsInstantiated: {fileID: 0}
+  dropSetLevelPiecesGeneral: {fileID: 0}
+  dropSetLevelPiecesGeneralInstantiated: {fileID: 0}
 --- !u!114 &114331804233049570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -328,10 +335,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745f12dc072cc3c408900831f028a07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockAllBasketsAtStart: 0
   scoreOnLevelCompletion: 1000
-  levels: []
-  currentGameLevel: -1
-  currentScore: 0
+  allBaskets: []
+  allWeapons: []
+  allUnlockedWeapons: []
+  allAbilities: []
+  allUnlockedAbilities: []
+  allAI: []
+  allUnlockedAI: []
+  allLevelPiecesGeneral: []
+  allUnlockedLevelPiecesGeneral: []
+  scoreCurrent: 0
+  scoreCurrentInLevel: 0
 --- !u!114 &114528145429868988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -479,6 +495,7 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    enemiesKilled: 
   - isSpawned: 0
     isDead: 0
     colorPlayer: {r: 0.66176474, g: 0, b: 0, a: 1}
@@ -492,6 +509,7 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    enemiesKilled: 
   - isSpawned: 0
     isDead: 0
     colorPlayer: {r: 0.65263695, g: 0.66176474, b: 0, a: 1}
@@ -505,6 +523,7 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    enemiesKilled: 
   - isSpawned: 0
     isDead: 0
     colorPlayer: {r: 0, g: 0.66176474, b: 0.004563858, a: 1}
@@ -518,6 +537,7 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    enemiesKilled: 
 --- !u!114 &114722024201700226
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -564,6 +584,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04095cf0f0ec4da4f8c86d21dab90a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dataCurrent:
+    scoreCurrent: 0
+    unlockedBaskets: 
 --- !u!114 &114975718039966508
 MonoBehaviour:
   m_ObjectHideFlags: 1

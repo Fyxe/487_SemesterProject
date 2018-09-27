@@ -16,9 +16,13 @@ public class DropManager : Singleton<DropManager>
     public DropSet dropSetAIs;
     [HideInInspector] public DropSet dropSetAIsInstantiated;
 
+    public DropSet dropSetLevelPiecesGeneral;
+    [HideInInspector] public DropSet dropSetLevelPiecesGeneralInstantiated;
+
     Weapon cachedWeapon = null;
     Ability cachedAbility = null;
     AI cachedAI = null;
+    LevelPiece cachedLevelPiece = null;
 
     void Awake()
     {
@@ -48,6 +52,15 @@ public class DropManager : Singleton<DropManager>
         {
             dropSetAIsInstantiated = ScriptableObject.Instantiate(dropSetAIs);
         }
+
+        if (dropSetLevelPiecesGeneral == null)
+        {
+            Debug.LogError("There is no provided level pieces general drop set.");
+        }
+        else
+        {
+            dropSetLevelPiecesGeneralInstantiated = ScriptableObject.Instantiate(dropSetLevelPiecesGeneral);
+        }
     }
 
     public void AddDropSet(DropSet toAdd, Thing type)
@@ -66,7 +79,9 @@ public class DropManager : Singleton<DropManager>
                 dropSetAIsInstantiated.CombineWith(toAdd);
                 UpdateUnlockedAI();
                 break;
-            case Thing.levelpiece:
+            case Thing.levelPieceGeneral:
+                dropSetLevelPiecesGeneralInstantiated.CombineWith(toAdd);
+                UpdateUnlockedLevelPiecesGeneral();
                 break;
         }
     }
@@ -81,8 +96,8 @@ public class DropManager : Singleton<DropManager>
                 return dropSetAbilitiesInstantiated.GetDrop();
             case Thing.ai:
                 return dropSetAIsInstantiated.GetDrop();
-            case Thing.levelpiece:
-                break;
+            case Thing.levelPieceGeneral:
+                return dropSetLevelPiecesGeneralInstantiated.GetDrop();                
         }
         return null;
     }
@@ -124,6 +139,19 @@ public class DropManager : Singleton<DropManager>
             }
         }
         ProgressionManager.instance.allUnlockedAI = tempList.OrderBy(x => x.aiID).ToList();
+    }
+
+    public void UpdateUnlockedLevelPiecesGeneral()
+    {
+        List<LevelPiece> tempList = new List<LevelPiece>();
+        foreach (var i in dropSetLevelPiecesGeneral.allDrops)
+        {
+            if (((cachedLevelPiece = i.drop.GetComponent<LevelPiece>()) != null) && !tempList.Contains(cachedLevelPiece))
+            {
+                tempList.Add(cachedLevelPiece);
+            }
+        }
+        ProgressionManager.instance.allUnlockedLevelPiecesGeneral = tempList.ToList();
     }
 
 }

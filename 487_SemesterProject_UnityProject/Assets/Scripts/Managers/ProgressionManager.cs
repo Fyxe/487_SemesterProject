@@ -21,13 +21,17 @@ public class ProgressionManager : Singleton<ProgressionManager>
 
     public List<AI> allAI = new List<AI>();
     public List<AI> allUnlockedAI = new List<AI>();
-    
+
+    public List<LevelPiece> allLevelPiecesGeneral = new List<LevelPiece>();
+    public List<LevelPiece> allUnlockedLevelPiecesGeneral = new List<LevelPiece>();
+
     public int scoreCurrent = 0;
     public int scoreCurrentInLevel = 0;
 
     Weapon cachedWeapon;
     Ability cachedAbility;
     AI cachedAI;
+    LevelPiece cachedLevelPiece;
 
     void Awake()
     {
@@ -36,6 +40,7 @@ public class ProgressionManager : Singleton<ProgressionManager>
         List<Weapon> tempListWeapon = new List<Weapon>();
         List<Ability> tempListAbility = new List<Ability>();
         List<AI> tempListAI = new List<AI>();
+        List<LevelPiece> tempListLevelPieceGeneral = new List<LevelPiece>();
         foreach (var i in allBaskets)
         {
             foreach (var j in i.dropSetWeapons.allDrops)
@@ -59,10 +64,18 @@ public class ProgressionManager : Singleton<ProgressionManager>
                     tempListAI.Add(cachedAI);
                 }
             }
+            foreach (var j in i.dropSetLevelPiecesGeneral.allDrops)
+            {
+                if (((cachedLevelPiece = j.drop.GetComponent<LevelPiece>()) != null) && !tempListLevelPieceGeneral.Contains(cachedLevelPiece))
+                {
+                    tempListLevelPieceGeneral.Add(cachedLevelPiece);
+                }
+            }
         }
         allWeapons = tempListWeapon.OrderBy(x => x.weaponID).ToList();        
         allAbilities = tempListAbility.OrderBy(x => x.abilityID).ToList();
         allAI = tempListAI.OrderBy(x => x.aiID).ToList();
+        allLevelPiecesGeneral = tempListLevelPieceGeneral.ToList();
     }
 
     public void OnGameEnd()
@@ -86,9 +99,7 @@ public class ProgressionManager : Singleton<ProgressionManager>
     public void UnlockBasket(int basketID)
     {
         BreadBasket basket = GetBasketByBasketID(basketID);
-        DropManager.instance.AddDropSet(basket.dropSetWeapons,Thing.weapon);
-        DropManager.instance.AddDropSet(basket.dropSetAbilities, Thing.ability);
-        DropManager.instance.AddDropSet(basket.dropSetAIs, Thing.ai);
+        UnlockBasket(basket);
     }
 
     public void UnlockBasket(BreadBasket basket)
@@ -96,5 +107,6 @@ public class ProgressionManager : Singleton<ProgressionManager>
         DropManager.instance.AddDropSet(basket.dropSetWeapons, Thing.weapon);
         DropManager.instance.AddDropSet(basket.dropSetAbilities, Thing.ability);
         DropManager.instance.AddDropSet(basket.dropSetAIs, Thing.ai);
+        DropManager.instance.AddDropSet(basket.dropSetLevelPiecesGeneral, Thing.levelPieceGeneral);
     }
 }

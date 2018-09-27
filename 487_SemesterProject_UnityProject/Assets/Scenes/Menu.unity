@@ -997,12 +997,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waitingOnTransition: 0
   holderCurrent: {fileID: 0}
-  textBasketTitle: {fileID: 0}
-  textBasketCost: {fileID: 0}
-  textBasketDescription: {fileID: 0}
+  textBasketTitle: {fileID: 40098762}
+  textBasketCost: {fileID: 1267886431}
+  textBasketDescription: {fileID: 1920766618}
   textPoints: {fileID: 2053757268}
   parentBasket: {fileID: 2073169285}
   buttonBuy: {fileID: 1809968078}
+  buttonBack: {fileID: 561515795}
   prefabBasket: {fileID: 1523792148866966, guid: e7f573ad3f73a7547b712c109595a889,
     type: 2}
 --- !u!1 &210051343
@@ -1659,7 +1660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -5730,7 +5731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -7008,6 +7009,7 @@ MonoBehaviour:
   parentWeapon: {fileID: 532571358}
   parentAbility: {fileID: 2009488813}
   parentAI: {fileID: 340280304}
+  buttonBack: {fileID: 289482066}
   prefabWeapon: {fileID: 1506529982748020, guid: 2c967809466b8214fb09a15585de94ce,
     type: 2}
   prefabAbility: {fileID: 1833781570534708, guid: 5f65235a81b22894c90e313e22875d82,
@@ -7427,7 +7429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -7790,6 +7792,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waitingOnTransition: 0
   textPoints: {fileID: 133546635}
+  buttonStartGame: {fileID: 300511062}
 --- !u!1 &1969789174
 GameObject:
   m_ObjectHideFlags: 0
@@ -8473,7 +8476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}

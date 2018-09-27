@@ -9,13 +9,13 @@ public class ScreenMain : ScreenAnimate
 {
 
     [Header("References")]
-    public Text textPoints;
+    public Text textMaxDay;
     public Button buttonStartGame;
 
     public override void OnTransitionedInStart()
     {
         base.OnTransitionedInStart();
-        textPoints.text = ProgressionManager.instance.scoreCurrent.ToString();
+        textMaxDay.text = GameManager.instance.dataCurrent.maxDayReached.ToString();
         EventSystem.current.SetSelectedGameObject(buttonStartGame.gameObject);
     }
 

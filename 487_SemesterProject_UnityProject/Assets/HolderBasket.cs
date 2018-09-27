@@ -10,6 +10,7 @@ public class HolderBasket : MonoBehaviour
     [Header("References")]
     public Image imageDisplay;
     public BreadBasket basket;
+    public bool isBought;
     ScreenBakery screenBakery;
 
     public void Setup(BreadBasket newBasket, ScreenBakery newScreenBakery)
@@ -25,10 +26,12 @@ public class HolderBasket : MonoBehaviour
         if (GameManager.instance.dataCurrent.unlockedBaskets.Contains(newBasket.basketID))
         {
             imageDisplay.color = Color.white;
+            isBought = true;
         }
         else
         {
             imageDisplay.color = Color.black;
+            isBought = false;
         }
     }
 

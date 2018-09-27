@@ -15,6 +15,7 @@ public class ScreenBakery : ScreenAnimate
     public Text textBasketDescription;
     public Text textPoints;
     public Transform parentBasket;
+    public Button buttonBuy;
 
     [Header("Prefabs")]
     public GameObject prefabBasket;
@@ -35,16 +36,32 @@ public class ScreenBakery : ScreenAnimate
                 SelectBasketHolder(spawnedHolder);
             }
         }
-        
+        if (holderCurrent == null)
+        {
+            buttonBuy.interactable = false;
+        }
     }
 
     public void SelectBasketHolder(HolderBasket newHolder)
     {
         holderCurrent = newHolder;
+        buttonBuy.interactable = !holderCurrent.isBought;
         textBasketTitle.text = holderCurrent.basket.basketName;
         textBasketCost.text = holderCurrent.basket.basketCost.ToString();
         textBasketDescription.text = holderCurrent.basket.basketDescription;
         // TODO items inside the basket
+    }
+
+    public void CallbackBuyCurrentlySelected()
+    {
+        if (ProgressionManager.instance.scoreCurrent < holderCurrent.basket.basketCost)
+        {
+            return;
+        }
+        ProgressionManager.instance.scoreCurrent -= holderCurrent.basket.basketCost;
+        ProgressionManager.instance.UnlockBasket(holderCurrent.basket);
+        holderCurrent.Setup(holderCurrent.basket,this);
+        SelectBasketHolder(holderCurrent);
     }
 
 }

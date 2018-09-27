@@ -91,4 +91,10 @@ public class ProgressionManager : Singleton<ProgressionManager>
         DropManager.instance.AddDropSet(basket.dropSetAIs, Thing.ai);
     }
 
+    public void UnlockBasket(BreadBasket basket)
+    {        
+        DropManager.instance.AddDropSet(basket.dropSetWeapons, Thing.weapon);
+        DropManager.instance.AddDropSet(basket.dropSetAbilities, Thing.ability);
+        DropManager.instance.AddDropSet(basket.dropSetAIs, Thing.ai);
+    }
 }

@@ -207,6 +207,12 @@ public class ControllerMultiPlayer : Damageable
 
     void Update()
     {
+        if (!LevelManager.instance.isPlaying)
+        {
+            controller.SetAxis(0f, 0f, 0f, 0f);
+            return;
+        }
+
         if (state != PlayerState.alive)
         {            
             ui.imageReviveCount.fillAmount = Mathf.Lerp(ui.imageReviveCount.fillAmount,(float)revivesRemaining / (float)countReviveCurrent,0.2f);

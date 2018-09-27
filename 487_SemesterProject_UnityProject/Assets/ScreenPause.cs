@@ -23,7 +23,14 @@ public class ScreenPause : ScreenAnimate
 
     public void CallbackGoToMenu()
     {
-        (GameLevelManager.instance as GameLevelManager).CallbackEndGame();
+        if (GameLevelManager.instance is GameLevelManager)
+        {
+            (GameLevelManager.instance as GameLevelManager).CallbackEndGame();
+        }
+        else if (ShopManager.instance is ShopManager)
+        {
+            GameplayManager.instance.EndGame();
+        }
     }
 
 	public void CallbackQuit()

@@ -15,7 +15,8 @@ public class PooledObject : MonoBehaviour
     /// Tells it's corresponding pool to destroy this object.
     /// </summary>
     public void DestroyThisObject()
-    {
+    {        
+        StopAllCoroutines();
         pool.DestroyObject(this);
     }
 

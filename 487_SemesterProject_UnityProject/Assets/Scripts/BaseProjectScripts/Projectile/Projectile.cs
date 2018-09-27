@@ -37,6 +37,11 @@ public class Projectile : PooledObject
     {
         while(true)
         {
+            if (!LevelManager.instance.isPlaying)
+            {
+                yield return null;
+                continue;
+            }
             if (!CheckForHit())
             {
                 UpdatePosition();
@@ -46,7 +51,6 @@ public class Projectile : PooledObject
             {
                 yield break;
             }            
-            // TODO limit time alive
         }        
     }
 

@@ -16,7 +16,7 @@ public class NavMeshCameraController : Singleton<NavMeshCameraController>
     public List<Transform> toFollow = new List<Transform>();
     
     Vector3 target;
-
+    Vector3 positionLast;
     // TODO remember last legal point and if cant find nav mesh point, use that
 
     void LateUpdate()
@@ -30,16 +30,24 @@ public class NavMeshCameraController : Singleton<NavMeshCameraController>
         Vector3 centralPoint = GetCentralPoint();
         NavMeshHit h = new NavMeshHit ();
         int mask = 1 << NavMesh.GetAreaFromName("CameraWalkable");
-        NavMesh.SamplePosition(centralPoint, out h, samplePositionDistance, mask);
+        if (NavMesh.SamplePosition(centralPoint, out h, samplePositionDistance, mask))
+        {
+            Debug.DrawLine(centralPoint, centralPoint + Vector3.up, Color.yellow);
 
-        Debug.DrawLine(centralPoint, centralPoint + Vector3.up, Color.yellow);
+            Debug.DrawLine(h.position, h.position + Vector3.up, Color.red);
 
-        Debug.DrawLine(h.position, h.position + Vector3.up, Color.red);
+            target = h.position;
+            target.y = transform.position.y;
 
-        target = h.position;
-        target.y = transform.position.y;
-        
-        transform.position = Vector3.Slerp(transform.position, target, speedLerp);
+            transform.position = Vector3.Slerp(transform.position, target, speedLerp);
+
+            positionLast = target;
+        }
+        else
+        {
+            transform.position = Vector3.Slerp(transform.position, positionLast, speedLerp);
+            Debug.DrawLine(centralPoint, centralPoint + Vector3.up, Color.yellow);            
+        }
         
     }
 

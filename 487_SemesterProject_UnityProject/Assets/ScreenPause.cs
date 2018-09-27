@@ -16,6 +16,12 @@ public class ScreenPause : ScreenAnimate
         EventSystem.current.SetSelectedGameObject(resumeButton.gameObject);
     }
 
+    public override void OnTransitionedOutStart()
+    {
+        base.OnTransitionedOutStart();
+        EventSystem.current.SetSelectedGameObject(null);
+    }
+
     public void CallbackResume()
     {
         LevelManager.instance.Resume();

@@ -249,11 +249,11 @@ public class ControllerMultiPlayer : Damageable
 
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 0"))
         {
-            AttemptSwapWeapons();
+            AttemptInteract();            
         }
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 1"))
         {
-            AttemptUseAbility();
+            
         }
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 2"))
         {
@@ -261,33 +261,39 @@ public class ControllerMultiPlayer : Damageable
         }
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 3"))
         {
+            AttemptSwapWeapons();
+        }
+        if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 4"))
+        {            
+            AttemptThrowPoints();
+        }
+        if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 5"))
+        {
             AttemptThrowWeapon();
         }
 
-        if (Input.GetKey("joystick " + indexJoystick.ToString() + " button 4"))
-        {            
-            controller.lookBehind = true;
-            AttemptAttack();
+        if (Input.GetAxis("J" + indexJoystick.ToString() + "_ButtonTrigger") > 0)
+        {                        
+            if (!triggerInUseRight)
+            {
+                triggerInUseRight = true;
+                AttemptAttackAlternate();
+            }
         }
         else
         {
-            controller.lookBehind = false;
-        }
-
-        if (Input.GetAxis("J" + indexJoystick.ToString() + "_ButtonTrigger") > 0)
-        {            
-            AttemptAttackAlternate();
+            triggerInUseRight = false;
         }
 
 
-        
+        // Left Trigger
         if (Input.GetAxis("J" + indexJoystick.ToString() + "_ButtonTrigger") < 0)
         {            
             if (!triggerInUseLeft)
             {
                 triggerInUseLeft = true;
-                AttemptInteract();
-            }            
+                AttemptUseAbility();
+            }
         }
         else
         {
@@ -300,11 +306,11 @@ public class ControllerMultiPlayer : Damageable
         }        
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 7"))
         {
-
+            // pause controlled in player manager, TODO move here?
         }
         if (Input.GetKey("joystick " + indexJoystick.ToString() + " button 8") && Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 9"))
         {
-            AttemptThrowPoints();
+            
         }
     }
 
@@ -336,7 +342,26 @@ public class ControllerMultiPlayer : Damageable
         foreach (var i in GetComponentsInChildren<Renderer>())
         {
             i.material.color = colorPlayer;
-        }        
+        }
+
+
+        weaponCurrent = ObjectPoolingManager.instance.CreateObject(PlayerManager.instance.prefabBaseWeapon) as Weapon;        
+        
+        if (weaponsUnequipped.Count < PlayerManager.instance.weaponCount)
+        {
+            int max = PlayerManager.instance.weaponCount - weaponsUnequipped.Count;
+            for (int i = 0; i < max; i++)
+            {
+                Weapon tempBackpackWeapon = ObjectPoolingManager.instance.CreateObject(PlayerManager.instance.prefabBaseWeapon) as Weapon;
+                tempBackpackWeapon.OnUnequip();
+                weaponsUnequipped.Enqueue(tempBackpackWeapon);
+            }
+        }
+        weaponCurrent.OnEquip(this.gameObject);
+        weaponCurrent.transform.SetParent(positionWeaponCurrent);
+        weaponCurrent.transform.Reset();
+
+        ArrangeUnequippedWeapons();
     }
 
     public void AttemptInteract()
@@ -434,7 +459,7 @@ public class ControllerMultiPlayer : Damageable
             {                
                 if (weaponCurrent.AttemptAttack())
                 {
-                    Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " attacked with " + weaponCurrent.weaponName + ".");
+                    //Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " attacked with " + weaponCurrent.weaponName + ".");
                 }
             }
             else
@@ -482,15 +507,39 @@ public class ControllerMultiPlayer : Damageable
 
     void SwapWeapons()
     {
-        Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " swapped weapons.");
+        if (PlayerManager.instance.weaponCount == 0)
+        {
+            return;
+        }
         if (anim != null)
         {
             anim.SetTrigger("swapWeapons");
         }
 
-        AddWeaponToInventory(weaponCurrent);
+        Weapon tempWeapon = weaponCurrent;
+        if (tempWeapon == null)
+        {
+            tempWeapon = ObjectPoolingManager.instance.CreateObject(PlayerManager.instance.prefabBaseWeapon) as Weapon;
+            tempWeapon.OnEquip(this.gameObject);            
+        }
+        if (weaponsUnequipped.Count < PlayerManager.instance.weaponCount)
+        {
+            int max = PlayerManager.instance.weaponCount - weaponsUnequipped.Count;
+            for (int i = 0; i < max; i++)
+            {
+                Weapon tempBackpackWeapon = ObjectPoolingManager.instance.CreateObject(PlayerManager.instance.prefabBaseWeapon) as Weapon;
+                tempBackpackWeapon.OnUnequip();
+                weaponsUnequipped.Enqueue(tempBackpackWeapon);
+            }
+        }
+        weaponCurrent = weaponsUnequipped.Dequeue();
+        tempWeapon.OnUnequip();
+        weaponsUnequipped.Enqueue(tempWeapon);
 
-        SetCurrentWeapon(weaponsUnequipped.Dequeue());
+        weaponCurrent.OnEquip(this.gameObject);
+        weaponCurrent.transform.SetParent(positionWeaponCurrent);
+        weaponCurrent.transform.Reset();
+
         ArrangeUnequippedWeapons();
     }
 
@@ -498,7 +547,7 @@ public class ControllerMultiPlayer : Damageable
     {
         if (Time.time > nextThrowWeapon)
         {
-            nextThrowWeapon = Time.time + delayThrowWeapon;
+            nextThrowWeapon = Time.time + delayThrowWeapon;            
             if (weaponCurrent != null && PlayerManager.instance.prefabBaseWeapon.weaponID != weaponCurrent.weaponID)
             {
                 Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " threw their weapon.");
@@ -510,26 +559,12 @@ public class ControllerMultiPlayer : Damageable
                 weaponCurrent.transform.SetParent(null);
                 weaponCurrent.transform.position = positionThrow.position;
                 weaponCurrent.rb.AddForce(positionThrow.forward * forceThrow);
+                weaponCurrent.rb.AddTorque(Random.rotation.eulerAngles * forceThrow);
                 weaponCurrent.gameObject.SetLayer(LayerMask.NameToLayer("Interactable"));
 
-                if (weaponsUnequipped.Count > 0)
-                {
-                    SwapWeapons();
-                }
-                else
-                {
-                    SetCurrentWeapon(PlayerManager.instance.prefabBaseWeapon, true);                    
-                }
+                weaponCurrent = null;
 
-                if (weaponsUnequipped.Count < PlayerManager.instance.weaponCount - 1)
-                {
-                    for (int i = 0; i < PlayerManager.instance.weaponCount - (weaponsUnequipped.Count - 1); i++)
-                    {
-                        AddWeaponToInventory(PlayerManager.instance.prefabBaseWeapon,true);
-                    }
-
-                    ArrangeUnequippedWeapons();
-                }
+                
             }
         }        
     }

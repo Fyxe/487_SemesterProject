@@ -11,12 +11,12 @@ public class Projectile : PooledObject
     public bool destroyOnHit = true;
     public Vector3 direction;
     public LayerMask layerMask;
-
+    public TrailRenderer trail;
     Ray r;
     RaycastHit h;
 
     Vector3 newPosition;
-
+    
     Coroutine coroutineShot;
 
     public void ShootProjectile(Vector3 newDirection, float newSpeedMove, LayerMask newLayerMask)
@@ -85,5 +85,11 @@ public class Projectile : PooledObject
     {
 
     }
-	
+
+    public override void OnDestroyedByPool()
+    {
+        base.OnDestroyedByPool();
+        trail.Clear();
+    }
+
 }

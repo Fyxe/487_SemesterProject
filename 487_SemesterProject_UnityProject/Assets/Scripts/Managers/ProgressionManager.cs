@@ -7,6 +7,7 @@ public class ProgressionManager : Singleton<ProgressionManager>
 {
 
     [Header("Settings")]
+    public bool unlockAllBasketsAtStart = false;
     public int scoreOnLevelCompletion = 1000;
 
     [Header("References")]
@@ -76,6 +77,17 @@ public class ProgressionManager : Singleton<ProgressionManager>
         allAbilities = tempListAbility.OrderBy(x => x.abilityID).ToList();
         allAI = tempListAI.OrderBy(x => x.aiID).ToList();
         allLevelPiecesGeneral = tempListLevelPieceGeneral.ToList();
+    }
+
+    private void Start()
+    {
+        if (unlockAllBasketsAtStart)
+        {
+            foreach (var i in allBaskets)
+            {
+                UnlockBasket(i);
+            }
+        }
     }
 
     public void OnGameEnd()

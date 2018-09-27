@@ -41,7 +41,8 @@ public class AI : Damageable
         if (LevelManager.instance.isPlaying)
         {
             timeElapsedInState += Time.deltaTime;
-            stateCurrent.UpdateState(this);
+            agent.enabled = true;
+            stateCurrent.UpdateState(this);            
         }
         else
         {

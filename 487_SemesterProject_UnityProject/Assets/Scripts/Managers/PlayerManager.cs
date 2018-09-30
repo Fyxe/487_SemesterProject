@@ -11,8 +11,13 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     public int possableMaxPlayers = 4;
     public float timeIncapacitated = 10f;
     public float timeInvulnerable = 1f;
-    public int weaponCount = 2;
+    [Tooltip("This does not include the current weapon")]
+    public int weaponCount = 1;
     public int pointsToThrow = 100;
+    public bool replaceCurrentWeaponOnPickup = true;
+    public float forceThrow = 500f;
+    public float radiusRevive = 2f;
+    public float radiusInteract = 2f;
 
     [Header("References")]
     public Sprite spriteHealthFull;

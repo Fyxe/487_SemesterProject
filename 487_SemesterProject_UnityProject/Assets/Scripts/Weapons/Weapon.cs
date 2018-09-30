@@ -7,6 +7,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody))]
 public class Weapon : Interactable
 {
+    // TODO create a weapon controller that has reference to the player object, then move all scripts from the controllermultiplayer over
+
     public class CachedRenderer
     {
         public Renderer renderer;

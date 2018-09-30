@@ -34,9 +34,27 @@ public class ControllerMultiPlayer : Damageable
 
     [Header("Settings")]   
     public bool invertAxis1Z = false;
-    public float reviveRadius = 2f;
-    public float interactRadius = 1f;
-    public float forceThrow = 50f;
+    public float radiusRevive
+    {
+        get
+        {
+            return PlayerManager.instance.radiusRevive;
+        }
+    }
+    public float radiusInteract
+    {
+        get
+        {
+            return PlayerManager.instance.radiusInteract;
+        }
+    }
+    public float forceThrow
+    {
+        get
+        {
+            return PlayerManager.instance.forceThrow;
+        }
+    }
 
     [Header("Delays")]
     public float delaySwapWeapon = 0.1f;
@@ -200,6 +218,53 @@ public class ControllerMultiPlayer : Damageable
     bool triggerInUseLeft = false;
 
     public Rigidbody rb;
+
+    bool hasEmptyWeaponSlotInInventory
+    {
+        get
+        {
+            if (isHoldingBaseWeapon)
+            {
+                return true;
+            }
+            foreach (var i in weaponsUnequipped)
+            {
+                if (i.weaponID == PlayerManager.instance.prefabBaseWeapon.weaponID)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    bool hasNonEmptyWeaponSlotInInventory
+    {
+        get
+        {
+            if (!isHoldingBaseWeapon)
+            {
+                return true;
+            }
+            foreach (var i in weaponsUnequipped)
+            {
+                if (i.weaponID != PlayerManager.instance.prefabBaseWeapon.weaponID)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    bool isHoldingBaseWeapon
+    {
+        get
+        {
+            return weaponCurrent != null && weaponCurrent.weaponID == PlayerManager.instance.prefabBaseWeapon.weaponID;
+        }
+    }
+
 
     void Awake()
     {        
@@ -378,7 +443,7 @@ public class ControllerMultiPlayer : Damageable
             }
 
             int mask = 1 << LayerMask.NameToLayer("Interactable");
-            Collider[] cols = Physics.OverlapSphere(transform.position, interactRadius, mask);
+            Collider[] cols = Physics.OverlapSphere(transform.position, radiusInteract, mask);
 
             Interactable cachedInteractalbe = null;
             Interactable closest = null;
@@ -401,7 +466,23 @@ public class ControllerMultiPlayer : Damageable
                 Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " interacted with " + closest.name + ".");
                 if (closest is Weapon)  // TODO override current weapon / etc.
                 {
-                    AddWeaponToInventory(closest as Weapon);
+                    Weapon weaponToInteractWith = closest as Weapon;
+                    if (PlayerManager.instance.replaceCurrentWeaponOnPickup)
+                    {
+                        if (isHoldingBaseWeapon)
+                        {
+                            weaponCurrent.DestroyThisObject();                            
+                        }
+                        else
+                        {
+                            DropCurrentWeapon();
+                        }
+                        SetCurrentWeapon(weaponToInteractWith);
+                    }
+                    else
+                    {
+                        AddWeaponToInventory(weaponToInteractWith);
+                    }
                 }
             }
             else
@@ -424,7 +505,7 @@ public class ControllerMultiPlayer : Damageable
             }
 
             int mask = 1 << LayerMask.NameToLayer("Player");
-            Collider[] cols = Physics.OverlapSphere(transform.position, reviveRadius, mask);            
+            Collider[] cols = Physics.OverlapSphere(transform.position, radiusRevive, mask);            
 
             ControllerMultiPlayer cachedController = null;
             ControllerMultiPlayer closest = null;
@@ -555,15 +636,8 @@ public class ControllerMultiPlayer : Damageable
                 {
                     anim.SetTrigger("throwWeapon");
                 }
-                weaponCurrent.OnDrop();
-                weaponCurrent.transform.SetParent(null);
-                weaponCurrent.transform.position = positionThrow.position;
-                weaponCurrent.rb.AddForce(positionThrow.forward * forceThrow);
-                weaponCurrent.rb.AddTorque(Random.rotation.eulerAngles * forceThrow);
-
-                weaponCurrent = null;
-
-                
+                DropCurrentWeapon();
+                SetCurrentWeapon(PlayerManager.instance.prefabBaseWeapon,true);
             }
         }        
     }
@@ -732,6 +806,17 @@ public class ControllerMultiPlayer : Damageable
         OnDeath();
     }
 
+    void DropCurrentWeapon()
+    {
+        weaponCurrent.OnDrop();
+        weaponCurrent.transform.SetParent(null);
+        weaponCurrent.transform.position = positionThrow.position;
+        weaponCurrent.rb.AddForce(positionThrow.forward * forceThrow);
+        weaponCurrent.rb.AddTorque(Random.rotation.eulerAngles * forceThrow);
+
+        weaponCurrent = null;
+    }
+
     void SetCurrentWeapon(Weapon toSet, bool isPrefab = false)
     {
         if (isPrefab)
@@ -774,7 +859,7 @@ public class ControllerMultiPlayer : Damageable
                 {
                     Weapon toDestroy = weaponsUnequipped[i];
                     weaponsUnequipped[i] = toAdd;
-                    Destroy(toDestroy.gameObject);
+                    toDestroy.DestroyThisObject();
                     replaced = true;
                 }
             }
@@ -783,6 +868,16 @@ public class ControllerMultiPlayer : Damageable
             {
                 weaponsUnequipped.Add(toAdd);
             }
+        }
+        if (weaponsUnequipped.Count > PlayerManager.instance.weaponCount)
+        {
+            Weapon toDrop = weaponsUnequipped.RemoveFirst();
+
+            toDrop.OnDrop();
+            toDrop.transform.SetParent(null);
+            toDrop.transform.position = positionThrow.position;
+            toDrop.rb.AddForce(positionThrow.forward * forceThrow);
+            toDrop.rb.AddTorque(Random.rotation.eulerAngles * forceThrow);
         }
         ArrangeUnequippedWeapons();
     }

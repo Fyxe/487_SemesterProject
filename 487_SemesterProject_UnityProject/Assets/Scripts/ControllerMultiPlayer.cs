@@ -64,7 +64,7 @@ public class ControllerMultiPlayer : Damageable
     public GameObject incapacitatedObject;
     public Weapon weaponCurrent;
     public Transform positionWeaponCurrent;
-    public Queue<Weapon> weaponsUnequipped = new Queue<Weapon> ();
+    public List<Weapon> weaponsUnequipped = new List<Weapon> ();
     public List<Transform> positionsWeaponsUnequipped = new List<Transform>();
     public PlayerState state
     {
@@ -356,7 +356,7 @@ public class ControllerMultiPlayer : Damageable
             {
                 Weapon tempBackpackWeapon = ObjectPoolingManager.instance.CreateObject(PlayerManager.instance.prefabBaseWeapon) as Weapon;
                 tempBackpackWeapon.OnUnequip();
-                weaponsUnequipped.Enqueue(tempBackpackWeapon);
+                weaponsUnequipped.Add(tempBackpackWeapon);
             }
         }
         weaponCurrent.OnEquip(this);
@@ -401,9 +401,7 @@ public class ControllerMultiPlayer : Damageable
                 Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " interacted with " + closest.name + ".");
                 if (closest is Weapon)  // TODO override current weapon / etc.
                 {
-                    (closest as Weapon).gameObject.SetLayer(LayerMask.NameToLayer("Player"));
                     AddWeaponToInventory(closest as Weapon);
-                    ArrangeUnequippedWeapons();
                 }
             }
             else
@@ -531,12 +529,12 @@ public class ControllerMultiPlayer : Damageable
             {
                 Weapon tempBackpackWeapon = ObjectPoolingManager.instance.CreateObject(PlayerManager.instance.prefabBaseWeapon) as Weapon;
                 tempBackpackWeapon.OnUnequip();
-                weaponsUnequipped.Enqueue(tempBackpackWeapon);
+                weaponsUnequipped.Add(tempBackpackWeapon);
             }
         }
-        weaponCurrent = weaponsUnequipped.Dequeue();
+        weaponCurrent = weaponsUnequipped.RemoveFirst();
         tempWeapon.OnUnequip();
-        weaponsUnequipped.Enqueue(tempWeapon);
+        weaponsUnequipped.Add(tempWeapon);
 
         weaponCurrent.OnEquip(this);
         weaponCurrent.transform.SetParent(positionWeaponCurrent);
@@ -562,7 +560,6 @@ public class ControllerMultiPlayer : Damageable
                 weaponCurrent.transform.position = positionThrow.position;
                 weaponCurrent.rb.AddForce(positionThrow.forward * forceThrow);
                 weaponCurrent.rb.AddTorque(Random.rotation.eulerAngles * forceThrow);
-                weaponCurrent.gameObject.SetLayer(LayerMask.NameToLayer("Interactable"));
 
                 weaponCurrent = null;
 
@@ -757,6 +754,7 @@ public class ControllerMultiPlayer : Damageable
     {
         if (toAdd == null)
         {
+            Debug.Log("Cannot add null weapon to inventory");
             return;
         }
 
@@ -765,13 +763,28 @@ public class ControllerMultiPlayer : Damageable
             GameObject spawnedWeaponObject = Instantiate(toAdd.gameObject);
             Weapon spawnedWeapon = spawnedWeaponObject.GetComponent<Weapon>();
             spawnedWeapon.OnUnequip();
-            weaponsUnequipped.Enqueue(spawnedWeapon);
+            weaponsUnequipped.Add(spawnedWeapon);
         }
         else
         {
+            bool replaced = false;
+            for (int i = 0; i < weaponsUnequipped.Count; i++)
+            {
+                if (weaponsUnequipped[i].weaponID == PlayerManager.instance.prefabBaseWeapon.weaponID)
+                {
+                    Weapon toDestroy = weaponsUnequipped[i];
+                    weaponsUnequipped[i] = toAdd;
+                    Destroy(toDestroy.gameObject);
+                    replaced = true;
+                }
+            }
             toAdd.OnUnequip();
-            weaponsUnequipped.Enqueue(toAdd);
+            if (!replaced)
+            {
+                weaponsUnequipped.Add(toAdd);
+            }
         }
+        ArrangeUnequippedWeapons();
     }
 
     void ArrangeUnequippedWeapons()

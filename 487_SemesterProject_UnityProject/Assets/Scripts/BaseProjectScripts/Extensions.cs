@@ -244,6 +244,46 @@ public static class Extensions {
         }
     }
 
+    public static T GetFirst<T>(this IList<T> toGetFrom)
+    {
+        if (toGetFrom.Count == 0)
+        {
+            return default(T);
+        }
+        else
+        {
+            return toGetFrom[0];
+        }
+    }
+
+    public static T RemoveLast<T>(this IList<T> toGetFrom)
+    {
+        if (toGetFrom.Count == 0)
+        {
+            return default(T);
+        }
+        else
+        {
+            T temp = toGetFrom[toGetFrom.Count - 1];
+            toGetFrom.RemoveAt(toGetFrom.Count - 1);
+            return temp;
+        }
+    }
+
+    public static T RemoveFirst<T>(this IList<T> toGetFrom)
+    {
+        if (toGetFrom.Count == 0)
+        {
+            return default(T);
+        }
+        else
+        {
+            T temp = toGetFrom[0];
+            toGetFrom.RemoveAt(0);
+            return temp;
+        }
+    }
+
     // ======================================================================================================
     // Transform
     // ======================================================================================================

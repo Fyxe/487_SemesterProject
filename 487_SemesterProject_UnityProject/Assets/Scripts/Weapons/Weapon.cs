@@ -173,6 +173,7 @@ public class Weapon : Interactable
         currentPlayer = player;
         isHeld = true;
         DisableHighlight();
+        this.gameObject.SetLayer(LayerMask.NameToLayer("Player"));
     }
 
     public virtual void OnUnequip() // called when enqueued in unequipped weapons
@@ -181,11 +182,13 @@ public class Weapon : Interactable
         currentPlayer = null;
         isHeld = true;
         DisableHighlight();
+        this.gameObject.SetLayer(LayerMask.NameToLayer("Player"));
     }
 
     public virtual void OnDrop()    // called when thrown
     {
         rb.isKinematic = false;
         isHeld = false;
+        this.gameObject.SetLayer(LayerMask.NameToLayer("Interactable"));
     }
 }

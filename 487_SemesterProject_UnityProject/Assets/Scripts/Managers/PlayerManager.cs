@@ -19,6 +19,8 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     public float radiusInteract = 2f;
     public bool replaceCurrentWeaponOnPickup = true;
     public bool swapToNonBaseWeaponOnThrow = true;
+    public int pointsPerReviveHit = 10;
+    public int pointsOnRevive = 100;
 
     [Header("References")]
     public Sprite spriteHealthFull;

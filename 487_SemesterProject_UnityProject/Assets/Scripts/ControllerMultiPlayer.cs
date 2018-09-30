@@ -206,8 +206,17 @@ public class ControllerMultiPlayer : Damageable
     public List<Projector> projectors = new List<Projector>();
     bool triggerInUseRight = false;
     bool triggerInUseLeft = false;
-
+    bool isFalling = false;
     public Rigidbody rb;
+
+    public bool isControlled
+    {
+        get
+        {
+            return LevelManager.instance.isPlaying && !isFalling;
+        }
+
+    }
     
     void Awake()
     {
@@ -219,7 +228,7 @@ public class ControllerMultiPlayer : Damageable
     void Update()
     {        
 
-        if (!LevelManager.instance.isPlaying)
+        if (!isControlled)
         {
             controllerInput.SetAxis(0f, 0f, 0f, 0f);
             return;
@@ -439,7 +448,15 @@ public class ControllerMultiPlayer : Damageable
             if (closest != null)
             {
                 Debug.Log(closest.name);
-                closest.AttemptReviveThisPlayer();
+                int didRevive = closest.AttemptReviveThisPlayer();
+                if (didRevive == 0)
+                {
+                    pointsCurrent += PlayerManager.instance.pointsOnRevive;
+                }
+                else if (didRevive == 1)
+                {
+                    pointsCurrent += PlayerManager.instance.pointsPerReviveHit;
+                }
             }
         }        
     }
@@ -579,16 +596,21 @@ public class ControllerMultiPlayer : Damageable
         } 
     }
 
-    public void AttemptReviveThisPlayer()
+    public int AttemptReviveThisPlayer()
     {
         if (state != PlayerState.incapacitated)
         {
-            return;
+            return -1;
         }
         revivesRemaining++;
         if (revivesRemaining >= countReviveCurrent)
         {
             Revive();
+            return 0;
+        }
+        else
+        {
+            return 1;
         }
     }
 
@@ -659,6 +681,7 @@ public class ControllerMultiPlayer : Damageable
 
     public void SetFalling()
     {
+        isFalling = true;
         foreach (var i in GetComponentsInChildren<Projector>())
         {
             i.enabled = false;
@@ -670,8 +693,9 @@ public class ControllerMultiPlayer : Damageable
         this.enabled = false;        
     }
 
-    public void SetReady()
+    public void SetNotFalling()
     {
+        isFalling = false;
         foreach (var i in GetComponentsInChildren<Projector>())
         {
             i.enabled = true;

@@ -10,9 +10,9 @@ public class LevelManager : Singleton<LevelManager>
 {
 
     [Header("LevelManager Settings")]
-    public float dropTime = 5f;
+    public float dropTime = 4f;
     public float dropHeight = 10f;
-    public float dropLerpTime = 2f;
+    public float dropLerpTime = .85f;
     bool isPaused = false;
     bool m_isPlaying = false;
     public bool isPlaying
@@ -97,29 +97,60 @@ public class LevelManager : Singleton<LevelManager>
             Debug.LogError("No prefab for the player controller when attempting to spawn: P" + newAttributes.indexJoystick.ToString());
             return;
         }
-        GameObject spawnedControllerObject = Instantiate(newAttributes.prefabController);        
+        GameObject spawnedControllerObject = Instantiate(newAttributes.prefabController);
+
+        Transform endTransform;
 
         if (allControllers.Count == 0)
         {
             if (spawnPoints.Count == 0)
             {
-                spawnedControllerObject.transform.position = Vector3.zero;
+                spawnedControllerObject.transform.position = Vector3.zero + Vector3.up * dropHeight;
+                endTransform = new GameObject().transform;
             }
             else
             {
-                spawnedControllerObject.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position;
+                int randomIndex = Random.Range(0, spawnPoints.Count);
+                spawnedControllerObject.transform.position = spawnPoints[randomIndex].transform.position + Vector3.up * dropHeight;
+                endTransform = spawnPoints[randomIndex].transform;
             }            
         }
         else
         {
-            spawnedControllerObject.transform.position = allControllers[Random.Range(0, allControllers.Count)].transform.position;
+            int randomIndex = Random.Range(0, allControllers.Count);
+            spawnedControllerObject.transform.position = allControllers[randomIndex].transform.position + Vector3.up * dropHeight;
+            endTransform = allControllers[randomIndex].transform;
         }                
 
         ControllerMultiPlayer spawnedController = spawnedControllerObject.GetComponent<ControllerMultiPlayer>();
         spawnedController.Setup(newAttributes, playerUIBoxes[newAttributes.indexPlayer]);
         spawnedController.SetInvulnerable(PlayerManager.instance.timeInvulnerable);
+        spawnedController.SetFalling();
         allControllers.Add(spawnedController);
         FindObjectOfType<NavMeshCameraController>().toFollow.Add(spawnedController.transform);
+
+        StartCoroutine(WaitForPlayerToDrop(spawnedController, endTransform));
+    }
+
+    public IEnumerator WaitForPlayerToDrop(ControllerMultiPlayer playerDropped, Transform endTransform)
+    {
+        yield return new WaitForSeconds(dropTime);
+        float currentTime = 0f;
+        Vector3 startPosition = playerDropped.transform.position;
+        Quaternion startRotation = playerDropped.transform.rotation;
+
+        playerDropped.rb.isKinematic = true;
+
+        while (currentTime < dropLerpTime)
+        {
+            currentTime += Time.deltaTime;
+
+            playerDropped.transform.position = Vector3.Lerp(startPosition, endTransform.position, currentTime / dropLerpTime);
+            playerDropped.transform.rotation = Quaternion.Lerp(startRotation, endTransform.rotation, currentTime / dropLerpTime);
+            
+            yield return null;
+        }
+        playerDropped.SetNotFalling();
     }
 
     public virtual void SpawnPlayersInitially()
@@ -170,31 +201,40 @@ public class LevelManager : Singleton<LevelManager>
 
     public IEnumerator WaitForPlayersToDrop()  
     {
-        yield return new WaitForSeconds(dropTime);
-        float currentTime = 0f;
-        List<Vector3> startPositions = new List<Vector3>();
-        List<Quaternion> startRotations = new List<Quaternion>();
-        foreach (var i in allControllers)
+        if (allControllers.Count == 0)
         {
-            i.rb.isKinematic = true;
-            startPositions.Add(i.transform.position);
-            startRotations.Add(i.transform.rotation);
+            StartLevel();
+            yield break;
         }
-        while (currentTime < dropLerpTime)
+        else
         {
-            currentTime += Time.deltaTime;
-            for (int i = 0; i < allControllers.Count; i++)
+            yield return new WaitForSeconds(dropTime);
+            float currentTime = 0f;
+            List<Vector3> startPositions = new List<Vector3>();
+            List<Quaternion> startRotations = new List<Quaternion>();
+            foreach (var i in allControllers)
             {
-                allControllers[i].transform.position = Vector3.Lerp(startPositions[i], spawnPoints[i].transform.position, currentTime / dropLerpTime);
-                allControllers[i].transform.rotation = Quaternion.Lerp(startRotations[i], spawnPoints[i].transform.rotation, currentTime / dropLerpTime);
+                i.rb.isKinematic = true;
+                startPositions.Add(i.transform.position);
+                startRotations.Add(i.transform.rotation);
             }
-            yield return null;
+            while (currentTime < dropLerpTime)
+            {
+                currentTime += Time.deltaTime;
+                for (int i = 0; i < allControllers.Count; i++)
+                {
+                    allControllers[i].transform.position = Vector3.Lerp(startPositions[i], spawnPoints[i].transform.position, currentTime / dropLerpTime);
+                    allControllers[i].transform.rotation = Quaternion.Lerp(startRotations[i], spawnPoints[i].transform.rotation, currentTime / dropLerpTime);
+                }
+                yield return null;
+            }
+            foreach (var i in allControllers)
+            {
+                i.SetNotFalling();
+            }
+            StartLevel();
+            yield break;
         }
-        foreach (var i in allControllers)
-        {
-            i.SetReady();
-        }
-        StartLevel();
     }
 
     public void CheckIfAllPlayersAreDead()

@@ -48,13 +48,6 @@ public class ControllerMultiPlayer : Damageable
             return PlayerManager.instance.radiusInteract;
         }
     }
-    public float forceThrow
-    {
-        get
-        {
-            return PlayerManager.instance.forceThrow;
-        }
-    }
 
     [Header("Delays")]
     public float delaySwapWeapon = 0.1f;
@@ -80,10 +73,6 @@ public class ControllerMultiPlayer : Damageable
     PlayerState m_state = PlayerState.disconnected;
     public Transform positionThrow;
     public GameObject incapacitatedObject;
-    public Weapon weaponCurrent;
-    public Transform positionWeaponCurrent;
-    public List<Weapon> weaponsUnequipped = new List<Weapon> ();
-    public List<Transform> positionsWeaponsUnequipped = new List<Transform>();
     public PlayerState state
     {
         get
@@ -162,7 +151,7 @@ public class ControllerMultiPlayer : Damageable
         set
         {
             attributes.speedMoveCurrent = value;
-            controller.speedMove = speedMoveCurrent;
+            controllerInput.speedMove = speedMoveCurrent;
             ui.textSpeedMove.text = speedMoveCurrent.ToString();
         }
     }    
@@ -193,14 +182,14 @@ public class ControllerMultiPlayer : Damageable
 
     int revivesRemaining = 0;
 
-    int indexJoystick
+    public int indexJoystick
     {
         get
         {
             return attributes.indexJoystick;
         }
     }
-    int indexPlayer
+    public int indexPlayer
     {
         get
         {
@@ -209,7 +198,8 @@ public class ControllerMultiPlayer : Damageable
     }
 
     PlayerAttributes attributes;
-    InputController3D controller;
+    InputController3D controllerInput;
+    WeaponController controllerWeapons;
     Animator anim;
     Coroutine coroutineInvulnerable;
     Coroutine coroutineIncapacitate;
@@ -218,57 +208,11 @@ public class ControllerMultiPlayer : Damageable
     bool triggerInUseLeft = false;
 
     public Rigidbody rb;
-
-    bool hasEmptyWeaponSlotInInventory
-    {
-        get
-        {
-            if (isHoldingBaseWeapon)
-            {
-                return true;
-            }
-            foreach (var i in weaponsUnequipped)
-            {
-                if (i.weaponID == PlayerManager.instance.prefabBaseWeapon.weaponID)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
-
-    bool hasNonEmptyWeaponSlotInInventory
-    {
-        get
-        {
-            if (!isHoldingBaseWeapon)
-            {
-                return true;
-            }
-            foreach (var i in weaponsUnequipped)
-            {
-                if (i.weaponID != PlayerManager.instance.prefabBaseWeapon.weaponID)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
-
-    bool isHoldingBaseWeapon
-    {
-        get
-        {
-            return weaponCurrent != null && weaponCurrent.weaponID == PlayerManager.instance.prefabBaseWeapon.weaponID;
-        }
-    }
-
-
+    
     void Awake()
-    {        
-        controller = GetComponent<InputController3D>();      
+    {
+        controllerInput = GetComponent<InputController3D>();      
+        controllerWeapons = GetComponent<WeaponController>();
         anim = GetComponentInChildren<Animator>();
     }
 
@@ -277,14 +221,14 @@ public class ControllerMultiPlayer : Damageable
 
         if (!LevelManager.instance.isPlaying)
         {
-            controller.SetAxis(0f, 0f, 0f, 0f);
+            controllerInput.SetAxis(0f, 0f, 0f, 0f);
             return;
         }
 
         if (state != PlayerState.alive)
         {            
             ui.imageReviveCount.fillAmount = Mathf.Lerp(ui.imageReviveCount.fillAmount,(float)revivesRemaining / (float)countReviveCurrent,0.2f);
-            controller.SetAxis(0f, 0f, 0f, 0f);
+            controllerInput.SetAxis(0f, 0f, 0f, 0f);
             return;
         }
 
@@ -292,7 +236,7 @@ public class ControllerMultiPlayer : Damageable
 
         if (invertAxis1Z)
         {
-            controller.SetAxis(
+            controllerInput.SetAxis(
                 Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Horizontal"),
                 Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Vertical"),
                 Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Horizontal"),
@@ -301,7 +245,7 @@ public class ControllerMultiPlayer : Damageable
         }
         else
         {        
-            controller.SetAxis(
+            controllerInput.SetAxis(
                 Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Horizontal"),
                 Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Vertical"),
                 Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Horizontal"),
@@ -412,23 +356,7 @@ public class ControllerMultiPlayer : Damageable
             i.material.color = colorPlayer;
         }
 
-        weaponCurrent = ObjectPoolingManager.instance.CreateObject(PlayerManager.instance.prefabBaseWeapon) as Weapon;        
-        
-        if (weaponsUnequipped.Count < PlayerManager.instance.weaponCount)
-        {
-            int max = PlayerManager.instance.weaponCount - weaponsUnequipped.Count;
-            for (int i = 0; i < max; i++)
-            {
-                Weapon tempBackpackWeapon = ObjectPoolingManager.instance.CreateObject(PlayerManager.instance.prefabBaseWeapon) as Weapon;
-                tempBackpackWeapon.OnUnequip();
-                weaponsUnequipped.Add(tempBackpackWeapon);
-            }
-        }
-        weaponCurrent.OnEquip(this);
-        weaponCurrent.transform.SetParent(positionWeaponCurrent);
-        weaponCurrent.transform.Reset();
-
-        ArrangeUnequippedWeapons();
+        controllerWeapons.Setup();
     }
 
     public void AttemptInteract()
@@ -467,22 +395,7 @@ public class ControllerMultiPlayer : Damageable
                 if (closest is Weapon)  // TODO override current weapon / etc.
                 {
                     Weapon weaponToInteractWith = closest as Weapon;
-                    if (PlayerManager.instance.replaceCurrentWeaponOnPickup)
-                    {
-                        if (isHoldingBaseWeapon)
-                        {
-                            weaponCurrent.DestroyThisObject();                            
-                        }
-                        else
-                        {
-                            DropCurrentWeapon();
-                        }
-                        SetCurrentWeapon(weaponToInteractWith);
-                    }
-                    else
-                    {
-                        AddWeaponToInventory(weaponToInteractWith);
-                    }
+                    controllerWeapons.PickupWeapon(weaponToInteractWith);
                 }
             }
             else
@@ -535,18 +448,8 @@ public class ControllerMultiPlayer : Damageable
     {
         if (Time.time > nextAttack)
         {
-            nextAttack = Time.time + delayAttack;              
-            if (weaponCurrent != null)
-            {                
-                if (weaponCurrent.AttemptAttack())
-                {
-                    //Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " attacked with " + weaponCurrent.weaponName + ".");
-                }
-            }
-            else
-            {
-                // Debug.LogError("No current weapon equipped on P" + indexPlayer);
-            }
+            nextAttack = Time.time + delayAttack;
+            controllerWeapons.AttemptAttack();
             if (anim != null)
             {
                 anim.SetTrigger("attack");
@@ -559,17 +462,7 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextAttackAlternate)
         {
             nextAttackAlternate = Time.time + delayAttackAlternate;
-            if (weaponCurrent != null)
-            {
-                if (weaponCurrent.AttemptAttackAlternate())
-                {
-                    Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " alternate attacked with " + weaponCurrent.weaponName + ".");
-                }
-            }
-            else
-            {
-                Debug.LogError("No current weapon equipped on P" + indexPlayer);
-            }
+            controllerWeapons.AttemptAttackAlternate();
             if (anim != null)
             {
                 anim.SetTrigger("attack");
@@ -582,63 +475,21 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextSwapWeapon)
         {
             nextSwapWeapon = Time.time + delaySwapWeapon;
-            SwapWeapons();
+            controllerWeapons.SwapWeapons();
         }        
-    }
-
-    void SwapWeapons()
-    {
-        if (PlayerManager.instance.weaponCount == 0)
-        {
-            return;
-        }
-        if (anim != null)
-        {
-            anim.SetTrigger("swapWeapons");
-        }
-
-        Weapon tempWeapon = weaponCurrent;
-        if (tempWeapon == null)
-        {
-            tempWeapon = ObjectPoolingManager.instance.CreateObject(PlayerManager.instance.prefabBaseWeapon) as Weapon;
-            tempWeapon.OnEquip(this);            
-        }
-        if (weaponsUnequipped.Count < PlayerManager.instance.weaponCount)
-        {
-            int max = PlayerManager.instance.weaponCount - weaponsUnequipped.Count;
-            for (int i = 0; i < max; i++)
-            {
-                Weapon tempBackpackWeapon = ObjectPoolingManager.instance.CreateObject(PlayerManager.instance.prefabBaseWeapon) as Weapon;
-                tempBackpackWeapon.OnUnequip();
-                weaponsUnequipped.Add(tempBackpackWeapon);
-            }
-        }
-        weaponCurrent = weaponsUnequipped.RemoveFirst();
-        tempWeapon.OnUnequip();
-        weaponsUnequipped.Add(tempWeapon);
-
-        weaponCurrent.OnEquip(this);
-        weaponCurrent.transform.SetParent(positionWeaponCurrent);
-        weaponCurrent.transform.Reset();
-
-        ArrangeUnequippedWeapons();
     }
 
     public void AttemptThrowWeapon()
     {
         if (Time.time > nextThrowWeapon)
         {
-            nextThrowWeapon = Time.time + delayThrowWeapon;            
-            if (weaponCurrent != null && PlayerManager.instance.prefabBaseWeapon.weaponID != weaponCurrent.weaponID)
+            nextThrowWeapon = Time.time + delayThrowWeapon;
+            //Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " threw their weapon.");
+            if (anim != null)
             {
-                Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " threw their weapon.");
-                if (anim != null)
-                {
-                    anim.SetTrigger("throwWeapon");
-                }
-                DropCurrentWeapon();
-                SetCurrentWeapon(PlayerManager.instance.prefabBaseWeapon,true);
+                anim.SetTrigger("throwWeapon");
             }
+            controllerWeapons.ThrowCurrentWeapon();
         }        
     }
 
@@ -685,7 +536,7 @@ public class ControllerMultiPlayer : Damageable
                 }
 
                 spawnedPoints.transform.position = positionThrow.position;
-                spawnedPoints.rb.AddForce(positionThrow.forward * forceThrow);
+                spawnedPoints.rb.AddForce(positionThrow.forward * PlayerManager.instance.forceThrow);
             }
         }        
     }
@@ -806,98 +657,6 @@ public class ControllerMultiPlayer : Damageable
         OnDeath();
     }
 
-    void DropCurrentWeapon()
-    {
-        weaponCurrent.OnDrop();
-        weaponCurrent.transform.SetParent(null);
-        weaponCurrent.transform.position = positionThrow.position;
-        weaponCurrent.rb.AddForce(positionThrow.forward * forceThrow);
-        weaponCurrent.rb.AddTorque(Random.rotation.eulerAngles * forceThrow);
-
-        weaponCurrent = null;
-    }
-
-    void SetCurrentWeapon(Weapon toSet, bool isPrefab = false)
-    {
-        if (isPrefab)
-        {
-            GameObject spawnedWeaponObject = Instantiate(toSet.gameObject);
-            Weapon spawnedWeapon = spawnedWeaponObject.GetComponent<Weapon>();
-            weaponCurrent = spawnedWeapon;
-        }
-        else
-        {
-            weaponCurrent = toSet;
-        }
-        
-        weaponCurrent.transform.SetParent(positionWeaponCurrent);
-        weaponCurrent.transform.Reset();
-        weaponCurrent.OnEquip(this);
-    }
-
-    void AddWeaponToInventory(Weapon toAdd, bool isPrefab = false)
-    {
-        if (toAdd == null)
-        {
-            Debug.Log("Cannot add null weapon to inventory");
-            return;
-        }
-
-        if (isPrefab)
-        {
-            GameObject spawnedWeaponObject = Instantiate(toAdd.gameObject);
-            Weapon spawnedWeapon = spawnedWeaponObject.GetComponent<Weapon>();
-            spawnedWeapon.OnUnequip();
-            weaponsUnequipped.Add(spawnedWeapon);
-        }
-        else
-        {
-            bool replaced = false;
-            for (int i = 0; i < weaponsUnequipped.Count; i++)
-            {
-                if (weaponsUnequipped[i].weaponID == PlayerManager.instance.prefabBaseWeapon.weaponID)
-                {
-                    Weapon toDestroy = weaponsUnequipped[i];
-                    weaponsUnequipped[i] = toAdd;
-                    toDestroy.DestroyThisObject();
-                    replaced = true;
-                }
-            }
-            toAdd.OnUnequip();
-            if (!replaced)
-            {
-                weaponsUnequipped.Add(toAdd);
-            }
-        }
-        if (weaponsUnequipped.Count > PlayerManager.instance.weaponCount)
-        {
-            Weapon toDrop = weaponsUnequipped.RemoveFirst();
-
-            toDrop.OnDrop();
-            toDrop.transform.SetParent(null);
-            toDrop.transform.position = positionThrow.position;
-            toDrop.rb.AddForce(positionThrow.forward * forceThrow);
-            toDrop.rb.AddTorque(Random.rotation.eulerAngles * forceThrow);
-        }
-        ArrangeUnequippedWeapons();
-    }
-
-    void ArrangeUnequippedWeapons()
-    {
-        int index = 0;
-        foreach (var i in weaponsUnequipped)
-        {
-            if (index >= positionsWeaponsUnequipped.Count)
-            {
-                Debug.LogError("Not enough weapon positions for unequipped weapons on P" + indexPlayer);
-                return;
-            }
-            i.transform.SetParent(positionsWeaponsUnequipped[index]);
-            i.transform.Reset();
-            index++;
-        }
-    }
-
     public void SetFalling()
     {
         foreach (var i in GetComponentsInChildren<Projector>())
@@ -907,7 +666,7 @@ public class ControllerMultiPlayer : Damageable
         rb.isKinematic = false;
         rb.constraints = RigidbodyConstraints.None;
         rb.AddTorque(Random.rotation.eulerAngles * 5f);
-        controller.enabled = false;
+        controllerInput.enabled = false;
         this.enabled = false;        
     }
 
@@ -917,9 +676,9 @@ public class ControllerMultiPlayer : Damageable
         {
             i.enabled = true;
         }
-        controller.rb.isKinematic = false;
-        controller.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-        controller.enabled = true;
+        controllerInput.rb.isKinematic = false;
+        controllerInput.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        controllerInput.enabled = true;
         this.enabled = true;
     }
 }

@@ -897,7 +897,7 @@ MonoBehaviour:
   clipMax: 50
   timeReload: 2
   isReloading: 0
-  currentPlayer: {fileID: 0}
+  controllerCurrent: {fileID: 0}
   rb: {fileID: 299296213}
   projectilePrefab: {fileID: 114375185774425922, guid: d1662618ffca3174aac6c190e6a8148f,
     type: 2}
@@ -3073,7 +3073,7 @@ MonoBehaviour:
   clipMax: 5
   timeReload: 2
   isReloading: 0
-  currentPlayer: {fileID: 0}
+  controllerCurrent: {fileID: 0}
   rb: {fileID: 0}
   projectilePrefab: {fileID: 114375185774425922, guid: d1662618ffca3174aac6c190e6a8148f,
     type: 2}
@@ -3418,7 +3418,7 @@ MonoBehaviour:
   clipMax: 10
   timeReload: 2
   isReloading: 0
-  currentPlayer: {fileID: 0}
+  controllerCurrent: {fileID: 0}
   rb: {fileID: 0}
   projectilePrefab: {fileID: 114375185774425922, guid: d1662618ffca3174aac6c190e6a8148f,
     type: 2}

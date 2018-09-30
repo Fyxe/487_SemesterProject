@@ -145,7 +145,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4680904154560146}
   m_Layer: 8
-  m_Name: UnequippedPositions
+  m_Name: PositionsUnequippedWeapons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,6 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4026189900101750}
   - component: {fileID: 114186442045624042}
+  - component: {fileID: 114297633389141560}
   - component: {fileID: 114426084222644282}
   - component: {fileID: 143337160514211182}
   - component: {fileID: 54051910359285966}
@@ -257,7 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4602460659433956}
   m_Layer: 8
-  m_Name: CurrentWeaponPosition
+  m_Name: PositionWeaponCurrent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1102,9 +1103,6 @@ MonoBehaviour:
   isDead: 0
   team: 0
   invertAxis1Z: 0
-  reviveRadius: 3
-  interactRadius: 2
-  forceThrow: 50
   delaySwapWeapon: 0.1
   delayUseAbility: 0.1
   delayRevive: 0
@@ -1116,7 +1114,30 @@ MonoBehaviour:
   delayThrowPoints: 0.1
   positionThrow: {fileID: 4135792882655244}
   incapacitatedObject: {fileID: 1952880113627748}
+  ui: {fileID: 0}
+  projectors:
+  - {fileID: 119424923473368980}
+  - {fileID: 119057119281020990}
+  - {fileID: 119872443446021538}
+  rb: {fileID: 54051910359285966}
+--- !u!114 &114297633389141560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318218515227642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ec5df0c28beb04a981b99e33a89c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_forceThrow: 500
+  m_weaponCount: 1
+  m_replaceCurrentWeaponOnPickup: 1
+  attachedAI: {fileID: 0}
+  attachedPlayer: {fileID: 0}
   weaponCurrent: {fileID: 0}
+  weaponsUnequipped: []
   positionWeaponCurrent: {fileID: 4602460659433956}
   positionsWeaponsUnequipped:
   - {fileID: 4808433649415662}
@@ -1130,12 +1151,8 @@ MonoBehaviour:
   - {fileID: 4042953533491330}
   - {fileID: 4808058323345214}
   - {fileID: 4379950927509306}
-  ui: {fileID: 0}
-  projectors:
-  - {fileID: 119424923473368980}
-  - {fileID: 119057119281020990}
-  - {fileID: 119872443446021538}
-  rb: {fileID: 54051910359285966}
+  m_positionThrow: {fileID: 4135792882655244}
+  m_prefabBaseWeapon: {fileID: 0}
 --- !u!114 &114354370839524034
 MonoBehaviour:
   m_ObjectHideFlags: 1

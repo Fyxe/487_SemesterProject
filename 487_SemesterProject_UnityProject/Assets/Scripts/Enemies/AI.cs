@@ -30,8 +30,11 @@ public class AI : Damageable
     public NavMeshAgent agent;
     ControllerMultiPlayer cachedPlayer;
 
+    [HideInInspector] public Rigidbody rb;
+
     void Awake()
     {
+        rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         timeElapsedInState = 0;
     }

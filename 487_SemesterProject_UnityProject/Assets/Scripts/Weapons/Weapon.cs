@@ -51,7 +51,7 @@ public class Weapon : Interactable
     public float timeReload = 2f;
     public bool isReloading = false;
     bool isHeld = false;
-    public ControllerMultiPlayer currentPlayer;
+    public WeaponController controllerCurrent;
 
     List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
 
@@ -169,10 +169,10 @@ public class Weapon : Interactable
         // todo
     }
 
-    public virtual void OnEquip(ControllerMultiPlayer player)   // called when changed to current weapon
+    public virtual void OnEquip(WeaponController newControllerCurrent)   // called when changed to current weapon
     {
         rb.isKinematic = true;
-        currentPlayer = player;
+        controllerCurrent = newControllerCurrent;
         isHeld = true;
         DisableHighlight();
         this.gameObject.SetLayer(LayerMask.NameToLayer("Player"));
@@ -181,7 +181,7 @@ public class Weapon : Interactable
     public virtual void OnUnequip() // called when enqueued in unequipped weapons
     {
         rb.isKinematic = true;
-        currentPlayer = null;
+        controllerCurrent = null;
         isHeld = true;
         DisableHighlight();
         this.gameObject.SetLayer(LayerMask.NameToLayer("Player"));

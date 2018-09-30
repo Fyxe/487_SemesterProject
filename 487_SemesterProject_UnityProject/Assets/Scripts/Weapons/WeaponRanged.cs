@@ -25,6 +25,6 @@ public class WeaponRanged : Weapon
             spawnedProjectile.ShootProjectile(newDirection, speedAttack, 1);
         }
                 
-        currentPlayer.rb.AddForce(-1f * knockbackForce * currentPlayer.transform.forward, ForceMode.Impulse);
+        controllerCurrent.AddForceToAttachedEntity(-1f * knockbackForce * controllerCurrent.transform.forward, ForceMode.Impulse);
     }
 }

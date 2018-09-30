@@ -1135,6 +1135,7 @@ MonoBehaviour:
   - {fileID: 119424923473368980}
   - {fileID: 119057119281020990}
   - {fileID: 119872443446021538}
+  rb: {fileID: 54051910359285966}
 --- !u!114 &114354370839524034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1193,6 +1194,7 @@ MonoBehaviour:
   axis1Z: 0
   parentCamera: {fileID: 4077999184490024}
   lookBehind: 0
+  rb: {fileID: 0}
 --- !u!114 &114562695381441884
 MonoBehaviour:
   m_ObjectHideFlags: 1

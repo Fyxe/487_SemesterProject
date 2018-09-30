@@ -33,7 +33,6 @@ public class GameLevelManager : LevelManager
     public List<LevelPiece> piecesToSpawnIn = new List<LevelPiece>();    
     public List<LevelPiece> piecesPlayersAreIn = new List<LevelPiece>();
     
-
     void Awake()
     {
         generator = FindObjectOfType<LevelGenerationManager>();
@@ -136,6 +135,8 @@ public class GameLevelManager : LevelManager
                 
 
                 spawnPositions[0].SpawnObject(spawnedControllerObject.transform);
+                spawnedControllerObject.transform.position += Vector3.up * 10f;
+                spawnedControllerObject.transform.rotation = Random.rotation;
                 spawnPositions.RemoveAt(0);
 
                 
@@ -143,6 +144,7 @@ public class GameLevelManager : LevelManager
                 ControllerMultiPlayer spawnedController = spawnedControllerObject.GetComponent<ControllerMultiPlayer>();
                 spawnedController.Setup(i, playerUIBoxes[i.indexPlayer]);
                 spawnedController.SetInvulnerable(PlayerManager.instance.timeInvulnerable);
+                spawnedController.SetFalling();
                 allControllers.Add(spawnedController);
                 FindObjectOfType<NavMeshCameraController>().toFollow.Add(spawnedController.transform);
             }

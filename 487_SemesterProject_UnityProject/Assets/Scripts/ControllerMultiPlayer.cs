@@ -199,6 +199,8 @@ public class ControllerMultiPlayer : Damageable
     bool triggerInUseRight = false;
     bool triggerInUseLeft = false;
 
+    public Rigidbody rb;
+
     void Awake()
     {        
         controller = GetComponent<InputController3D>();      
@@ -206,7 +208,8 @@ public class ControllerMultiPlayer : Damageable
     }
 
     void Update()
-    {
+    {        
+
         if (!LevelManager.instance.isPlaying)
         {
             controller.SetAxis(0f, 0f, 0f, 0f);
@@ -343,7 +346,6 @@ public class ControllerMultiPlayer : Damageable
         {
             i.material.color = colorPlayer;
         }
-
 
         weaponCurrent = ObjectPoolingManager.instance.CreateObject(PlayerManager.instance.prefabBaseWeapon) as Weapon;        
         
@@ -786,5 +788,29 @@ public class ControllerMultiPlayer : Damageable
             i.transform.Reset();
             index++;
         }
+    }
+
+    public void SetFalling()
+    {
+        foreach (var i in GetComponentsInChildren<Projector>())
+        {
+            i.enabled = false;
+        }
+        controller.rb.isKinematic = false;
+        controller.rb.constraints = RigidbodyConstraints.None;
+        controller.enabled = false;
+        this.enabled = false;        
+    }
+
+    public void SetReady()
+    {
+        foreach (var i in GetComponentsInChildren<Projector>())
+        {
+            i.enabled = true;
+        }
+        controller.rb.isKinematic = false;
+        controller.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        controller.enabled = true;
+        this.enabled = true;
     }
 }

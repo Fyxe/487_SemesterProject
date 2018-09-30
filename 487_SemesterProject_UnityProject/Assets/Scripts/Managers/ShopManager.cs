@@ -70,6 +70,7 @@ public class ShopManager : LevelManager
                     else
                     {
                         spawnedControllerObject.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].position;
+                        spawnedControllerObject.transform.rotation = Random.rotation;
                     }
                 }
                 else
@@ -83,6 +84,7 @@ public class ShopManager : LevelManager
                 ControllerMultiPlayer spawnedController = spawnedControllerObject.GetComponent<ControllerMultiPlayer>();
                 spawnedController.Setup(i, playerUIBoxes[i.indexPlayer]);
                 spawnedController.SetInvulnerable(PlayerManager.instance.timeInvulnerable);
+                spawnedController.SetFalling();
                 allControllers.Add(spawnedController);
                 FindObjectOfType<NavMeshCameraController>().toFollow.Add(spawnedController.transform);
             }

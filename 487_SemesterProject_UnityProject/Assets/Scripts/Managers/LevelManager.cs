@@ -9,7 +9,10 @@ using UI;
 public class LevelManager : Singleton<LevelManager>
 {
 
-    //[Header("Settings")]
+    [Header("LevelManager Settings")]
+    public float dropTime = 5f;
+    public float dropHeight = 10f;
+    public float dropLerpTime = 2f;
     bool isPaused = false;
     bool m_isPlaying = false;
     public bool isPlaying
@@ -36,7 +39,7 @@ public class LevelManager : Singleton<LevelManager>
     public DropSet baseDropSetEnemy;
     public DropSet baseDropSetBarrel;
     public List<ControllerMultiPlayer> allControllers = new List<ControllerMultiPlayer>();
-    public List<Transform> spawnPoints = new List<Transform>();
+    public List<SpawnPosition> spawnPoints = new List<SpawnPosition>();
     public List<PlayerUIBox> playerUIBoxes = new List<PlayerUIBox> ();
     public ScreenPause screenPause;
 
@@ -104,7 +107,7 @@ public class LevelManager : Singleton<LevelManager>
             }
             else
             {
-                spawnedControllerObject.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].position;
+                spawnedControllerObject.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position;
             }            
         }
         else
@@ -121,7 +124,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public virtual void SpawnPlayersInitially()
     {
-        List<Transform> spawnCopies = spawnPoints.ToList();
+        List<SpawnPosition> spawnCopies = spawnPoints.ToList();
         foreach (var i in PlayerManager.instance.allPlayerAttributes)
         {
             if (i.isSpawned)
@@ -142,7 +145,7 @@ public class LevelManager : Singleton<LevelManager>
                     }
                     else
                     {
-                        spawnedControllerObject.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].position + Vector3.up * 10f;
+                        spawnedControllerObject.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position + Vector3.up * dropHeight;
                         spawnedControllerObject.transform.rotation = Random.rotation;
                     }
                 }
@@ -150,7 +153,7 @@ public class LevelManager : Singleton<LevelManager>
                 {
                     int index = Random.Range(0, spawnCopies.Count);
 
-                    spawnedControllerObject.transform.position = spawnCopies[index].position;
+                    spawnedControllerObject.transform.position = spawnCopies[index].transform.position;
                     spawnCopies.RemoveAt(index);                
                 }
                 
@@ -162,6 +165,36 @@ public class LevelManager : Singleton<LevelManager>
                 FindObjectOfType<NavMeshCameraController>().toFollow.Add(spawnedController.transform);
             }
         }
+        StartCoroutine(WaitForPlayersToDrop());
+    }
+
+    public IEnumerator WaitForPlayersToDrop()  
+    {
+        yield return new WaitForSeconds(dropTime);
+        float currentTime = 0f;
+        List<Vector3> startPositions = new List<Vector3>();
+        List<Quaternion> startRotations = new List<Quaternion>();
+        foreach (var i in allControllers)
+        {
+            i.rb.isKinematic = true;
+            startPositions.Add(i.transform.position);
+            startRotations.Add(i.transform.rotation);
+        }
+        while (currentTime < dropLerpTime)
+        {
+            currentTime += Time.deltaTime;
+            for (int i = 0; i < allControllers.Count; i++)
+            {
+                allControllers[i].transform.position = Vector3.Lerp(startPositions[i], spawnPoints[i].transform.position, currentTime / dropLerpTime);
+                allControllers[i].transform.rotation = Quaternion.Lerp(startRotations[i], spawnPoints[i].transform.rotation, currentTime / dropLerpTime);
+            }
+            yield return null;
+        }
+        foreach (var i in allControllers)
+        {
+            i.SetReady();
+        }
+        StartLevel();
     }
 
     public void CheckIfAllPlayersAreDead()

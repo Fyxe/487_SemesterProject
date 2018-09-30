@@ -9,4 +9,5 @@ public class SpawnPosition : MonoBehaviour {
         toSpawn.transform.position = transform.position;
         toSpawn.transform.rotation = transform.rotation;
     }
+    
 }

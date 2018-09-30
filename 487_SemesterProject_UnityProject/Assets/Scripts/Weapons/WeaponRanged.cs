@@ -24,7 +24,7 @@ public class WeaponRanged : Weapon
             newDirection += new Vector3(Random.Range(-spread, spread), Random.Range(-spread, spread), newDirection.z);
             spawnedProjectile.ShootProjectile(newDirection, speedAttack, 1);
         }
-        // TODO: force not currently working
-        currentPlayerRB.AddForce(-1f * knockbackForce * currentPlayer.transform.forward, ForceMode.Impulse);
+                
+        currentPlayer.rb.AddForce(-1f * knockbackForce * currentPlayer.transform.forward, ForceMode.Impulse);
     }
 }

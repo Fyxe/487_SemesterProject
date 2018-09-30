@@ -47,7 +47,7 @@ public class ShopManager : LevelManager
 
     public override void SpawnPlayersInitially()
     {
-        List<Transform> spawnCopies = spawnPoints.ToList();
+        List<SpawnPosition> spawnCopies = spawnPoints.ToList();
         foreach (var i in PlayerManager.instance.allPlayerAttributes)
         {
             if (i.isSpawned)
@@ -69,7 +69,7 @@ public class ShopManager : LevelManager
                     }
                     else
                     {
-                        spawnedControllerObject.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].position;
+                        spawnedControllerObject.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position;
                         spawnedControllerObject.transform.rotation = Random.rotation;
                     }
                 }
@@ -77,7 +77,7 @@ public class ShopManager : LevelManager
                 {
                     int index = Random.Range(0, spawnCopies.Count);
 
-                    spawnedControllerObject.transform.position = spawnCopies[index].position;
+                    spawnedControllerObject.transform.position = spawnCopies[index].transform.position;
                     spawnCopies.RemoveAt(index);
                 }
 

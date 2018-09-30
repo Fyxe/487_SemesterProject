@@ -49,31 +49,7 @@ public class Weapon : Interactable
     public float timeReload = 2f;
     public bool isReloading = false;
     bool isHeld = false;
-    GameObject m_currentPlayer;
-    public GameObject currentPlayer
-    {
-        get
-        {
-            return m_currentPlayer;
-        }
-        set
-        {
-            m_currentPlayer = value;
-            if (value != null)
-            {
-                if (m_currentPlayer.GetComponent<Rigidbody>() == null)
-                {
-                    Debug.LogError("No rigidbody found on player: " + value.name);
-                }
-                else
-                {
-                    currentPlayerRB = m_currentPlayer.GetComponent<Rigidbody>();
-                }
-            }
-        }
-    }
-
-    public Rigidbody currentPlayerRB;
+    public ControllerMultiPlayer currentPlayer;
 
     List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
 
@@ -191,7 +167,7 @@ public class Weapon : Interactable
         // todo
     }
 
-    public virtual void OnEquip(GameObject player)   // called when changed to current weapon
+    public virtual void OnEquip(ControllerMultiPlayer player)   // called when changed to current weapon
     {
         rb.isKinematic = true;
         currentPlayer = player;

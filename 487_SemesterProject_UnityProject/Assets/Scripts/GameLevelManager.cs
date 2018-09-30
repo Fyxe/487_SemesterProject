@@ -101,6 +101,7 @@ public class GameLevelManager : LevelManager
                 generator.countToSpawnMin = GameplayManager.instance.piecesMinCurrent;
             }
             generator.GenerateLevel();
+            spawnPoints = generator.startPiece.spawnPositionsPlayer.ToList();
         }
         base.OnFocused();        
     }
@@ -135,8 +136,8 @@ public class GameLevelManager : LevelManager
                 
 
                 spawnPositions[0].SpawnObject(spawnedControllerObject.transform);
-                spawnedControllerObject.transform.position += Vector3.up * 10f;
-                spawnedControllerObject.transform.rotation = Random.rotation;
+                spawnedControllerObject.transform.position += Vector3.up * dropHeight;
+                spawnedControllerObject.transform.rotation = Random.rotation;                
                 spawnPositions.RemoveAt(0);
 
                 
@@ -149,6 +150,7 @@ public class GameLevelManager : LevelManager
                 FindObjectOfType<NavMeshCameraController>().toFollow.Add(spawnedController.transform);
             }
         }
+        StartCoroutine(WaitForPlayersToDrop());
     }
 
     public List<LevelPiece> GetPiecesDistance(int distanceFromPlayers)

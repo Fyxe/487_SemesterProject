@@ -359,7 +359,7 @@ public class ControllerMultiPlayer : Damageable
                 weaponsUnequipped.Enqueue(tempBackpackWeapon);
             }
         }
-        weaponCurrent.OnEquip(this.gameObject);
+        weaponCurrent.OnEquip(this);
         weaponCurrent.transform.SetParent(positionWeaponCurrent);
         weaponCurrent.transform.Reset();
 
@@ -522,7 +522,7 @@ public class ControllerMultiPlayer : Damageable
         if (tempWeapon == null)
         {
             tempWeapon = ObjectPoolingManager.instance.CreateObject(PlayerManager.instance.prefabBaseWeapon) as Weapon;
-            tempWeapon.OnEquip(this.gameObject);            
+            tempWeapon.OnEquip(this);            
         }
         if (weaponsUnequipped.Count < PlayerManager.instance.weaponCount)
         {
@@ -538,7 +538,7 @@ public class ControllerMultiPlayer : Damageable
         tempWeapon.OnUnequip();
         weaponsUnequipped.Enqueue(tempWeapon);
 
-        weaponCurrent.OnEquip(this.gameObject);
+        weaponCurrent.OnEquip(this);
         weaponCurrent.transform.SetParent(positionWeaponCurrent);
         weaponCurrent.transform.Reset();
 
@@ -750,7 +750,7 @@ public class ControllerMultiPlayer : Damageable
         
         weaponCurrent.transform.SetParent(positionWeaponCurrent);
         weaponCurrent.transform.Reset();
-        weaponCurrent.OnEquip(this.gameObject);
+        weaponCurrent.OnEquip(this);
     }
 
     void AddWeaponToInventory(Weapon toAdd, bool isPrefab = false)
@@ -796,8 +796,9 @@ public class ControllerMultiPlayer : Damageable
         {
             i.enabled = false;
         }
-        controller.rb.isKinematic = false;
-        controller.rb.constraints = RigidbodyConstraints.None;
+        rb.isKinematic = false;
+        rb.constraints = RigidbodyConstraints.None;
+        rb.AddTorque(Random.rotation.eulerAngles * 5f);
         controller.enabled = false;
         this.enabled = false;        
     }

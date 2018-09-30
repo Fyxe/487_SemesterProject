@@ -258,28 +258,25 @@ public static class Extensions {
 
     public static T RemoveLast<T>(this IList<T> toGetFrom)
     {
-        if (toGetFrom.Count == 0)
-        {
-            return default(T);
-        }
-        else
-        {
-            T temp = toGetFrom[toGetFrom.Count - 1];
-            toGetFrom.RemoveAt(toGetFrom.Count - 1);
-            return temp;
-        }
+        return RemoveAndGetAt(toGetFrom, toGetFrom.Count - 1);
     }
 
     public static T RemoveFirst<T>(this IList<T> toGetFrom)
     {
+        return RemoveAndGetAt(toGetFrom,0);
+    }
+
+    public static T RemoveAndGetAt<T>(this IList<T> toGetFrom, int index)
+    {
         if (toGetFrom.Count == 0)
         {
+            Debug.Log("asdasd");
             return default(T);
         }
         else
         {
-            T temp = toGetFrom[0];
-            toGetFrom.RemoveAt(0);
+            T temp = toGetFrom[index];
+            toGetFrom.RemoveAt(index);
             return temp;
         }
     }

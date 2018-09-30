@@ -481,7 +481,7 @@ public class ControllerMultiPlayer : Damageable
 
     public void AttemptThrowWeapon()
     {
-        if (Time.time > nextThrowWeapon)
+        if (Time.time > nextThrowWeapon && !controllerWeapons.isHoldingBaseWeapon)
         {
             nextThrowWeapon = Time.time + delayThrowWeapon;
             //Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " threw their weapon.");

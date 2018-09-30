@@ -14,14 +14,17 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     [Tooltip("This does not include the current weapon")]
     public int weaponCount = 1;
     public int pointsToThrow = 100;
-    public bool replaceCurrentWeaponOnPickup = true;
     public float forceThrow = 500f;
     public float radiusRevive = 2f;
     public float radiusInteract = 2f;
+    public bool replaceCurrentWeaponOnPickup = true;
+    public bool swapToNonBaseWeaponOnThrow = true;
 
     [Header("References")]
     public Sprite spriteHealthFull;
     public Sprite spriteHealthEmpty;
+
+    [Tooltip("This weapon should not appear in the world anywhere.")]
     public Weapon prefabBaseWeapon;
     public PickupStats prefabMoney;
     public List<PlayerAttributes> allPlayerAttributes = new List<PlayerAttributes>();

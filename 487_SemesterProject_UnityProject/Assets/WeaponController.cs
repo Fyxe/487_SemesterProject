@@ -5,7 +5,8 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
 
-    [Header("Settings")]
+    // If this controller is on a player it will use the settings in player manager
+    [Header("Settings, see comment in code")]
     [SerializeField] float m_forceThrow = 500f;
     public float forceThrow
     {
@@ -48,6 +49,21 @@ public class WeaponController : MonoBehaviour
             else
             {
                 return m_replaceCurrentWeaponOnPickup;
+            }
+        }
+    }
+    [SerializeField] bool m_swapToNonBaseWeaponOnThrow = true;
+    public bool swapToNonBaseWeaponOnThrow
+    {
+        get
+        {
+            if (controllerType == ControllerType.player)
+            {
+                return PlayerManager.instance.swapToNonBaseWeaponOnThrow;
+            }
+            else
+            {
+                return m_swapToNonBaseWeaponOnThrow;
             }
         }
     }
@@ -95,7 +111,7 @@ public class WeaponController : MonoBehaviour
     }
 
 
-    bool hasEmptyWeaponSlotInInventory
+    public bool hasEmptyWeaponSlotInInventory
     {
         get
         {
@@ -113,7 +129,7 @@ public class WeaponController : MonoBehaviour
             return false;
         }
     }
-    bool hasNonEmptyWeaponSlotInInventory
+    public bool hasNonEmptyWeaponSlotInInventory
     {
         get
         {
@@ -131,11 +147,26 @@ public class WeaponController : MonoBehaviour
             return false;
         }
     }
-    bool isHoldingBaseWeapon
+    public bool isHoldingBaseWeapon
     {
         get
         {
             return weaponCurrent != null && weaponCurrent.weaponID == prefabBaseWeapon.weaponID;
+        }
+    }
+    public int weaponsInInventory
+    {
+        get
+        {
+            int retInt = 0;
+            foreach (var i in weaponsUnequipped)
+            {
+                if (i.weaponID != prefabBaseWeapon.weaponID)
+                {
+                    retInt++;
+                }
+            }
+            return retInt;
         }
     }
 
@@ -203,7 +234,16 @@ public class WeaponController : MonoBehaviour
             }
             else
             {
-                DropCurrentWeapon();
+                int inventoryCount = weaponsInInventory;
+                if (inventoryCount < weaponCount)  
+                {
+                    AddWeaponToInventory(weaponCurrent);
+                    SetCurrentWeapon(toPickup);
+                }
+                else
+                {
+                    DropCurrentWeapon();
+                }
             }
             SetCurrentWeapon(toPickup);
         }
@@ -215,8 +255,36 @@ public class WeaponController : MonoBehaviour
 
     public void ThrowCurrentWeapon()
     {
+        if (isHoldingBaseWeapon)
+        {
+            return;
+        }
         DropCurrentWeapon();
-        SetCurrentWeapon(prefabBaseWeapon, true);
+        if (swapToNonBaseWeaponOnThrow)
+        {
+            if (weaponsInInventory > 0)
+            {
+                int index = 0;
+                for (int i = 0; i < weaponsUnequipped.Count; i++)
+                {
+                    if (weaponsUnequipped[i].weaponID != prefabBaseWeapon.weaponID)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+                Weapon removedWeapon = weaponsUnequipped.RemoveAndGetAt(index);
+                SetCurrentWeapon(removedWeapon);
+            }
+            else
+            {
+                SetCurrentWeapon(prefabBaseWeapon, true);
+            }
+        }
+        else
+        {
+            SetCurrentWeapon(prefabBaseWeapon, true);
+        }
     }
 
     public void DropCurrentWeapon()
@@ -266,6 +334,12 @@ public class WeaponController : MonoBehaviour
 
     void SetCurrentWeapon(Weapon toSet, bool isPrefab = false)
     {
+        if (toSet == null)
+        {
+            Debug.LogError("Null weapon could not be set.");
+            return;
+        }
+
         if (isPrefab)
         {
             GameObject spawnedWeaponObject = Instantiate(toSet.gameObject);

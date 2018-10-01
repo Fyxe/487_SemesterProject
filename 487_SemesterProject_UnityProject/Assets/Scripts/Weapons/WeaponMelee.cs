@@ -8,14 +8,27 @@ public class WeaponMelee : Weapon
     public Transform startRotation;
     public Transform endRotation;
     public Transform rotationAxis;
+    public MeleeWeaponMode meleeWeaponMode;
+    
 
     protected override void Attack()
     {
         base.Attack();
-        StartCoroutine(AttackCoroutine());
+        switch (meleeWeaponMode)
+        {
+            case MeleeWeaponMode.swing;
+                StartCoroutine(AttackCoroutineSwing());
+                break;
+            case MeleeWeaponMode.stab:
+                StartCoroutine(AttackCoroutineStab());
+                break;
+            default:
+                Debug.LogError("Invalid Melee Weapon Mode");
+                break;
+        }
     }
 
-    public IEnumerator AttackCoroutine()
+    public IEnumerator AttackCoroutineSwing()
     {
         float nextAttack = 0f;
         while (nextAttack < speedAttack)
@@ -27,5 +40,11 @@ public class WeaponMelee : Weapon
         
         hitbox.position.Set(0, 0, 0);
         hitbox.rotation = startRotation.rotation;
+    }
+
+    public IEnumerator AttackCoroutineStab()
+    {
+        // TODO: do stab
+        yield return null;
     }
 }

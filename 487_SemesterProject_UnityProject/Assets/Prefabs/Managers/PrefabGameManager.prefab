@@ -304,9 +304,10 @@ MonoBehaviour:
   dropSetWeaponsInstantiated: {fileID: 0}
   dropSetAbilities: {fileID: 0}
   dropSetAbilitiesInstantiated: {fileID: 0}
-  dropSetAIs: {fileID: 0}
+  dropSetAIs: {fileID: 11400000, guid: 5aeeb2e942f6b044fa733bb8c85c02ba, type: 2}
   dropSetAIsInstantiated: {fileID: 0}
-  dropSetLevelPiecesGeneral: {fileID: 0}
+  dropSetLevelPiecesGeneral: {fileID: 11400000, guid: 8b60c871fdbe78d409d997d0db2d8ce1,
+    type: 2}
   dropSetLevelPiecesGeneralInstantiated: {fileID: 0}
 --- !u!114 &114331804233049570
 MonoBehaviour:
@@ -338,8 +339,14 @@ MonoBehaviour:
   unlockAllBasketsAtStart: 0
   scoreOnLevelCompletion: 1000
   allBaskets: []
-  allWeapons: []
-  allUnlockedWeapons: []
+  allWeapons:
+  - {fileID: 114697854136788232, guid: cd0a65b2fc8c84d469a1396b7b24f332, type: 2}
+  - {fileID: 114924703100487726, guid: 0bece21a170dd7a4bbaf07c3de157468, type: 2}
+  - {fileID: 114429671755288488, guid: 7677c7e9f0661a34589c35b768e7ed5a, type: 2}
+  allUnlockedWeapons:
+  - {fileID: 114697854136788232, guid: cd0a65b2fc8c84d469a1396b7b24f332, type: 2}
+  - {fileID: 114924703100487726, guid: 0bece21a170dd7a4bbaf07c3de157468, type: 2}
+  - {fileID: 114429671755288488, guid: 7677c7e9f0661a34589c35b768e7ed5a, type: 2}
   allAbilities: []
   allUnlockedAbilities: []
   allAI: []
@@ -476,11 +483,21 @@ MonoBehaviour:
   possableMaxPlayers: 4
   timeIncapacitated: 10
   timeInvulnerable: 1
-  weaponCount: 2
+  weaponCount: 1
   pointsToThrow: 100
+  forceThrow: 500
+  radiusRevive: 2
+  radiusInteract: 2
+  replaceCurrentWeaponOnPickup: 1
+  swapToNonBaseWeaponOnThrow: 1
+  pointsPerReviveHit: 10
+  pointsOnRevive: 100
   spriteHealthFull: {fileID: 21300000, guid: 26f91e46dc80c5f48bc4b9eb00bf9c89, type: 3}
   spriteHealthEmpty: {fileID: 21300000, guid: 3785da64ba8fd6242b2455269ea12f06, type: 3}
-  prefabBaseWeapon: {fileID: 0}
+  materialZero: {fileID: 13400000, guid: ee3dc06e382d45b4cb00ae1852073ed3, type: 2}
+  materialBounce: {fileID: 13400000, guid: 9f5b6e785c2150847a243ea9e8a88417, type: 2}
+  prefabBaseWeapon: {fileID: 114880324480030846, guid: cdfdb3fb3e3ac5d4a89a7d77b2d9652b,
+    type: 2}
   prefabMoney: {fileID: 114265833007881906, guid: ce3177bf42c3c0141a96d5d694230941,
     type: 2}
   allPlayerAttributes:
@@ -497,6 +514,8 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    weaponCurrentID: 0
+    weaponsUnequippedIDs: 
     enemiesKilled: 
   - isSpawned: 0
     isDead: 0
@@ -511,6 +530,8 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    weaponCurrentID: 0
+    weaponsUnequippedIDs: 
     enemiesKilled: 
   - isSpawned: 0
     isDead: 0
@@ -525,6 +546,8 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    weaponCurrentID: 0
+    weaponsUnequippedIDs: 
     enemiesKilled: 
   - isSpawned: 0
     isDead: 0
@@ -539,6 +562,8 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    weaponCurrentID: 0
+    weaponsUnequippedIDs: 
     enemiesKilled: 
 --- !u!114 &114722024201700226
 MonoBehaviour:
@@ -588,6 +613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataCurrent:
     scoreCurrent: 0
+    maxDayReached: 0
     unlockedBaskets: 
   gameStartedCorrectly: 0
 --- !u!114 &114975718039966508

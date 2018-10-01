@@ -10,4 +10,5 @@ public enum PlayerState { alive, incapacitated, dead, disconnected }
 public enum PositionToSpawn { ALL, behind, infront }
 public enum SpawnType { playerAccessable, playerUnaccessable }
 public enum Thing { weapon, ability, ai, levelPieceGeneral }   // TODO rename
-public enum MeleeAttackMode { NONE, swing, stab }
+public enum ControllerType { NONE, ai, player }
+public enum MeleeWeaponMode { NONE, swing, stab }

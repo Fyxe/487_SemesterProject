@@ -73,10 +73,10 @@ public class ProgressionManager : Singleton<ProgressionManager>
                 }
             }
         }
-        allWeapons = tempListWeapon.OrderBy(x => x.weaponID).ToList();        
-        allAbilities = tempListAbility.OrderBy(x => x.abilityID).ToList();
-        allAI = tempListAI.OrderBy(x => x.aiID).ToList();
-        allLevelPiecesGeneral = tempListLevelPieceGeneral.ToList();
+        allWeapons.AddRange(tempListWeapon.OrderBy(x => x.weaponID).ToList());        
+        allAbilities.AddRange(tempListAbility.OrderBy(x => x.abilityID).ToList());
+        allAI.AddRange(tempListAI.OrderBy(x => x.aiID).ToList());
+        allLevelPiecesGeneral.AddRange(tempListLevelPieceGeneral.ToList());
     }
 
     private void Start()
@@ -120,5 +120,32 @@ public class ProgressionManager : Singleton<ProgressionManager>
         DropManager.instance.AddDropSet(basket.dropSetAbilities, Thing.ability);
         DropManager.instance.AddDropSet(basket.dropSetAIs, Thing.ai);
         DropManager.instance.AddDropSet(basket.dropSetLevelPiecesGeneral, Thing.levelPieceGeneral);
+    }
+
+
+
+    public Weapon GetWeapByID(int weaponID, bool useAll)
+    {
+        if (useAll)
+        {
+            foreach (var i in allWeapons)
+            {
+                if (i.weaponID == weaponID)
+                {
+                    return i;
+                }
+            }
+        }
+        else
+        {
+            foreach (var i in allUnlockedWeapons)
+            {
+                if (i.weaponID == weaponID)
+                {
+                    return i;
+                }
+            }
+        }
+        return null;
     }
 }

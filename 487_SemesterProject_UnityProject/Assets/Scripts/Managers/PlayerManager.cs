@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UI;
 
 public class PlayerManager : SingletonDDOL<PlayerManager>
 {
@@ -10,12 +11,24 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     public int possableMaxPlayers = 4;
     public float timeIncapacitated = 10f;
     public float timeInvulnerable = 1f;
-    public int weaponCount = 2;
+    [Tooltip("This does not include the current weapon")]
+    public int weaponCount = 1;
     public int pointsToThrow = 100;
+    public float forceThrow = 500f;
+    public float radiusRevive = 2f;
+    public float radiusInteract = 2f;
+    public bool replaceCurrentWeaponOnPickup = true;
+    public bool swapToNonBaseWeaponOnThrow = true;
+    public int pointsPerReviveHit = 10;
+    public int pointsOnRevive = 100;
 
     [Header("References")]
     public Sprite spriteHealthFull;
     public Sprite spriteHealthEmpty;
+    public PhysicMaterial materialZero;
+    public PhysicMaterial materialBounce;
+
+    [Tooltip("This weapon should not appear in the world anywhere.")]
     public Weapon prefabBaseWeapon;
     public PickupStats prefabMoney;
     public List<PlayerAttributes> allPlayerAttributes = new List<PlayerAttributes>();
@@ -72,7 +85,7 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
         {
             if (i.indexJoystick == indexJoystick && i.isSpawned)
             {
-                //Debug.Log("Player already spawned for joystick P" + indexJoystick);
+                LevelManager.instance.Pause();
                 return;
             }
         }
@@ -87,21 +100,18 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
 
                 if (GameLevelManager.instance is GameLevelManager)
                 {
-                    Debug.Log("Player P" + i.indexPlayer + ":J" + i.indexJoystick + " spawned in Level.");
+                    //Debug.Log("Player P" + i.indexPlayer + ":J" + i.indexJoystick + " spawned in Level.");
                     GameLevelManager.instance.SpawnPlayer(i);
                 }
                 if (ShopManager.instance is ShopManager)
                 {
-                    Debug.Log("Player P" + i.indexPlayer + ":J" + i.indexJoystick + " spawned in Shop.");
+                    //Debug.Log("Player P" + i.indexPlayer + ":J" + i.indexJoystick + " spawned in Shop.");
                     ShopManager.instance.SpawnPlayer(i);
-                }
-                
-                
-                
+                }               
                 return;
             }
         }
-        Debug.Log("All players spawned already.");
+        //Debug.Log("All players spawned already.");
     }
 
     public PlayerAttributes GetAttributeOfPlayer(int playerIndex)

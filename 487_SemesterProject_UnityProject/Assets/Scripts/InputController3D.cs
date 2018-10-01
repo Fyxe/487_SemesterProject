@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
 public class InputController3D : MonoBehaviour
 {
     [Header("Input Controller Settings")]
@@ -43,7 +42,7 @@ public class InputController3D : MonoBehaviour
     Vector3 directionOppositeMove = Vector3.zero;
     Rect cameraRect;
 
-    Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
     CharacterController controllerCurrent;
 
     void Awake()

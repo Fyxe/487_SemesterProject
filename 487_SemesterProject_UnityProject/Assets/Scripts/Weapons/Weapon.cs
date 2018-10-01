@@ -7,6 +7,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody))]
 public class Weapon : Interactable
 {
+    // TODO create a weapon controller that has reference to the player object, then move all scripts from the controllermultiplayer over
+
     public class CachedRenderer
     {
         public Renderer renderer;
@@ -49,31 +51,7 @@ public class Weapon : Interactable
     public float timeReload = 2f;
     public bool isReloading = false;
     bool isHeld = false;
-    GameObject m_currentPlayer;
-    public GameObject currentPlayer
-    {
-        get
-        {
-            return m_currentPlayer;
-        }
-        set
-        {
-            m_currentPlayer = value;
-            if (value != null)
-            {
-                if (m_currentPlayer.GetComponent<Rigidbody>() == null)
-                {
-                    Debug.LogError("No rigidbody found on player: " + value.name);
-                }
-                else
-                {
-                    currentPlayerRB = m_currentPlayer.GetComponent<Rigidbody>();
-                }
-            }
-        }
-    }
-
-    public Rigidbody currentPlayerRB;
+    public WeaponController controllerCurrent;
 
     List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
 
@@ -191,25 +169,28 @@ public class Weapon : Interactable
         // todo
     }
 
-    public virtual void OnEquip(GameObject player)   // called when changed to current weapon
+    public virtual void OnEquip(WeaponController newControllerCurrent)   // called when changed to current weapon
     {
         rb.isKinematic = true;
-        currentPlayer = player;
+        controllerCurrent = newControllerCurrent;
         isHeld = true;
         DisableHighlight();
+        this.gameObject.SetLayer(LayerMask.NameToLayer("Player"));
     }
 
     public virtual void OnUnequip() // called when enqueued in unequipped weapons
     {
         rb.isKinematic = true;
-        currentPlayer = null;
+        controllerCurrent = null;
         isHeld = true;
         DisableHighlight();
+        this.gameObject.SetLayer(LayerMask.NameToLayer("Player"));
     }
 
     public virtual void OnDrop()    // called when thrown
     {
         rb.isKinematic = false;
         isHeld = false;
+        this.gameObject.SetLayer(LayerMask.NameToLayer("Interactable"));
     }
 }

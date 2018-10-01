@@ -487,7 +487,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1265823755}
   m_HandleRect: {fileID: 1265823754}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -739,7 +739,7 @@ GameObject:
   - component: {fileID: 133546636}
   - component: {fileID: 133546635}
   m_Layer: 5
-  m_Name: TextPoints
+  m_Name: TextMaxDay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -795,7 +795,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100000
+  m_Text: 100
 --- !u!222 &133546636
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -997,12 +997,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waitingOnTransition: 0
   holderCurrent: {fileID: 0}
-  textBasketTitle: {fileID: 0}
-  textBasketCost: {fileID: 0}
-  textBasketDescription: {fileID: 0}
+  textBasketTitle: {fileID: 40098762}
+  textBasketCost: {fileID: 1267886431}
+  textBasketDescription: {fileID: 1920766618}
   textPoints: {fileID: 2053757268}
   parentBasket: {fileID: 2073169285}
   buttonBuy: {fileID: 1809968078}
+  buttonBack: {fileID: 561515795}
   prefabBasket: {fileID: 1523792148866966, guid: e7f573ad3f73a7547b712c109595a889,
     type: 2}
 --- !u!1 &210051343
@@ -1659,7 +1660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -3428,7 +3429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 780748337}
   m_Layer: 5
-  m_Name: Points
+  m_Name: MaxDay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3452,7 +3453,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -700, y: 200}
-  m_SizeDelta: {x: 400, y: 200}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &833826279
 GameObject:
@@ -4169,7 +4170,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 728093125}
   m_HandleRect: {fileID: 728093124}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5730,7 +5731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -7008,6 +7009,7 @@ MonoBehaviour:
   parentWeapon: {fileID: 532571358}
   parentAbility: {fileID: 2009488813}
   parentAI: {fileID: 340280304}
+  buttonBack: {fileID: 289482066}
   prefabWeapon: {fileID: 1506529982748020, guid: 2c967809466b8214fb09a15585de94ce,
     type: 2}
   prefabAbility: {fileID: 1833781570534708, guid: 5f65235a81b22894c90e313e22875d82,
@@ -7427,7 +7429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -7789,7 +7791,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitingOnTransition: 0
-  textPoints: {fileID: 133546635}
+  textMaxDay: {fileID: 133546635}
+  buttonStartGame: {fileID: 300511062}
 --- !u!1 &1969789174
 GameObject:
   m_ObjectHideFlags: 0
@@ -8473,7 +8476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}

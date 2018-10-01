@@ -11,12 +11,12 @@ public class Projectile : PooledObject
     public bool destroyOnHit = true;
     public Vector3 direction;
     public LayerMask layerMask;
-
+    public TrailRenderer trail;
     Ray r;
     RaycastHit h;
 
     Vector3 newPosition;
-
+    
     Coroutine coroutineShot;
 
     public void ShootProjectile(Vector3 newDirection, float newSpeedMove, LayerMask newLayerMask)
@@ -37,6 +37,11 @@ public class Projectile : PooledObject
     {
         while(true)
         {
+            if (!LevelManager.instance.isPlaying)
+            {
+                yield return null;
+                continue;
+            }
             if (!CheckForHit())
             {
                 UpdatePosition();
@@ -46,7 +51,6 @@ public class Projectile : PooledObject
             {
                 yield break;
             }            
-            // TODO limit time alive
         }        
     }
 
@@ -81,5 +85,11 @@ public class Projectile : PooledObject
     {
 
     }
-	
+
+    public override void OnDestroyedByPool()
+    {
+        base.OnDestroyedByPool();
+        trail.Clear();
+    }
+
 }

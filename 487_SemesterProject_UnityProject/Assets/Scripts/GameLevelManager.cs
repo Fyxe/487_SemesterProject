@@ -23,7 +23,6 @@ public class GameLevelManager : LevelManager
 
     [Header("References")]
     public ScreenBase screenEnd;
-    public AI prefabEnemyBasic;
 
     LevelGenerationManager generator;
     public Image staleFillImage;
@@ -33,7 +32,6 @@ public class GameLevelManager : LevelManager
     public List<LevelPiece> piecesToSpawnIn = new List<LevelPiece>();    
     public List<LevelPiece> piecesPlayersAreIn = new List<LevelPiece>();
     
-
     void Awake()
     {
         generator = FindObjectOfType<LevelGenerationManager>();
@@ -54,12 +52,19 @@ public class GameLevelManager : LevelManager
                 EndLevel(false);
             }
 
-            if ((!allAI.ContainsKey(prefabEnemyBasic) || (allAI.ContainsKey(prefabEnemyBasic) && allAI[prefabEnemyBasic].Count < setEnemies)) && Time.time > nextSpawn)
+            // TODO check if algorithm makes sense?
+            AI prefabAIToSpawn = DropManager.instance.GetDrop(Thing.ai).GetComponent<AI>();
+            if ((!allAI.ContainsKey(prefabAIToSpawn) || (allAI.ContainsKey(prefabAIToSpawn) && allAI[prefabAIToSpawn].Count < setEnemies)) && Time.time > nextSpawn)
             {
                 nextSpawn = Time.time + delaySpawn;
-                SpawnEnemy(prefabEnemyBasic, PositionToSpawn.ALL);
+                SpawnEnemy(prefabAIToSpawn, PositionToSpawn.ALL);
             }
         }
+    }
+
+    public override void StartLevel()
+    {
+        base.StartLevel();
     }
 
     public override void EndLevel(bool isVictory)
@@ -102,6 +107,7 @@ public class GameLevelManager : LevelManager
                 generator.countToSpawnMin = GameplayManager.instance.piecesMinCurrent;
             }
             generator.GenerateLevel();
+            spawnPoints = generator.startPiece.spawnPositionsPlayer.ToList();
         }
         base.OnFocused();        
     }
@@ -136,6 +142,8 @@ public class GameLevelManager : LevelManager
                 
 
                 spawnPositions[0].SpawnObject(spawnedControllerObject.transform);
+                spawnedControllerObject.transform.position += Vector3.up * dropHeight;
+                spawnedControllerObject.transform.rotation = Random.rotation;                
                 spawnPositions.RemoveAt(0);
 
                 
@@ -143,10 +151,12 @@ public class GameLevelManager : LevelManager
                 ControllerMultiPlayer spawnedController = spawnedControllerObject.GetComponent<ControllerMultiPlayer>();
                 spawnedController.Setup(i, playerUIBoxes[i.indexPlayer]);
                 spawnedController.SetInvulnerable(PlayerManager.instance.timeInvulnerable);
+                spawnedController.SetFalling();
                 allControllers.Add(spawnedController);
                 FindObjectOfType<NavMeshCameraController>().toFollow.Add(spawnedController.transform);
             }
         }
+        StartCoroutine(WaitForPlayersToDrop());
     }
 
     public List<LevelPiece> GetPiecesDistance(int distanceFromPlayers)
@@ -161,15 +171,21 @@ public class GameLevelManager : LevelManager
             {
                 foreach (var k in j.connectedTo)
                 {
-                    if (!tempList.Contains(k) && k.spawnColliders.Count > 0 && (spawnInPiecesPlayersAreIn || (!spawnInPiecesPlayersAreIn && !k.hasPlayers)))
+                    if (tempList.Contains(k) || retList.Contains(k))
+                    {
+                        Debug.Log("a");
+                        continue;
+                    }
+                    if (k.spawnColliders.Count > 0 && (spawnInPiecesPlayersAreIn || (!spawnInPiecesPlayersAreIn && !k.hasPlayers)))
                     {
                         tempList.Add(k);
                     }
                 }
             }
-            retList.AddRange(tempList);            
+            retList.AddRange(tempList.ToList());     // ?   
         }
-        return retList;
+
+        return retList.ToList();
     }
 
     public bool SpawnEnemy(AI prefabToSpawn, PositionToSpawn whereToSpawn)
@@ -212,13 +228,50 @@ public class GameLevelManager : LevelManager
 
     public void AddToPiecesPlayersAreIn(LevelPiece toAdd)
     {
+        
         piecesPlayersAreIn.Add(toAdd);
-        piecesToSpawnIn = GetPiecesDistance(distanceFromPlayersToSpawn);
+        piecesToSpawnIn.Clear();
+        //piecesToSpawnIn = GetPiecesDistance(distanceFromPlayersToSpawn);
+        List<LevelPiece> pieces = new List<LevelPiece>();
+        foreach (var i in piecesPlayersAreIn)
+        {
+            pieces.AddRange(GetConnectedPieces(pieces, distanceFromPlayersToSpawn, i).ToList());
+        }
+        piecesToSpawnIn = pieces.Distinct().ToList();   // TODO optimise
+        
     }
 
     public void RemoveFromPiecesPlayersAreIn(LevelPiece toRemove)
     {
         piecesPlayersAreIn.Remove(toRemove);
-        piecesToSpawnIn = GetPiecesDistance(distanceFromPlayersToSpawn);
+        piecesToSpawnIn.Clear();
+        //piecesToSpawnIn = GetPiecesDistance(distanceFromPlayersToSpawn);
+        List<LevelPiece> pieces = new List<LevelPiece>();
+        foreach (var i in piecesPlayersAreIn)
+        {
+            pieces.AddRange(GetConnectedPieces(pieces, distanceFromPlayersToSpawn, i));
+        }
+        piecesToSpawnIn = pieces.Distinct().ToList();   // TODO optimise
+    }
+
+    public List<LevelPiece> GetConnectedPieces(List<LevelPiece> retPieces, int iterationsLeft, LevelPiece toAddFrom)
+    {
+        if (iterationsLeft == 0)
+        {
+            return retPieces;
+        }
+        else
+        {
+            if (!retPieces.Contains(toAddFrom))
+            {
+                retPieces.Add(toAddFrom);
+            }
+            iterationsLeft--;
+            foreach (var i in toAddFrom.connectedTo)
+            {
+                retPieces = GetConnectedPieces(retPieces, iterationsLeft, i);               
+            }
+            return retPieces;
+        }
     }
 }

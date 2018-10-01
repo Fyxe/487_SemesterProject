@@ -30,8 +30,11 @@ public class AI : Damageable
     public NavMeshAgent agent;
     ControllerMultiPlayer cachedPlayer;
 
+    [HideInInspector] public Rigidbody rb;
+
     void Awake()
     {
+        rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         timeElapsedInState = 0;
     }
@@ -102,7 +105,8 @@ public class AI : Damageable
     {        
         List<ControllerMultiPlayer> playersFound = new List<ControllerMultiPlayer>();
 
-        Collider[] cols = Physics.OverlapSphere(transform.position, radiusPlayerDetection, LayerMask.NameToLayer("Player"));
+        int layer = 1 << LayerMask.NameToLayer("Player");
+        Collider[] cols = Physics.OverlapSphere(transform.position, radiusPlayerDetection, layer);
         foreach (var i in cols)
         {
             if (!i.isTrigger && (cachedPlayer = i.GetComponentInParent<ControllerMultiPlayer>()) != null && !playersFound.Contains(cachedPlayer))

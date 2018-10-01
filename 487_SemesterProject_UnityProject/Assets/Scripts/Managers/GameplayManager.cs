@@ -27,6 +27,11 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
     public void EndGame()
     {
         ResetDifficulty();
+        if (GameManager.instance.dataCurrent.maxDayReached < currentLevel)
+        {
+            GameManager.instance.dataCurrent.maxDayReached = currentLevel;
+
+        }
         ProgressionManager.instance.OnGameEnd();
         PlayerManager.instance.ResetAllPlayers();
         LoadSceneManager.instance.LoadScene("Menu");

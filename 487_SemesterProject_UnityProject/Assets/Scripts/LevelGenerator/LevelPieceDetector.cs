@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,11 +19,11 @@ public class LevelPieceDetector : MonoBehaviour
         get
         {
             if (m_playersInPiece.Count > 0 && !(GameLevelManager.instance as GameLevelManager).piecesPlayersAreIn.Contains(myPiece))
-            {
+            {                
                 (GameLevelManager.instance as GameLevelManager).AddToPiecesPlayersAreIn(myPiece);
             }
             else if (m_playersInPiece.Count == 0 && (GameLevelManager.instance as GameLevelManager).piecesPlayersAreIn.Contains(myPiece))
-            {
+            {                
                 (GameLevelManager.instance as GameLevelManager).RemoveFromPiecesPlayersAreIn(myPiece);
             }
             return m_playersInPiece;
@@ -34,21 +35,19 @@ public class LevelPieceDetector : MonoBehaviour
     }
     LevelPiece myPiece;
     ControllerMultiPlayer cachedPlayer;
+    List<LevelPieceDetectorHelper> helpers = new List<LevelPieceDetectorHelper>();
 
     void Awake()
     {
-        myPiece = GetComponentInParent<LevelPiece>();    
+        myPiece = GetComponentInParent<LevelPiece>();
+        helpers = GetComponentsInChildren<LevelPieceDetectorHelper>().ToList();
     }
 
     public void OnTriggerEnter(Collider col)
     {
         if (!col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null && !playersInPiece.Contains(cachedPlayer))
-        {            
+        {                        
             playersInPiece.Add(cachedPlayer);
-        }
-        else
-        {
-            
         }
     }
 
@@ -56,11 +55,22 @@ public class LevelPieceDetector : MonoBehaviour
     {
         if (!col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null && playersInPiece.Contains(cachedPlayer))
         {            
-            playersInPiece.Remove(cachedPlayer);
+            //if (!CheckForPlayerInHelpers(cachedPlayer))
+            //{
+                playersInPiece.Remove(cachedPlayer);
+            //}
         }
-        else
+    }
+
+    public bool CheckForPlayerInHelpers(ControllerMultiPlayer player)
+    {
+        foreach (var i in helpers)
         {
-            
+            if (i.CheckForPlayer(player))
+            {
+                return true;
+            }
         }
+        return false;
     }
 }

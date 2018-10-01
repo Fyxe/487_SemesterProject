@@ -22,7 +22,8 @@ public class WeaponRanged : Weapon
             Projectile spawnedProjectile = ObjectPoolingManager.instance.CreateObject(projectilePrefab, null, projectileDestroyTime) as Projectile;
             spawnedProjectile.transform.position = shotPosition.transform.position;
             Vector3 newDirection = shotPosition.transform.forward;
-            newDirection += new Vector3(Random.Range(-spread, spread), 0f, Random.Range(-spread, spread));
+            Vector3 randomSpread = new Vector3(Random.Range(-spread, spread), 0f);
+            newDirection += transform.TransformDirection(randomSpread);
             spawnedProjectile.ShootProjectile(newDirection, speedAttack, 1);
         }
                 

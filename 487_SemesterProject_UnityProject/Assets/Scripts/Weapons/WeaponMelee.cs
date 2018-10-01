@@ -7,16 +7,14 @@ public class WeaponMelee : Weapon
     public Transform hitbox;
     public Transform startRotation;
     public Transform endRotation;
-    public Transform rotationAxis;
     public MeleeWeaponMode meleeWeaponMode;
     
-
     protected override void Attack()
     {
         base.Attack();
         switch (meleeWeaponMode)
         {
-            case MeleeWeaponMode.swing;
+            case MeleeWeaponMode.swing:
                 StartCoroutine(AttackCoroutineSwing());
                 break;
             case MeleeWeaponMode.stab:
@@ -30,11 +28,11 @@ public class WeaponMelee : Weapon
 
     public IEnumerator AttackCoroutineSwing()
     {
-        float nextAttack = 0f;
-        while (nextAttack < speedAttack)
+        float currentTime = 0f;
+        while (currentTime < speedAttack)
         {
-            nextAttack += Time.deltaTime;
-            hitbox.rotation = Quaternion.Lerp(startRotation.rotation, endRotation.rotation, (nextAttack / speedAttack));
+            currentTime += Time.deltaTime;
+            hitbox.rotation = Quaternion.Lerp(startRotation.rotation, endRotation.rotation, (currentTime / speedAttack));
             yield return null;
         }
         
@@ -46,5 +44,10 @@ public class WeaponMelee : Weapon
     {
         // TODO: do stab
         yield return null;
+    }
+
+    void OnDrawGizmos()
+    {
+        
     }
 }

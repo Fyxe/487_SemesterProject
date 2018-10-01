@@ -44,7 +44,7 @@ public class Weapon : Interactable
     float nextAttack = 0f;
     public float delayAttackAlternate = 1f;
     float nextAttackAlternate = 0f;
-    public float speedAttack = 1f;
+    public float speedAttack = 1f;  // TODO rename
     public float rangeAttack = 2f;
     public int clipCurrent = 10;
     public int clipMax = 10;

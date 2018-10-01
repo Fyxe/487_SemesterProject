@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class Interactable : PooledObject
 {
-    
+    public virtual bool InteractWithPlayer(ControllerMultiPlayer player)
+    {
+        return true;
+    }
 }

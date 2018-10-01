@@ -411,7 +411,14 @@ public class ControllerMultiPlayer : Damageable
                 else if (closest is WorldButton)
                 {
                     WorldButton buttonToInteractWith = closest as WorldButton;
-                    buttonToInteractWith.PressButton(this);
+                    if (buttonToInteractWith.PressButton(this))
+                    {
+                        
+                    }
+                    else
+                    {
+                        
+                    }
                 }
             }
             else

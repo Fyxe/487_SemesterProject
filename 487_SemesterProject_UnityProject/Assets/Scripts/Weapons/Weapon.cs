@@ -47,6 +47,7 @@ public class Weapon : Interactable
     public float speedAttack = 1f;  // TODO rename
     public float rangeAttack = 2f;
     public int clipCurrent = 10;
+    [Tooltip("Set this to -1 to never reload.")]
     public int clipMax = 10;
     public float timeReload = 2f;
     public bool isReloading = false;
@@ -93,10 +94,13 @@ public class Weapon : Interactable
             nextAttack = Time.time + delayAttack;
             Attack();
 
-            clipCurrent--;
-            if (clipCurrent == 0)
+            if (clipMax != -1)
             {
-                StartCoroutine(Reload());
+                clipCurrent--;
+                if (clipCurrent == 0)
+                {
+                    StartCoroutine(Reload());
+                }
             }
             return true;
         }
@@ -115,10 +119,13 @@ public class Weapon : Interactable
             nextAttack = Time.time + delayAttack;
             AttackAlternate();
 
-            clipCurrent--;
-            if (clipCurrent == 0)
+            if (clipMax != -1)
             {
-                StartCoroutine(Reload());
+                clipCurrent--;
+                if (clipCurrent == 0)
+                {
+                    StartCoroutine(Reload());
+                }
             }
             return true;
         }

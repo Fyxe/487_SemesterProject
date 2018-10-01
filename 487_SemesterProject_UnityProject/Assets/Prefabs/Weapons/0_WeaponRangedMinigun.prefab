@@ -482,7 +482,7 @@ MonoBehaviour:
   speedAttack: 40
   rangeAttack: 2
   clipCurrent: 50
-  clipMax: 50
+  clipMax: -1
   timeReload: 2
   isReloading: 0
   controllerCurrent: {fileID: 0}

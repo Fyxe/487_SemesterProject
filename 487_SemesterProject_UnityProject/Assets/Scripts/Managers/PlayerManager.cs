@@ -31,7 +31,9 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     [Tooltip("This weapon should not appear in the world anywhere.")]
     public Weapon prefabBaseWeapon;
     public PickupStats prefabMoney;
+    //[SerializeField]List<PlayerAttributes> m_allPlayerAttributes = new List<PlayerAttributes>();  // TODO make get set for spawned player attributes
     public List<PlayerAttributes> allPlayerAttributes = new List<PlayerAttributes>();
+
 
     public int playersInGame
     {
@@ -103,15 +105,15 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
                     //Debug.Log("Player P" + i.indexPlayer + ":J" + i.indexJoystick + " spawned in Level.");
                     GameLevelManager.instance.SpawnPlayer(i);
                 }
-                if (ShopManager.instance is ShopManager)
+                else if (ShopManager.instance is ShopManager)
                 {
                     //Debug.Log("Player P" + i.indexPlayer + ":J" + i.indexJoystick + " spawned in Shop.");
                     ShopManager.instance.SpawnPlayer(i);
                 }
-                if (LevelManager.instance is LevelManager)
+                else if (LevelManager.instance is LevelManager)
                 {
-                    //Debug.Log("Player P" + i.indexPlayer + ":J" + i.indexJoystick + " spawned in Shop.");
-                    ShopManager.instance.SpawnPlayer(i);
+                    //Debug.Log("Player P" + i.indexPlayer + ":J" + i.indexJoystick + " spawned in Level.");
+                    LevelManager.instance.SpawnPlayer(i);
                 }
                 return;
             }

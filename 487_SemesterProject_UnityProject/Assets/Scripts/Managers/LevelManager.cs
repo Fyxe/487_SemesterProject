@@ -135,6 +135,9 @@ public class LevelManager : Singleton<LevelManager>
         }
         else
         {
+            spawnedController.rb.velocity = Vector3.zero;
+            spawnedController.rb.angularVelocity = Vector3.zero;
+            spawnedController.rb.isKinematic = false;
             spawnedController.SetNotFalling();
             spawnedController.transform.SetPositionAndRotation(endTransform.position, endTransform.rotation);
         }
@@ -214,6 +217,7 @@ public class LevelManager : Singleton<LevelManager>
             foreach (var i in allControllers)
             {
                 i.SetNotFalling();
+                i.rb.isKinematic = false;
             }
             for (int i = 0; i < allControllers.Count; i++)
             {

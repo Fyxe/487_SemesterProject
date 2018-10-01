@@ -17,6 +17,8 @@ public class PlayerAttributes
     public int damageBaseCurrent = 0;
     public int countReviveCurrent = 1;
     public GameObject prefabController;
+    public int weaponCurrentID;
+    public List<int> weaponsUnequippedIDs = new List<int>();
     public List<int> enemiesKilled = new List<int> ();
 
     public void ResetValues()
@@ -32,6 +34,8 @@ public class PlayerAttributes
         speedMoveCurrent = 5f;
         damageBaseCurrent = 0;
         countReviveCurrent = 1;
+        weaponCurrentID = -1;
+        weaponsUnequippedIDs = new List<int>();
         enemiesKilled = new List<int>();
     }
 }

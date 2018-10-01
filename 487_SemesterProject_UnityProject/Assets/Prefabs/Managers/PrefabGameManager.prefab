@@ -339,8 +339,14 @@ MonoBehaviour:
   unlockAllBasketsAtStart: 0
   scoreOnLevelCompletion: 1000
   allBaskets: []
-  allWeapons: []
-  allUnlockedWeapons: []
+  allWeapons:
+  - {fileID: 114697854136788232, guid: cd0a65b2fc8c84d469a1396b7b24f332, type: 2}
+  - {fileID: 114924703100487726, guid: 0bece21a170dd7a4bbaf07c3de157468, type: 2}
+  - {fileID: 114429671755288488, guid: 7677c7e9f0661a34589c35b768e7ed5a, type: 2}
+  allUnlockedWeapons:
+  - {fileID: 114697854136788232, guid: cd0a65b2fc8c84d469a1396b7b24f332, type: 2}
+  - {fileID: 114924703100487726, guid: 0bece21a170dd7a4bbaf07c3de157468, type: 2}
+  - {fileID: 114429671755288488, guid: 7677c7e9f0661a34589c35b768e7ed5a, type: 2}
   allAbilities: []
   allUnlockedAbilities: []
   allAI: []
@@ -508,6 +514,8 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    weaponCurrentID: 0
+    weaponsUnequippedIDs: 
     enemiesKilled: 
   - isSpawned: 0
     isDead: 0
@@ -522,6 +530,8 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    weaponCurrentID: 0
+    weaponsUnequippedIDs: 
     enemiesKilled: 
   - isSpawned: 0
     isDead: 0
@@ -536,6 +546,8 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    weaponCurrentID: 0
+    weaponsUnequippedIDs: 
     enemiesKilled: 
   - isSpawned: 0
     isDead: 0
@@ -550,6 +562,8 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    weaponCurrentID: 0
+    weaponsUnequippedIDs: 
     enemiesKilled: 
 --- !u!114 &114722024201700226
 MonoBehaviour:

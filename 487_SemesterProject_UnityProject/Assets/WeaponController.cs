@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -71,8 +72,57 @@ public class WeaponController : MonoBehaviour
     [Header("References")]
     public AI attachedAI;
     public ControllerMultiPlayer attachedPlayer;
-    public Weapon weaponCurrent;
-    public List<Weapon> weaponsUnequipped = new List<Weapon>();
+    [SerializeField] Weapon m_weaponCurrent;
+    public Weapon weaponCurrent
+    {
+        get
+        {
+            return m_weaponCurrent;
+        }
+        set
+        {
+            m_weaponCurrent = value;
+            if (controllerType == ControllerType.player)
+            {
+                if (m_weaponCurrent == null)
+                {
+                    attachedPlayer.attributes.weaponCurrentID = -1;
+                }
+                else
+                {
+                    attachedPlayer.attributes.weaponCurrentID = m_weaponCurrent.weaponID;
+                }
+            }
+        }
+    }
+    [SerializeField] List<Weapon> m_weaponsUnequipped = new List<Weapon>();
+    public List<Weapon> weaponsUnequipped
+    {
+        get
+        {
+            if (controllerType == ControllerType.player)
+            {
+                attachedPlayer.attributes.weaponsUnequippedIDs.Clear();
+                foreach (var i in m_weaponsUnequipped)
+                {
+                    attachedPlayer.attributes.weaponsUnequippedIDs.Add(i.weaponID);
+                }
+            }
+            return m_weaponsUnequipped;
+        }
+        set
+        {
+            m_weaponsUnequipped = value;
+            if (controllerType == ControllerType.player)
+            {
+                attachedPlayer.attributes.weaponsUnequippedIDs.Clear();
+                foreach (var i in m_weaponsUnequipped)
+                {
+                    attachedPlayer.attributes.weaponsUnequippedIDs.Add(i.weaponID);
+                }
+            }
+        }
+    }
     public Transform positionWeaponCurrent;
     public List<Transform> positionsWeaponsUnequipped = new List<Transform>();
     [SerializeField] Transform m_positionThrow;
@@ -193,10 +243,41 @@ public class WeaponController : MonoBehaviour
     public void Setup()
     {
         Initialize();
-        SetCurrentWeapon(prefabBaseWeapon,true);
-        for (int i = 0; i < weaponCount; i++)
+        if (controllerType == ControllerType.player)
+        { 
+            Weapon spawnCurrent = ProgressionManager.instance.GetWeapByID(attachedPlayer.attributes.weaponCurrentID, true);
+            if (spawnCurrent == null)
+            {
+                SetCurrentWeapon(prefabBaseWeapon, true);
+            }
+            else
+            {
+                SetCurrentWeapon(spawnCurrent, true);
+            }
+
+            List<int> allIDS = attachedPlayer.attributes.weaponsUnequippedIDs.ToList();
+            foreach (var i in allIDS)
+            {
+                Weapon spawnUnequipped = ProgressionManager.instance.GetWeapByID(i, true);
+                if (spawnUnequipped == null)
+                {
+                    Debug.Log("spawned prefab");
+                    AddWeaponToInventory(prefabBaseWeapon, true);
+                }
+                else
+                {
+                    Debug.Log("spawned");
+                    AddWeaponToInventory(spawnUnequipped, true);
+                }
+            }
+        }
+        else
         {
-            AddWeaponToInventory(prefabBaseWeapon,true);
+            SetCurrentWeapon(prefabBaseWeapon, true);
+            for (int i = 0; i < weaponCount; i++)
+            {
+                AddWeaponToInventory(prefabBaseWeapon, true);
+            }
         }
     }
 

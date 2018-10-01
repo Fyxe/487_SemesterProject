@@ -121,4 +121,31 @@ public class ProgressionManager : Singleton<ProgressionManager>
         DropManager.instance.AddDropSet(basket.dropSetAIs, Thing.ai);
         DropManager.instance.AddDropSet(basket.dropSetLevelPiecesGeneral, Thing.levelPieceGeneral);
     }
+
+
+
+    public Weapon GetWeapByID(int weaponID, bool useAll)
+    {
+        if (useAll)
+        {
+            foreach (var i in allWeapons)
+            {
+                if (i.weaponID == weaponID)
+                {
+                    return i;
+                }
+            }
+        }
+        else
+        {
+            foreach (var i in allUnlockedWeapons)
+            {
+                if (i.weaponID == weaponID)
+                {
+                    return i;
+                }
+            }
+        }
+        return null;
+    }
 }

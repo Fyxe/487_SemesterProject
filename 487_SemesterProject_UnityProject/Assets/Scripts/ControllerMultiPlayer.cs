@@ -178,7 +178,7 @@ public class ControllerMultiPlayer : Damageable
             attributes.countReviveCurrent = value;
             ui.textReviveCount.text = countReviveCurrent.ToString();
         }
-    }
+    }    
 
     int revivesRemaining = 0;
 
@@ -197,7 +197,7 @@ public class ControllerMultiPlayer : Damageable
         }
     }
 
-    PlayerAttributes attributes;
+    [HideInInspector] public PlayerAttributes attributes;
     InputController3D controllerInput;
     WeaponController controllerWeapons;
     Animator anim;

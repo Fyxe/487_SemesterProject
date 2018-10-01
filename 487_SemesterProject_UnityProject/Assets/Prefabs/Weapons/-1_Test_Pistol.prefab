@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 54393474897242354}
   - component: {fileID: 114880324480030846}
   m_Layer: 10
-  m_Name: Test_Pistol
+  m_Name: -1_Test_Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -370,7 +370,7 @@ MonoBehaviour:
   clipMax: 10
   timeReload: 2
   isReloading: 0
-  currentPlayer: {fileID: 0}
+  controllerCurrent: {fileID: 0}
   rb: {fileID: 0}
   projectilePrefab: {fileID: 114375185774425922, guid: d1662618ffca3174aac6c190e6a8148f,
     type: 2}

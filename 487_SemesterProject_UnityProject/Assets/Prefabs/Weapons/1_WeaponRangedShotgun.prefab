@@ -11,6 +11,21 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1840243461925634}
   m_IsPrefabAsset: 1
+--- !u!1 &1208643487114440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4595264396280014}
+  m_Layer: 10
+  m_Name: ShotPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1395142283256758
 GameObject:
   m_ObjectHideFlags: 1
@@ -168,7 +183,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4889054330902040}
-  m_RootOrder: 2
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4595264396280014
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1208643487114440}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.547}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4889054330902040}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4649415122492898
 Transform:
@@ -184,7 +212,7 @@ Transform:
   - {fileID: 4413949100876208}
   - {fileID: 4248935754905668}
   m_Father: {fileID: 4889054330902040}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4726374191685020
 Transform:
@@ -210,7 +238,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4889054330902040}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4889054330902040
 Transform:
@@ -222,6 +250,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.5, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4595264396280014}
   - {fileID: 4649415122492898}
   - {fileID: 4783696352209006}
   - {fileID: 4555056944988200}
@@ -454,8 +483,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   amountOfBulletsPerShot: 3
-  spread: 0
+  spread: 0.2
   knockbackForce: 0
+  shotPosition: {fileID: 4595264396280014}
 --- !u!114 &114952483974276292
 MonoBehaviour:
   m_ObjectHideFlags: 1

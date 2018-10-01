@@ -11,6 +11,7 @@ public class WeaponRanged : Weapon
     public int amountOfBulletsPerShot;
     public float spread;
     public float knockbackForce;
+    public Transform shotPosition;
 
     protected override void Attack()
     {
@@ -19,9 +20,9 @@ public class WeaponRanged : Weapon
         for (int i = 0; i < amountOfBulletsPerShot; i++)
         {
             Projectile spawnedProjectile = ObjectPoolingManager.instance.CreateObject(projectilePrefab, null, projectileDestroyTime) as Projectile;
-            spawnedProjectile.transform.position = transform.position;
-            Vector3 newDirection = transform.forward;
-            newDirection += new Vector3(Random.Range(-spread, spread), Random.Range(-spread, spread), newDirection.z);
+            spawnedProjectile.transform.position = shotPosition.transform.position;
+            Vector3 newDirection = shotPosition.transform.forward;
+            newDirection += new Vector3(Random.Range(-spread, spread), 0f, Random.Range(-spread, spread));
             spawnedProjectile.ShootProjectile(newDirection, speedAttack, 1);
         }
                 

@@ -20,10 +20,12 @@ public class LevelPieceDetector : MonoBehaviour
         {
             if (m_playersInPiece.Count > 0 && !(GameLevelManager.instance as GameLevelManager).piecesPlayersAreIn.Contains(myPiece))
             {
+                Debug.Log("Added " + myPiece.name);
                 (GameLevelManager.instance as GameLevelManager).AddToPiecesPlayersAreIn(myPiece);
             }
             else if (m_playersInPiece.Count == 0 && (GameLevelManager.instance as GameLevelManager).piecesPlayersAreIn.Contains(myPiece))
             {
+                Debug.Log("Removed " + myPiece.name);
                 (GameLevelManager.instance as GameLevelManager).RemoveFromPiecesPlayersAreIn(myPiece);
             }
             return m_playersInPiece;
@@ -46,7 +48,7 @@ public class LevelPieceDetector : MonoBehaviour
     public void OnTriggerEnter(Collider col)
     {
         if (!col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null && !playersInPiece.Contains(cachedPlayer))
-        {            
+        {                        
             playersInPiece.Add(cachedPlayer);
         }
     }
@@ -54,11 +56,11 @@ public class LevelPieceDetector : MonoBehaviour
     public void OnTriggerExit(Collider col)
     {
         if (!col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null && playersInPiece.Contains(cachedPlayer))
-        {
-            if (!CheckForPlayerInHelpers(cachedPlayer))
-            {
+        {            
+            //if (!CheckForPlayerInHelpers(cachedPlayer))
+            //{
                 playersInPiece.Remove(cachedPlayer);
-            }
+            //}
         }
     }
 

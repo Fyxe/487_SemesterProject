@@ -64,14 +64,6 @@ public class GameLevelManager : LevelManager
     public override void StartLevel()
     {
         base.StartLevel();
-        if (generator.startPiece != null)
-        {
-            AddToPiecesPlayersAreIn(generator.startPiece);            
-        }
-        else
-        {
-
-        }
     }
 
     public override void EndLevel(bool isVictory)
@@ -180,6 +172,7 @@ public class GameLevelManager : LevelManager
                 {
                     if (tempList.Contains(k) || retList.Contains(k))
                     {
+                        Debug.Log("a");
                         continue;
                     }
                     if (k.spawnColliders.Count > 0 && (spawnInPiecesPlayersAreIn || (!spawnInPiecesPlayersAreIn && !k.hasPlayers)))
@@ -188,11 +181,7 @@ public class GameLevelManager : LevelManager
                     }
                 }
             }
-            retList.AddRange(tempList);     //?       
-            foreach (var k in retList)
-            {
-                Debug.Log(i + ":" + k);
-            }
+            retList.AddRange(tempList.ToList());     // ?   
         }
 
         return retList.ToList();
@@ -238,18 +227,50 @@ public class GameLevelManager : LevelManager
 
     public void AddToPiecesPlayersAreIn(LevelPiece toAdd)
     {
-        if (!piecesPlayersAreIn.Contains(toAdd))
+        
+        piecesPlayersAreIn.Add(toAdd);
+        piecesToSpawnIn.Clear();
+        //piecesToSpawnIn = GetPiecesDistance(distanceFromPlayersToSpawn);
+        List<LevelPiece> pieces = new List<LevelPiece>();
+        foreach (var i in piecesPlayersAreIn)
         {
-            piecesPlayersAreIn.Add(toAdd);
-            piecesToSpawnIn.Clear();
-            piecesToSpawnIn = GetPiecesDistance(distanceFromPlayersToSpawn);
+            pieces.AddRange(GetConnectedPieces(pieces, distanceFromPlayersToSpawn, i).ToList());
         }
+        piecesToSpawnIn = pieces.Distinct().ToList();   // TODO optimise
+        
     }
 
     public void RemoveFromPiecesPlayersAreIn(LevelPiece toRemove)
     {
         piecesPlayersAreIn.Remove(toRemove);
         piecesToSpawnIn.Clear();
-        piecesToSpawnIn = GetPiecesDistance(distanceFromPlayersToSpawn);
+        //piecesToSpawnIn = GetPiecesDistance(distanceFromPlayersToSpawn);
+        List<LevelPiece> pieces = new List<LevelPiece>();
+        foreach (var i in piecesPlayersAreIn)
+        {
+            pieces.AddRange(GetConnectedPieces(pieces, distanceFromPlayersToSpawn, i));
+        }
+        piecesToSpawnIn = pieces.Distinct().ToList();   // TODO optimise
+    }
+
+    public List<LevelPiece> GetConnectedPieces(List<LevelPiece> retPieces, int iterationsLeft, LevelPiece toAddFrom)
+    {
+        if (iterationsLeft == 0)
+        {
+            return retPieces;
+        }
+        else
+        {
+            if (!retPieces.Contains(toAddFrom))
+            {
+                retPieces.Add(toAddFrom);
+            }
+            iterationsLeft--;
+            foreach (var i in toAddFrom.connectedTo)
+            {
+                retPieces = GetConnectedPieces(retPieces, iterationsLeft, i);               
+            }
+            return retPieces;
+        }
     }
 }

@@ -27,11 +27,12 @@ public class LevelPieceDetectorHelper : MonoBehaviour
 
     public bool CheckForPlayer(ControllerMultiPlayer player)
     {
-        Collider[] cols = Physics.OverlapBox(transform.position, transform.localScale * 0.5f, transform.rotation, LayerMask.NameToLayer("Player"));
+        int layer = 1 << LayerMask.NameToLayer("Player");
+        Collider[] cols = Physics.OverlapBox(transform.position, transform.localScale * 0.5f, transform.rotation, layer);        
         foreach (var i in cols)
         {
-            if (i.transform.root == player.transform.root)
-            {
+            if (!i.isTrigger && i.transform.root == player.transform.root)
+            {                
                 return true;
             }
         }

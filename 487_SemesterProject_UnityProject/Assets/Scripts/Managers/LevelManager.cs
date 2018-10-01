@@ -69,9 +69,9 @@ public class LevelManager : Singleton<LevelManager>
         SpawnPlayersInitially();
     }
 
-    public void StartLevel()
+    public virtual void StartLevel()
     {
-        isPlaying = true;
+        isPlaying = true;        
     }
 
     public virtual void EndLevel(bool isVictory)

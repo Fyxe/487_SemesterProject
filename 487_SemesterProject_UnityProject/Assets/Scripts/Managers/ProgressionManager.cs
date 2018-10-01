@@ -73,10 +73,10 @@ public class ProgressionManager : Singleton<ProgressionManager>
                 }
             }
         }
-        allWeapons = tempListWeapon.OrderBy(x => x.weaponID).ToList();        
-        allAbilities = tempListAbility.OrderBy(x => x.abilityID).ToList();
-        allAI = tempListAI.OrderBy(x => x.aiID).ToList();
-        allLevelPiecesGeneral = tempListLevelPieceGeneral.ToList();
+        allWeapons.AddRange(tempListWeapon.OrderBy(x => x.weaponID).ToList());        
+        allAbilities.AddRange(tempListAbility.OrderBy(x => x.abilityID).ToList());
+        allAI.AddRange(tempListAI.OrderBy(x => x.aiID).ToList());
+        allLevelPiecesGeneral.AddRange(tempListLevelPieceGeneral.ToList());
     }
 
     private void Start()

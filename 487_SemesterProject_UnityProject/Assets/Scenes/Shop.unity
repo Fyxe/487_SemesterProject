@@ -2849,7 +2849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropTime: 4
   dropHeight: 10
-  dropLerpTime: 0.85
+  dropLerpTime: 0.5
   baseDropSetEnemy: {fileID: 0}
   baseDropSetBarrel: {fileID: 0}
   allControllers: []
@@ -2865,7 +2865,7 @@ MonoBehaviour:
   - {fileID: 929051718}
   screenPause: {fileID: 1103592420}
   chanceOfSpawningLocaion: 0.75
-  locations: {fileID: 11400000, guid: 4bc4933df6f32d341a3aea08fb7dd468, type: 2}
+  locations: {fileID: 11400000, guid: 6ea0e7799a53dd14d92d1b2f722b6670, type: 2}
   locationsPositions:
   - {fileID: 1558646907}
   - {fileID: 1392931444}

@@ -3392,9 +3392,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b69c60182032e64e9c74ec71e7584f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropTime: 5
+  dropTime: 4
   dropHeight: 15
-  dropLerpTime: 1
+  dropLerpTime: 0.5
   baseDropSetEnemy: {fileID: 0}
   baseDropSetBarrel: {fileID: 0}
   allControllers: []

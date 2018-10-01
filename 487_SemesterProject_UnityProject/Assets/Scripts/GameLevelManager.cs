@@ -61,6 +61,19 @@ public class GameLevelManager : LevelManager
         }
     }
 
+    public override void StartLevel()
+    {
+        base.StartLevel();
+        if (generator.startPiece != null)
+        {
+            AddToPiecesPlayersAreIn(generator.startPiece);            
+        }
+        else
+        {
+
+        }
+    }
+
     public override void EndLevel(bool isVictory)
     {
         isPlaying = false;
@@ -216,8 +229,11 @@ public class GameLevelManager : LevelManager
 
     public void AddToPiecesPlayersAreIn(LevelPiece toAdd)
     {
-        piecesPlayersAreIn.Add(toAdd);
-        piecesToSpawnIn = GetPiecesDistance(distanceFromPlayersToSpawn);
+        if (!piecesPlayersAreIn.Contains(toAdd))
+        {
+            piecesPlayersAreIn.Add(toAdd);
+            piecesToSpawnIn = GetPiecesDistance(distanceFromPlayersToSpawn);
+        }
     }
 
     public void RemoveFromPiecesPlayersAreIn(LevelPiece toRemove)

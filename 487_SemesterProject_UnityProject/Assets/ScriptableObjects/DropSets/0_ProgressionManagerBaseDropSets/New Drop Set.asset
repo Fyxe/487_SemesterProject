@@ -9,9 +9,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55cc892b9e797ec4e8c64002d47dfa43, type: 3}
-  m_Name: 1000_BaseShopSet
+  m_Name: New Drop Set
   m_EditorClassIdentifier: 
-  idDropSet: -1
-  allDrops:
-  - drop: {fileID: 1829991742132474, guid: ef5341fa532d8644eaddbc03547da6cf, type: 2}
-    weight: 1
+  dropSetID: -1
+  dropSetsAdded: 
+  allDrops: []

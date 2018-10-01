@@ -33,7 +33,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     {
         get
         {
-            if (GameManager.instance.gameStartedCorrectly)
+            if (GameManager.instance.gameStartedCorrectly && ProgressionManager.instance.allUnlockedLevelPiecesGeneral.Count > 0)
             {
                 return ProgressionManager.instance.allUnlockedLevelPiecesGeneral;
             }

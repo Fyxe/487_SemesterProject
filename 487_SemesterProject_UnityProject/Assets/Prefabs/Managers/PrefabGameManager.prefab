@@ -344,8 +344,10 @@ MonoBehaviour:
   allUnlockedAbilities: []
   allAI: []
   allUnlockedAI: []
-  allLevelPiecesGeneral: []
-  allUnlockedLevelPiecesGeneral: []
+  allLevelPiecesGeneral:
+  - {fileID: 114116465298269968, guid: 349ca8f8aefcb594198f7ed903725853, type: 2}
+  allUnlockedLevelPiecesGeneral:
+  - {fileID: 114116465298269968, guid: 349ca8f8aefcb594198f7ed903725853, type: 2}
   scoreCurrent: 0
   scoreCurrentInLevel: 0
 --- !u!114 &114528145429868988
@@ -478,6 +480,13 @@ MonoBehaviour:
   timeInvulnerable: 1
   weaponCount: 1
   pointsToThrow: 100
+  forceThrow: 500
+  radiusRevive: 2
+  radiusInteract: 2
+  replaceCurrentWeaponOnPickup: 1
+  swapToNonBaseWeaponOnThrow: 1
+  pointsPerReviveHit: 10
+  pointsOnRevive: 100
   spriteHealthFull: {fileID: 21300000, guid: 26f91e46dc80c5f48bc4b9eb00bf9c89, type: 3}
   spriteHealthEmpty: {fileID: 21300000, guid: 3785da64ba8fd6242b2455269ea12f06, type: 3}
   prefabBaseWeapon: {fileID: 114880324480030846, guid: cdfdb3fb3e3ac5d4a89a7d77b2d9652b,

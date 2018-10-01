@@ -304,9 +304,10 @@ MonoBehaviour:
   dropSetWeaponsInstantiated: {fileID: 0}
   dropSetAbilities: {fileID: 0}
   dropSetAbilitiesInstantiated: {fileID: 0}
-  dropSetAIs: {fileID: 0}
+  dropSetAIs: {fileID: 11400000, guid: 5aeeb2e942f6b044fa733bb8c85c02ba, type: 2}
   dropSetAIsInstantiated: {fileID: 0}
-  dropSetLevelPiecesGeneral: {fileID: 0}
+  dropSetLevelPiecesGeneral: {fileID: 11400000, guid: 8b60c871fdbe78d409d997d0db2d8ce1,
+    type: 2}
   dropSetLevelPiecesGeneralInstantiated: {fileID: 0}
 --- !u!114 &114331804233049570
 MonoBehaviour:
@@ -344,10 +345,8 @@ MonoBehaviour:
   allUnlockedAbilities: []
   allAI: []
   allUnlockedAI: []
-  allLevelPiecesGeneral:
-  - {fileID: 114116465298269968, guid: 349ca8f8aefcb594198f7ed903725853, type: 2}
-  allUnlockedLevelPiecesGeneral:
-  - {fileID: 114116465298269968, guid: 349ca8f8aefcb594198f7ed903725853, type: 2}
+  allLevelPiecesGeneral: []
+  allUnlockedLevelPiecesGeneral: []
   scoreCurrent: 0
   scoreCurrentInLevel: 0
 --- !u!114 &114528145429868988
@@ -489,6 +488,8 @@ MonoBehaviour:
   pointsOnRevive: 100
   spriteHealthFull: {fileID: 21300000, guid: 26f91e46dc80c5f48bc4b9eb00bf9c89, type: 3}
   spriteHealthEmpty: {fileID: 21300000, guid: 3785da64ba8fd6242b2455269ea12f06, type: 3}
+  materialZero: {fileID: 13400000, guid: ee3dc06e382d45b4cb00ae1852073ed3, type: 2}
+  materialBounce: {fileID: 13400000, guid: 9f5b6e785c2150847a243ea9e8a88417, type: 2}
   prefabBaseWeapon: {fileID: 114880324480030846, guid: cdfdb3fb3e3ac5d4a89a7d77b2d9652b,
     type: 2}
   prefabMoney: {fileID: 114265833007881906, guid: ce3177bf42c3c0141a96d5d694230941,

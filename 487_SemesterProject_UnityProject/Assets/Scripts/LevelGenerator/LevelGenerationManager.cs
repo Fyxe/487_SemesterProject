@@ -27,7 +27,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
 
     [Header("References")]
     public Transform startPosition;
-    // TODO make these into dropsets
+    // TODO make these use dropsets from drop manager
     [SerializeField] List<LevelPiece> m_piecesGeneral = new List<LevelPiece>();
     public List<LevelPiece> piecesGeneral
     {

@@ -208,6 +208,7 @@ public class ControllerMultiPlayer : Damageable
     bool triggerInUseLeft = false;
     bool isFalling = false;
     public Rigidbody rb;
+    public Collider colliderMovement;
 
     public bool isControlled
     {
@@ -400,7 +401,7 @@ public class ControllerMultiPlayer : Damageable
 
             if (closest != null)   
             {
-                Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " interacted with " + closest.name + ".");
+                //Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " interacted with " + closest.name + ".");
                 if (closest is Weapon)  // TODO override current weapon / etc.
                 {
                     Weapon weaponToInteractWith = closest as Weapon;
@@ -409,7 +410,7 @@ public class ControllerMultiPlayer : Damageable
             }
             else
             {
-                Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " tried to interact, but nothing was found.");
+                //Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " tried to interact, but nothing was found.");
             }
 
         }        
@@ -581,7 +582,7 @@ public class ControllerMultiPlayer : Damageable
         coroutineInvulnerable = StartCoroutine(Invulerability(timeInvulnerable));
     }
 
-    IEnumerator Invulerability(float timeInvulnerable)
+    IEnumerator Invulerability(float timeInvulnerable)  // TODO update materials to not effect weapons. Cache the renderers
     {
         blockAllDamage = true;
         foreach (var i in GetComponentsInChildren<Renderer>())
@@ -690,7 +691,8 @@ public class ControllerMultiPlayer : Damageable
         rb.constraints = RigidbodyConstraints.None;
         rb.AddTorque(Random.rotation.eulerAngles * 5f);
         controllerInput.enabled = false;
-        this.enabled = false;        
+        this.enabled = false;
+        colliderMovement.material = PlayerManager.instance.materialBounce;        
     }
 
     public void SetNotFalling()
@@ -704,5 +706,6 @@ public class ControllerMultiPlayer : Damageable
         controllerInput.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         controllerInput.enabled = true;
         this.enabled = true;
+        colliderMovement.material = PlayerManager.instance.materialZero;
     }
 }

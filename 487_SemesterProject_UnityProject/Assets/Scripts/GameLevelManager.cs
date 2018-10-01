@@ -23,7 +23,6 @@ public class GameLevelManager : LevelManager
 
     [Header("References")]
     public ScreenBase screenEnd;
-    public AI prefabEnemyBasic;
 
     LevelGenerationManager generator;
     public Image staleFillImage;
@@ -53,10 +52,12 @@ public class GameLevelManager : LevelManager
                 EndLevel(false);
             }
 
-            if ((!allAI.ContainsKey(prefabEnemyBasic) || (allAI.ContainsKey(prefabEnemyBasic) && allAI[prefabEnemyBasic].Count < setEnemies)) && Time.time > nextSpawn)
+            // TODO check if algorithm makes sense?
+            AI prefabAIToSpawn = DropManager.instance.GetDrop(Thing.ai).GetComponent<AI>();
+            if ((!allAI.ContainsKey(prefabAIToSpawn) || (allAI.ContainsKey(prefabAIToSpawn) && allAI[prefabAIToSpawn].Count < setEnemies)) && Time.time > nextSpawn)
             {
                 nextSpawn = Time.time + delaySpawn;
-                SpawnEnemy(prefabEnemyBasic, PositionToSpawn.ALL);
+                SpawnEnemy(prefabAIToSpawn, PositionToSpawn.ALL);
             }
         }
     }

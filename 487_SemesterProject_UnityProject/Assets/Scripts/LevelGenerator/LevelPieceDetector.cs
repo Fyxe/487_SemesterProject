@@ -19,13 +19,11 @@ public class LevelPieceDetector : MonoBehaviour
         get
         {
             if (m_playersInPiece.Count > 0 && !(GameLevelManager.instance as GameLevelManager).piecesPlayersAreIn.Contains(myPiece))
-            {
-                Debug.Log("Added " + myPiece.name);
+            {                
                 (GameLevelManager.instance as GameLevelManager).AddToPiecesPlayersAreIn(myPiece);
             }
             else if (m_playersInPiece.Count == 0 && (GameLevelManager.instance as GameLevelManager).piecesPlayersAreIn.Contains(myPiece))
-            {
-                Debug.Log("Removed " + myPiece.name);
+            {                
                 (GameLevelManager.instance as GameLevelManager).RemoveFromPiecesPlayersAreIn(myPiece);
             }
             return m_playersInPiece;

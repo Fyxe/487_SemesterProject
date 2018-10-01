@@ -25,6 +25,8 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     [Header("References")]
     public Sprite spriteHealthFull;
     public Sprite spriteHealthEmpty;
+    public PhysicMaterial materialZero;
+    public PhysicMaterial materialBounce;
 
     [Tooltip("This weapon should not appear in the world anywhere.")]
     public Weapon prefabBaseWeapon;
@@ -98,21 +100,18 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
 
                 if (GameLevelManager.instance is GameLevelManager)
                 {
-                    Debug.Log("Player P" + i.indexPlayer + ":J" + i.indexJoystick + " spawned in Level.");
+                    //Debug.Log("Player P" + i.indexPlayer + ":J" + i.indexJoystick + " spawned in Level.");
                     GameLevelManager.instance.SpawnPlayer(i);
                 }
                 if (ShopManager.instance is ShopManager)
                 {
-                    Debug.Log("Player P" + i.indexPlayer + ":J" + i.indexJoystick + " spawned in Shop.");
+                    //Debug.Log("Player P" + i.indexPlayer + ":J" + i.indexJoystick + " spawned in Shop.");
                     ShopManager.instance.SpawnPlayer(i);
-                }
-                
-                
-                
+                }               
                 return;
             }
         }
-        Debug.Log("All players spawned already.");
+        //Debug.Log("All players spawned already.");
     }
 
     public PlayerAttributes GetAttributeOfPlayer(int playerIndex)

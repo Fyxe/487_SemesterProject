@@ -10,6 +10,7 @@ public class LevelManager : Singleton<LevelManager>
 {
 
     [Header("LevelManager Settings")]
+    public bool dropPlayers = true;
     public float dropTime = 4f;
     public float dropHeight = 10f;
     public float dropLerpTime = .85f;
@@ -32,8 +33,7 @@ public class LevelManager : Singleton<LevelManager>
         {
             m_isPlaying = value;
         }
-    }
-    
+    }    
 
     [Header("References")]
     public DropSet baseDropSetEnemy;
@@ -129,7 +129,15 @@ public class LevelManager : Singleton<LevelManager>
         allControllers.Add(spawnedController);
         FindObjectOfType<NavMeshCameraController>().toFollow.Add(spawnedController.transform);
 
-        StartCoroutine(WaitForPlayerToDrop(spawnedController, endTransform));
+        if (dropPlayers)
+        {
+            StartCoroutine(WaitForPlayerToDrop(spawnedController, endTransform));
+        }
+        else
+        {
+            spawnedController.SetNotFalling();
+            spawnedController.transform.SetPositionAndRotation(endTransform.position, endTransform.rotation);
+        }
     }
 
     public IEnumerator WaitForPlayerToDrop(ControllerMultiPlayer playerDropped, Transform endTransform)
@@ -150,6 +158,7 @@ public class LevelManager : Singleton<LevelManager>
             
             yield return null;
         }
+        playerDropped.rb.isKinematic = false;
         playerDropped.SetNotFalling();
     }
 
@@ -196,7 +205,22 @@ public class LevelManager : Singleton<LevelManager>
                 FindObjectOfType<NavMeshCameraController>().toFollow.Add(spawnedController.transform);
             }
         }
-        StartCoroutine(WaitForPlayersToDrop());
+        if (dropPlayers)
+        {
+            StartCoroutine(WaitForPlayersToDrop());
+        }
+        else
+        {            
+            foreach (var i in allControllers)
+            {
+                i.SetNotFalling();
+            }
+            for (int i = 0; i < allControllers.Count; i++)
+            {
+                allControllers[i].transform.SetPositionAndRotation(spawnPoints[i].transform.position, spawnPoints[i].transform.rotation);
+            }
+            StartLevel();
+        }
     }
 
     public IEnumerator WaitForPlayersToDrop()  
@@ -265,9 +289,21 @@ public class LevelManager : Singleton<LevelManager>
         return null;
     }
 
+    public void TogglePause()
+    {
+        if (isPaused)
+        {
+            Resume();
+        }
+        else
+        {
+            Pause();
+        }
+    }
+
     public virtual void Pause()
     {
-        //GameManager.instance.Pause();
+        //GameManager.instance.Pause(); // wont work because of menu event systems
         isPaused = true;
         ScreenManager.instance.ScreenAdd(screenPause,false);
     }

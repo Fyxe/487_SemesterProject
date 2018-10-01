@@ -1030,6 +1030,22 @@ MonoBehaviour:
   positionThrow: {fileID: 4135792882655244}
   incapacitatedObject: {fileID: 1952880113627748}
   ui: {fileID: 0}
+  attributes:
+    isSpawned: 0
+    isDead: 0
+    colorPlayer: {r: 0, g: 0, b: 1, a: 1}
+    indexJoystick: 0
+    indexPlayer: 0
+    pointsCurrent: 0
+    hpCurrent: 3
+    hpMax: 3
+    speedMoveCurrent: 3
+    damageBaseCurrent: 0
+    countReviveCurrent: 1
+    prefabController: {fileID: 0}
+    weaponCurrentID: 0
+    weaponsUnequippedIDs: 
+    enemiesKilled: 
   projectors:
   - {fileID: 119424923473368980}
   - {fileID: 119057119281020990}
@@ -1053,8 +1069,8 @@ MonoBehaviour:
   m_swapToNonBaseWeaponOnThrow: 1
   attachedAI: {fileID: 0}
   attachedPlayer: {fileID: 0}
-  weaponCurrent: {fileID: 0}
-  weaponsUnequipped: []
+  m_weaponCurrent: {fileID: 0}
+  m_weaponsUnequipped: []
   positionWeaponCurrent: {fileID: 4602460659433956}
   positionsWeaponsUnequipped:
   - {fileID: 4808433649415662}
@@ -1115,7 +1131,7 @@ MonoBehaviour:
   canMove: 1
   canLookOrAim: 1
   delayResetAim: 1.5
-  speedMove: 6
+  speedMove: 8
   speedJump: 8
   forceGravity: 20
   speedRotationX: 4

@@ -493,7 +493,7 @@ MonoBehaviour:
   layerMaskToShoot:
     serializedVersion: 2
     m_Bits: 512
-  amountOfBulletsPerShot: 3
+  amountOfBulletsPerShot: 1
   spread: 0.15
   knockbackForce: 0
   shotPosition: {fileID: 4423954780625562}

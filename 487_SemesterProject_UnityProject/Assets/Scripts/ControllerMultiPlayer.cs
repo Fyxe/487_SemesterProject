@@ -286,12 +286,13 @@ public class ControllerMultiPlayer : Damageable
             AttemptSwapWeapons();
         }
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 4"))
-        {            
-            AttemptThrowPoints();
+        {
+            //AttemptThrowPoints();
+            AttemptThrowWeapon();
         }
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 5"))
         {
-            AttemptThrowWeapon();
+            AttemptSwapWeapons();            
         }
 
         if (Input.GetAxis("J" + indexJoystick.ToString() + "_ButtonTrigger") > 0)
@@ -348,7 +349,7 @@ public class ControllerMultiPlayer : Damageable
         attributes = newAttributes;
 
         ui = newUI;
-
+        ui.textPoints.text = pointsCurrent.ToString("c2");
         state = PlayerState.alive;
 
         foreach (var i in projectors)
@@ -406,6 +407,11 @@ public class ControllerMultiPlayer : Damageable
                 {
                     Weapon weaponToInteractWith = closest as Weapon;
                     controllerWeapons.PickupWeapon(weaponToInteractWith);
+                }
+                else if (closest is WorldButton)
+                {
+                    WorldButton buttonToInteractWith = closest as WorldButton;
+                    buttonToInteractWith.PressButton(this);
                 }
             }
             else
@@ -687,7 +693,6 @@ public class ControllerMultiPlayer : Damageable
         {
             i.enabled = false;
         }
-        rb.isKinematic = false;
         rb.constraints = RigidbodyConstraints.None;
         rb.AddTorque(Random.rotation.eulerAngles * 5f);
         controllerInput.enabled = false;
@@ -702,8 +707,8 @@ public class ControllerMultiPlayer : Damageable
         {
             i.enabled = true;
         }
-        controllerInput.rb.isKinematic = false;
-        controllerInput.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        rb.isKinematic = false;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         controllerInput.enabled = true;
         this.enabled = true;
         colliderMovement.material = PlayerManager.instance.materialZero;

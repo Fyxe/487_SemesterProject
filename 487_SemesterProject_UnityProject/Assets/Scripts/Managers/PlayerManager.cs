@@ -66,7 +66,7 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
         //        print("joystick 1 button " + i);
         //    }
         //}
-        if (SceneManager.GetActiveScene().name == "InLevel" || SceneManager.GetActiveScene().name == "Shop")
+        if (SceneManager.GetActiveScene().name == "InLevel" || SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name.Contains("testing_"))    // TODO fix this
         {
             for (int i = 1; i <= 8; i++)
             {
@@ -85,7 +85,7 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
         {
             if (i.indexJoystick == indexJoystick && i.isSpawned)
             {
-                LevelManager.instance.Pause();
+                LevelManager.instance.TogglePause();
                 return;
             }
         }
@@ -107,7 +107,12 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
                 {
                     //Debug.Log("Player P" + i.indexPlayer + ":J" + i.indexJoystick + " spawned in Shop.");
                     ShopManager.instance.SpawnPlayer(i);
-                }               
+                }
+                if (LevelManager.instance is LevelManager)
+                {
+                    //Debug.Log("Player P" + i.indexPlayer + ":J" + i.indexJoystick + " spawned in Shop.");
+                    ShopManager.instance.SpawnPlayer(i);
+                }
                 return;
             }
         }

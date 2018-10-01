@@ -266,7 +266,6 @@ public class WeaponController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("spawned");
                     AddWeaponToInventory(spawnUnequipped, true);
                 }
             }

@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class LevelGenerationManager : Singleton<LevelGenerationManager>
 {
     // TODO - end piece on all generation types
-    // TODO - special pieces on all generation types
+    // TODO -   special pieces on all generation types
 
     [Header("Settings")]
     public LayerMask layerMaskLevelCollision;

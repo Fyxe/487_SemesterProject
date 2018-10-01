@@ -178,15 +178,24 @@ public class GameLevelManager : LevelManager
             {
                 foreach (var k in j.connectedTo)
                 {
-                    if (!tempList.Contains(k) && k.spawnColliders.Count > 0 && (spawnInPiecesPlayersAreIn || (!spawnInPiecesPlayersAreIn && !k.hasPlayers)))
+                    if (tempList.Contains(k) || retList.Contains(k))
+                    {
+                        continue;
+                    }
+                    if (k.spawnColliders.Count > 0 && (spawnInPiecesPlayersAreIn || (!spawnInPiecesPlayersAreIn && !k.hasPlayers)))
                     {
                         tempList.Add(k);
                     }
                 }
             }
-            retList.AddRange(tempList);            
+            retList.AddRange(tempList);     //?       
+            foreach (var k in retList)
+            {
+                Debug.Log(i + ":" + k);
+            }
         }
-        return retList;
+
+        return retList.ToList();
     }
 
     public bool SpawnEnemy(AI prefabToSpawn, PositionToSpawn whereToSpawn)
@@ -232,6 +241,7 @@ public class GameLevelManager : LevelManager
         if (!piecesPlayersAreIn.Contains(toAdd))
         {
             piecesPlayersAreIn.Add(toAdd);
+            piecesToSpawnIn.Clear();
             piecesToSpawnIn = GetPiecesDistance(distanceFromPlayersToSpawn);
         }
     }
@@ -239,6 +249,7 @@ public class GameLevelManager : LevelManager
     public void RemoveFromPiecesPlayersAreIn(LevelPiece toRemove)
     {
         piecesPlayersAreIn.Remove(toRemove);
+        piecesToSpawnIn.Clear();
         piecesToSpawnIn = GetPiecesDistance(distanceFromPlayersToSpawn);
     }
 }

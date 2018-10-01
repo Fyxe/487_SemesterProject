@@ -49,10 +49,6 @@ public class LevelPieceDetector : MonoBehaviour
         {            
             playersInPiece.Add(cachedPlayer);
         }
-        else
-        {
-            
-        }
     }
 
     public void OnTriggerExit(Collider col)
@@ -63,10 +59,6 @@ public class LevelPieceDetector : MonoBehaviour
             {
                 playersInPiece.Remove(cachedPlayer);
             }
-        }
-        else
-        {
-            
         }
     }
 

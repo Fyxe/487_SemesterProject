@@ -38,6 +38,8 @@ public class Weapon : Interactable
     public string weaponDescription = "?";
     public Rarity rarity = Rarity.common;
     public Sprite weaponSprite;
+    public int baseCost = 0;
+    public int upgradeID = -1;
     [Space]
     public int damage = 1;
     public float delayAttack = 1f;
@@ -53,6 +55,14 @@ public class Weapon : Interactable
     public bool isReloading = false;
     bool isHeld = false;
     public WeaponController controllerCurrent;
+
+    public int cost
+    {
+        get
+        {
+            return (PointsManager.instance.pointsPerWeaponLevel * (int)rarity) + baseCost;
+        }
+    }
 
     List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
 

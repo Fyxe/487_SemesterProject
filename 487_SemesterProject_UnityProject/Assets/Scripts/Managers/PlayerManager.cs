@@ -13,14 +13,11 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     public float timeInvulnerable = 1f;
     [Tooltip("This does not include the current weapon")]
     public int weaponCount = 1;
-    public int pointsToThrow = 100;
     public float forceThrow = 500f;
     public float radiusRevive = 2f;
     public float radiusInteract = 2f;
     public bool replaceCurrentWeaponOnPickup = true;
     public bool swapToNonBaseWeaponOnThrow = true;
-    public int pointsPerReviveHit = 10;
-    public int pointsOnRevive = 100;
 
     [Header("References")]
     public Sprite spriteHealthFull;

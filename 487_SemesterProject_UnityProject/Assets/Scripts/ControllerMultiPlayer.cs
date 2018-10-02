@@ -149,7 +149,7 @@ public class ControllerMultiPlayer : Damageable
             return attributes.speedMoveCurrent;
         }
         set
-        {
+        {            
             attributes.speedMoveCurrent = value;
             controllerInput.speedMove = speedMoveCurrent;
             ui.textSpeedMove.text = speedMoveCurrent.ToString();
@@ -209,12 +209,13 @@ public class ControllerMultiPlayer : Damageable
     bool isFalling = false;
     public Rigidbody rb;
     public Collider colliderMovement;
+    public bool isInShop = false;
 
     public bool isControlled
     {
         get
         {
-            return LevelManager.instance.isPlaying && !isFalling;
+            return LevelManager.instance.isPlaying && !isFalling && !isInShop;
         }
 
     }
@@ -362,6 +363,8 @@ public class ControllerMultiPlayer : Damageable
         ui.Set(PlayerUIBox.BoxSetting.alive);
         ui.SetHealth(hpCurrent,hpMax,newAttributes.colorPlayer);
 
+        speedMoveCurrent = speedMoveCurrent;
+
         foreach (var i in GetComponentsInChildren<Renderer>())
         {
             i.material.color = colorPlayer;
@@ -420,6 +423,10 @@ public class ControllerMultiPlayer : Damageable
                         
                     }
                 }
+                else
+                {
+                    closest.InteractWithPlayer(this);
+                }
             }
             else
             {
@@ -465,11 +472,11 @@ public class ControllerMultiPlayer : Damageable
                 int didRevive = closest.AttemptReviveThisPlayer();
                 if (didRevive == 0)
                 {
-                    pointsCurrent += PlayerManager.instance.pointsOnRevive;
+                    pointsCurrent += PointsManager.instance.pointsOnReviveFull;
                 }
                 else if (didRevive == 1)
                 {
-                    pointsCurrent += PlayerManager.instance.pointsPerReviveHit;
+                    pointsCurrent += PointsManager.instance.pointsOnReviveHit;
                 }
             }
         }        
@@ -555,10 +562,10 @@ public class ControllerMultiPlayer : Damageable
                 PickupStats spawnedPoints = spawnedPointsObject.GetComponent<PickupStats>();
 
                 spawnedPoints.type = StatType.points;
-                if (pointsCurrent > PlayerManager.instance.pointsToThrow)
+                if (pointsCurrent > PointsManager.instance.pointsToThrow)
                 {
-                    pointsCurrent -= PlayerManager.instance.pointsToThrow;
-                    spawnedPoints.amount = PlayerManager.instance.pointsToThrow;
+                    pointsCurrent -= PointsManager.instance.pointsToThrow;
+                    spawnedPoints.amount = PointsManager.instance.pointsToThrow;
                 }
                 else
                 {                    

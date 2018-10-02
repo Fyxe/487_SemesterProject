@@ -71,20 +71,13 @@ public class Weapon : Interactable
             cachedRenderers.Add(new CachedRenderer(i));
         }
         checkerHighlight.Setup(DisableHighlight,EnableHighlight, WeaponManager.instance.rangeHighlight);
-        checkerInformation.Setup(DisableInformation, EnableInformation, WeaponManager.instance.rangeInformation);
-        UpdateDetectors();
+        checkerInformation.Setup(DisableInformation, EnableInformation, WeaponManager.instance.rangeInformation);        
         Initialize();
     }
 
     protected virtual void Initialize()
     {
 
-    }
-
-    public void UpdateDetectors()
-    {
-        //checkerHighlight.SetRange(WeaponManager.instance.rangeHighlight);
-        //checkerInformation.SetRange(WeaponManager.instance.rangeInformation);
     }
 
     public virtual bool AttemptAttack()

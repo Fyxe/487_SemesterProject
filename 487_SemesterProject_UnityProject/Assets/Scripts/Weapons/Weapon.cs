@@ -201,6 +201,8 @@ public class Weapon : Interactable
     {
         rb.isKinematic = false;
         isHeld = false;
+        checkerHighlight.playersInRange.Add(controllerCurrent.attachedPlayer);
+        checkerInformation.playersInRange.Add(controllerCurrent.attachedPlayer);
         EnableHighlight();
         EnableInformation();
         this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Interactable"), LayerMask.NameToLayer("Player"));

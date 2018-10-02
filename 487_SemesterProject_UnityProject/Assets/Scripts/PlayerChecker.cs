@@ -13,7 +13,7 @@ public class PlayerChecker : MonoBehaviour
 
     [Header("References")]
     public SphereCollider sphereCollider;
-    List<ControllerMultiPlayer> playersInRange = new List<ControllerMultiPlayer>();
+    public List<ControllerMultiPlayer> playersInRange = new List<ControllerMultiPlayer>();
     ControllerMultiPlayer cachedPlayer;
 
     void Awake()

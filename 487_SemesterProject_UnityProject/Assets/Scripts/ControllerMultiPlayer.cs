@@ -271,11 +271,11 @@ public class ControllerMultiPlayer : Damageable
             
             float angleTowardsCamera = Vector3.SignedAngle(movementAxis0, transform.position - Camera.main.transform.parent.position, Vector3.up);
             Debug.Log(angleTowardsCamera);
-            if (angleTowardsCamera > angleTowardsCamera + 30f || angleTowardsCamera.Log() < angleTowardsCamera - 30f)
+            if (Mathf.Abs(angleTowardsCamera) < 30f)
             {
+
                 movementAxis0 = Vector3.zero;
             }
-            movementAxis0 = Vector3.zero;
         }
         
         controllerInput.SetAxis(movementAxis0.x, movementAxis0.z, movementAxis1.x, movementAxis1.z);

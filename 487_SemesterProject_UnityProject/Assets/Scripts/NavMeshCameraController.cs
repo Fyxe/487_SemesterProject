@@ -13,11 +13,24 @@ public class NavMeshCameraController : Singleton<NavMeshCameraController>
     public float cameraHeightMax = 20;
 
     [Header("References")]
-    public List<Transform> toFollow = new List<Transform>();
-    
+    public List<Transform> toFollow = new List<Transform>();    
+
     Vector3 target;
     Vector3 positionLast;
     // TODO remember last legal point and if cant find nav mesh point, use that
+
+    private void OnDrawGizmos()
+    {
+        float distance = Vector3.Distance(transform.position,transform.GetChild(0).position);
+        Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, distance));
+        Vector3 botLeft = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, distance));
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(topRight, 1f);
+        
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(botLeft, 1f);
+        
+    }
 
     void LateUpdate()
     {
@@ -25,7 +38,7 @@ public class NavMeshCameraController : Singleton<NavMeshCameraController>
         {
             return;
         }
-
+        
         NavMeshPath path = new NavMeshPath ();
         Vector3 centralPoint = GetCentralPoint();
         NavMeshHit h = new NavMeshHit ();

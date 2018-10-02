@@ -250,26 +250,36 @@ public class ControllerMultiPlayer : Damageable
             return;
         }
 
-        
 
+        
+        float distance = Vector3.Distance(Camera.main.transform.position, 
+            Camera.main.transform.parent.position);
+        Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, distance));
+        Vector3 botLeft = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, distance));
+        
+        Vector3 movementAxis0 = new Vector3(Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Horizontal"), 0f, Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Vertical"));
+        float flipper = 1f;
         if (invertAxis1Z)
         {
-            controllerInput.SetAxis(
-                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Horizontal"),
-                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Vertical"),
-                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Horizontal"),
-                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Vertical") * (-1f)
-                );
+            flipper = -1f;
         }
-        else
-        {        
-            controllerInput.SetAxis(
-                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Horizontal"),
-                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Vertical"),
-                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Horizontal"),
-                Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Vertical")
-                );
+        Vector3 movementAxis1 = new Vector3(Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Horizontal"), 0f, Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Vertical") * flipper);
+        Vector3 pos = transform.position;
+
+        if (pos.x > topRight.x || pos.z > topRight.z || pos.x < botLeft.x || pos.z < botLeft.z)
+        {
+            
+            float angleTowardsCamera = Vector3.SignedAngle(movementAxis0, transform.position - Camera.main.transform.parent.position, Vector3.up);
+            Debug.Log(angleTowardsCamera);
+            if (angleTowardsCamera > angleTowardsCamera + 30f || angleTowardsCamera.Log() < angleTowardsCamera - 30f)
+            {
+                movementAxis0 = Vector3.zero;
+            }
+            movementAxis0 = Vector3.zero;
         }
+        
+        controllerInput.SetAxis(movementAxis0.x, movementAxis0.z, movementAxis1.x, movementAxis1.z);
+        
 
         if (Mathf.Abs(Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Horizontal")) + 
             Mathf.Abs(Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Vertical")) > 0)

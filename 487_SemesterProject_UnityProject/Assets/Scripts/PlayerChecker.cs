@@ -43,8 +43,7 @@ public class PlayerChecker : MonoBehaviour
     void OnTriggerEnter(Collider col)
     {
         if (!col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null && !playersInRange.Contains(cachedPlayer))
-        {
-            Debug.Log("a");
+        {            
             bool wasEmpty = playersInRange.Count == 0;
             playersInRange.Add(cachedPlayer);         
             if (wasEmpty)
@@ -57,8 +56,7 @@ public class PlayerChecker : MonoBehaviour
     void OnTriggerExit(Collider col)
     {
         if (!col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null && playersInRange.Contains(cachedPlayer))
-        {
-            Debug.Log("b");
+        {            
             bool wasUnempty = playersInRange.Count > 0;
             playersInRange.Remove(cachedPlayer);    
             if (wasUnempty)

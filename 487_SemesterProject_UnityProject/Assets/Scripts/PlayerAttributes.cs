@@ -13,7 +13,7 @@ public class PlayerAttributes
     public int pointsCurrent = 0;
     public int hpCurrent = 3;
     public int hpMax = 3;
-    public float speedMoveCurrent = 3f;
+    public float speedMoveCurrent = 6f;
     public int damageBaseCurrent = 0;
     public int countReviveCurrent = 1;
     public GameObject prefabController;
@@ -31,7 +31,7 @@ public class PlayerAttributes
         pointsCurrent = 0;
         hpCurrent = 3;
         hpMax = 3;
-        speedMoveCurrent = 5f;
+        speedMoveCurrent = 6f;
         damageBaseCurrent = 0;
         countReviveCurrent = 1;
         weaponCurrentID = -1;

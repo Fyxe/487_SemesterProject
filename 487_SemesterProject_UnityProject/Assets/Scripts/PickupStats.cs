@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PickupStats : PooledObject
 {
@@ -40,10 +41,20 @@ public class PickupStats : PooledObject
                     cachedPlayer.damageBaseCurrent += amount;
                     break;
                 case StatType.reviveCount:
-                    cachedPlayer.countReviveCurrent += amount;
+                    if (amount > 0)
+                    {
+                        cachedPlayer.countReviveCurrent *= 2;
+                    }
+                    else
+                    {
+                        cachedPlayer.countReviveCurrent /= 2;
+                    }
                     break;
                 case StatType.stalenessMeter:
-                    // TODO - when InLevel
+                    if (SceneManager.GetActiveScene().name == "InLevel")
+                    {
+                        (LevelManager.instance as GameLevelManager).currentStaleness += amount;
+                    }
                     break;
                 default:
                     break;

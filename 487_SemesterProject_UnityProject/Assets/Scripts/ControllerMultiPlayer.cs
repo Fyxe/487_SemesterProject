@@ -175,7 +175,14 @@ public class ControllerMultiPlayer : Damageable
         }
         set
         {
-            attributes.countReviveCurrent = value;
+            if (value == 0)
+            {
+                attributes.countReviveCurrent = 1;
+            }
+            else
+            {
+                attributes.countReviveCurrent = value;
+            }
             ui.textReviveCount.text = countReviveCurrent.ToString();
         }
     }    

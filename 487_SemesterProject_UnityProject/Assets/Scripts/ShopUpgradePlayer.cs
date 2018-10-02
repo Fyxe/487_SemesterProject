@@ -179,7 +179,7 @@ public class ShopUpgradePlayer : Interactable
         currentDisplay--;
         if (currentDisplay < 0)
         {
-            currentDisplay = 2;
+            currentDisplay = 3;
         }
         DisplayBuy(currentDisplay);
     }
@@ -187,7 +187,7 @@ public class ShopUpgradePlayer : Interactable
     void IterateRight()
     {
         currentDisplay++;
-        if (currentDisplay > 2)
+        if (currentDisplay > 3)
         {
             currentDisplay = 0;
         }
@@ -212,14 +212,27 @@ public class ShopUpgradePlayer : Interactable
                 textUpgradeName.text = "Upgrade Speed";
                 break;
             case 1:
-                cost = ((int)playerCurrent.damageBaseCurrent + 1) * PointsManager.instance.pointsPerLevelBaseDamage;
+                cost = (playerCurrent.damageBaseCurrent + 1) * PointsManager.instance.pointsPerLevelBaseDamage;
                 textUpgradeLevel.text = playerCurrent.damageBaseCurrent + "-->" + (playerCurrent.damageBaseCurrent + 1);
                 textUpgradeName.text = "Upgrade Damage";
                 break;
             case 2:
-                cost = ((int)playerCurrent.hpMax + 1) * PointsManager.instance.pointsPerLevelMaxHP;
+                cost = (playerCurrent.hpMax + 1) * PointsManager.instance.pointsPerLevelMaxHP;
                 textUpgradeLevel.text = playerCurrent.hpMax + "-->" + (playerCurrent.hpMax + 1);
                 textUpgradeName.text = "Upgrade Max Health";
+                break;
+            case 3:
+                if (playerCurrent.countReviveCurrent == 1)
+                {
+                    cost = int.MaxValue;
+                    textUpgradeLevel.text = "0";
+                }
+                else
+                {
+                    cost = (playerCurrent.countReviveCurrent) * PointsManager.instance.pointsPerLevelRevive;
+                    textUpgradeLevel.text = playerCurrent.countReviveCurrent + "-->" + (playerCurrent.countReviveCurrent / 2);                    
+                }
+                textUpgradeName.text = "Reduce Revive Count";
                 break;
             default:
                 break;
@@ -243,6 +256,9 @@ public class ShopUpgradePlayer : Interactable
                     break;
                 case 2:
                     playerCurrent.hpMax++;
+                    break;
+                case 3:
+                    playerCurrent.countReviveCurrent /= 2;
                     break;
             }
         }

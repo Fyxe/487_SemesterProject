@@ -7,7 +7,18 @@ using UnityEngine.Events;
 public class WorldButtonCost : WorldButton
 {
     [Header("Cost Settings")]
-    public int cost = 0;
+    int m_cost = 0;
+    public virtual int cost
+    {
+        get
+        {
+            return m_cost;
+        }
+        set
+        {
+            m_cost = value;
+        }
+    }
     public bool subtractPoints = true;
     public float costColorTime = 1f;
     public Color colorBase = Color.white;

@@ -11,6 +11,23 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1662780412580614}
   m_IsPrefabAsset: 1
+--- !u!1 &1077365894811850
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4895903109795122}
+  - component: {fileID: 135364472289346162}
+  - component: {fileID: 114308059751100964}
+  m_Layer: 0
+  m_Name: CheckerHilight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1290971844979072
 GameObject:
   m_ObjectHideFlags: 1
@@ -44,18 +61,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1656457277102150
+--- !u!1 &1614052988682692
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4677507722586782}
-  - component: {fileID: 135506568182441070}
-  - component: {fileID: 114295851997070822}
+  - component: {fileID: 4151421892451984}
+  - component: {fileID: 135344413122395512}
+  - component: {fileID: 114159467324179238}
   m_Layer: 0
-  m_Name: HighlightDetector
+  m_Name: CheckerInformation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,23 +110,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1747175783020150
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4010659210378262}
-  - component: {fileID: 135599041407811022}
-  - component: {fileID: 114212576676918402}
-  m_Layer: 0
-  m_Name: InformationDetector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1769883558240626
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,18 +140,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4010659210378262
+--- !u!4 &4151421892451984
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1747175783020150}
+  m_GameObject: {fileID: 1614052988682692}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4194776418815582}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4158368006355164
 Transform:
@@ -206,8 +206,8 @@ Transform:
   - {fileID: 4346801184626610}
   - {fileID: 4158891238991754}
   - {fileID: 4158368006355164}
-  - {fileID: 4010659210378262}
-  - {fileID: 4677507722586782}
+  - {fileID: 4895903109795122}
+  - {fileID: 4151421892451984}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -238,18 +238,18 @@ Transform:
   m_Father: {fileID: 4194776418815582}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4677507722586782
+--- !u!4 &4895903109795122
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1656457277102150}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 1077365894811850}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4194776418815582}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23994953481796950
 MeshRenderer:
@@ -320,28 +320,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114212576676918402
+--- !u!114 &114159467324179238
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1747175783020150}
+  m_GameObject: {fileID: 1614052988682692}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76e4c32f694b9094790febf9855a028a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c55a82faceb74947908bf810ee58629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114295851997070822
+  sphereCollider: {fileID: 135344413122395512}
+--- !u!114 &114308059751100964
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1656457277102150}
+  m_GameObject: {fileID: 1077365894811850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01e93e9fcd225742bb08997b4d09f71, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c55a82faceb74947908bf810ee58629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sphereCollider: {fileID: 135364472289346162}
 --- !u!114 &114583831844532430
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -373,29 +375,30 @@ MonoBehaviour:
   isReloading: 0
   controllerCurrent: {fileID: 0}
   rb: {fileID: 0}
+  checkerHighlight: {fileID: 114308059751100964}
+  checkerInformation: {fileID: 114159467324179238}
   hitbox: {fileID: 4643694488896396}
   startRotation: {fileID: 4346801184626610}
   endRotation: {fileID: 4158891238991754}
-  rotationAxis: {fileID: 4158368006355164}
   meleeWeaponMode: 1
---- !u!135 &135506568182441070
+--- !u!135 &135344413122395512
 SphereCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1656457277102150}
+  m_GameObject: {fileID: 1614052988682692}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &135599041407811022
+--- !u!135 &135364472289346162
 SphereCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1747175783020150}
+  m_GameObject: {fileID: 1077365894811850}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1

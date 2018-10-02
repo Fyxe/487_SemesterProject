@@ -16,6 +16,7 @@ public class WorldButtonCost : WorldButton
 
     [Header("References")]
     public Text textCost;
+    public PlayerChecker checker;
 
     Coroutine coroutineColorText;
 
@@ -25,6 +26,28 @@ public class WorldButtonCost : WorldButton
         {
             textCost.text = "$" + cost.ToString();
             textCost.color = colorBase;
+        }
+        if (checker != null)
+        {
+            checker.playersEmpty += HideCost;
+            checker.playersUnempty += ShowCost;
+            HideCost();
+        }
+    }
+
+    void ShowCost()
+    {
+        if (textCost != null)
+        {
+            textCost.gameObject.SetActive(true);
+        }
+    }
+
+    void HideCost()
+    {
+        if (textCost != null)
+        {
+            textCost.gameObject.SetActive(false);
         }
     }
 

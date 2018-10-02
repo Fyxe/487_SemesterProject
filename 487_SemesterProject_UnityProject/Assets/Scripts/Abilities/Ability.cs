@@ -50,8 +50,8 @@ public class Ability : Interactable
     [HideInInspector]
     public Rigidbody rb;
 
-    WeaponDetectorHighlight detectorHighlight;
-    WeaponDetectorInformation detectorInformation;
+    public PlayerChecker checkerHighlight;
+    public PlayerChecker checkerInformation;
 
     void Awake()
     {
@@ -61,8 +61,8 @@ public class Ability : Interactable
         {
             cachedRenderers.Add(new Weapon.CachedRenderer(i));
         }
-        detectorHighlight = GetComponentInChildren<WeaponDetectorHighlight>();
-        detectorInformation = GetComponentInChildren<WeaponDetectorInformation>();
+        checkerHighlight.Setup(DisableHighlight, EnableHighlight, WeaponManager.instance.rangeHighlight);
+        checkerInformation.Setup(DisableInformation, EnableInformation, WeaponManager.instance.rangeInformation);
         UpdateDetectors();
         Initialize();
     }
@@ -74,8 +74,8 @@ public class Ability : Interactable
 
     public void UpdateDetectors()
     {
-        detectorHighlight.SetRange(WeaponManager.instance.rangeHighlight);
-        detectorInformation.SetRange(WeaponManager.instance.rangeInformation);
+        //detectorHighlight.SetRange(WeaponManager.instance.rangeHighlight);
+        //detectorInformation.SetRange(WeaponManager.instance.rangeInformation);
     }
 
     public virtual bool AttemptAttack()

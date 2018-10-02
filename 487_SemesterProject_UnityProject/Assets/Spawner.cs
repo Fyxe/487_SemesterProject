@@ -16,13 +16,11 @@ public class Spawner : Interactable
     public override bool InteractWithPlayer(ControllerMultiPlayer player)
     {
         if (maxToSpawn == -1 || (maxToSpawn != -1 && currentAmountSpawned < maxToSpawn))
-        {
-            Debug.Log("spawned object");
+        {            
             PooledObject spawnedObject = ObjectPoolingManager.instance.CreateObject(prefabToSpawn);
             spawnPosition.SpawnObject(spawnedObject.transform);
             return true;
-        }
-        Debug.Log("spawned no object");
+        }        
         return false;
     }
 

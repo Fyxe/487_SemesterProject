@@ -121,9 +121,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4783696352209006}
   - component: {fileID: 135618517535136128}
-  - component: {fileID: 114952483974276292}
+  - component: {fileID: 114923368405837022}
   m_Layer: 0
-  m_Name: HighlightDetector
+  m_Name: CheckerHilight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -138,9 +138,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4555056944988200}
   - component: {fileID: 135413843935632574}
-  - component: {fileID: 114173383975989732}
+  - component: {fileID: 114483051883838116}
   m_Layer: 0
-  m_Name: InformationDetector
+  m_Name: CheckerInformation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -434,7 +434,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114173383975989732
+--- !u!114 &114483051883838116
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -442,9 +442,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1976653638895230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76e4c32f694b9094790febf9855a028a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c55a82faceb74947908bf810ee58629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sphereCollider: {fileID: 135413843935632574}
+--- !u!114 &114923368405837022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1864116236185600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c55a82faceb74947908bf810ee58629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphereCollider: {fileID: 135618517535136128}
 --- !u!114 &114924703100487726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -476,6 +489,8 @@ MonoBehaviour:
   isReloading: 0
   controllerCurrent: {fileID: 0}
   rb: {fileID: 0}
+  checkerHighlight: {fileID: 114923368405837022}
+  checkerInformation: {fileID: 114483051883838116}
   projectilePrefab: {fileID: 114375185774425922, guid: d1662618ffca3174aac6c190e6a8148f,
     type: 2}
   projectileDestroyTime: 3
@@ -486,17 +501,6 @@ MonoBehaviour:
   spread: 0.2
   knockbackForce: 0
   shotPosition: {fileID: 4595264396280014}
---- !u!114 &114952483974276292
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1864116236185600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01e93e9fcd225742bb08997b4d09f71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &135413843935632574
 SphereCollider:
   m_ObjectHideFlags: 1

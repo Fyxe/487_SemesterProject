@@ -363,7 +363,19 @@ public static class Extensions {
         toSet.layer = newLayer;
         foreach (Transform i in toSet.transform)
         {
-            SetLayer(i.gameObject,newLayer);
+            SetLayer(i.gameObject, newLayer);
+        }
+    }
+
+    public static void ReplaceLayer(this GameObject toSet, int newLayer, int layerToReplace)
+    {
+        if (toSet.layer == layerToReplace)
+        {
+            toSet.layer = newLayer;
+        }
+        foreach (Transform i in toSet.transform)
+        {
+            ReplaceLayer(i.gameObject, newLayer, layerToReplace);
         }
     }
 

@@ -59,8 +59,8 @@ public class Weapon : Interactable
     [HideInInspector]
     public Rigidbody rb;
 
-    WeaponDetectorHighlight detectorHighlight;
-    WeaponDetectorInformation detectorInformation;
+    public PlayerChecker checkerHighlight;
+    public PlayerChecker checkerInformation;
 
     void Awake()
     {
@@ -70,8 +70,8 @@ public class Weapon : Interactable
         {
             cachedRenderers.Add(new CachedRenderer(i));
         }
-        detectorHighlight = GetComponentInChildren<WeaponDetectorHighlight>();
-        detectorInformation = GetComponentInChildren<WeaponDetectorInformation>();
+        checkerHighlight.Setup(DisableHighlight,EnableHighlight, WeaponManager.instance.rangeHighlight);
+        checkerInformation.Setup(DisableInformation, EnableInformation, WeaponManager.instance.rangeInformation);
         UpdateDetectors();
         Initialize();
     }
@@ -83,8 +83,8 @@ public class Weapon : Interactable
 
     public void UpdateDetectors()
     {
-        detectorHighlight.SetRange(WeaponManager.instance.rangeHighlight);
-        detectorInformation.SetRange(WeaponManager.instance.rangeInformation);
+        //checkerHighlight.SetRange(WeaponManager.instance.rangeHighlight);
+        //checkerInformation.SetRange(WeaponManager.instance.rangeInformation);
     }
 
     public virtual bool AttemptAttack()
@@ -182,7 +182,7 @@ public class Weapon : Interactable
         controllerCurrent = newControllerCurrent;
         isHeld = true;
         DisableHighlight();
-        this.gameObject.SetLayer(LayerMask.NameToLayer("Player"));
+        this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Interactable"));
     }
 
     public virtual void OnUnequip() // called when enqueued in unequipped weapons
@@ -191,13 +191,15 @@ public class Weapon : Interactable
         controllerCurrent = null;
         isHeld = true;
         DisableHighlight();
-        this.gameObject.SetLayer(LayerMask.NameToLayer("Player"));
+        this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Interactable"));
     }
 
     public virtual void OnDrop()    // called when thrown
     {
         rb.isKinematic = false;
         isHeld = false;
-        this.gameObject.SetLayer(LayerMask.NameToLayer("Interactable"));
+        EnableHighlight();
+        EnableInformation();
+        this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Interactable"), LayerMask.NameToLayer("Player"));
     }
 }

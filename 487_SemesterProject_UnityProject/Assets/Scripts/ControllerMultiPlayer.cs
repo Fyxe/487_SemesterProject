@@ -254,8 +254,8 @@ public class ControllerMultiPlayer : Damageable
         
         float distance = Vector3.Distance(Camera.main.transform.position, 
             Camera.main.transform.parent.position);
-        Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, distance));
-        Vector3 botLeft = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, distance));
+        Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(0.95f, 0.95f, distance));
+        Vector3 botLeft = Camera.main.ViewportToWorldPoint(new Vector3(0.05f, 0.05f, distance));
         
         Vector3 movementAxis0 = new Vector3(Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Horizontal"), 0f, Input.GetAxis("J" + indexJoystick.ToString() + "_Axis0Vertical"));
         float flipper = 1f;
@@ -271,7 +271,7 @@ public class ControllerMultiPlayer : Damageable
             
             float angleTowardsCamera = Vector3.SignedAngle(movementAxis0, transform.position - Camera.main.transform.parent.position, Vector3.up);
             Debug.Log(angleTowardsCamera);
-            if (Mathf.Abs(angleTowardsCamera) < 30f)
+            if (Mathf.Abs(angleTowardsCamera) < 120f)
             {
 
                 movementAxis0 = Vector3.zero;

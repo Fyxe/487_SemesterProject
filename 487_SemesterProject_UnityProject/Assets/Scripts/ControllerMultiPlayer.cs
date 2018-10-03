@@ -269,8 +269,7 @@ public class ControllerMultiPlayer : Damageable
         if (pos.x > topRight.x || pos.z > topRight.z || pos.x < botLeft.x || pos.z < botLeft.z)
         {
             
-            float angleTowardsCamera = Vector3.SignedAngle(movementAxis0, transform.position - Camera.main.transform.parent.position, Vector3.up);
-            Debug.Log(angleTowardsCamera);
+            float angleTowardsCamera = Vector3.SignedAngle(movementAxis0, transform.position - Camera.main.transform.parent.position, Vector3.up);            
             if (Mathf.Abs(angleTowardsCamera) < 120f)
             {
 

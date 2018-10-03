@@ -5,6 +5,8 @@ using UnityEngine;
 public class PointsManager : Singleton<PointsManager>
 {
     [Header("Settings")]
+    public int pointsOnLevelEnd = 1000;
+    [Space]
     public int pointsOnReviveHit = 10;
     public int pointsOnReviveFull = 100;
     [Space]

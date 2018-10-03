@@ -24,7 +24,7 @@ public class DropManager : Singleton<DropManager>
     AI cachedAI = null;
     LevelPiece cachedLevelPiece = null;
 
-    void Awake()
+    void Start()
     {
         if (dropSetWeapons == null)
         {

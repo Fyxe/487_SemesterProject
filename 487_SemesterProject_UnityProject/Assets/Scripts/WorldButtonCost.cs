@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class WorldButtonCost : WorldButton
 {
     [Header("Cost Settings")]
-    int m_cost = 0;
+    [SerializeField] int m_cost = 0;
     public virtual int cost
     {
         get
@@ -17,6 +17,7 @@ public class WorldButtonCost : WorldButton
         set
         {
             m_cost = value;
+            textCost.text = cost.ToString("c2");
         }
     }
     public bool subtractPoints = true;

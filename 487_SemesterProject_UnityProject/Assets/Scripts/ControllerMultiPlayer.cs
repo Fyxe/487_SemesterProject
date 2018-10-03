@@ -14,7 +14,14 @@ public class ControllerMultiPlayer : Damageable
         }
         set
         {
-            attributes.hpCurrent = value;
+            if (value > hpMax)
+            {
+                attributes.hpCurrent = hpMax;
+            }
+            else
+            {
+                attributes.hpCurrent = value;
+            }
             ui.SetHealth(hpCurrent, hpMax, attributes.colorPlayer);
         }
     }
@@ -139,7 +146,7 @@ public class ControllerMultiPlayer : Damageable
         set
         {
             attributes.pointsCurrent = value;
-            ui.textPoints.text = pointsCurrent.ToString();
+            ui.textPoints.text = pointsCurrent.ToString("c2");
         }
     }  
     public float speedMoveCurrent

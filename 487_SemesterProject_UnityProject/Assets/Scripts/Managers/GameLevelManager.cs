@@ -71,7 +71,11 @@ public class GameLevelManager : LevelManager
     {
         isPlaying = false;
         if (isVictory)
-        {            
+        {
+            foreach (var i in allControllers)
+            {
+                i.pointsCurrent += PointsManager.instance.pointsOnLevelEnd;
+            }
             ProgressionManager.instance.scoreCurrentInLevel += ProgressionManager.instance.scoreOnLevelCompletion;
             GameplayManager.instance.GoToNextLevel();
         }

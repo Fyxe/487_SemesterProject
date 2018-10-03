@@ -14,6 +14,7 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
 
     [Header("References")]
     public int currentLevel = 0;
+    public int currentLevelReal = 0;
     public int piecesMaxCurrent;
     public int piecesMinCurrent;    
 
@@ -39,9 +40,10 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
 
     public void GoToNextLevel()
     {
-        currentLevel++;
-        if (currentLevel.IsEven())
+        currentLevelReal++;
+        if (currentLevelReal.IsEven())
         {
+            currentLevel++;
             LoadSceneManager.instance.LoadScene("Shop");
         }
         else

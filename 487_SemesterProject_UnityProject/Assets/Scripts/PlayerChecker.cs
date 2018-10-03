@@ -18,8 +18,8 @@ public class PlayerChecker : MonoBehaviour
 
     void Awake()
     {
-        playersEmpty = DelegatePlayersEmpty;
-        playersUnempty = DelegatePlayersUnempty;        
+        //playersEmpty = DelegatePlayersEmpty;
+        //playersUnempty = DelegatePlayersUnempty;
         sphereCollider.isTrigger = true;
     }
 
@@ -48,7 +48,7 @@ public class PlayerChecker : MonoBehaviour
             playersInRange.Add(cachedPlayer);         
             if (wasEmpty)
             {
-                playersUnempty.Invoke();
+                playersUnempty();
             }
         }
     }
@@ -61,7 +61,7 @@ public class PlayerChecker : MonoBehaviour
             playersInRange.Remove(cachedPlayer);    
             if (wasUnempty)
             {
-                playersEmpty.Invoke();
+                playersEmpty();
             }
         }
     }

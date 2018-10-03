@@ -12,7 +12,16 @@ public class ShopBuyHealth : MonoBehaviour
     public PooledObject prefabSmall;
     public PooledObject prefabMeduim;
     public PooledObject prefabLarge;
+    public WorldButtonCost buttonSmall;
+    public WorldButtonCost buttonMedium;
+    public WorldButtonCost buttonLarge;
 
+    void Start()
+    {
+        buttonSmall.cost = PointsManager.instance.pointsPerInGameLevelHealth * 1 * GameplayManager.instance.currentLevel;
+        buttonMedium.cost = PointsManager.instance.pointsPerInGameLevelHealth * 2 * GameplayManager.instance.currentLevel; 
+        buttonLarge.cost = PointsManager.instance.pointsPerInGameLevelHealth * 3 * GameplayManager.instance.currentLevel; 
+    }
 
     public void SpawnHealth(int whichKind)
     {

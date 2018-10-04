@@ -149,6 +149,7 @@ public class AI : Damageable
     public override void OnDeath()
     {
         base.OnDeath();
+        Debug.Log(name + " is dead");
         ProgressionManager.instance.scoreCurrentInLevel += pointsOnDeath;
         if (GameLevelManager.instance is GameLevelManager)
         {

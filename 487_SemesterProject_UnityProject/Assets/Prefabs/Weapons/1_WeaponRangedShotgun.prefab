@@ -196,7 +196,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4889054330902040}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4649415122492898
 Transform:
@@ -212,7 +212,7 @@ Transform:
   - {fileID: 4413949100876208}
   - {fileID: 4248935754905668}
   m_Father: {fileID: 4889054330902040}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4726374191685020
 Transform:
@@ -250,8 +250,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.5, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4595264396280014}
   - {fileID: 4649415122492898}
+  - {fileID: 4595264396280014}
   - {fileID: 4783696352209006}
   - {fileID: 4555056944988200}
   m_Father: {fileID: 0}
@@ -446,6 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereCollider: {fileID: 135413843935632574}
+  playersInRange: []
 --- !u!114 &114923368405837022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -458,6 +459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereCollider: {fileID: 135618517535136128}
+  playersInRange: []
 --- !u!114 &114924703100487726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -478,6 +480,8 @@ MonoBehaviour:
   weaponDescription: '?'
   rarity: 2
   weaponSprite: {fileID: 0}
+  baseCost: 0
+  upgradeID: -1
   damage: 1
   delayAttack: 1
   delayAttackAlternate: 1
@@ -491,7 +495,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   checkerHighlight: {fileID: 114923368405837022}
   checkerInformation: {fileID: 114483051883838116}
-  projectilePrefab: {fileID: 114375185774425922, guid: d1662618ffca3174aac6c190e6a8148f,
+  bulletPrefab: {fileID: 114480522540758640, guid: d1662618ffca3174aac6c190e6a8148f,
     type: 2}
   projectileDestroyTime: 3
   layerMaskToShoot:

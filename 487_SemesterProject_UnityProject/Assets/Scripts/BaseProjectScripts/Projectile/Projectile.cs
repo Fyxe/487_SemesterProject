@@ -5,6 +5,7 @@ using UnityEngine;
 public class Projectile : PooledObject
 {
     [Header("Projectile Settings")]
+    public bool pierce = false;
     public bool showTrail = true;
     [Space]
     public float speedMove = 1f;

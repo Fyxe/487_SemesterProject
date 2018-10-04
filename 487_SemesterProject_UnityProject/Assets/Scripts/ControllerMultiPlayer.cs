@@ -682,11 +682,11 @@ public class ControllerMultiPlayer : Damageable
         revivesRemaining = 0;        
     }
 
-    public override void Hurt(int amount)
+    public override bool Hurt(int amount)
     {
         if (blockAllDamage || state != PlayerState.alive)
         {
-            return;
+            return false;
         }
 
         OnHurt();
@@ -699,8 +699,10 @@ public class ControllerMultiPlayer : Damageable
             {
                 StopCoroutine(coroutineIncapacitate);
             }
-            coroutineIncapacitate = StartCoroutine(Incapacitate());            
+            coroutineIncapacitate = StartCoroutine(Incapacitate());
+            return true;
         }
+        return false;
     }
 
     IEnumerator Incapacitate()

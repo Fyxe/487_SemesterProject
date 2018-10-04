@@ -22,6 +22,7 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
     public void StartGame()
     {
         ResetDifficulty();
+        currentLevel++;
         LoadSceneManager.instance.LoadScene("Shop");    // TODO tutorial
     }
 

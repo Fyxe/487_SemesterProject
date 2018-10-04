@@ -12,34 +12,23 @@ public class Ability : Interactable
     public string abilityDescription = "?";
     public Rarity rarity = Rarity.common;
     public Sprite abilitySprite;
+    public int baseCost = 0;
     [Space]
+    public float durationAttack = 1f;
     public float delayAttack = 1f;
     float nextAttack = 0f;
+    [Space]
     public float delayAttackAlternate = 1f;
     float nextAttackAlternate = 0f;
 
+    public bool isInUse = false;
     bool isHeld = false;
-    GameObject m_currentPlayer;
-    public GameObject currentPlayer
+    public AbilityController controllerCurrent;
+    public int cost
     {
         get
         {
-            return m_currentPlayer;
-        }
-        set
-        {
-            m_currentPlayer = value;
-            if (value != null)
-            {
-                if (m_currentPlayer.GetComponent<Rigidbody>() == null)
-                {
-                    Debug.LogError("No rigidbody found on player: " + value.name);
-                }
-                else
-                {
-                    currentPlayerRB = m_currentPlayer.GetComponent<Rigidbody>();
-                }
-            }
+            return (PointsManager.instance.pointsPerAbilityLevel * (int)rarity) + baseCost;
         }
     }
 
@@ -50,6 +39,8 @@ public class Ability : Interactable
     [HideInInspector]
     public Rigidbody rb;
 
+    [Header("References")]
+    public GameObject model;
     public PlayerChecker checkerHighlight;
     public PlayerChecker checkerInformation;
 
@@ -76,16 +67,15 @@ public class Ability : Interactable
         if (Time.time > nextAttack)
         {
             nextAttack = Time.time + delayAttack;
-            Attack();
-            
-            return true;
+                        
+            return Attack();
         }
         return false;
     }
 
-    protected virtual void Attack()
+    protected virtual bool Attack()
     {
-
+        return true;
     }
 
     public virtual bool AttemptAttackAlternate()
@@ -134,18 +124,19 @@ public class Ability : Interactable
         // todo
     }
 
-    public virtual void OnEquip(GameObject player)   // called when changed to current weapon
+    public virtual void OnEquip(AbilityController newController)   // called when changed to current weapon
     {
         rb.isKinematic = true;
-        currentPlayer = player;
+        controllerCurrent = newController;
         isHeld = true;
         DisableHighlight();
+        ActivateModel();
     }
 
     public virtual void OnUnequip() // called when enqueued in unequipped weapons
     {
         rb.isKinematic = true;
-        currentPlayer = null;
+        controllerCurrent = null;
         isHeld = true;
         DisableHighlight();
     }
@@ -154,5 +145,16 @@ public class Ability : Interactable
     {
         rb.isKinematic = false;
         isHeld = false;
+        DeactivateModel();
+    }
+
+    public virtual void ActivateModel()
+    {
+        model.SetActive(true);
+    }
+
+    public virtual void DeactivateModel()
+    {
+        model.SetActive(false);
     }
 }

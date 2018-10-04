@@ -21,6 +21,7 @@ public class PointsManager : Singleton<PointsManager>
     public int pointsToThrow = 100;
     [Space]
     public int pointsPerWeaponLevel = 200;
+    public int pointsPerAbilityLevel = 200;
     [Space]
     public int pointsPerInGameLevelHealth = 100;
 

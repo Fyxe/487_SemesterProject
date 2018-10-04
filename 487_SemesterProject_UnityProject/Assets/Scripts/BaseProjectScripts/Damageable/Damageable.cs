@@ -4,17 +4,32 @@ using UnityEngine;
 
 public class Damageable : PooledObject
 {
-
     [Header("Damageable Settings")]
     public bool blockAllDamage;
-    public bool blockAllHealing;    
+    public bool blockAllHealing;
+    [SerializeField] int m_hpMax = 0;
     public virtual int hpMax
     {
-        get; set;
+        get
+        {
+            return m_hpMax;
+        }
+        set
+        {
+            m_hpMax = value;
+        }
     }
+    [SerializeField] int m_hpCurrent = 0;
     public virtual int hpCurrent
     {
-        get; set;
+        get
+        {
+            return m_hpCurrent;
+        }
+        set
+        {
+            m_hpCurrent = value;
+        }
     }
     [Space]
     public bool isDead = false;

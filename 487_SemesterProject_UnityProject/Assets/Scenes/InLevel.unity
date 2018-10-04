@@ -3340,6 +3340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b69c60182032e64e9c74ec71e7584f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropPlayers: 1
   dropTime: 4
   dropHeight: 15
   dropLerpTime: 0.5
@@ -3359,11 +3360,9 @@ MonoBehaviour:
   distanceFromPlayersToSpawn: 3
   spawnInPiecesPlayersAreIn: 1
   endWaitDelay: 2
-  setEnemies: 20
-  delaySpawn: 1
+  setEnemies: 50
+  delaySpawn: 0.5
   screenEnd: {fileID: 524367930}
-  prefabEnemyBasic: {fileID: 114473578030747148, guid: c8ddfe067c448b04797d99b587ff4426,
-    type: 2}
   staleFillImage: {fileID: 1023298681}
   piecesToSpawnIn: []
   piecesPlayersAreIn: []

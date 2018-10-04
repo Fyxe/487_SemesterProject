@@ -29,7 +29,7 @@ public class WorldButtonCostWeapon : WorldButtonCost
         Weapon spawnedWeapon = spawnedWeaponObject.GetComponent<Weapon>();
         spawnedWeapon.SetToDisplay();
         textWeaponName.text = spawnedWeapon.weaponName;
-        cost = spawnedWeapon.baseCost + (int)spawnedWeapon.rarity * PointsManager.instance.pointsPerWeaponLevel;
+        cost = spawnedWeapon.cost;
     }
 
     public override void OnPressed(ControllerMultiPlayer playerPressedBy)

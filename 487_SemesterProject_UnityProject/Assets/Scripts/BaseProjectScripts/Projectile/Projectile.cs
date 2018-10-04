@@ -5,11 +5,10 @@ using UnityEngine;
 public class Projectile : PooledObject
 {
     [Header("Projectile Settings")]
-    public bool pierce = false;
+    public bool pierce = true;
     public bool showTrail = true;
     [Space]
     public float speedMove = 1f;
-    public bool destroyOnHit = true;
     public Vector3 direction;
     public LayerMask layerMask;
     public TrailRenderer trail;
@@ -48,10 +47,15 @@ public class Projectile : PooledObject
                 UpdatePosition();
                 yield return null;
             }
-            else if (destroyOnHit)
+            else if (pierce)
             {
-                yield break;
+                
             }            
+            else
+            {
+                DestroyThisObject();
+                yield break;
+            }
         }        
     }
 
@@ -63,7 +67,7 @@ public class Projectile : PooledObject
         // int mask = 1 << layerMask.value; Use?
         if (Physics.Raycast(r, out h, speedMove * Time.deltaTime, layerMask.value))
         {
-            OnHit(h.collider);
+            OnHit(h.collider);            
             return true;
         }
         else

@@ -79,6 +79,7 @@ public class ControllerMultiPlayer : Damageable
     [Header("References")]
     PlayerState m_state = PlayerState.disconnected;
     public Transform positionThrow;
+    public Transform positionAbility;
     public GameObject incapacitatedObject;
     public PlayerState state
     {
@@ -212,8 +213,9 @@ public class ControllerMultiPlayer : Damageable
     }
 
     [HideInInspector] public PlayerAttributes attributes;
-    InputController3D controllerInput;
+    [HideInInspector] public InputController3D controllerInput;
     WeaponController controllerWeapons;
+    AbilityController controllerAbilities;
     Animator anim;
     Coroutine coroutineInvulnerable;
     Coroutine coroutineIncapacitate;
@@ -224,12 +226,13 @@ public class ControllerMultiPlayer : Damageable
     public Rigidbody rb;
     public Collider colliderMovement;
     public bool isInShop = false;
+    public bool isDashing = false;
 
     public bool isControlled
     {
         get
         {
-            return LevelManager.instance.isPlaying && !isFalling && !isInShop;
+            return LevelManager.instance.isPlaying && !isFalling && !isInShop && !isDashing;
         }
 
     }
@@ -238,6 +241,7 @@ public class ControllerMultiPlayer : Damageable
     {
         controllerInput = GetComponent<InputController3D>();      
         controllerWeapons = GetComponent<WeaponController>();
+        controllerAbilities = GetComponent<AbilityController>();
         anim = GetComponentInChildren<Animator>();
     }
 
@@ -394,6 +398,7 @@ public class ControllerMultiPlayer : Damageable
         }
 
         controllerWeapons.Setup();
+        controllerAbilities.Setup();
     }
 
     public void AttemptInteract()
@@ -559,11 +564,14 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextUseAbility)
         {
             nextUseAbility = Time.time + delayUseAbility;
-            Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " used an ability.");   
-            if (anim != null)
+            if (controllerAbilities.AttemptAttack())
             {
-                anim.SetTrigger("useAbility");
-            }
+                Debug.Log("Used ability");
+                if (anim != null)
+                {
+                    anim.SetTrigger("useAbility");
+                }
+            }            
         }        
     }
 

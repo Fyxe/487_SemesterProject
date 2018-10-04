@@ -79,17 +79,27 @@ public class InputController3D : MonoBehaviour
         axis1Z = newLookZ;
     }
 
+    public Vector3 GetAxis(int whichAxis)
+    {
+        if (whichAxis == 0)
+        {
+            return new Vector3(axis0X, 0f, axis0Z);
+        }
+        else
+        {
+            return new Vector3(axis1X, 0f, axis1Z);
+        }
+    }
+
     void Movement()
     {
+        if (!isControlled)
+        {
+            return;
+        }
+
         if (useCharacterController)
         {
-            if (!isControlled)
-            {
-                //directionMove.y -= forceGravity * Time.deltaTime;
-                //controllerCurrent.Move(directionMove * Time.deltaTime);
-                return;
-            }
-
             if (controllerCurrent.isGrounded)
             {
                 directionMove = new Vector3(axis0X, 0, axis0Z).normalized;

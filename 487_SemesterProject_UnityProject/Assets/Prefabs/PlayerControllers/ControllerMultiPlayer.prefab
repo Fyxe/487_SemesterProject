@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 4026189900101750}
   - component: {fileID: 114186442045624042}
   - component: {fileID: 114297633389141560}
+  - component: {fileID: 114131786494148814}
   - component: {fileID: 114426084222644282}
   - component: {fileID: 143337160514211182}
   - component: {fileID: 54051910359285966}
@@ -258,7 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4602460659433956}
   m_Layer: 8
-  m_Name: PositionWeaponCurrent
+  m_Name: PositionAbilityCurrent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -390,6 +391,21 @@ GameObject:
   - component: {fileID: 119424923473368980}
   m_Layer: 8
   m_Name: ProjectionCircle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1680109703557320
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4287424624887746}
+  m_Layer: 8
+  m_Name: PositionWeaponCurrent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -655,6 +671,19 @@ Transform:
   m_Father: {fileID: 4026189900101750}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4287424624887746
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1680109703557320}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4627211583497066}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4305272610277576
 Transform:
   m_ObjectHideFlags: 1
@@ -740,11 +769,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1458728181341110}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.246, y: 1, z: 0.763}
+  m_LocalPosition: {x: 0, y: 1, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4627211583497066}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4623812519080846
 Transform:
@@ -770,8 +799,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4135792882655244}
-  - {fileID: 4602460659433956}
+  - {fileID: 4287424624887746}
   - {fileID: 4680904154560146}
+  - {fileID: 4602460659433956}
   m_Father: {fileID: 4026189900101750}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -987,6 +1017,26 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114131786494148814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318218515227642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bec0ba909b879c748bcb80bca755ca0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionDrop: {fileID: 0}
+  attachedAI: {fileID: 0}
+  attachedPlayer: {fileID: 0}
+  m_abilityCurrent: {fileID: 0}
+  m_positionAbility: {fileID: 0}
+  m_positionThrow: {fileID: 0}
+  m_forceThrow: 500
+  controllerType: 0
+  m_prefabBaseAbility: {fileID: 0}
 --- !u!114 &114171513636923600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1015,6 +1065,8 @@ MonoBehaviour:
     deactivatedObjects: []
   blockAllDamage: 0
   blockAllHealing: 0
+  m_hpMax: 0
+  m_hpCurrent: 0
   isDead: 0
   team: 0
   invertAxis1Z: 0
@@ -1028,6 +1080,7 @@ MonoBehaviour:
   delayDisplayInformation: 0
   delayThrowPoints: 0.1
   positionThrow: {fileID: 4135792882655244}
+  positionAbility: {fileID: 4602460659433956}
   incapacitatedObject: {fileID: 1952880113627748}
   ui: {fileID: 0}
   attributes:
@@ -1043,15 +1096,19 @@ MonoBehaviour:
     damageBaseCurrent: 0
     countReviveCurrent: 1
     prefabController: {fileID: 0}
+    abilityCurrentID: 0
     weaponCurrentID: 0
     weaponsUnequippedIDs: 
     enemiesKilled: 
+  controllerInput: {fileID: 0}
   projectors:
   - {fileID: 119424923473368980}
   - {fileID: 119057119281020990}
   - {fileID: 119872443446021538}
   rb: {fileID: 54051910359285966}
   colliderMovement: {fileID: 136213408636823196}
+  isInShop: 0
+  isDashing: 0
 --- !u!114 &114297633389141560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1071,7 +1128,7 @@ MonoBehaviour:
   attachedPlayer: {fileID: 0}
   m_weaponCurrent: {fileID: 0}
   m_weaponsUnequipped: []
-  positionWeaponCurrent: {fileID: 4602460659433956}
+  positionWeaponCurrent: {fileID: 4287424624887746}
   positionsWeaponsUnequipped:
   - {fileID: 4808433649415662}
   - {fileID: 4367848909041076}

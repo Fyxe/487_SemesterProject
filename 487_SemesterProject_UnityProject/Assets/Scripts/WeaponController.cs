@@ -245,7 +245,7 @@ public class WeaponController : MonoBehaviour
         Initialize();
         if (controllerType == ControllerType.player)
         { 
-            Weapon spawnCurrent = ProgressionManager.instance.GetWeapByID(attachedPlayer.attributes.weaponCurrentID, true);
+            Weapon spawnCurrent = ProgressionManager.instance.GetWeaponByID(attachedPlayer.attributes.weaponCurrentID, true);
             if (spawnCurrent == null)
             {
                 SetCurrentWeapon(prefabBaseWeapon, true);
@@ -258,7 +258,7 @@ public class WeaponController : MonoBehaviour
             List<int> allIDS = attachedPlayer.attributes.weaponsUnequippedIDs.ToList();
             foreach (var i in allIDS)
             {
-                Weapon spawnUnequipped = ProgressionManager.instance.GetWeapByID(i, true);
+                Weapon spawnUnequipped = ProgressionManager.instance.GetWeaponByID(i, true);
                 if (spawnUnequipped == null)
                 {
                     Debug.Log("spawned prefab");

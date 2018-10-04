@@ -177,6 +177,8 @@ MonoBehaviour:
     deactivatedObjects: []
   blockAllDamage: 0
   blockAllHealing: 0
+  m_hpMax: 4
+  m_hpCurrent: 4
   isDead: 0
   team: 0
   aiID: -1
@@ -217,7 +219,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 1.5
+  m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

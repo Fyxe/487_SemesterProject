@@ -17,6 +17,7 @@ public class PlayerAttributes
     public int damageBaseCurrent = 0;
     public int countReviveCurrent = 1;
     public GameObject prefabController;
+    public int abilityCurrentID;
     public int weaponCurrentID;
     public List<int> weaponsUnequippedIDs = new List<int>();
     public List<int> enemiesKilled = new List<int> ();

@@ -27,6 +27,7 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
 
     [Tooltip("This weapon should not appear in the world anywhere.")]
     public Weapon prefabBaseWeapon;
+    public Ability prefabBaseAbility;
     public PickupStats prefabMoney;
     //[SerializeField]List<PlayerAttributes> m_allPlayerAttributes = new List<PlayerAttributes>();  // TODO make get set for spawned player attributes
     public List<PlayerAttributes> allPlayerAttributes = new List<PlayerAttributes>();

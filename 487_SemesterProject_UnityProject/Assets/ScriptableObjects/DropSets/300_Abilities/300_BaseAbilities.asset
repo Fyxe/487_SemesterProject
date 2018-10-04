@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55cc892b9e797ec4e8c64002d47dfa43, type: 3}
+  m_Name: 300_BaseAbilities
+  m_EditorClassIdentifier: 
+  dropSetID: 300
+  dropSetsAdded: 
+  allDrops:
+  - drop: {fileID: 1378288846663088, guid: 550bbd28b8bf5354190a6a2fa04a7640, type: 2}
+    weight: 1

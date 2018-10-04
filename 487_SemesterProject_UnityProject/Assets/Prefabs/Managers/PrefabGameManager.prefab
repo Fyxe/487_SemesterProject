@@ -332,7 +332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropSetWeapons: {fileID: 11400000, guid: 2f14498ce1f42124f864d8c6be2f9b5a, type: 2}
   dropSetWeaponsInstantiated: {fileID: 0}
-  dropSetAbilities: {fileID: 0}
+  dropSetAbilities: {fileID: 11400000, guid: fd6f76ee4d4e46745aa131cdee1df8f9, type: 2}
   dropSetAbilitiesInstantiated: {fileID: 0}
   dropSetAIs: {fileID: 11400000, guid: 5aeeb2e942f6b044fa733bb8c85c02ba, type: 2}
   dropSetAIsInstantiated: {fileID: 0}
@@ -526,6 +526,8 @@ MonoBehaviour:
   materialBounce: {fileID: 13400000, guid: 9f5b6e785c2150847a243ea9e8a88417, type: 2}
   prefabBaseWeapon: {fileID: 114880324480030846, guid: cdfdb3fb3e3ac5d4a89a7d77b2d9652b,
     type: 2}
+  prefabBaseAbility: {fileID: 114800916169262992, guid: 550bbd28b8bf5354190a6a2fa04a7640,
+    type: 2}
   prefabMoney: {fileID: 114265833007881906, guid: ce3177bf42c3c0141a96d5d694230941,
     type: 2}
   allPlayerAttributes:
@@ -542,6 +544,7 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    abilityCurrentID: 0
     weaponCurrentID: 0
     weaponsUnequippedIDs: 
     enemiesKilled: 
@@ -558,6 +561,7 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    abilityCurrentID: 0
     weaponCurrentID: 0
     weaponsUnequippedIDs: 
     enemiesKilled: 
@@ -574,6 +578,7 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    abilityCurrentID: 0
     weaponCurrentID: 0
     weaponsUnequippedIDs: 
     enemiesKilled: 
@@ -590,6 +595,7 @@ MonoBehaviour:
     countReviveCurrent: 0
     prefabController: {fileID: 1318218515227642, guid: 06a7eb0c7aaf53647b9f7573a2e5248f,
       type: 2}
+    abilityCurrentID: 0
     weaponCurrentID: 0
     weaponsUnequippedIDs: 
     enemiesKilled: 
@@ -650,6 +656,7 @@ MonoBehaviour:
   pointsPerLevelRevive: 100
   pointsToThrow: 100
   pointsPerWeaponLevel: 200
+  pointsPerAbilityLevel: 200
   pointsPerInGameLevelHealth: 100
 --- !u!114 &114933500951180624
 MonoBehaviour:

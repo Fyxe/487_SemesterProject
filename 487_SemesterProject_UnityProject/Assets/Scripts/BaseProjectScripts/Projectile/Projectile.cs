@@ -60,7 +60,7 @@ public class Projectile : PooledObject
         h = default(RaycastHit);
 
         // int mask = 1 << layerMask.value; Use?
-        if (Physics.Raycast(r, out h, speedMove, layerMask.value))
+        if (Physics.Raycast(r, out h, speedMove * Time.deltaTime, layerMask.value))
         {
             OnHit(h.collider);
             return true;

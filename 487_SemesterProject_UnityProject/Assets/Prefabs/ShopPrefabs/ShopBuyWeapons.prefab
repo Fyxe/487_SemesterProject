@@ -660,7 +660,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPosition: {fileID: 114452470872546752}
   positionsButtons:
-  - {fileID: 0}
   - {fileID: 114559198566241400}
   - {fileID: 114165391583612400}
   - {fileID: 114210869010692866}

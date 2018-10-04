@@ -12,8 +12,8 @@ public class Bullet : Projectile
         Damageable damageableHit = hit.gameObject.GetComponentInParent<Damageable>();
         if (damageableHit != null)
         {
-            Debug.Log("Hit " + damageableHit.name);
             damageableHit.Hurt(weaponFiredFrom.damage);
+            DestroyThisObject();
         }
     }
 }

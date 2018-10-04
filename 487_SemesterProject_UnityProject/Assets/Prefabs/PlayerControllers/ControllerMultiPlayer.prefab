@@ -1086,6 +1086,7 @@ MonoBehaviour:
   attributes:
     isSpawned: 0
     isDead: 0
+    isPriority: 0
     colorPlayer: {r: 0, g: 0, b: 1, a: 1}
     indexJoystick: 0
     indexPlayer: 0

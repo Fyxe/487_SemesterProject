@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class WeaponRanged : Weapon
 {
+    [Header("References")]
     public Bullet bulletPrefab;
+    public PooledObject muzzleFlashPrefab;
 
+    [Header("WeaponRangedSettings")]
     public float projectileDestroyTime = 3f;
     public LayerMask layerMaskToShoot;
     public int amountOfBulletsPerShot;
@@ -17,6 +20,9 @@ public class WeaponRanged : Weapon
     {
         base.Attack();
 
+        PooledObject spawnedMuzzleFlash = ObjectPoolingManager.instance.CreateObject(muzzleFlashPrefab, null, 0.5f);
+        spawnedMuzzleFlash.transform.position = shotPosition.transform.position;
+        spawnedMuzzleFlash.transform.rotation = shotPosition.transform.rotation;
         for (int i = 0; i < amountOfBulletsPerShot; i++)
         {
             Bullet spawnedBullet = ObjectPoolingManager.instance.CreateObject(bulletPrefab, null, projectileDestroyTime) as Bullet;

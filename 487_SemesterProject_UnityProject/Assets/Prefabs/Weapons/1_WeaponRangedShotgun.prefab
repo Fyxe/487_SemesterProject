@@ -497,6 +497,8 @@ MonoBehaviour:
   checkerInformation: {fileID: 114483051883838116}
   bulletPrefab: {fileID: 114480522540758640, guid: d1662618ffca3174aac6c190e6a8148f,
     type: 2}
+  muzzleFlashPrefab: {fileID: 114905784146625502, guid: 577cb2c605cc51d4a80c4fe9dc4e2b2e,
+    type: 2}
   projectileDestroyTime: 3
   layerMaskToShoot:
     serializedVersion: 2

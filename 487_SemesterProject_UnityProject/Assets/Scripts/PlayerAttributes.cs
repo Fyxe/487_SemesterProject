@@ -7,6 +7,7 @@ public class PlayerAttributes
 {
     public bool isSpawned = false;
     public bool isDead = false;
+    public bool isPriority = false;
     public Color colorPlayer = Color.blue;
     public int indexJoystick = 0;
     public int indexPlayer = 0;
@@ -17,8 +18,8 @@ public class PlayerAttributes
     public int damageBaseCurrent = 0;
     public int countReviveCurrent = 1;
     public GameObject prefabController;
-    public int abilityCurrentID;
-    public int weaponCurrentID;
+    public int abilityCurrentID = -1;
+    public int weaponCurrentID = -1;
     public List<int> weaponsUnequippedIDs = new List<int>();
     public List<int> enemiesKilled = new List<int> ();
 
@@ -26,6 +27,7 @@ public class PlayerAttributes
     {
         isSpawned = false;
         isDead = false;
+        isPriority = false;
         //colorPlayer = Color.blue;
         indexJoystick = 0;
         indexPlayer = 0;
@@ -35,6 +37,7 @@ public class PlayerAttributes
         speedMoveCurrent = 6f;
         damageBaseCurrent = 0;
         countReviveCurrent = 1;
+        abilityCurrentID = -1;
         weaponCurrentID = -1;
         weaponsUnequippedIDs = new List<int>();
         enemiesKilled = new List<int>();

@@ -24,6 +24,14 @@ public class Ability : Interactable
     public bool isInUse = false;
     bool isHeld = false;
     public AbilityController controllerCurrent;
+    public ControllerMultiPlayer player
+    {
+        get
+        {
+            return controllerCurrent.attachedPlayer;
+        }
+    }
+        
     public int cost
     {
         get
@@ -43,6 +51,8 @@ public class Ability : Interactable
     public GameObject model;
     public PlayerChecker checkerHighlight;
     public PlayerChecker checkerInformation;
+
+    Coroutine coroutineActivated;
 
     void Awake()
     {
@@ -75,6 +85,18 @@ public class Ability : Interactable
 
     protected virtual bool Attack()
     {
+        if (controllerCurrent.controllerType == ControllerType.player)
+        {
+            if (coroutineActivated != null)
+            {
+                StopCoroutine(coroutineActivated);
+            }
+            coroutineActivated = StartCoroutine(Activated());
+        }
+        else
+        {
+
+        }
         return true;
     }
 
@@ -156,5 +178,22 @@ public class Ability : Interactable
     public virtual void DeactivateModel()
     {
         model.SetActive(false);
+    }
+
+    public virtual void OnAbilityStart()
+    {
+        isInUse = true;
+    }
+
+    public virtual void OnAbilityEnd()
+    {
+        isInUse = false;
+    }
+
+    IEnumerator Activated()    // TODO work on paused
+    {
+        OnAbilityStart();
+        yield return new WaitForSeconds(durationAttack);
+        OnAbilityEnd();
     }
 }

@@ -268,7 +268,7 @@ MonoBehaviour:
   rarity: 1
   abilitySprite: {fileID: 0}
   baseCost: 0
-  durationAttack: 0.5
+  durationAttack: 0.35
   delayAttack: 1
   delayAttackAlternate: 1
   isInUse: 0

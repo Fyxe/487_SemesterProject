@@ -281,16 +281,38 @@ public class LevelManager : Singleton<LevelManager>
         EndLevel(false);
     }
 
-    public Transform GetTarget()
+    public Transform GetTargetPriority()
     {
-        foreach (var i in allControllers)
+        List<ControllerMultiPlayer> randomControllers = allControllers.ToList();
+        randomControllers.Shuffle();        
+        foreach (var i in randomControllers)
         {
-            if (!i.isDead)
+            if (!i.isDead && i.attributes.isPriority)
             {
-                return i.transform;
+                return i.transform;                
             }
         }
         return null;
+    }
+
+    public Transform GetTarget()
+    {
+        List<ControllerMultiPlayer> randomControllers = allControllers.ToList();
+        randomControllers.Shuffle();
+        Transform retTransform = null;
+        foreach (var i in randomControllers)
+        {
+            if (!i.isDead)
+            {
+                retTransform = i.transform;
+
+                if (i.attributes.isPriority)
+                {
+                    return retTransform;
+                }
+            }
+        }
+        return retTransform;
     }
 
     public void TogglePause()

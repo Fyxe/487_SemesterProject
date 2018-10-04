@@ -102,7 +102,14 @@ public class AI : Damageable
     }
 
     protected virtual void UpdateTarget()
-    {        
+    {
+        Transform targetPriority = LevelManager.instance.GetTargetPriority();
+        if (targetPriority != null)
+        {
+            target = targetPriority;
+            return;
+        }
+
         List<ControllerMultiPlayer> playersFound = new List<ControllerMultiPlayer>();
 
         int layer = 1 << LayerMask.NameToLayer("Player");

@@ -565,8 +565,7 @@ public class ControllerMultiPlayer : Damageable
         {
             nextUseAbility = Time.time + delayUseAbility;
             if (controllerAbilities.AttemptAttack())
-            {
-                Debug.Log("Used ability");
+            {                
                 if (anim != null)
                 {
                     anim.SetTrigger("useAbility");

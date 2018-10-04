@@ -7,15 +7,15 @@ public class AbilityDash : Ability
 
     [Header("Dash Settings")]
     public float speed = 8f;
-
-    Coroutine coroutineActivated;
+    Vector3 direction;
 
 
     public override bool AttemptAttack()
     {
         if (base.AttemptAttack())
         {
-            return rb.velocity != Vector3.zero;
+            Vector3 direction = controllerCurrent.attachedPlayer.controllerInput.GetAxis(0);
+            return direction != Vector3.zero;
         }
         else
         {
@@ -25,34 +25,29 @@ public class AbilityDash : Ability
 
     protected override bool Attack()
     {
-        base.Attack();
-        if (controllerCurrent.controllerType == ControllerType.player)
-        {            
-            if (coroutineActivated != null)
-            {
-                StopCoroutine(coroutineActivated);
-            }
-            coroutineActivated = StartCoroutine(Activated(controllerCurrent.attachedPlayer.controllerInput.GetAxis(0)));
-        }
-        else
+        direction = controllerCurrent.attachedPlayer.controllerInput.GetAxis(0);
+        if (direction == Vector3.zero)
         {
-
+            return false;
         }
-        return true;
+        return base.Attack();
     }
 
-    IEnumerator Activated(Vector3 direction)    // TODO work on paused
+    public override void OnAbilityStart()
     {
-        isInUse = true;        
+        base.OnAbilityStart();
         controllerCurrent.attachedPlayer.isDashing = true;
         controllerCurrent.attachedPlayer.controllerInput.isControlled = false;
-        controllerCurrent.attachedPlayer.rb.velocity = Vector3.zero;        
+        controllerCurrent.attachedPlayer.rb.velocity = Vector3.zero;
         controllerCurrent.attachedPlayer.rb.AddForce(direction.normalized * speed, ForceMode.Impulse);
-        yield return new WaitForSeconds(durationAttack);
+    }
+
+    public override void OnAbilityEnd()
+    {
         controllerCurrent.attachedPlayer.rb.velocity = Vector3.zero;
         controllerCurrent.attachedPlayer.controllerInput.isControlled = true;
         controllerCurrent.attachedPlayer.isDashing = false;
-        isInUse = false;
+        base.OnAbilityEnd();
     }
 
 }

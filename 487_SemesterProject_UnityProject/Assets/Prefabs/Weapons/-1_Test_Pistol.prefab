@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereCollider: {fileID: 135036658312104936}
+  playersInRange: []
 --- !u!114 &114459313540523314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -372,6 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereCollider: {fileID: 135671132022068000}
+  playersInRange: []
 --- !u!114 &114880324480030846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -392,6 +394,8 @@ MonoBehaviour:
   weaponDescription: '?'
   rarity: 4
   weaponSprite: {fileID: 0}
+  baseCost: 0
+  upgradeID: -1
   damage: 1
   delayAttack: 0.5
   delayAttackAlternate: 1
@@ -405,7 +409,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   checkerHighlight: {fileID: 114059494888092794}
   checkerInformation: {fileID: 114459313540523314}
-  projectilePrefab: {fileID: 114375185774425922, guid: d1662618ffca3174aac6c190e6a8148f,
+  bulletPrefab: {fileID: 114480522540758640, guid: d1662618ffca3174aac6c190e6a8148f,
     type: 2}
   projectileDestroyTime: 3
   layerMaskToShoot:

@@ -21,11 +21,11 @@ public class Damageable : PooledObject
     [Space]
     public int team;
 
-    public virtual void Hurt(int amount)
+    public virtual bool Hurt(int amount)
     {
         if (blockAllDamage)
         {
-            return;
+            return false;
         }
 
         OnHurt();
@@ -36,7 +36,9 @@ public class Damageable : PooledObject
         {
             isDead = true;
             OnDeath();
+            return true;
         }
+        return false;
     }
 
     public virtual void HurtToDeath()
@@ -44,11 +46,11 @@ public class Damageable : PooledObject
         Hurt(hpCurrent);
     }
 
-    public virtual void Heal(int amount)
+    public virtual bool Heal(int amount)
     {
         if (blockAllHealing || hpCurrent == hpMax)
         {
-            return;
+            return false;
         }
 
         OnHeal();
@@ -58,12 +60,14 @@ public class Damageable : PooledObject
         if (hpCurrent == hpMax)
         {            
             OnMaxHeal();
+            return true;
         }
 
         if (hpCurrent > 0)
         {
             isDead = false;
         }
+        return false;
     }
 
     public virtual void HealToMax()

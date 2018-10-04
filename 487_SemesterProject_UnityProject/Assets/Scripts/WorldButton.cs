@@ -28,11 +28,20 @@ public class WorldButton : Interactable
                     retBool = false;
                 }
             }
+            if (retBool)
+            {
+                OnPressed(playerPressedBy);
+            }
             return retBool;
         }
         else
         {
             return false;
         }
+    }
+
+    public virtual void OnPressed(ControllerMultiPlayer playerPressedBy)
+    {
+
     }
 }

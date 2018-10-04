@@ -72,6 +72,12 @@ public class Ability : Interactable
 
     }
 
+    public override bool InteractWithPlayer(ControllerMultiPlayer player)
+    {
+        player.controllerAbilities.PickupAbility(this);
+        return true;
+    }
+
     public virtual bool AttemptAttack()
     {
         if (Time.time > nextAttack)

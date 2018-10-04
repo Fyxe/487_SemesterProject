@@ -16,3 +16,5 @@ MonoBehaviour:
   allDrops:
   - drop: {fileID: 1378288846663088, guid: 550bbd28b8bf5354190a6a2fa04a7640, type: 2}
     weight: 1
+  - drop: {fileID: 1862032675830348, guid: 31c5619fde9ea514ab4f37834ef56549, type: 2}
+    weight: 1

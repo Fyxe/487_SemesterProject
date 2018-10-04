@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 114848093796612044}
   - component: {fileID: 54615485256029666}
   m_Layer: 10
-  m_Name: 1_AbilityInvinicibliltyAndAttraction
+  m_Name: 0_AbilityInvinicibliltyAndAttraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1133361448011174}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.246, y: -0.5, z: 4.237}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4189702545093952}
@@ -144,7 +144,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1017391952530990}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.246, y: -0.5, z: 4.237}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4189702545093952}
@@ -249,7 +249,7 @@ MonoBehaviour:
   pool:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
-  abilityID: 1
+  abilityID: 0
   abilityName: '?'
   abilityDescription: '?'
   rarity: 1

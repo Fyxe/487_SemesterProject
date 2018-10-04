@@ -214,8 +214,8 @@ public class ControllerMultiPlayer : Damageable
 
     [HideInInspector] public PlayerAttributes attributes;
     [HideInInspector] public InputController3D controllerInput;
-    WeaponController controllerWeapons;
-    AbilityController controllerAbilities;
+    [HideInInspector] public WeaponController controllerWeapons;
+    [HideInInspector] public AbilityController controllerAbilities;
     Animator anim;
     Coroutine coroutineInvulnerable;
     Coroutine coroutineIncapacitate;
@@ -455,6 +455,7 @@ public class ControllerMultiPlayer : Damageable
                 {
                     closest.InteractWithPlayer(this);
                 }
+                Debug.Log(closest.name);
             }
             else
             {

@@ -330,7 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b40540f01297a2440af5d806b632d8c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropSetWeapons: {fileID: 0}
+  dropSetWeapons: {fileID: 11400000, guid: 2f14498ce1f42124f864d8c6be2f9b5a, type: 2}
   dropSetWeaponsInstantiated: {fileID: 0}
   dropSetAbilities: {fileID: 0}
   dropSetAbilitiesInstantiated: {fileID: 0}
@@ -444,6 +444,7 @@ MonoBehaviour:
   piecesMaxStart: 5
   piecesMinStart: 5
   currentLevel: 0
+  currentLevelReal: 0
   piecesMaxCurrent: 0
   piecesMinCurrent: 0
 --- !u!114 &114667833963494160
@@ -514,14 +515,11 @@ MonoBehaviour:
   timeIncapacitated: 10
   timeInvulnerable: 1
   weaponCount: 1
-  pointsToThrow: 100
   forceThrow: 500
   radiusRevive: 2
   radiusInteract: 2
   replaceCurrentWeaponOnPickup: 1
   swapToNonBaseWeaponOnThrow: 1
-  pointsPerReviveHit: 10
-  pointsOnRevive: 100
   spriteHealthFull: {fileID: 21300000, guid: 26f91e46dc80c5f48bc4b9eb00bf9c89, type: 3}
   spriteHealthEmpty: {fileID: 21300000, guid: 3785da64ba8fd6242b2455269ea12f06, type: 3}
   materialZero: {fileID: 13400000, guid: ee3dc06e382d45b4cb00ae1852073ed3, type: 2}
@@ -641,6 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee83ac1505743b4479ca6d395b7dee1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointsOnLevelEnd: 1000
   pointsOnReviveHit: 10
   pointsOnReviveFull: 100
   pointsOnEnemyHit: 10
@@ -648,6 +647,10 @@ MonoBehaviour:
   pointsPerLevelSpeedMove: 200
   pointsPerLevelBaseDamage: 200
   pointsPerLevelMaxHP: 200
+  pointsPerLevelRevive: 100
+  pointsToThrow: 100
+  pointsPerWeaponLevel: 200
+  pointsPerInGameLevelHealth: 100
 --- !u!114 &114933500951180624
 MonoBehaviour:
   m_ObjectHideFlags: 1

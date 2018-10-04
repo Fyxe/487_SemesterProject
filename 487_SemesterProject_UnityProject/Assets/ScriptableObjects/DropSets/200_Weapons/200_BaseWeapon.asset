@@ -9,14 +9,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55cc892b9e797ec4e8c64002d47dfa43, type: 3}
-  m_Name: 100_TestSet
+  m_Name: 200_BaseWeapon
   m_EditorClassIdentifier: 
-  dropSetID: 100
+  dropSetID: 200
   dropSetsAdded: 
   allDrops:
-  - drop: {fileID: 1859956651825212, guid: 00ac6b89f3dd9514482bb8c5ac3b73a0, type: 2}
+  - drop: {fileID: 1391807120025398, guid: cd0a65b2fc8c84d469a1396b7b24f332, type: 2}
     weight: 1
-  - drop: {fileID: 1442438510641282, guid: 12c906b1248cfe4489747a73d046b550, type: 2}
+  - drop: {fileID: 1840243461925634, guid: 0bece21a170dd7a4bbaf07c3de157468, type: 2}
     weight: 1
-  - drop: {fileID: 1304393036671732, guid: 6c6ebe5f9b532014b962afd68de28393, type: 2}
+  - drop: {fileID: 1472613140989300, guid: 7677c7e9f0661a34589c35b768e7ed5a, type: 2}
     weight: 1

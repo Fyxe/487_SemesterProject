@@ -367,6 +367,30 @@ public static class Extensions {
         }
     }
 
+    /// <summary>
+    /// Sets the layer of a gameobject and recursivly all of it's children.
+    /// </summary>
+    /// <param name="toSet">The gameobject to set the layer of.</param>
+    /// <param name="newLayer">The new layer that all objects will be set to.</param>
+    public static void SetLayer(this GameObject toSet, string newLayerName)
+    {
+        int newLayer = 0;
+        try
+        {
+            newLayer = LayerMask.NameToLayer(newLayerName);
+        }
+        catch
+        {
+            return;
+        }
+
+        toSet.layer = newLayer;
+        foreach (Transform i in toSet.transform)
+        {
+            SetLayer(i.gameObject, newLayer);
+        }
+    }
+
     public static void ReplaceLayer(this GameObject toSet, int newLayer, int layerToReplace)
     {
         if (toSet.layer == layerToReplace)

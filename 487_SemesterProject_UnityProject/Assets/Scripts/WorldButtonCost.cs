@@ -88,7 +88,7 @@ public class WorldButtonCost : WorldButton
                 }
                 coroutineColorText = StartCoroutine(ColorText(true));
             }
-            
+            OnPressed(playerPressedBy);
             return true;            
         }
         else

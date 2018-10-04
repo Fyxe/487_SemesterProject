@@ -207,4 +207,10 @@ public class Weapon : Interactable
         EnableInformation();
         this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Interactable"), LayerMask.NameToLayer("Player"));
     }
+
+    public virtual void SetToDisplay()
+    {
+        this.gameObject.SetLayer("Default");
+        rb.isKinematic = true;
+    }
 }

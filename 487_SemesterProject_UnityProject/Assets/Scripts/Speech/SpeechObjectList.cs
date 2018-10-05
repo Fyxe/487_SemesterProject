@@ -6,8 +6,10 @@ using UnityEngine;
 public class SpeechObjectList : ScriptableObject {
     public List<SpeechObject> lineList;
 
-    public SpeechObject Binary (int i) {
-        //do binary search
-        return null;
+    public SpeechObject Search (int i) {
+
+        SpeechObject toReturn = lineList.Find(n => n.id == i);
+
+        return toReturn;
     }
 }

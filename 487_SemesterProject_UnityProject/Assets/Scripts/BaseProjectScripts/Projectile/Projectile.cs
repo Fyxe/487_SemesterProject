@@ -61,7 +61,7 @@ public class Projectile : PooledObject
 
     bool CheckForHit()
     {
-        r = new Ray(transform.position,direction);
+        r = new Ray(transform.position,direction.normalized);
         h = default(RaycastHit);
 
         // int mask = 1 << layerMask.value; Use?
@@ -78,7 +78,7 @@ public class Projectile : PooledObject
 
     void UpdatePosition()
     {
-        newPosition = transform.position + (direction * (speedMove * Time.deltaTime));
+        newPosition = transform.position + (direction.normalized * (speedMove * Time.deltaTime));
         if (showTrail)
         {
             Debug.DrawLine(transform.position,newPosition,Color.yellow,0.2f);

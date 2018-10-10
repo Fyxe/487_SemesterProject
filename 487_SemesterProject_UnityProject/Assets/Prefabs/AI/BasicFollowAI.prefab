@@ -186,8 +186,8 @@ MonoBehaviour:
   aiDescription: 
   aiSprite: {fileID: 0}
   damage: 1
-  speedMove: 3
-  radiusPlayerDetection: 3
+  speedMove: 2
+  radiusPlayerDetection: 2
   delayUpdateTarget: 0.1
   pointsOnHit: 0
   pointsOnDeath: 10

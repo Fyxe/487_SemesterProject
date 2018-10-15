@@ -8,8 +8,8 @@ public class SpeechObjectList : ScriptableObject {
 
     public SpeechObject Search (int i) {
 
-        SpeechObject toReturn = lineList.Find(n => n.id == i);
+        SpeechObject result = lineList.Find(n => n.id == i);
 
-        return toReturn;
+        return result;
     }
 }

@@ -3133,6 +3133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speechObjectList: {fileID: 11400000, guid: 8e4ed394c2de4485398cd70cbaf0186b, type: 2}
+  text: {fileID: 114724315886883658, guid: 6a59a9f9368194c8ea5805623f0aaefc, type: 2}
   style:
     m_Name: 
     m_Normal:

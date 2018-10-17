@@ -6,6 +6,7 @@ public class WeaponMelee : Weapon
 {
     public Transform hitbox;
     public Transform startRotation;
+    Quaternion rotationToResetTo;
     public Transform endRotation;
     public MeleeWeaponMode meleeWeaponMode;
     
@@ -28,16 +29,17 @@ public class WeaponMelee : Weapon
 
     public IEnumerator AttackCoroutineSwing()
     {
+        rotationToResetTo = transform.rotation;
         float currentTime = 0f;
         while (currentTime < speedAttack)
         {
             currentTime += Time.deltaTime;
-            hitbox.rotation = Quaternion.Lerp(startRotation.rotation, endRotation.rotation, (currentTime / speedAttack));
+            hitbox.rotation = Quaternion.Slerp(startRotation.rotation, endRotation.rotation, (currentTime / speedAttack));
             yield return null;
         }
         
         hitbox.position.Set(0, 0, 0);
-        hitbox.rotation = startRotation.rotation;
+        hitbox.rotation = rotationToResetTo;
     }
 
     public IEnumerator AttackCoroutineStab()

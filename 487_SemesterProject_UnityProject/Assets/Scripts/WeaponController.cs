@@ -246,8 +246,10 @@ public class WeaponController : MonoBehaviour
         if (controllerType == ControllerType.player)
         { 
             Weapon spawnCurrent = ProgressionManager.instance.GetWeaponByID(attachedPlayer.attributes.weaponCurrentID, true);
+            Debug.Log("ID: "+ attachedPlayer.attributes.weaponCurrentID);
             if (spawnCurrent == null)
             {
+                Debug.Log("null");
                 SetCurrentWeapon(prefabBaseWeapon, true);
             }
             else

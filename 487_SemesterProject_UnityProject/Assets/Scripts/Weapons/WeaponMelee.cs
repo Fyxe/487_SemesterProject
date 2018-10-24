@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class WeaponMelee : Weapon
 {
-    public Transform hitbox;
+    public Transform modelRotationParent;
     public Transform startRotation;
     Quaternion rotationToResetTo;
     public Transform endRotation;
     public MeleeWeaponMode meleeWeaponMode;
+    public LayerMask layerMask;
+
+    Damageable cachedDamageable;
+    RaycastHit cachedHit;
     
     protected override void Attack()
     {
@@ -29,25 +33,21 @@ public class WeaponMelee : Weapon
 
     public IEnumerator AttackCoroutineSwing()
     {
-        rotationToResetTo = transform.rotation;
         float currentTime = 0f;
-        List<Collider> enemiesHit = new List<Collider>();
+        List<Damageable> enemiesHit = new List<Damageable>();
 
         while (currentTime < speedAttack)
         {
             currentTime += Time.deltaTime;
-            
-            RaycastHit m_Hit;
 
-            hitbox.rotation = Quaternion.Slerp(startRotation.rotation, endRotation.rotation, (currentTime / speedAttack));
-            if (Physics.BoxCast(GetComponentInChildren<Collider>().bounds.center, transform.localScale, transform.forward, out m_Hit, transform.rotation, rangeAttack))
+            modelRotationParent.rotation = Quaternion.Lerp(startRotation.rotation, endRotation.rotation, (currentTime / speedAttack));
+            if (Physics.BoxCast(GetComponentInChildren<Collider>().bounds.center, transform.localScale, transform.forward, out cachedHit, transform.rotation, rangeAttack, layerMask.value))
             {
-                //Output the name of the Collider your Box hit
-                Debug.Log("Hit : " + m_Hit.collider.name + " is damageable?: " + (m_Hit.collider.gameObject.GetComponentInParent<Damageable>() != null) + " has enemy tag?: " + (m_Hit.collider.gameObject.tag == "Enemy") + " has been hit before?: " + enemiesHit.Contains(m_Hit.collider));
-                if (m_Hit.collider.gameObject.GetComponentInParent<Damageable>() != null && m_Hit.collider.gameObject.tag == "Enemy" && !enemiesHit.Contains(m_Hit.collider))
+                
+                if (((cachedDamageable = cachedHit.collider.gameObject.GetComponentInParent<Damageable>()) != null) && !enemiesHit.Contains(cachedDamageable))
                 {
-                    m_Hit.collider.gameObject.GetComponentInParent<Damageable>().HurtToDeath();
-                    enemiesHit.Add(m_Hit.collider);
+                    cachedDamageable.Hurt(damage);
+                    enemiesHit.Add(cachedDamageable);
                 }
             }
 
@@ -55,8 +55,8 @@ public class WeaponMelee : Weapon
             yield return null;
         }
         
-        hitbox.position.Set(0, 0, 0);
-        hitbox.rotation = rotationToResetTo;
+        modelRotationParent.position.Set(0, 0, 0);
+        modelRotationParent.localRotation = Quaternion.identity;
         enemiesHit.Clear();
     }
 

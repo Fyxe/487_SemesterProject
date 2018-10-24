@@ -13,7 +13,7 @@ Prefab:
   m_IsPrefabAsset: 1
 --- !u!1 &1077365894811850
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -63,7 +63,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1614052988682692
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -149,7 +149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4892530601240958}
   m_Layer: 10
-  m_Name: ModelRotationPoint
+  m_Name: ModelRotationParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -162,11 +162,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1614052988682692}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4194776418815582}
-  m_RootOrder: 5
+  m_Father: {fileID: 4892530601240958}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4158368006355164
 Transform:
@@ -187,13 +187,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1928521719507276}
-  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4194776418815582}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4189874408714372
 Transform:
   m_ObjectHideFlags: 1
@@ -221,8 +221,6 @@ Transform:
   - {fileID: 4346801184626610}
   - {fileID: 4158891238991754}
   - {fileID: 4158368006355164}
-  - {fileID: 4895903109795122}
-  - {fileID: 4151421892451984}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -232,13 +230,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1709137725553774}
-  m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4194776418815582}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: -45, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &4643694488896396
 Transform:
   m_ObjectHideFlags: 1
@@ -251,7 +249,7 @@ Transform:
   m_Children:
   - {fileID: 4189874408714372}
   m_Father: {fileID: 4892530601240958}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4892530601240958
 Transform:
@@ -263,6 +261,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4895903109795122}
+  - {fileID: 4151421892451984}
   - {fileID: 4643694488896396}
   m_Father: {fileID: 4194776418815582}
   m_RootOrder: 0
@@ -274,11 +274,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1077365894811850}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4194776418815582}
-  m_RootOrder: 4
+  m_Father: {fileID: 4892530601240958}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23994953481796950
 MeshRenderer:
@@ -400,7 +400,7 @@ MonoBehaviour:
   damage: 1
   delayAttack: 1
   delayAttackAlternate: 1
-  speedAttack: 1
+  speedAttack: 0.6
   rangeAttack: 2
   clipCurrent: 10
   clipMax: 10
@@ -410,10 +410,13 @@ MonoBehaviour:
   rb: {fileID: 0}
   checkerHighlight: {fileID: 114308059751100964}
   checkerInformation: {fileID: 114159467324179238}
-  hitbox: {fileID: 4892530601240958}
+  modelRotationParent: {fileID: 4892530601240958}
   startRotation: {fileID: 4346801184626610}
   endRotation: {fileID: 4158891238991754}
   meleeWeaponMode: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!135 &135344413122395512
 SphereCollider:
   m_ObjectHideFlags: 1

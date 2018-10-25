@@ -8,6 +8,7 @@ public class PlayerAttributes
     public bool isSpawned = false;
     public bool isDead = false;
     public bool isPriority = false;
+    public bool isInvisible = false; // The player can turn invisible. 
     public Color colorPlayer = Color.blue;
     public int indexJoystick = 0;
     public int indexPlayer = 0;
@@ -28,6 +29,7 @@ public class PlayerAttributes
         isSpawned = false;
         isDead = false;
         isPriority = false;
+        isInvisible = false;
         //colorPlayer = Color.blue;
         indexJoystick = 0;
         indexPlayer = 0;

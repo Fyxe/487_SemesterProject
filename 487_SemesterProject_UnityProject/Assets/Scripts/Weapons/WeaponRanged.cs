@@ -16,9 +16,14 @@ public class WeaponRanged : Weapon
     public float knockbackForce;
     public Transform shotPosition;
 
+    public AudioClip shot;
+
+
     protected override void Attack()
     {
         base.Attack();
+
+        AudioManager.instance.PlayClipLocalSpace(shot);
 
         PooledObject spawnedMuzzleFlash = ObjectPoolingManager.instance.CreateObject(muzzleFlashPrefab, null, 0.5f);
         spawnedMuzzleFlash.transform.position = shotPosition.transform.position;

@@ -16,16 +16,16 @@ public class WeaponMelee : Weapon
     Damageable cachedDamageable;
     RaycastHit cachedHit;
     
-    protected override void Attack()
+    protected override void Attack(int damageBase, float damageMultipier)
     {
-        base.Attack();
+        base.Attack(damageBase, damageMultipier);
         switch (meleeWeaponMode)
         {
             case MeleeWeaponMode.swing:
-                StartCoroutine(AttackCoroutineSwing());
+                StartCoroutine(AttackCoroutineSwing(damageBase, damageMultipier));
                 break;
             case MeleeWeaponMode.stab:
-                StartCoroutine(AttackCoroutineStab());
+                StartCoroutine(AttackCoroutineStab(damageBase, damageMultipier));
                 break;
             default:
                 Debug.LogError("Invalid Melee Weapon Mode");
@@ -33,7 +33,7 @@ public class WeaponMelee : Weapon
         }
     }
 
-    public IEnumerator AttackCoroutineSwing()
+    public IEnumerator AttackCoroutineSwing(int damageBase, float damageMultipier)
     {
         float currentTime = 0f;
         List<Damageable> enemiesHit = new List<Damageable>();
@@ -48,7 +48,7 @@ public class WeaponMelee : Weapon
                 //cachedHit.collider.gameObject.GetComponent<Renderer>().material.color = Color.red;
                 if (((cachedDamageable = cachedHit.collider.gameObject.GetComponentInParent<Damageable>()) != null) && !enemiesHit.Contains(cachedDamageable))
                 {
-                    cachedDamageable.Hurt(damage);
+                    cachedDamageable.Hurt((int)((damageBase + damage) * damageMultipier));
                     enemiesHit.Add(cachedDamageable);
                 }
             }
@@ -62,7 +62,7 @@ public class WeaponMelee : Weapon
         enemiesHit.Clear();
     }
 
-    public IEnumerator AttackCoroutineStab()
+    public IEnumerator AttackCoroutineStab(int damageBase, float damageMultipier)
     {
         // TODO: do stab
         yield return null;

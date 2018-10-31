@@ -45,7 +45,7 @@ public class WeaponMelee : Weapon
             modelRotationParent.rotation = Quaternion.Lerp(startRotation.rotation, endRotation.rotation, (currentTime / speedAttack));
             if (Physics.BoxCast(GetComponentInChildren<Collider>().bounds.center, transform.localScale, transform.forward, out cachedHit, transform.rotation, rangeAttack, layerMaskToHit.value))
             {
-                
+                //cachedHit.collider.gameObject.GetComponent<Renderer>().material.color = Color.red;
                 if (((cachedDamageable = cachedHit.collider.gameObject.GetComponentInParent<Damageable>()) != null) && !enemiesHit.Contains(cachedDamageable))
                 {
                     cachedDamageable.Hurt(damage);
@@ -70,6 +70,17 @@ public class WeaponMelee : Weapon
 
     void OnDrawGizmos()
     {
+        Gizmos.color = Color.red;
         
+        if (Physics.BoxCast(GetComponentInChildren<Collider>().bounds.center, transform.localScale, transform.forward, transform.rotation, rangeAttack, layerMaskToHit.value))
+        {
+            Gizmos.DrawRay(transform.position, transform.forward * cachedHit.distance);
+            Gizmos.DrawWireCube(transform.position + transform.forward * cachedHit.distance, transform.localScale);
+        }
+        else
+        {
+            Gizmos.DrawRay(transform.position, transform.forward * rangeAttack);
+            Gizmos.DrawWireCube(transform.position + transform.forward * rangeAttack, transform.localScale);
+        }
     }
 }

@@ -19,9 +19,9 @@ public class WeaponRanged : Weapon
     public AudioClip shot;
 
 
-    protected override void Attack()
+    protected override void Attack(int damageBase, float damageMultipier)
     {
-        base.Attack();
+        base.Attack(damageBase, damageMultipier);
 
         AudioManager.instance.PlayClipLocalSpace(shot);
 
@@ -31,11 +31,12 @@ public class WeaponRanged : Weapon
         for (int i = 0; i < amountOfBulletsPerShot; i++)
         {
             Bullet spawnedBullet = ObjectPoolingManager.instance.CreateObject(bulletPrefab, null, projectileDestroyTime) as Bullet;
+            spawnedBullet.damage = (int)((damageBase + damage) * damageMultipier);
             spawnedBullet.weaponFiredFrom = this;
             spawnedBullet.transform.position = shotPosition.transform.position;
             Vector3 newDirection = shotPosition.transform.forward;
             Vector3 randomSpread = new Vector3(Random.Range(-spread, spread), 0f);
-            newDirection += transform.TransformDirection(randomSpread);
+            newDirection += transform.TransformDirection(randomSpread);            
             spawnedBullet.ShootProjectile(newDirection, speedAttack, 1);
         }
                 

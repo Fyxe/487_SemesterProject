@@ -90,12 +90,12 @@ public class Weapon : Interactable
 
     }
 
-    public virtual bool AttemptAttack()
+    public virtual bool AttemptAttack(int damageBase, float damageMultipier)
     {
         if (!isReloading && Time.time > nextAttack)
         {
             nextAttack = Time.time + delayAttack;
-            Attack();
+            Attack(damageBase, damageMultipier);
 
             if (clipMax != -1)
             {
@@ -110,7 +110,7 @@ public class Weapon : Interactable
         return false;
     }
 
-    protected virtual void Attack()
+    protected virtual void Attack(int damageBase, float damageMultipier)
     {
 
     }

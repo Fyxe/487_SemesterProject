@@ -219,6 +219,7 @@ public class ControllerMultiPlayer : Damageable
     Animator anim;
     Coroutine coroutineInvulnerable;
     Coroutine coroutineIncapacitate;
+    Coroutine coroutineDamageMultipliyer;
     public List<Projector> projectors = new List<Projector>();
     bool triggerInUseRight = false;
     bool triggerInUseLeft = false;
@@ -226,7 +227,10 @@ public class ControllerMultiPlayer : Damageable
     public Rigidbody rb;
     public Collider colliderMovement;
     public bool isInShop = false;
+
+    [Header("Abilities")]
     public bool isDashing = false;
+    public float damageMultiplier;
 
     public bool isControlled
     {
@@ -759,5 +763,38 @@ public class ControllerMultiPlayer : Damageable
         controllerInput.enabled = true;
         this.enabled = true;
         colliderMovement.material = PlayerManager.instance.materialZero;
+    }
+
+    public void SetOtherPlayersDamageMultiplayer(float range, float newDamageMultiplier, float duration)
+    {
+        int mask = 1 << LayerMask.NameToLayer("Player");
+        Collider[] cols = Physics.OverlapSphere(transform.position, range, mask);
+
+        ControllerMultiPlayer cachedPlayer = null;
+        List<ControllerMultiPlayer> closeControllers = new List<ControllerMultiPlayer>();
+        foreach (var i in cols)
+        {
+            if (!i.isTrigger && (cachedPlayer = i.GetComponentInParent<ControllerMultiPlayer>()) != null && cachedPlayer != this && !closeControllers.Contains(cachedPlayer))
+            {
+                closeControllers.Add(cachedPlayer);
+                cachedPlayer.SetDamageMultiplier(duration, newDamageMultiplier);
+            }
+        }
+    }
+
+    public void SetDamageMultiplier(float duration, float newMultiplier)
+    {
+        if (coroutineDamageMultipliyer != null)
+        {
+            StopCoroutine(coroutineDamageMultipliyer);
+        }
+        coroutineDamageMultipliyer = StartCoroutine(WaitDamageMultiplayer(duration, newMultiplier));
+    }
+
+    IEnumerator WaitDamageMultiplayer(float duration, float newMultiplier)
+    {
+        damageMultiplier = newMultiplier;
+        yield return new WaitForSeconds(duration);
+        damageMultiplier = 1f;
     }
 }

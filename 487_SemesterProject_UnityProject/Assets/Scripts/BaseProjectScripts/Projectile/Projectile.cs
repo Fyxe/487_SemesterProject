@@ -6,6 +6,7 @@ public class Projectile : PooledObject
 {
     [Header("Projectile Settings")]
     public bool pierce = true;
+    public bool bounce = false;
     public bool showTrail = true;
     [Space]
     public float speedMove = 1f;
@@ -51,6 +52,10 @@ public class Projectile : PooledObject
             {
                 
             }            
+            else if (bounce)
+            {
+                // TODO but in bounce mechanics here
+            }
             else
             {
                 DestroyThisObject();

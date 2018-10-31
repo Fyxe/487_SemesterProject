@@ -90,11 +90,11 @@ public class Weapon : Interactable
 
     }
 
-    public virtual bool AttemptAttack(int damageBase, float damageMultipier)
+    public virtual bool AttemptAttack(int damageBase, float damageMultipier, float attackRateMultiplier)
     {
         if (!isReloading && Time.time > nextAttack)
         {
-            nextAttack = Time.time + delayAttack;
+            nextAttack = Time.time + (delayAttack / attackRateMultiplier);
             Attack(damageBase, damageMultipier);
 
             if (clipMax != -1)

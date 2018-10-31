@@ -230,7 +230,9 @@ public class ControllerMultiPlayer : Damageable
 
     [Header("Abilities")]
     public bool isDashing = false;
-    public float damageMultiplier;
+    public float damageMultiplier = 1f;
+    public bool hasBouncingShots = false;
+    public float attackRateMultiplier = 1f;
 
     public bool isControlled
     {
@@ -298,7 +300,7 @@ public class ControllerMultiPlayer : Damageable
         if (Mathf.Abs(Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Horizontal")) + 
             Mathf.Abs(Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Vertical")) > 0)
         {
-            AttemptAttack();
+            AttemptAttack(damageBaseCurrent,damageMultiplier);
         }
 
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 0"))
@@ -515,12 +517,12 @@ public class ControllerMultiPlayer : Damageable
         }        
     }
 
-    public void AttemptAttack()
+    public void AttemptAttack(int damageBase, float damageMultiplier)
     {
         if (Time.time > nextAttack)
         {
             nextAttack = Time.time + delayAttack;
-            controllerWeapons.AttemptAttack();
+            controllerWeapons.AttemptAttack(damageBase, damageMultiplier);
             if (anim != null)
             {
                 anim.SetTrigger("attack");

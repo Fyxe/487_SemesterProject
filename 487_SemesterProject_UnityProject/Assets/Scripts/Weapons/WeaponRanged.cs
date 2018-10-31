@@ -32,6 +32,7 @@ public class WeaponRanged : Weapon
         {
             Bullet spawnedBullet = ObjectPoolingManager.instance.CreateObject(bulletPrefab, null, projectileDestroyTime) as Bullet;
             spawnedBullet.damage = (int)((damageBase + damage) * damageMultipier);
+            spawnedBullet.bounce = controllerCurrent.attachedPlayer.hasBouncingShots;
             spawnedBullet.weaponFiredFrom = this;
             spawnedBullet.transform.position = shotPosition.transform.position;
             Vector3 newDirection = shotPosition.transform.forward;

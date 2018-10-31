@@ -282,7 +282,7 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    public bool AttemptAttack()
+    public bool AttemptAttack(int damageBase, float damageMultiplier)
     {
         if (weaponCurrent == null)
         {
@@ -290,7 +290,7 @@ public class WeaponController : MonoBehaviour
         }
         else
         {
-            return weaponCurrent.AttemptAttack();
+            return weaponCurrent.AttemptAttack(damageBase, damageMultiplier, attachedPlayer.attackRateMultiplier);
         }
     }
 

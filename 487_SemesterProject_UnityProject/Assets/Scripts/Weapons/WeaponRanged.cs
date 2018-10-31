@@ -8,14 +8,15 @@ public class WeaponRanged : Weapon
     public Bullet bulletPrefab;
     public PooledObject muzzleFlashPrefab;
 
-    [Header("WeaponRangedSettings")]
+    [Header("Ranged Weapon Settings")]
     public float projectileDestroyTime = 3f;
-    public LayerMask layerMaskToShoot;
     public int amountOfBulletsPerShot;
     public float spread;
     public float knockbackForce;
-    public Transform shotPosition;
+    public LayerMask layerMaskToShoot;
 
+    [Header("References")]
+    public Transform shotPosition;
     public AudioClip shot;
 
 

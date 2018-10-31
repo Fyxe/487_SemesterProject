@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class WeaponMelee : Weapon
 {
+    [Header("Melee Weapon Settings")]
+    public MeleeWeaponMode meleeWeaponMode;
+    public LayerMask layerMaskToHit;
+
+    [Header("References")]
     public Transform modelRotationParent;
     public Transform startRotation;
-    Quaternion rotationToResetTo;
     public Transform endRotation;
-    public MeleeWeaponMode meleeWeaponMode;
-    public LayerMask layerMask;
 
     Damageable cachedDamageable;
     RaycastHit cachedHit;
@@ -41,7 +43,7 @@ public class WeaponMelee : Weapon
             currentTime += Time.deltaTime;
 
             modelRotationParent.rotation = Quaternion.Lerp(startRotation.rotation, endRotation.rotation, (currentTime / speedAttack));
-            if (Physics.BoxCast(GetComponentInChildren<Collider>().bounds.center, transform.localScale, transform.forward, out cachedHit, transform.rotation, rangeAttack, layerMask.value))
+            if (Physics.BoxCast(GetComponentInChildren<Collider>().bounds.center, transform.localScale, transform.forward, out cachedHit, transform.rotation, rangeAttack, layerMaskToHit.value))
             {
                 
                 if (((cachedDamageable = cachedHit.collider.gameObject.GetComponentInParent<Damageable>()) != null) && !enemiesHit.Contains(cachedDamageable))

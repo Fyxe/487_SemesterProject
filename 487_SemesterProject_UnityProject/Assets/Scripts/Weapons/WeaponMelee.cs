@@ -43,9 +43,9 @@ public class WeaponMelee : Weapon
             currentTime += Time.deltaTime;
 
             modelRotationParent.rotation = Quaternion.Lerp(startRotation.rotation, endRotation.rotation, (currentTime / speedAttack));
-            if (Physics.BoxCast(GetComponentInChildren<Collider>().bounds.center, transform.localScale, transform.forward, out cachedHit, transform.rotation, rangeAttack, layerMaskToHit.value))
+            if (true)//Physics.OverlapBox())//(GetComponentInChildren<Collider>().bounds.center, transform.localScale, transform.forward, out cachedHit, transform.rotation, rangeAttack, layerMaskToHit.value))
             {
-                //cachedHit.collider.gameObject.GetComponent<Renderer>().material.color = Color.red;
+                cachedHit.collider.gameObject.GetComponent<Renderer>().material.color = Color.red;
                 if (((cachedDamageable = cachedHit.collider.gameObject.GetComponentInParent<Damageable>()) != null) && !enemiesHit.Contains(cachedDamageable))
                 {
                     cachedDamageable.Hurt((int)((damageBase + damage) * damageMultipier));

@@ -43,6 +43,7 @@ public class LevelManager : Singleton<LevelManager>
     public List<PlayerUIBox> playerUIBoxes = new List<PlayerUIBox> ();
     public ScreenPause screenPause;
 
+    public AudioClip backgroundMusic;
     //[Header("Prefabs")]
 
     void Start()
@@ -52,7 +53,8 @@ public class LevelManager : Singleton<LevelManager>
             i.Set(PlayerUIBox.BoxSetting.empty);
         }
 
-        StartCoroutine(WaitUntilFocused());        
+        StartCoroutine(WaitUntilFocused());
+        AudioManager.instance.PlayClipLocalLooped(backgroundMusic);
     }
 
     IEnumerator WaitUntilFocused()

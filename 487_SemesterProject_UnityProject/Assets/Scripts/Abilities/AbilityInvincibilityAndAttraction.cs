@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class AbilityInvincibilityAndAttraction : Ability
 {
+
+    public AudioClip sound;
+
     public override void OnAbilityStart()
     {
         base.OnAbilityStart();
         player.blockAllDamage = true;
         player.attributes.isPriority = true;
+        AudioManager.instance.PlayClipLocalSpace(sound);
     }
 
     public override void OnAbilityEnd()

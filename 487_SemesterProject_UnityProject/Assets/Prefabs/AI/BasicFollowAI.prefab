@@ -46,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1722833380674186
 GameObject:
   m_ObjectHideFlags: 1
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 4266266308149564}
   - component: {fileID: 33185758052956262}
   - component: {fileID: 23701886950107134}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4772747043175874}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: enemyBread
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1372259759389490}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -279,8 +279,8 @@ MonoBehaviour:
     deactivatedObjects: []
   blockAllDamage: 0
   blockAllHealing: 0
-  m_hpMax: 1
-  m_hpCurrent: 1
+  m_hpMax: 5
+  m_hpCurrent: 5
   isDead: 0
   team: 0
   aiID: -1

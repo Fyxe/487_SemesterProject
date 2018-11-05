@@ -11,11 +11,6 @@ public class ShopManager : LevelManager
     public DropSet locations;
     public List<Transform> locationsPositions = new List<Transform>();
 
-    private void Awake()
-    {
-        AudioManager.instance.PlayClipLocalLooped(backgroundMusic);
-    }
-
     protected override void OnFocused()
     {
         base.OnFocused();

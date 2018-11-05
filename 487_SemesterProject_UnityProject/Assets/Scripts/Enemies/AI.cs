@@ -33,7 +33,11 @@ public class AI : Damageable
 
     [HideInInspector] public Rigidbody rb;
 
-    List<ControllerMultiPlayer> playersInRange = new List<ControllerMultiPlayer>();    
+    List<ControllerMultiPlayer> playersInRange = new List<ControllerMultiPlayer>();
+
+    public AudioClip deathSound;
+    public AudioClip hurtSound;
+    public AudioClip attackSound;
 
     void Awake()
     {

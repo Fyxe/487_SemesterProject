@@ -483,7 +483,7 @@ MonoBehaviour:
   weaponSprite: {fileID: 0}
   baseCost: 0
   upgradeID: -1
-  damage: 3
+  damage: 5
   delayAttack: 1
   delayAttackAlternate: 1
   speedAttack: 0.6

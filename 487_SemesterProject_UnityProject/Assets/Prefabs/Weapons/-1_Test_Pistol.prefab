@@ -421,6 +421,7 @@ MonoBehaviour:
   spread: 0
   knockbackForce: 0
   shotPosition: {fileID: 4931995583296458}
+  shot: {fileID: 8300000, guid: 865d9696c2ced4aeb95b38a66f9c3d1f, type: 3}
 --- !u!135 &135036658312104936
 SphereCollider:
   m_ObjectHideFlags: 1

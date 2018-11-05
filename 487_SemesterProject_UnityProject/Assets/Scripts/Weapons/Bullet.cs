@@ -17,7 +17,8 @@ public class Bullet : Projectile
         Damageable damageableHit = hit.gameObject.GetComponentInParent<Damageable>();
         if (damageableHit != null)
         {
-            bool killed = damageableHit.Hurt(damage);            
+            bool killed = damageableHit.Hurt(damage);
+            Debug.Log("hit enemy: "+damageableHit.gameObject.name+" with health: "+damageableHit.hpCurrent);
             if (damageableHit is AI && weaponFiredFrom.controllerCurrent.attachedPlayer != null)
             {
                 if (killed)

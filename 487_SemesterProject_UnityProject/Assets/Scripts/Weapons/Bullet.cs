@@ -30,6 +30,7 @@ public class Bullet : Projectile
                     weaponFiredFrom.controllerCurrent.attachedPlayer.pointsCurrent += PointsManager.instance.pointsOnEnemyHit;
                 }
             }
+            DestroyThisObject();
         }
     }
 }

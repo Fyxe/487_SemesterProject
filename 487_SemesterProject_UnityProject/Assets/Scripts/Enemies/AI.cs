@@ -177,7 +177,7 @@ public class AI : Damageable
 
     private void OnTriggerEnter(Collider col)
     {
-        if (!col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null && !playersInRange.Contains(cachedPlayer))
+        if (!col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null && !playersInRange.Contains(cachedPlayer) && GetComponentInParent<Weapon>() == null)
         {
             playersInRange.Add(cachedPlayer);
         }

@@ -1456,6 +1456,10 @@ MonoBehaviour:
   damageMultiplier: 1
   hasBouncingShots: 0
   attackRateMultiplier: 1
+  deathSound: {fileID: 8300000, guid: 6accd328d34c446cea805b1cbd779891, type: 3}
+  hurtSound: {fileID: 8300000, guid: 972f8d685bcf1447d945c3830db6ca92, type: 3}
+  idleOneSound: {fileID: 8300000, guid: f9f6107bba205401a90142fbb15683af, type: 3}
+  idleTwoSound: {fileID: 8300000, guid: 6b73a075e7ae643a3b8cbf0210a6b8db, type: 3}
 --- !u!119 &119219563219909506
 Projector:
   m_ObjectHideFlags: 1

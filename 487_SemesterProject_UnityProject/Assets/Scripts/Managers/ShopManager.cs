@@ -10,12 +10,6 @@ public class ShopManager : LevelManager
     public float chanceOfSpawningLocaion = 0.5f;
     public DropSet locations;
     public List<Transform> locationsPositions = new List<Transform>();
-    public AudioClip backgroundMusic;
-
-    private void Awake()
-    {
-        AudioManager.instance.PlayClipLocalLooped(backgroundMusic);
-    }
 
     protected override void OnFocused()
     {

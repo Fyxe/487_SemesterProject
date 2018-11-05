@@ -242,6 +242,11 @@ public class ControllerMultiPlayer : Damageable
         }
 
     }
+
+    public AudioClip deathSound;
+    public AudioClip hurtSound;
+    public AudioClip idleOneSound;
+    public AudioClip idleTwoSound;
     
     void Awake()
     {
@@ -684,6 +689,7 @@ public class ControllerMultiPlayer : Damageable
 
     public override void OnDeath()
     {
+        AudioManager.instance.PlayClipLocalSpace(deathSound);
         countReviveCurrent *= 2;
         ui.Set(PlayerUIBox.BoxSetting.dead);
         LevelManager.instance.CheckIfAllPlayersAreDead();
@@ -703,6 +709,7 @@ public class ControllerMultiPlayer : Damageable
             return false;
         }
 
+        AudioManager.instance.PlayClipLocalSpace(hurtSound);
         OnHurt();
 
         hpCurrent = Mathf.Clamp(hpCurrent - amount, 0, hpMax);

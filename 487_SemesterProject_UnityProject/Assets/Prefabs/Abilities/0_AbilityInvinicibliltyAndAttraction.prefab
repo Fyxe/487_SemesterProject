@@ -265,6 +265,7 @@ MonoBehaviour:
   model: {fileID: 1735245137719182}
   checkerHighlight: {fileID: 114948090135587190}
   checkerInformation: {fileID: 114611024295114682}
+  sound: {fileID: 8300000, guid: b5c9ce2863cbf4c8b9d6c86414b02010, type: 3}
 --- !u!114 &114948090135587190
 MonoBehaviour:
   m_ObjectHideFlags: 1

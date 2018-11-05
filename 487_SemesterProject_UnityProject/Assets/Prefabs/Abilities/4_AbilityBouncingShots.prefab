@@ -278,6 +278,7 @@ MonoBehaviour:
   model: {fileID: 1471486406946522}
   checkerHighlight: {fileID: 114174237860720506}
   checkerInformation: {fileID: 114108156150496914}
+  sound: {fileID: 8300000, guid: 92a561e6b13e04997bfdd117b086fe81, type: 3}
 --- !u!135 &135368751085943286
 SphereCollider:
   m_ObjectHideFlags: 1

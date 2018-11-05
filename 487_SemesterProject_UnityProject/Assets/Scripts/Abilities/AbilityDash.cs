@@ -8,7 +8,7 @@ public class AbilityDash : Ability
     [Header("Dash Settings")]
     public float speed = 8f;
     Vector3 direction;
-
+    public AudioClip sound;
 
     public override bool AttemptAttack()
     {
@@ -26,6 +26,7 @@ public class AbilityDash : Ability
     protected override bool Attack()
     {
         direction = controllerCurrent.attachedPlayer.controllerInput.GetAxis(0);
+        AudioManager.instance.PlayClipLocalSpace(sound);
         if (direction == Vector3.zero)
         {
             return false;

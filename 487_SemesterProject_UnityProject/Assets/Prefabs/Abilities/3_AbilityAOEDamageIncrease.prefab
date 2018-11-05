@@ -279,6 +279,9 @@ MonoBehaviour:
   checkerHighlight: {fileID: 114154924051717094}
   checkerInformation: {fileID: 114086618953224018}
   newDamageMultiplier: 1.5
+  newDamageMultiplierForOthers: 1.2
+  range: 5
+  sound: {fileID: 8300000, guid: 7aa6ee1b408a941bebe7a28d5407f764, type: 3}
 --- !u!135 &135290043543803542
 SphereCollider:
   m_ObjectHideFlags: 1

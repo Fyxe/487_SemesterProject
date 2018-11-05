@@ -279,6 +279,7 @@ MonoBehaviour:
   checkerHighlight: {fileID: 114152102824258470}
   checkerInformation: {fileID: 114095188790624166}
   speed: 20
+  sound: {fileID: 8300000, guid: cbd9a2df2549b40e4a9acde98a3d2adf, type: 3}
 --- !u!135 &135293379713674668
 SphereCollider:
   m_ObjectHideFlags: 1

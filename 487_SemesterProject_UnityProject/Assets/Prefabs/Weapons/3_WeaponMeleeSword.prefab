@@ -410,13 +410,13 @@ MonoBehaviour:
   rb: {fileID: 0}
   checkerHighlight: {fileID: 114308059751100964}
   checkerInformation: {fileID: 114159467324179238}
+  meleeWeaponMode: 1
+  layerMaskToHit:
+    serializedVersion: 2
+    m_Bits: 512
   modelRotationParent: {fileID: 4892530601240958}
   startRotation: {fileID: 4346801184626610}
   endRotation: {fileID: 4158891238991754}
-  meleeWeaponMode: 1
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!135 &135344413122395512
 SphereCollider:
   m_ObjectHideFlags: 1

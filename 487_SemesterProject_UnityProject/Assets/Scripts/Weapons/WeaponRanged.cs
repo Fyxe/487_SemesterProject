@@ -8,14 +8,15 @@ public class WeaponRanged : Weapon
     public Bullet bulletPrefab;
     public PooledObject muzzleFlashPrefab;
 
-    [Header("WeaponRangedSettings")]
+    [Header("Ranged Weapon Settings")]
     public float projectileDestroyTime = 3f;
-    public LayerMask layerMaskToShoot;
     public int amountOfBulletsPerShot;
     public float spread;
     public float knockbackForce;
-    public Transform shotPosition;
+    public LayerMask layerMaskToShoot;
 
+    [Header("References")]
+    public Transform shotPosition;
     public AudioClip shot;
 
 
@@ -32,6 +33,7 @@ public class WeaponRanged : Weapon
         {
             Bullet spawnedBullet = ObjectPoolingManager.instance.CreateObject(bulletPrefab, null, projectileDestroyTime) as Bullet;
             spawnedBullet.damage = (int)((damageBase + damage) * damageMultipier);
+            //Debug.Log("Weapon damage: " + spawnedBullet.damage);
             spawnedBullet.bounce = controllerCurrent.attachedPlayer.hasBouncingShots;
             spawnedBullet.weaponFiredFrom = this;
             spawnedBullet.transform.position = shotPosition.transform.position;

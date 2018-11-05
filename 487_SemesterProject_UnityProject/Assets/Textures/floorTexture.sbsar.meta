@@ -9,6 +9,7 @@ ScriptedImporter:
     2800000: Stylized_Tiles_Base Color
     2800002: Stylized_Tiles_Normal
     2800004: Stylized_Tiles_Height
+    2800006: Stylized_Tiles_Roughness
     3300000: floorTexture/floorTexture/MeshFilter
     11400000: sbsar
     11400002: graph0
@@ -22,11 +23,11 @@ ScriptedImporter:
   mGraphInstanceData:
   - graphLabel: Stylized_Tiles
     graphDescIndex: 0
-    generateAllOutputs: 0
+    generateAllOutputs: 1
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://Stylized_Tiles\" label=\"\" >\n </sbspreset>\n"
     shaderName: Standard
-    outputNames: Base Color,Normal,Height
+    outputNames: 
     texturePackingList:
     - outputName: Base Color
       alphaSource: Base Color
@@ -51,8 +52,8 @@ ScriptedImporter:
       bOverride: 0
       bLockRatio: 1
       bHighQuality: 0
-      textureWidth: 0
-      textureHeight: 0
+      textureWidth: 32
+      textureHeight: 32
       textureFormat: 0
       loadBehavior: 0
     - label: Standalone

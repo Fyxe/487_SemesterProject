@@ -235,7 +235,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4401251702767532
 Transform:
@@ -301,7 +301,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4915307435002236
 Transform:
@@ -331,9 +331,9 @@ Transform:
   - {fileID: 4151076040385830}
   - {fileID: 4915307435002236}
   - {fileID: 4401251702767532}
-  - {fileID: 4226812323881358}
-  - {fileID: 4968453321023806}
   - {fileID: 4849089217056972}
+  - {fileID: 4968453321023806}
+  - {fileID: 4226812323881358}
   - {fileID: 4533826219531096}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -899,7 +899,7 @@ MonoBehaviour:
   pointsOnLevelEnd: 1000
   pointsOnReviveHit: 10
   pointsOnReviveFull: 100
-  pointsOnEnemyHit: 10
+  pointsOnEnemyHit: 1
   pointsOnEnemyKill: 50
   pointsPerLevelSpeedMove: 200
   pointsPerLevelBaseDamage: 200

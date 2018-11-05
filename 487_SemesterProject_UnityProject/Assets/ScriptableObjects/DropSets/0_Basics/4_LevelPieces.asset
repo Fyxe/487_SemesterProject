@@ -14,5 +14,13 @@ MonoBehaviour:
   dropSetID: 4
   dropSetsAdded: 
   allDrops:
-  - drop: {fileID: 1793342503585380, guid: 349ca8f8aefcb594198f7ed903725853, type: 2}
+  - drop: {fileID: 1097119045079134, guid: c1c26a8662e61624cace05b7304c6fdd, type: 2}
+    weight: 1
+  - drop: {fileID: 1887071024997366, guid: 3892d85a949014f46826ddeadf60a21d, type: 2}
+    weight: 1
+  - drop: {fileID: 1542046511148116, guid: 84432765154bc144ca4045aadbd80ed6, type: 2}
+    weight: 1
+  - drop: {fileID: 1589702695172784, guid: c10a6581fd04a444bbeaf3a31709ea99, type: 2}
+    weight: 1
+  - drop: {fileID: 1597906116226442, guid: f2655c55008e3544d81464a8a00eb8b5, type: 2}
     weight: 1

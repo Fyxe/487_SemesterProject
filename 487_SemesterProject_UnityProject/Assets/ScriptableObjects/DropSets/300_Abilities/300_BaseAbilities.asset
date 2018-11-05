@@ -18,3 +18,11 @@ MonoBehaviour:
     weight: 1
   - drop: {fileID: 1862032675830348, guid: 31c5619fde9ea514ab4f37834ef56549, type: 2}
     weight: 1
+  - drop: {fileID: 1767849038146624, guid: 08a7f4f51eb534b01b87d3af67e571e9, type: 2}
+    weight: 1
+  - drop: {fileID: 1473460752211348, guid: 4f26558f1107d9c49ae3d0fab048b413, type: 2}
+    weight: 1
+  - drop: {fileID: 1068005209763452, guid: dc5427e8679676b44a8b0746bf1c7146, type: 2}
+    weight: 1
+  - drop: {fileID: 1402337836585786, guid: 2d79a34b9a16a3c499d6b38ac9caab8e, type: 2}
+    weight: 1

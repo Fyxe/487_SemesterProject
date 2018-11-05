@@ -19,6 +19,7 @@ public class AI : Damageable
     float nextUpdateTarget = 0;
     public float delayAttack = 1f;
     float nextAttack = 0f;
+    
 
     [Header("Enemy References")]
     public State stateCurrent;
@@ -31,6 +32,8 @@ public class AI : Damageable
     ControllerMultiPlayer cachedPlayer;
 
     [HideInInspector] public Rigidbody rb;
+
+    List<ControllerMultiPlayer> playersInRange = new List<ControllerMultiPlayer>();    
 
     void Awake()
     {
@@ -45,7 +48,15 @@ public class AI : Damageable
         {
             timeElapsedInState += Time.deltaTime;
             agent.enabled = true;
-            stateCurrent.UpdateState(this);            
+            stateCurrent.UpdateState(this);   
+            if (Time.time > nextAttack)
+            {
+                nextAttack = Time.time + delayAttack;
+                foreach (var i in playersInRange)
+                {
+                    i.Hurt(1);
+                }
+            }
         }
         else
         {
@@ -164,4 +175,19 @@ public class AI : Damageable
         DestroyThisObject();
     }
 
+    private void OnTriggerEnter(Collider col)
+    {
+        if (!col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null && !playersInRange.Contains(cachedPlayer))
+        {
+            playersInRange.Add(cachedPlayer);
+        }
+    }
+
+    private void OnTriggerExit(Collider col)
+    {
+        if (!col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null && playersInRange.Contains(cachedPlayer))
+        {
+            playersInRange.Remove(cachedPlayer);
+        }
+    }
 }

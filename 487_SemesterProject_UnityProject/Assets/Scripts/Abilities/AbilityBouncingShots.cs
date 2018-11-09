@@ -5,13 +5,13 @@ using UnityEngine;
 public class AbilityBouncingShots : Ability
 {
 
-    public AudioClip sound;
+    AudioController controller;
 
     public override void OnAbilityStart()
     {
         base.OnAbilityStart();
         player.hasBouncingShots = true;
-        AudioManager.instance.PlayClipLocalSpace(sound);
+        AudioManager.instance.PlayClipLocalSpace(controller.relishRicochet);
     }
 
     public override void OnAbilityEnd()

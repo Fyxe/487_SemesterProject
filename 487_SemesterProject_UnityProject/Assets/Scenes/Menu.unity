@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -684,7 +684,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 449590312}
   m_HandleRect: {fileID: 449590311}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2453,6 +2453,63 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 490998627}
   m_CullTransparentMesh: 0
+--- !u!1 &509327860 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1970311988962946, guid: cae6c505682ca6244bbba055359be3b6,
+    type: 2}
+  m_PrefabInternal: {fileID: 814780571}
+--- !u!114 &509327865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 509327860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9444e76fd11c4b0f93cf8de12a907b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  butterBoost: {fileID: 8300000, guid: cbd9a2df2549b40e4a9acde98a3d2adf, type: 3}
+  honeyHulk: {fileID: 8300000, guid: b5c9ce2863cbf4c8b9d6c86414b02010, type: 3}
+  marmaladeMadness: {fileID: 8300000, guid: e6d1bb74c62034d01bb192994b6123be, type: 3}
+  relishRicochet: {fileID: 8300000, guid: 92a561e6b13e04997bfdd117b086fe81, type: 3}
+  stealthSyrup: {fileID: 8300000, guid: 9fceba26f7b2e48a0b31539dfde2fc28, type: 3}
+  sugarRush: {fileID: 8300000, guid: 7aa6ee1b408a941bebe7a28d5407f764, type: 3}
+  trafficJam: {fileID: 8300000, guid: 0d20dd43e5df74ddf99456e8276976f8, type: 3}
+  baguetteDying: {fileID: 8300000, guid: 55c39a19401f142e1a66cd6de175a228, type: 3}
+  baguetteHurt: {fileID: 8300000, guid: 6bd4f63cca5434a10990ff43a4d6e9e8, type: 3}
+  baguetteIdleOne: {fileID: 8300000, guid: 8a2d2e587605a4c63af9f3bff80bee93, type: 3}
+  baguetteIdleTwo: {fileID: 8300000, guid: ccd8c5d566d8c47d9bc1c08e5548c726, type: 3}
+  crumpetDying: {fileID: 8300000, guid: 6accd328d34c446cea805b1cbd779891, type: 3}
+  crumpetHurt: {fileID: 8300000, guid: 972f8d685bcf1447d945c3830db6ca92, type: 3}
+  crumpetIdleOne: {fileID: 8300000, guid: f9f6107bba205401a90142fbb15683af, type: 3}
+  crumpetIldTwo: {fileID: 8300000, guid: 6b73a075e7ae643a3b8cbf0210a6b8db, type: 3}
+  sourdoughDying: {fileID: 8300000, guid: a0e1d59ace045436c840039389fbf2b6, type: 3}
+  sourdoughHurt: {fileID: 8300000, guid: ffc77adea4fdf49ff8bcd6e27bcfd58f, type: 3}
+  sourdoughIdleOne: {fileID: 8300000, guid: deb186e27f24d4136832ae4104c54e3c, type: 3}
+  sourdoughIldeTwo: {fileID: 8300000, guid: e99d9e8d87b2345deb7fefaebb4e49d6, type: 3}
+  texasToastDying: {fileID: 8300000, guid: 3dc9bf89fbfe34a1bac1be5f13da7277, type: 3}
+  texasToastHurt: {fileID: 8300000, guid: 2396a5a5aeb574b399e9e5bfa0507271, type: 3}
+  texasToastIdleOne: {fileID: 8300000, guid: f67aafa9d04454d20882c0bb3f3636b0, type: 3}
+  texasToastIldeTwo: {fileID: 8300000, guid: 8a85d37f971fc48bdbaec7d8dfb1a09b, type: 3}
+  inGameBackground: {fileID: 8300000, guid: 928dd3b70a2c642d899a017ba73b68ab, type: 3}
+  shopBackground: {fileID: 8300000, guid: f5f69cc51c12540c7aedce31301653b6, type: 3}
+  titlescreenBackground: {fileID: 8300000, guid: 77f75628d80734724a700da13d5ce9b1,
+    type: 3}
+  itemPickUp: {fileID: 8300000, guid: 303fee0bcfd5b4a51841ca394c051d97, type: 3}
+  buyItem: {fileID: 8300000, guid: 40e2224f3378c49329839fc1ccaf4d7b, type: 3}
+  assultRifle: {fileID: 8300000, guid: 865d9696c2ced4aeb95b38a66f9c3d1f, type: 3}
+  forkSpearOne: {fileID: 8300000, guid: 7761366764c8646d2a415ab771f6b162, type: 3}
+  forkSpearTwo: {fileID: 8300000, guid: 53ab1bfb18abd4e1a9a1ea430c3f5108, type: 3}
+  hammerOne: {fileID: 8300000, guid: c2f13a56231134b2c9b19fec78d32699, type: 3}
+  hammerTwo: {fileID: 8300000, guid: 927c7b4833f444acc8c7034ecd1b9258, type: 3}
+  pistol: {fileID: 8300000, guid: 92d1b61704fe94116ae714ba45669c9c, type: 3}
+  shotgun: {fileID: 8300000, guid: e42081d82ad9e4550ba67599899b162a, type: 3}
+  swordOne: {fileID: 8300000, guid: 37ec0fa63d6ae460992648b9a97a40b6, type: 3}
+  swordTwo: {fileID: 8300000, guid: c5619b03f9bee47798646146e0323abd, type: 3}
+  moldieAttack: {fileID: 8300000, guid: a477083bc43964ca3a897bc106ef58ce, type: 3}
+  moldieHurt: {fileID: 8300000, guid: c90a5bd63109040a09c7db6bd6ac181f, type: 3}
+  moldieDeath: {fileID: 0}
 --- !u!1 &518162141
 GameObject:
   m_ObjectHideFlags: 0
@@ -3455,6 +3512,48 @@ RectTransform:
   m_AnchoredPosition: {x: -700, y: 200}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &814780571
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4203032462257506, guid: cae6c505682ca6244bbba055359be3b6, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4203032462257506, guid: cae6c505682ca6244bbba055359be3b6, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4203032462257506, guid: cae6c505682ca6244bbba055359be3b6, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4203032462257506, guid: cae6c505682ca6244bbba055359be3b6, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4203032462257506, guid: cae6c505682ca6244bbba055359be3b6, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4203032462257506, guid: cae6c505682ca6244bbba055359be3b6, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4203032462257506, guid: cae6c505682ca6244bbba055359be3b6, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4203032462257506, guid: cae6c505682ca6244bbba055359be3b6, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cae6c505682ca6244bbba055359be3b6, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &833826279
 GameObject:
   m_ObjectHideFlags: 0
@@ -4170,7 +4269,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 728093125}
   m_HandleRect: {fileID: 728093124}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4616,10 +4715,10 @@ RectTransform:
   m_Father: {fileID: 903090323}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 135, y: -43.75036}
-  m_SizeDelta: {x: 270, y: 87.50072}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1217425315
 MonoBehaviour:
@@ -5197,10 +5296,10 @@ RectTransform:
   m_Father: {fileID: 903090323}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 405, y: -43.75036}
-  m_SizeDelta: {x: 270, y: 87.50072}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1288056832
 MonoBehaviour:
@@ -7898,10 +7997,10 @@ RectTransform:
   m_Father: {fileID: 903090323}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 675, y: -43.75036}
-  m_SizeDelta: {x: 270, y: 87.50072}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1983162451
 MonoBehaviour:

@@ -6,12 +6,12 @@ public class AbilityAttackRateMultiplier : Ability
 {
     [Header("Settings")]
     public float attackRateMultiplier = 2f;
-    public AudioClip sound;
+    AudioController controller;
 
     public override void OnAbilityStart()
     {
         base.OnAbilityStart();
-        AudioManager.instance.PlayClipLocalSpace(sound);
+        AudioManager.instance.PlayClipLocalSpace(controller.marmaladeMadness);
     }
 
     public override void OnAbilityEnd()

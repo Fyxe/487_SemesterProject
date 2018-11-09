@@ -10,6 +10,7 @@ public class ShopManager : LevelManager
     public float chanceOfSpawningLocaion = 0.5f;
     public DropSet locations;
     public List<Transform> locationsPositions = new List<Transform>();
+    AudioController controller;
 
     protected override void OnFocused()
     {
@@ -42,6 +43,7 @@ public class ShopManager : LevelManager
     {
         base.SpawnPlayer(newAttributes);        
         PlayerManager.instance.GetAttributeOfPlayer(newAttributes.indexPlayer).isDead = false;
+        AudioManager.instance.PlayClipLocalLooped(controller.shopBackground);
     }
     
 }

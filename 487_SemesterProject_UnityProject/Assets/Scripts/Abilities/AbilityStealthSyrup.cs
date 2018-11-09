@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class AbilityStealthSyrup : Ability {
 
-    public AudioClip sound;
+    AudioController controller;
 
     // Use this for initialization
     public override void OnAbilityStart() {
-        AudioManager.instance.PlayClipLocalSpace(sound);
+        AudioManager.instance.PlayClipLocalSpace(controller.stealthSyrup);
         base.OnAbilityStart();
     }
 

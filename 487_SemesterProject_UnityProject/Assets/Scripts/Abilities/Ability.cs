@@ -51,6 +51,7 @@ public class Ability : Interactable
     public GameObject model;
     public PlayerChecker checkerHighlight;
     public PlayerChecker checkerInformation;
+    public AudioClip sound;
 
     Coroutine coroutineActivated;
 
@@ -188,6 +189,7 @@ public class Ability : Interactable
 
     public virtual void OnAbilityStart()
     {
+        AudioManager.instance.PlayClipLocalSpace(sound);
         isInUse = true;
     }
 

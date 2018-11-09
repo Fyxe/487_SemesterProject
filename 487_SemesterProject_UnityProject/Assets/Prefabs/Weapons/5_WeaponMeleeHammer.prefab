@@ -579,6 +579,8 @@ MonoBehaviour:
   modelRotationParent: {fileID: 4722357192033264}
   startRotation: {fileID: 4325583194310740}
   endRotation: {fileID: 4579620730343152}
+  soundOne: {fileID: 8300000, guid: c2f13a56231134b2c9b19fec78d32699, type: 3}
+  soundTwo: {fileID: 8300000, guid: 927c7b4833f444acc8c7034ecd1b9258, type: 3}
 --- !u!114 &114459493153139726
 MonoBehaviour:
   m_ObjectHideFlags: 1

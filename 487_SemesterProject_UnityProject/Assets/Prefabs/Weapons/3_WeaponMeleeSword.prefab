@@ -605,6 +605,8 @@ MonoBehaviour:
   modelRotationParent: {fileID: 4892530601240958}
   startRotation: {fileID: 4346801184626610}
   endRotation: {fileID: 4158891238991754}
+  soundOne: {fileID: 8300000, guid: 53ab1bfb18abd4e1a9a1ea430c3f5108, type: 3}
+  soundTwo: {fileID: 8300000, guid: 7761366764c8646d2a415ab771f6b162, type: 3}
 --- !u!135 &135344413122395512
 SphereCollider:
   m_ObjectHideFlags: 1

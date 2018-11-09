@@ -16,9 +16,16 @@ public class WeaponMelee : Weapon
     Damageable cachedDamageable;
     RaycastHit cachedHit;
     Coroutine AttackingCoroutine;
+    public AudioClip soundOne;
+    public AudioClip soundTwo;
 
     protected override void Attack(int damageBase, float damageMultipier)
     {
+        if(Random.value < 0.5) {
+            AudioManager.instance.PlayClipLocalSpace(soundOne);
+        } else {
+            AudioManager.instance.PlayClipLocalSpace(soundTwo);
+        }
         base.Attack(damageBase, damageMultipier);
         if (AttackingCoroutine == null)
         {

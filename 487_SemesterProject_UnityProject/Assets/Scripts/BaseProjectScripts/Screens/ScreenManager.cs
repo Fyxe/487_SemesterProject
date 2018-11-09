@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UI
 {
@@ -23,9 +24,11 @@ namespace UI
         [Header("References")]
         public List<ScreenBase> currentlyDisplayedScreens = new List<ScreenBase>();
         public ScreenBase debugStartOnThisScreen;
+        public AudioClip backgroundMusic;
 
         void Start()
         {
+            AudioManager.instance.PlayClipLocalLooped(backgroundMusic);
             ScreenAdd(debugStartOnThisScreen, false);
         }
 

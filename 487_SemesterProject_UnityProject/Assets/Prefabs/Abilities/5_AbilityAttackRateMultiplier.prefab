@@ -265,8 +265,8 @@ MonoBehaviour:
   model: {fileID: 1369098264433798}
   checkerHighlight: {fileID: 114270733487221352}
   checkerInformation: {fileID: 114993264175506086}
-  attackRateMultiplier: 2
   sound: {fileID: 8300000, guid: e6d1bb74c62034d01bb192994b6123be, type: 3}
+  attackRateMultiplier: 2
 --- !u!114 &114993264175506086
 MonoBehaviour:
   m_ObjectHideFlags: 1

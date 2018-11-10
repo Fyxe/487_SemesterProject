@@ -14,7 +14,7 @@ public class ShopUpgradePlayer : Interactable
     public bool isControlled = false;
     public bool isMoving = false;
     public ControllerMultiPlayer playerCurrent;
-    public Transform playerPosition;
+    public Transform playerPosition; 
     [Space]
     public Image imageToChangeToPlayersColor;
     public Image imageCost;
@@ -22,7 +22,7 @@ public class ShopUpgradePlayer : Interactable
     public TextMeshProUGUI textUpgradeName;
     public TextMeshProUGUI textUpgradeLevel;
     public Transform transformCanvas;
-
+    public AudioClip buyItemSound;
     Coroutine coroutineFlash;
 
     int m_cost = 0;
@@ -245,7 +245,7 @@ public class ShopUpgradePlayer : Interactable
         if (canBuy)
         {
             playerCurrent.pointsCurrent -= cost;
-
+            AudioManager.instance.PlayClipLocalSpace(buyItemSound);
             switch (currentDisplay)
             {
                 case 0:

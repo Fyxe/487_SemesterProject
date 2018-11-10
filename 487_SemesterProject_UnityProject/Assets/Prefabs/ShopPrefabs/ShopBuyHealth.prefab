@@ -1552,6 +1552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPosition: {fileID: 114703622910010052}
+  buyItemSound: {fileID: 8300000, guid: 40e2224f3378c49329839fc1ccaf4d7b, type: 3}
   prefabSmall: {fileID: 114014075297240148, guid: e41e527011676a94faf50332631796b9,
     type: 2}
   prefabMeduim: {fileID: 114252885805264552, guid: 7a4818658e6fae14784c83ee50d62370,

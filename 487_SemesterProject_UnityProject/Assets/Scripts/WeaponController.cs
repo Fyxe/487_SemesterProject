@@ -305,9 +305,10 @@ public class WeaponController : MonoBehaviour
             return weaponCurrent.AttemptAttackAlternate();
         }
     }
-
+    public AudioClip pickupSound;
     public void PickupWeapon(Weapon toPickup)
     {
+        AudioManager.instance.PlayClipLocalSpace(pickupSound);
         if (replaceCurrentWeaponOnPickup)
         {
             if (isHoldingBaseWeapon)

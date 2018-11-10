@@ -8,7 +8,6 @@ public class AbilityDash : Ability
     [Header("Dash Settings")]
     public float speed = 8f;
     Vector3 direction;
-    AudioController controller;
 
     public override bool AttemptAttack()
     {
@@ -40,7 +39,6 @@ public class AbilityDash : Ability
         controllerCurrent.attachedPlayer.controllerInput.isControlled = false;
         controllerCurrent.attachedPlayer.rb.velocity = Vector3.zero;
         controllerCurrent.attachedPlayer.rb.AddForce(direction.normalized * speed, ForceMode.Impulse);
-        AudioManager.instance.PlayClipLocalSpace(controller.butterBoost);
     }
 
     public override void OnAbilityEnd()

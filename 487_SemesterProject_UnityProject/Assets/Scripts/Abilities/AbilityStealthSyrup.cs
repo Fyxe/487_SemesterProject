@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class AbilityStealthSyrup : Ability {
 
-    AudioController controller;
 
     // Use this for initialization
     public override void OnAbilityStart() {
-        AudioManager.instance.PlayClipLocalSpace(controller.stealthSyrup);
         base.OnAbilityStart();
+        player.attributes.isInvisible = true;
     }
 
     // Update is called once per frame
     public override void OnAbilityEnd() {
         base.OnAbilityEnd();
-
+        player.attributes.isInvisible = false;
     }
 }

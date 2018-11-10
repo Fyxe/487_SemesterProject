@@ -801,6 +801,7 @@ MonoBehaviour:
   textUpgradeName: {fileID: 114758151320667442}
   textUpgradeLevel: {fileID: 114939863187387058}
   transformCanvas: {fileID: 224968541999086096}
+  buyItemSound: {fileID: 8300000, guid: 40e2224f3378c49329839fc1ccaf4d7b, type: 3}
 --- !u!222 &222043732314179618
 CanvasRenderer:
   m_ObjectHideFlags: 1

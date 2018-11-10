@@ -1032,6 +1032,7 @@ MonoBehaviour:
   attachedAI: {fileID: 0}
   attachedPlayer: {fileID: 0}
   m_abilityCurrent: {fileID: 0}
+  pickupSound: {fileID: 8300000, guid: 303fee0bcfd5b4a51841ca394c051d97, type: 3}
   m_positionAbility: {fileID: 0}
   m_positionThrow: {fileID: 0}
   m_forceThrow: 500
@@ -1087,6 +1088,7 @@ MonoBehaviour:
     isSpawned: 0
     isDead: 0
     isPriority: 0
+    isInvisible: 0
     colorPlayer: {r: 0, g: 0, b: 1, a: 1}
     indexJoystick: 0
     indexPlayer: 0
@@ -1102,6 +1104,8 @@ MonoBehaviour:
     weaponsUnequippedIDs: 
     enemiesKilled: 
   controllerInput: {fileID: 0}
+  controllerWeapons: {fileID: 0}
+  controllerAbilities: {fileID: 0}
   projectors:
   - {fileID: 119424923473368980}
   - {fileID: 119057119281020990}
@@ -1110,6 +1114,13 @@ MonoBehaviour:
   colliderMovement: {fileID: 136213408636823196}
   isInShop: 0
   isDashing: 0
+  damageMultiplier: 1
+  hasBouncingShots: 0
+  attackRateMultiplier: 1
+  deathSound: {fileID: 0}
+  hurtSound: {fileID: 0}
+  idleOneSound: {fileID: 0}
+  idleTwoSound: {fileID: 0}
 --- !u!114 &114297633389141560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1144,6 +1155,7 @@ MonoBehaviour:
   - {fileID: 4379950927509306}
   m_positionThrow: {fileID: 4135792882655244}
   m_prefabBaseWeapon: {fileID: 0}
+  pickupSound: {fileID: 0}
 --- !u!114 &114354370839524034
 MonoBehaviour:
   m_ObjectHideFlags: 1

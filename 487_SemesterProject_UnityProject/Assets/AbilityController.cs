@@ -12,6 +12,7 @@ public class AbilityController : MonoBehaviour
     public AI attachedAI;
     public ControllerMultiPlayer attachedPlayer;
     [SerializeField] Ability m_abilityCurrent;
+    public AudioClip pickupSound;
     public Ability abilityCurrent
     {
         get
@@ -175,6 +176,7 @@ public class AbilityController : MonoBehaviour
 
     public void PickupAbility(Ability toPickup, bool isPrefab = false)
     {
+        AudioManager.instance.PlayClipLocalSpace(pickupSound);
         if (DropAbility())
         {
             SetCurrentAbility(toPickup, isPrefab);

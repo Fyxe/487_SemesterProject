@@ -7,6 +7,7 @@ public class ShopBuyHealth : MonoBehaviour
 {
     [Header("References")]
     public SpawnPosition spawnPosition;
+    public AudioClip buyItemSound;
 
     [Header("Prefabs")]
     public PooledObject prefabSmall;
@@ -26,6 +27,7 @@ public class ShopBuyHealth : MonoBehaviour
     public void SpawnHealth(int whichKind)
     {
         PooledObject spawnedObject = null;
+        AudioManager.instance.PlayClipLocalSpace(buyItemSound);
         switch (whichKind)
         {
             case 0:

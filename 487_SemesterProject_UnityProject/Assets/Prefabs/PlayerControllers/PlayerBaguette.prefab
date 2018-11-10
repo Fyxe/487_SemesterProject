@@ -1236,6 +1236,7 @@ MonoBehaviour:
   attachedAI: {fileID: 0}
   attachedPlayer: {fileID: 0}
   m_abilityCurrent: {fileID: 0}
+  pickupSound: {fileID: 0}
   m_positionAbility: {fileID: 0}
   m_positionThrow: {fileID: 0}
   m_forceThrow: 500
@@ -1428,6 +1429,7 @@ MonoBehaviour:
   - {fileID: 4692388471259238}
   m_positionThrow: {fileID: 4733872401894424}
   m_prefabBaseWeapon: {fileID: 0}
+  pickupSound: {fileID: 8300000, guid: 303fee0bcfd5b4a51841ca394c051d97, type: 3}
 --- !u!114 &114984714229403500
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -215,7 +215,7 @@ public class Weapon : Interactable
 
     public virtual void OnAttack()
     {
-
+        // Gets called whenever you attack, even if that attack results in a kill
     }
 
     public virtual void SetToDisplay()

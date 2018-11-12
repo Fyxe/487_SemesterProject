@@ -16,7 +16,7 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
     public int enemyHealthModifier = 1;
     public float enemySpawnRateMultiplier = 1f;
     float initialSpeed;
-    float initialHealth;
+    int initialHealth;
     float initialSpawnRate;
     [Space]
     public float enemySpeedMultiplierChange = 1f;

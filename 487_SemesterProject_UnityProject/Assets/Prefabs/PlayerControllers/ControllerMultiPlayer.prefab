@@ -1155,7 +1155,7 @@ MonoBehaviour:
   - {fileID: 4379950927509306}
   m_positionThrow: {fileID: 4135792882655244}
   m_prefabBaseWeapon: {fileID: 0}
-  pickupSound: {fileID: 0}
+  pickupSound: {fileID: 8300000, guid: 303fee0bcfd5b4a51841ca394c051d97, type: 3}
 --- !u!114 &114354370839524034
 MonoBehaviour:
   m_ObjectHideFlags: 1

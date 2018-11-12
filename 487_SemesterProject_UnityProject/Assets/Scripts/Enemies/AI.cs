@@ -18,8 +18,7 @@ public class AI : Damageable
     public int pointsOnDeath = 10;
     float nextUpdateTarget = 0;
     public float delayAttack = 1f;
-    float nextAttack = 0f;
-    
+    float nextAttack = 0f;    
 
     [Header("Enemy References")]
     public State stateCurrent;
@@ -50,6 +49,7 @@ public class AI : Damageable
     {
         if (LevelManager.instance.isPlaying)
         {
+            agent.speed = speedMove * GameplayManager.instance.enemySpeedMultiplier;
             timeElapsedInState += Time.deltaTime;
             agent.enabled = true;
             stateCurrent.UpdateState(this);   
@@ -66,6 +66,7 @@ public class AI : Damageable
         {
             agent.enabled = false;
         }
+        
     }
 
     public bool CheckIfCountDownElapsed(float duration)

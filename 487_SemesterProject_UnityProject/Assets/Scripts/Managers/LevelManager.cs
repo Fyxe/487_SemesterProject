@@ -289,10 +289,10 @@ public class LevelManager : Singleton<LevelManager>
         randomControllers.Shuffle();        
         foreach (var i in randomControllers)
         {
-            if (!i.isDead && i.attributes.isPriority)
+            if (!i.isDead && i.attributes.isPriority && !i.attributes.isInvisible)
             {
                 return i.transform;                
-            }
+            } 
         }
         return null;
     }

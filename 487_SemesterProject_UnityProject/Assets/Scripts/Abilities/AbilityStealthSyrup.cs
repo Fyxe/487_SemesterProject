@@ -16,4 +16,6 @@ public class AbilityStealthSyrup : Ability {
         base.OnAbilityEnd();
         player.attributes.isInvisible = false;
     }
+
+
 }

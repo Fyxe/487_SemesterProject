@@ -308,7 +308,6 @@ public class WeaponController : MonoBehaviour
     public AudioClip pickupSound;
     public void PickupWeapon(Weapon toPickup)
     {
-        AudioManager.instance.PlayClipLocalSpace(pickupSound);
         if (replaceCurrentWeaponOnPickup)
         {
             if (isHoldingBaseWeapon)
@@ -320,6 +319,7 @@ public class WeaponController : MonoBehaviour
                 int inventoryCount = weaponsInInventory;
                 if (inventoryCount < weaponCount)  
                 {
+                    AudioManager.instance.PlayClipLocalSpace(pickupSound);
                     AddWeaponToInventory(weaponCurrent);
                     SetCurrentWeapon(toPickup);
                 }
@@ -332,6 +332,7 @@ public class WeaponController : MonoBehaviour
         }
         else
         {
+            AudioManager.instance.PlayClipLocalSpace(pickupSound);
             AddWeaponToInventory(toPickup);
         }
     }

@@ -524,6 +524,10 @@ public class ControllerMultiPlayer : Damageable
 
     public void AttemptAttack(int damageBase, float damageMultiplier)
     {
+        if (attributes.isInvisible)
+        {
+            ProgressionManager.instance.GetAbilityByID(2, true).EndQuickly();
+        }
         if (Time.time > nextAttack)
         {
             nextAttack = Time.time + delayAttack;
@@ -537,6 +541,10 @@ public class ControllerMultiPlayer : Damageable
 
     public void AttemptAttackAlternate()
     {
+        if (attributes.isInvisible)
+        {
+            ProgressionManager.instance.GetAbilityByID(2, true).EndQuickly();
+        }
         if (Time.time > nextAttackAlternate)
         {
             nextAttackAlternate = Time.time + delayAttackAlternate;

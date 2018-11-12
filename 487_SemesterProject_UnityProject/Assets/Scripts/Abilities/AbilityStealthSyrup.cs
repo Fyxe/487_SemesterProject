@@ -17,7 +17,5 @@ public class AbilityStealthSyrup : Ability {
         player.attributes.isInvisible = false;
     }
 
-    public override EndQuickly () {
 
-    }
 }

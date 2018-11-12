@@ -11,16 +11,34 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
     [Space]
     public int piecesMaxStart = 5;
     public int piecesMinStart = 5;
+    [Space]
+    public float enemySpeedMultiplier = 1f;
+    public int enemyHealthModifier = 1;
+    public float enemySpawnRateMultiplier = 1f;
+    float initialSpeed;
+    float initialHealth;
+    float initialSpawnRate;
+    [Space]
+    public float enemySpeedMultiplierChange = 1f;
+    public int enemyHealthModifierChange = 1;
+    public float enemySpawnRateMultiplierChange = 1f;   
 
     [Header("References")]
     public int currentLevel = 0;
     public int currentLevelReal = 0;
     public int piecesMaxCurrent;
-    public int piecesMinCurrent;    
+    public int piecesMinCurrent;
 
+    void Awake()
+    {
+        initialSpeed = enemySpeedMultiplier;
+        initialHealth = enemyHealthModifier;
+        initialSpawnRate = enemySpawnRateMultiplier;
+    }
 
     public void StartGame()
     {
+        currentLevel = 0;
         ResetDifficulty();
         currentLevel++;
         LoadSceneManager.instance.LoadScene("Shop");    // TODO tutorial
@@ -58,17 +76,29 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
     {
         piecesMaxCurrent += piecesMaxIncrease;
         piecesMinCurrent += piecesMinIncrease;
+
+        enemyHealthModifier += enemyHealthModifierChange;
+        enemySpeedMultiplier += enemySpeedMultiplierChange;
+        enemySpawnRateMultiplier += enemySpawnRateMultiplierChange;
     }
 
     public void DecreaseDifficulty()
     {
         piecesMaxCurrent -= piecesMaxIncrease;
         piecesMinCurrent -= piecesMinIncrease;
+
+        enemyHealthModifier -= enemyHealthModifierChange;
+        enemySpeedMultiplier -= enemySpeedMultiplierChange;
+        enemySpawnRateMultiplier -= enemySpawnRateMultiplierChange;
     }
 
     public void ResetDifficulty()
     {
         piecesMaxCurrent = piecesMaxStart;
         piecesMinCurrent = piecesMinStart;
+
+        enemyHealthModifier = initialHealth;
+        enemySpeedMultiplier = initialSpeed;
+        enemySpawnRateMultiplier = initialSpawnRate;
     }
 }

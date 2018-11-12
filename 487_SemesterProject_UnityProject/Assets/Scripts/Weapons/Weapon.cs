@@ -112,7 +112,7 @@ public class Weapon : Interactable
 
     protected virtual void Attack(int damageBase, float damageMultipier)
     {
-        if (LevelManager.instance.)
+        
     }
 
     public virtual bool AttemptAttackAlternate()

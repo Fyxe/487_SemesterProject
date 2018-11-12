@@ -3044,6 +3044,7 @@ MonoBehaviour:
   - {fileID: 1392931444}
   - {fileID: 1549341414}
   - {fileID: 1212772945}
+  shopBackground: {fileID: 8300000, guid: f5f69cc51c12540c7aedce31301653b6, type: 3}
 --- !u!4 &1394820673
 Transform:
   m_ObjectHideFlags: 0

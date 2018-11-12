@@ -56,7 +56,7 @@ public class GameLevelManager : LevelManager
             AI prefabAIToSpawn = DropManager.instance.GetDrop(Thing.ai).GetComponent<AI>();
             if ((!allAI.ContainsKey(prefabAIToSpawn) || (allAI.ContainsKey(prefabAIToSpawn) && allAI[prefabAIToSpawn].Count < setEnemies)) && Time.time > nextSpawn)
             {
-                nextSpawn = Time.time + delaySpawn;
+                nextSpawn = Time.time + (delaySpawn * GameplayManager.instance.enemySpawnRateMultiplier);
                 SpawnEnemy(prefabAIToSpawn, PositionToSpawn.ALL);
             }
         }
@@ -221,6 +221,8 @@ public class GameLevelManager : LevelManager
             {
                 allAI.Add(prefabToSpawn,new List<AI> { spawnedAI });
             }
+            spawnedAI.hpMax += GameplayManager.instance.enemyHealthModifier;
+            spawnedAI.hpMax = spawnedAI.hpCurrent;
             return true;
         }
         else

@@ -112,11 +112,7 @@ public class Weapon : Interactable
 
     protected virtual void Attack(int damageBase, float damageMultipier)
     {
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> de3b2898ec4cbe591957a5cf8c0c883035342892
     }
 
     public virtual bool AttemptAttackAlternate()

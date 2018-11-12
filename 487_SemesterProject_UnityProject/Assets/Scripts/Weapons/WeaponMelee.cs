@@ -42,6 +42,8 @@ public class WeaponMelee : Weapon
                     break;
             }
         }
+
+        OnAttack();
     }
 
     public IEnumerator AttackCoroutineSwing(int damageBase, float damageMultipier)
@@ -64,6 +66,10 @@ public class WeaponMelee : Weapon
                 {
                     if (!enemiesHit.Contains(cachedDamageable))
                     {
+                        if ((int)((damageBase + damage) * damageMultipier) >= cachedDamageable.hpCurrent)
+                        {
+                            OnKill(cachedDamageable);
+                        }
                         cachedDamageable.Hurt((int)((damageBase + damage) * damageMultipier));
                         enemiesHit.Add(cachedDamageable);
                     }
@@ -99,6 +105,10 @@ public class WeaponMelee : Weapon
                 {
                     if (!enemiesHit.Contains(cachedDamageable))
                     {
+                        if ((int)((damageBase + damage) * damageMultipier) >= cachedDamageable.hpCurrent)
+                        {
+                            OnKill(cachedDamageable);
+                        }
                         cachedDamageable.Hurt((int)((damageBase + damage) * damageMultipier));
                         enemiesHit.Add(cachedDamageable);
                     }

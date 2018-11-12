@@ -119,9 +119,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4194776418815582}
   - component: {fileID: 54102669561942690}
-  - component: {fileID: 114583831844532430}
+  - component: {fileID: 114022490769371160}
   m_Layer: 10
-  m_Name: 4_WeaponMeleeLance
+  m_Name: 4_WeaponMeleeFork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -451,33 +451,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 7.4550323, y: 1, z: 2.6880796}
   m_Center: {x: -0.12875594, y: 0, z: 0.2765323}
---- !u!114 &114159467324179238
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1614052988682692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c55a82faceb74947908bf810ee58629, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphereCollider: {fileID: 135344413122395512}
-  playersInRange: []
---- !u!114 &114308059751100964
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1077365894811850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c55a82faceb74947908bf810ee58629, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphereCollider: {fileID: 135364472289346162}
-  playersInRange: []
---- !u!114 &114583831844532430
+--- !u!114 &114022490769371160
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -485,7 +459,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1662780412580614}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2719e340ea7ae34cb747e4572165a2c, type: 3}
+  m_Script: {fileID: 11500000, guid: db51d57888d702744ac5ab4fb34f64d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isWaitingToBeDestroyed: 0
@@ -521,6 +495,33 @@ MonoBehaviour:
   endRotation: {fileID: 4158891238991754}
   soundOne: {fileID: 8300000, guid: 37ec0fa63d6ae460992648b9a97a40b6, type: 3}
   soundTwo: {fileID: 8300000, guid: c5619b03f9bee47798646146e0323abd, type: 3}
+  killsToSwitch: 1
+--- !u!114 &114159467324179238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1614052988682692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c55a82faceb74947908bf810ee58629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphereCollider: {fileID: 135344413122395512}
+  playersInRange: []
+--- !u!114 &114308059751100964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1077365894811850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c55a82faceb74947908bf810ee58629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphereCollider: {fileID: 135364472289346162}
+  playersInRange: []
 --- !u!135 &135344413122395512
 SphereCollider:
   m_ObjectHideFlags: 1

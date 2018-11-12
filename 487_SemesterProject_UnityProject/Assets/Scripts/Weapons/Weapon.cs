@@ -208,6 +208,16 @@ public class Weapon : Interactable
         this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Interactable"), LayerMask.NameToLayer("Player"));
     }
 
+    public virtual void OnKill(Damageable damageable)
+    {
+        Debug.Log("Killed dameagable: " + damageable.name);
+    }
+
+    public virtual void OnAttack()
+    {
+
+    }
+
     public virtual void SetToDisplay()
     {
         this.gameObject.SetLayer("Default");

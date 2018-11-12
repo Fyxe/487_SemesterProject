@@ -44,5 +44,7 @@ public class WeaponRanged : Weapon
         }
                 
         controllerCurrent.AddForceToAttachedEntity(-1f * knockbackForce * controllerCurrent.transform.forward, ForceMode.Impulse);
+
+        OnAttack();
     }
 }

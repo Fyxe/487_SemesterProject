@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4787993714140220}
   - component: {fileID: 114638227885421350}
   m_Layer: 0
-  m_Name: LoadSceneManagerPrefab
+  m_Name: LoadSceneManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -455,7 +455,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 700f8599546d7a04b859cfba332fac9a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f5f69cc51c12540c7aedce31301653b6, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -615,14 +615,14 @@ MonoBehaviour:
   - {fileID: 114924703100487726, guid: 0bece21a170dd7a4bbaf07c3de157468, type: 2}
   - {fileID: 114429671755288488, guid: 7677c7e9f0661a34589c35b768e7ed5a, type: 2}
   - {fileID: 114583831844532430, guid: bc0d99a2b82aa3f499fb2024929f2e5d, type: 2}
-  - {fileID: 114583831844532430, guid: f59eb62c7ca776d4cb1e899747875936, type: 2}
+  - {fileID: 114022490769371160, guid: f59eb62c7ca776d4cb1e899747875936, type: 2}
   - {fileID: 114292931949442972, guid: 86cec54f6528fed4790dbdd7e8fb2aba, type: 2}
   allUnlockedWeapons:
   - {fileID: 114697854136788232, guid: cd0a65b2fc8c84d469a1396b7b24f332, type: 2}
   - {fileID: 114924703100487726, guid: 0bece21a170dd7a4bbaf07c3de157468, type: 2}
   - {fileID: 114429671755288488, guid: 7677c7e9f0661a34589c35b768e7ed5a, type: 2}
   - {fileID: 114583831844532430, guid: bc0d99a2b82aa3f499fb2024929f2e5d, type: 2}
-  - {fileID: 114583831844532430, guid: f59eb62c7ca776d4cb1e899747875936, type: 2}
+  - {fileID: 114022490769371160, guid: f59eb62c7ca776d4cb1e899747875936, type: 2}
   - {fileID: 114292931949442972, guid: 86cec54f6528fed4790dbdd7e8fb2aba, type: 2}
   allAbilities: []
   allUnlockedAbilities: []
@@ -888,7 +888,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ifMaxUseFirstCreated: 0
   defaultMaxInPool: -1
-  allObjectPools: []
+  allObjectPools:
+  - objectPrefab: {fileID: 114888474019746722, guid: eb215a6167f3fa74c9e310206fea2cb6,
+      type: 2}
+    deactivatedObjects: []
+  - objectPrefab: {fileID: 114022490769371160, guid: f59eb62c7ca776d4cb1e899747875936,
+      type: 2}
+    deactivatedObjects: []
+  - objectPrefab: {fileID: 114583831844532430, guid: bc0d99a2b82aa3f499fb2024929f2e5d,
+      type: 2}
+    deactivatedObjects: []
+  - objectPrefab: {fileID: 114697854136788232, guid: cd0a65b2fc8c84d469a1396b7b24f332,
+      type: 2}
+    deactivatedObjects: []
+  - objectPrefab: {fileID: 114573657041876692, guid: 9f3616d11045457479b2f71f52f439bf,
+      type: 2}
+    deactivatedObjects:
+    - {fileID: 0}
 --- !u!114 &114928618416960310
 MonoBehaviour:
   m_ObjectHideFlags: 1

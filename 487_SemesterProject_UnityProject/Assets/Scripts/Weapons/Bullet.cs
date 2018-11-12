@@ -24,6 +24,7 @@ public class Bullet : Projectile
                 if (killed)
                 {
                     weaponFiredFrom.controllerCurrent.attachedPlayer.pointsCurrent += PointsManager.instance.pointsOnEnemyKill;
+                    weaponFiredFrom.OnKill(damageableHit);
                 }
                 else
                 {

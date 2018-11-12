@@ -204,4 +204,13 @@ public class Ability : Interactable
         yield return new WaitForSeconds(durationAttack);
         OnAbilityEnd();
     }
+
+    public void EndQuickly()
+    {
+        if (coroutineActivated != null)
+        {
+            StopCoroutine(coroutineActivated);
+        }
+        OnAbilityEnd();
+    }
 }

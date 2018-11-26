@@ -8156,11 +8156,11 @@ MonoBehaviour:
   allowPlayerSpawns: 1
   timeStaleFull: 120
   currentStaleness: 0
-  distanceFromPlayersToSpawn: 3
+  distanceFromPlayersToSpawn: 2
   spawnInPiecesPlayersAreIn: 1
   endWaitDelay: 2
   setEnemies: 50
-  delaySpawn: 2
+  delaySpawn: 1
   screenEnd: {fileID: 524367930}
   staleFillImage: {fileID: 1023298681}
   piecesToSpawnIn: []

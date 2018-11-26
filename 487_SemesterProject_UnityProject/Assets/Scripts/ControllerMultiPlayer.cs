@@ -701,6 +701,7 @@ public class ControllerMultiPlayer : Damageable
         countReviveCurrent *= 2;
         ui.Set(PlayerUIBox.BoxSetting.dead);
         LevelManager.instance.CheckIfAllPlayersAreDead();
+        NavMeshCameraController.instance.toFollow.Remove(this.transform);
     }
 
     void OnIncapacitate()        
@@ -720,9 +721,11 @@ public class ControllerMultiPlayer : Damageable
         AudioManager.instance.PlayClipLocalSpace(hurtSound);
         OnHurt();
 
+        int hpPrevious = hpCurrent;
+
         hpCurrent = Mathf.Clamp(hpCurrent - amount, 0, hpMax);
 
-        if (hpCurrent == 0)
+        if (hpCurrent == 0 && hpPrevious != 0)
         {
             if (coroutineIncapacitate != null)
             {

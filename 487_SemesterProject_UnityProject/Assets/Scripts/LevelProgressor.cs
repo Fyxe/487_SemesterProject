@@ -33,7 +33,7 @@ public class LevelProgressor : MonoBehaviour
 		else
 		{
 			playersEntered.Add(cachedPlayer);
-			if (playersEntered.Count == PlayerManager.instance.playersInGame)
+			if (playersEntered.Count == PlayerManager.instance.playersAliveInGame)
 			{
                 if (toDisable != null)
                 {

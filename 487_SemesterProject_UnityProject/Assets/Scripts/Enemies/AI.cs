@@ -7,9 +7,10 @@ using UnityEngine.AI;
 public class AI : Damageable
 {
     [Header("Enemy Settings")]
-    public int aiID = -1;
+    public int aiID = -1;    
     public string aiName;
     public string aiDescription;
+    public float attackRadius = 1f;
     public Sprite aiSprite;
     public int damage = 1;
     public float speedMove = 3f;
@@ -40,6 +41,8 @@ public class AI : Damageable
     public AudioClip hurtSound;
     public AudioClip attackSound;
 
+    Damageable cachedDamageable;
+
     List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
 
     void Awake()
@@ -61,15 +64,7 @@ public class AI : Damageable
             agent.speed = speedMove * GameplayManager.instance.enemySpeedMultiplier;
             timeElapsedInState += Time.deltaTime;
             agent.enabled = true;
-            stateCurrent.UpdateState(this);   
-            if (Time.time > nextAttack)
-            {
-                nextAttack = Time.time + delayAttack;
-                foreach (var i in playersInRange)
-                {
-                    i.Hurt(1);
-                }
-            }
+            stateCurrent.UpdateState(this);               
         }
         else
         {
@@ -159,17 +154,33 @@ public class AI : Damageable
     }
 
     public void AttemptAttack()
-    {
+    {        
         if (Time.time > nextAttack)
-        {
+        {            
             nextAttack = Time.time + delayAttack;
             Attack();
         }
     }
 
     protected virtual void Attack()
-    {
-
+    {        
+        Collider[] cols = Physics.OverlapSphere(transform.position,attackRadius);
+        List<Damageable> toHurt = new List<Damageable>();
+        foreach (var i in cols)
+        {
+            //Debug.Log((cachedDamageable = i.GetComponentInParent<Damageable>()) != null);
+            //Debug.Log(!toHurt.Contains(cachedDamageable));
+            //Debug.Log(cachedDamageable.team != team);
+            
+            if (!i.isTrigger 
+                && (cachedDamageable = i.GetComponentInParent<Damageable>()) != null 
+                && !toHurt.Contains(cachedDamageable) 
+                && cachedDamageable.team != team)
+            {
+                toHurt.Add(cachedDamageable);
+                cachedDamageable.Hurt(1);
+            }
+        }
     }
 
     public override void OnHurt()

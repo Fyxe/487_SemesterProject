@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase]
 [RequireComponent(typeof(InputController3D))]
 public class ControllerMultiPlayer : Damageable
 {
@@ -397,16 +398,16 @@ public class ControllerMultiPlayer : Damageable
             newMaterial.color = newAttributes.colorPlayer;
             i.material = newMaterial;
         }        
-
+        
         ui.Set(PlayerUIBox.BoxSetting.alive);
         ui.SetHealth(hpCurrent,hpMax,newAttributes.colorPlayer);
 
         speedMoveCurrent = speedMoveCurrent;
 
-        foreach (var i in GetComponentsInChildren<Renderer>())
-        {
-            i.material.color = colorPlayer;
-        }
+        //foreach (var i in GetComponentsInChildren<Renderer>())
+        //{
+        //    i.material.color = colorPlayer;
+        //}
 
         controllerWeapons.Setup();
         controllerAbilities.Setup();
@@ -657,13 +658,13 @@ public class ControllerMultiPlayer : Damageable
         blockAllDamage = true;
         foreach (var i in GetComponentsInChildren<Renderer>())
         {
-            i.material.color = Color.white;
+            i.material.color = Color.blue;
         } 
         yield return new WaitForSeconds(timeInvulnerable);
         blockAllDamage = false;
         foreach (var i in GetComponentsInChildren<Renderer>())
         {
-            i.material.color = colorPlayer;
+            i.material.color = Color.white;
         } 
     }
 

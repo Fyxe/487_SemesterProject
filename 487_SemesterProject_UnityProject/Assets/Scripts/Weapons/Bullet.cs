@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : Projectile
 {
     [Header("Settings")]
-    public int damage;
+    public int damage;   
 
     [Header("References")]
     public WeaponRanged weaponFiredFrom;
@@ -29,8 +29,8 @@ public class Bullet : Projectile
                 {
                     weaponFiredFrom.controllerCurrent.attachedPlayer.pointsCurrent += PointsManager.instance.pointsOnEnemyHit;
                 }
-            }
-            DestroyThisObject();
+            }            
         }
+        DestroyThisObject();
     }
 }

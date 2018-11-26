@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[SelectionBase]
 public class AI : Damageable
 {
     [Header("Enemy Settings")]
@@ -29,6 +30,7 @@ public class AI : Damageable
     
     public NavMeshAgent agent;
     ControllerMultiPlayer cachedPlayer;
+    Coroutine coroutineOnHurtDisplay;
 
     [HideInInspector] public Rigidbody rb;
 
@@ -38,11 +40,18 @@ public class AI : Damageable
     public AudioClip hurtSound;
     public AudioClip attackSound;
 
+    List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         timeElapsedInState = 0;
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (var i in renderers)
+        {
+            cachedRenderers.Add(new CachedRenderer(i));
+        }
     }
 
     void Update()
@@ -167,6 +176,24 @@ public class AI : Damageable
     {
         base.OnHurt();
         ProgressionManager.instance.scoreCurrentInLevel += pointsOnHit;
+        if (coroutineOnHurtDisplay != null)
+        {
+            StopCoroutine(coroutineOnHurtDisplay);
+        }
+        coroutineOnHurtDisplay = StartCoroutine(OnHurtDisplay());
+    }
+
+    IEnumerator OnHurtDisplay()
+    {
+        foreach (var i in cachedRenderers)
+        {
+            i.SetMaterial(LevelManager.instance.enemyHurtMaterial);
+        }
+        yield return new WaitForSeconds(LevelManager.instance.enemyHurtTime);
+        foreach (var i in cachedRenderers)
+        {
+            i.ResetMaterials();
+        }
     }
 
     public override void OnDeath()
@@ -176,6 +203,14 @@ public class AI : Damageable
         if (GameLevelManager.instance is GameLevelManager)
         {
             (GameLevelManager.instance as GameLevelManager).allAI[pool.objectPrefab as AI].Remove(this);
+        }
+        if (coroutineOnHurtDisplay != null)
+        {
+            StopCoroutine(coroutineOnHurtDisplay);
+        }
+        foreach (var i in cachedRenderers)
+        {
+            i.ResetMaterials();
         }
         DestroyThisObject();
     }

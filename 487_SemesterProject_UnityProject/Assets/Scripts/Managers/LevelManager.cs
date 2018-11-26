@@ -33,9 +33,11 @@ public class LevelManager : Singleton<LevelManager>
         {
             m_isPlaying = value;
         }
-    }    
+    }
 
     [Header("References")]
+    public Material enemyHurtMaterial;
+    public float enemyHurtTime = 0.1f;
     public DropSet baseDropSetEnemy;
     public DropSet baseDropSetBarrel;
     public List<ControllerMultiPlayer> allControllers = new List<ControllerMultiPlayer>();

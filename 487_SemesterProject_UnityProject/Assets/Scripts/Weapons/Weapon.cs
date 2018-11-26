@@ -185,7 +185,7 @@ public class Weapon : Interactable
         controllerCurrent = newControllerCurrent;
         isHeld = true;
         DisableHighlight();
-        this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Interactable"));
+        this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Uninteractable"), LayerMask.NameToLayer("Interactable"));
     }
 
     public virtual void OnUnequip() // called when enqueued in unequipped weapons
@@ -194,7 +194,7 @@ public class Weapon : Interactable
         controllerCurrent = null;
         isHeld = true;
         DisableHighlight();
-        this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Interactable"));
+        this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Interactable"), LayerMask.NameToLayer("Uninteractable"));
     }
 
     public virtual void OnDrop()    // called when thrown

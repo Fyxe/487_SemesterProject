@@ -111,9 +111,18 @@ public class GameLevelManager : LevelManager
                 generator.countToSpawnMin = GameplayManager.instance.piecesMinCurrent;
             }
             generator.GenerateLevel();
-            spawnPoints = generator.startPiece.spawnPositionsPlayer.ToList();
+            StartCoroutine(WaitAfterFocused());
+        }           
+    }
+
+    IEnumerator WaitAfterFocused()
+    {
+        while (generator.startPiece == null)
+        {
+            yield return null;
         }
-        base.OnFocused();        
+        spawnPoints = generator.startPiece.spawnPositionsPlayer.ToList();
+        base.OnFocused();
     }
 
     public override void SpawnPlayer(PlayerAttributes newAttributes)
@@ -222,7 +231,7 @@ public class GameLevelManager : LevelManager
                 allAI.Add(prefabToSpawn,new List<AI> { spawnedAI });
             }
             spawnedAI.hpMax += GameplayManager.instance.enemyHealthModifier;
-            spawnedAI.hpMax = spawnedAI.hpCurrent;
+            spawnedAI.hpCurrent = spawnedAI.hpMax;
             return true;
         }
         else

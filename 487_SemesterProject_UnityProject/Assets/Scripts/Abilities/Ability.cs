@@ -18,9 +18,6 @@ public class Ability : Interactable
     public float durationAttack = 1f;
     public float delayAttack = 1f;
     float nextAttack = 0f;
-    [Space]
-    public float delayAttackAlternate = 1f;
-    float nextAttackAlternate = 0f;
 
     public bool isInUse = false;
     bool isHeld = false;

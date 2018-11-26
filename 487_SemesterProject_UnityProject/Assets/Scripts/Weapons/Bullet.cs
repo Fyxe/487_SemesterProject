@@ -12,13 +12,13 @@ public class Bullet : Projectile
     // CACHE Player
 
     public override void OnHit(Collider hit)
-    {
+    {        
         base.OnHit(hit);
         Damageable damageableHit = hit.gameObject.GetComponentInParent<Damageable>();
         if (damageableHit != null)
         {
             bool killed = damageableHit.Hurt(damage);
-            Debug.Log("hit enemy: "+damageableHit.gameObject.name+" with health: "+damageableHit.hpCurrent);
+            //Debug.Log("hit enemy: "+damageableHit.gameObject.name+" with health: "+damageableHit.hpCurrent);
             if (damageableHit is AI && weaponFiredFrom.controllerCurrent.attachedPlayer != null)
             {
                 if (killed)
@@ -29,6 +29,7 @@ public class Bullet : Projectile
                 {
                     weaponFiredFrom.controllerCurrent.attachedPlayer.pointsCurrent += PointsManager.instance.pointsOnEnemyHit;
                 }
+                LevelManager.instance.SpawnOnEnemyHit(damageableHit.transform.position + Vector3.up);
             }            
         }
         DestroyThisObject();

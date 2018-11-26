@@ -18,6 +18,7 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     public float radiusInteract = 2f;
     public bool replaceCurrentWeaponOnPickup = true;
     public bool swapToNonBaseWeaponOnThrow = true;
+    public LayerMask layerMaskToShoot;
 
     [Header("References")]
     public Sprite spriteHealthFull;

@@ -66,6 +66,7 @@ public class WeaponMelee : Weapon
                     {
                         cachedDamageable.Hurt((int)((damageBase + damage) * damageMultipier));
                         enemiesHit.Add(cachedDamageable);
+                        LevelManager.instance.SpawnOnEnemyHit(cachedDamageable.transform.position + Vector3.up);
                     }
                 }
             }
@@ -101,6 +102,7 @@ public class WeaponMelee : Weapon
                     {
                         cachedDamageable.Hurt((int)((damageBase + damage) * damageMultipier));
                         enemiesHit.Add(cachedDamageable);
+                        LevelManager.instance.SpawnOnEnemyHit(cachedDamageable.transform.position + Vector3.up);
                     }
                 }
             }

@@ -46,6 +46,7 @@ public class LevelManager : Singleton<LevelManager>
     public ScreenPause screenPause;
 
     public AudioClip backgroundMusic;
+    public ParticleSystem enemyHitSystem;
     //[Header("Prefabs")]
 
     void Start()
@@ -343,6 +344,12 @@ public class LevelManager : Singleton<LevelManager>
         //GameManager.instance.Resume();
         isPaused = false;
         ScreenManager.instance.ScreenRemove(screenPause, false);
+    }
+
+    public void SpawnOnEnemyHit(Vector3 position)
+    {
+        enemyHitSystem.transform.position = position;
+        enemyHitSystem.Emit(Random.Range(6,12));
     }
 }
 

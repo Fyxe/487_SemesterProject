@@ -466,8 +466,7 @@ public class ControllerMultiPlayer : Damageable
                 else
                 {
                     closest.InteractWithPlayer(this);
-                }
-                Debug.Log(closest.name);
+                }                
             }
             else
             {
@@ -635,7 +634,7 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextDisplayInformation)
         {
             nextDisplayInformation = Time.time + delayDisplayInformation;
-            Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " displayed more HUD information.");
+            //Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " displayed more HUD information.");
 
             if (ui != null)
             {

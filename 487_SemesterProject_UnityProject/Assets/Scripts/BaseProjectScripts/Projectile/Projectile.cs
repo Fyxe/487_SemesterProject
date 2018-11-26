@@ -75,17 +75,17 @@ public class Projectile : PooledObject
         if (Physics.Raycast(r, out h, speedMove * Time.deltaTime, layerMask.value))
         {
             if (!h.collider.isTrigger)
-            {
+            {                
                 OnHit(h.collider);
                 return true;
             }   
             else
-            {
+            {                
                 return false;
             }
         }
         else
-        {
+        {            
             return false;
         }
     }
@@ -102,7 +102,7 @@ public class Projectile : PooledObject
 
     public virtual void OnHit(Collider hit)
     {
-
+        
     }
 
     public override void OnDestroyedByPool()

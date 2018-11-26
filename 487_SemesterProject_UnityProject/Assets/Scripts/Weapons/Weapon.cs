@@ -97,7 +97,7 @@ public class Weapon : Interactable
     {
         if (!isReloading && Time.time > nextAttack)
         {
-            nextAttack = Time.time + delayAttack;
+            nextAttackAlternate = Time.time + delayAttack;
             AttackAlternate();
 
             if (clipMax != -1)

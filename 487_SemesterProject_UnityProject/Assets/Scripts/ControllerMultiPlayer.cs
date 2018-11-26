@@ -221,6 +221,7 @@ public class ControllerMultiPlayer : Damageable
     Coroutine coroutineInvulnerable;
     Coroutine coroutineIncapacitate;
     Coroutine coroutineDamageMultipliyer;
+    Coroutine coroutineOnHurtDisplay;
     public List<Projector> projectors = new List<Projector>();
     bool triggerInUseRight = false;
     bool triggerInUseLeft = false;
@@ -248,6 +249,8 @@ public class ControllerMultiPlayer : Damageable
     public AudioClip hurtSound;
     public AudioClip idleOneSound;
     public AudioClip idleTwoSound;
+
+    List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
     
     void Awake()
     {
@@ -255,6 +258,11 @@ public class ControllerMultiPlayer : Damageable
         controllerWeapons = GetComponent<WeaponController>();
         controllerAbilities = GetComponent<AbilityController>();
         anim = GetComponentInChildren<Animator>();
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (var i in renderers)
+        {
+            cachedRenderers.Add(new CachedRenderer(i));
+        }
     }
 
     void Update()
@@ -657,7 +665,7 @@ public class ControllerMultiPlayer : Damageable
         blockAllDamage = true;
         foreach (var i in GetComponentsInChildren<Renderer>())
         {
-            i.material.color = Color.blue;
+            i.material.color = Color.black;
         } 
         yield return new WaitForSeconds(timeInvulnerable);
         blockAllDamage = false;
@@ -735,6 +743,30 @@ public class ControllerMultiPlayer : Damageable
             return true;
         }
         return false;
+    }
+
+    public override void OnHurt()
+    {
+        base.OnHurt();        
+        if (coroutineOnHurtDisplay != null)
+        {
+            StopCoroutine(coroutineOnHurtDisplay);
+        }
+        coroutineOnHurtDisplay = StartCoroutine(OnHurtDisplay());
+        LevelManager.instance.SpawnOnEnemyHit(transform.position + Vector3.up);
+    }
+
+    IEnumerator OnHurtDisplay()
+    {
+        foreach (var i in cachedRenderers)
+        {
+            i.SetMaterial(LevelManager.instance.enemyHurtMaterial);
+        }
+        yield return new WaitForSeconds(LevelManager.instance.enemyHurtTime);
+        foreach (var i in cachedRenderers)
+        {
+            i.ResetMaterials();
+        }
     }
 
     IEnumerator Incapacitate()

@@ -737,7 +737,7 @@ MonoBehaviour:
   piecesMaxStart: 5
   piecesMinStart: 5
   enemySpeedMultiplier: 1
-  enemyHealthModifier: 1
+  enemyHealthModifier: 0
   enemySpawnRateMultiplier: 1
   enemySpeedMultiplierChange: 1
   enemyHealthModifierChange: 1
@@ -955,19 +955,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee83ac1505743b4479ca6d395b7dee1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointsOnLevelEnd: 1000
+  pointsOnLevelEnd: 200
   pointsOnReviveHit: 10
   pointsOnReviveFull: 100
   pointsOnEnemyHit: 1
-  pointsOnEnemyKill: 50
-  pointsPerLevelSpeedMove: 200
-  pointsPerLevelBaseDamage: 200
-  pointsPerLevelMaxHP: 200
+  pointsOnEnemyKill: 5
+  pointsPerLevelSpeedMove: 100
+  pointsPerLevelBaseDamage: 100
+  pointsPerLevelMaxHP: 100
   pointsPerLevelRevive: 100
   pointsToThrow: 100
-  pointsPerWeaponLevel: 200
-  pointsPerAbilityLevel: 200
-  pointsPerInGameLevelHealth: 100
+  pointsPerWeaponLevel: 100
+  pointsPerAbilityLevel: 100
+  pointsPerInGameLevelHealth: 50
 --- !u!114 &114933500951180624
 MonoBehaviour:
   m_ObjectHideFlags: 1

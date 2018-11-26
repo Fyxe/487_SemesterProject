@@ -230,7 +230,7 @@ public class GameLevelManager : LevelManager
             {
                 allAI.Add(prefabToSpawn,new List<AI> { spawnedAI });
             }
-            spawnedAI.hpMax += GameplayManager.instance.enemyHealthModifier;
+            spawnedAI.hpMax = GameplayManager.instance.enemyHealthModifier;
             spawnedAI.hpCurrent = spawnedAI.hpMax;
             return true;
         }

@@ -280,13 +280,14 @@ MonoBehaviour:
     deactivatedObjects: []
   blockAllDamage: 0
   blockAllHealing: 0
-  m_hpMax: 5
-  m_hpCurrent: 5
+  m_hpMax: 0
+  m_hpCurrent: 0
   isDead: 0
   team: 0
   aiID: -1
   aiName: 
   aiDescription: 
+  attackRadius: 1
   aiSprite: {fileID: 0}
   damage: 1
   speedMove: 2

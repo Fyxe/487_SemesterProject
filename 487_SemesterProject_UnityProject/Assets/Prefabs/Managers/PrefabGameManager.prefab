@@ -195,6 +195,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1805565921900860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4217275986218450}
+  - component: {fileID: 114379444865071250}
+  m_Layer: 31
+  m_Name: PostProcessingVolume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1890859541092504
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +238,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 2
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4217275986218450
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1805565921900860}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4956794724856630}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4226812323881358
 Transform:
@@ -235,7 +264,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4401251702767532
 Transform:
@@ -248,7 +277,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4533826219531096
 Transform:
@@ -261,7 +290,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4787993714140220
 Transform:
@@ -275,7 +304,7 @@ Transform:
   m_Children:
   - {fileID: 224298363897457496}
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4826897545760034
 Transform:
@@ -288,7 +317,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4849089217056972
 Transform:
@@ -301,7 +330,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4915307435002236
 Transform:
@@ -314,7 +343,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4956794724856630
 Transform:
@@ -326,6 +355,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4217275986218450}
   - {fileID: 4826897545760034}
   - {fileID: 4787993714140220}
   - {fileID: 4151076040385830}
@@ -349,7 +379,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &82136644225441508
 AudioSource:
@@ -632,6 +662,22 @@ MonoBehaviour:
   allUnlockedLevelPiecesGeneral: []
   scoreCurrent: 0
   scoreCurrentInLevel: 0
+--- !u!114 &114379444865071250
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1805565921900860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 11747f0c886ac5f46b84dfef12b119fa, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!114 &114528145429868988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -690,6 +736,12 @@ MonoBehaviour:
   piecesMinIncrease: 2
   piecesMaxStart: 5
   piecesMinStart: 5
+  enemySpeedMultiplier: 1
+  enemyHealthModifier: 0
+  enemySpawnRateMultiplier: 1
+  enemySpeedMultiplierChange: 1
+  enemyHealthModifierChange: 1
+  enemySpawnRateMultiplierChange: 1
   currentLevel: 0
   currentLevelReal: 0
   piecesMaxCurrent: 0
@@ -767,6 +819,9 @@ MonoBehaviour:
   radiusInteract: 2
   replaceCurrentWeaponOnPickup: 1
   swapToNonBaseWeaponOnThrow: 1
+  layerMaskToShoot:
+    serializedVersion: 2
+    m_Bits: 513
   spriteHealthFull: {fileID: 21300000, guid: 26f91e46dc80c5f48bc4b9eb00bf9c89, type: 3}
   spriteHealthEmpty: {fileID: 21300000, guid: 3785da64ba8fd6242b2455269ea12f06, type: 3}
   materialZero: {fileID: 13400000, guid: ee3dc06e382d45b4cb00ae1852073ed3, type: 2}
@@ -782,7 +837,7 @@ MonoBehaviour:
     isDead: 0
     isPriority: 0
     isInvisible: 0
-    colorPlayer: {r: 0, g: 0.38793108, b: 0.66176474, a: 1}
+    colorPlayer: {r: 0, g: 0.66176474, b: 0.004563858, a: 1}
     indexJoystick: 0
     indexPlayer: 0
     pointsCurrent: 0
@@ -839,7 +894,7 @@ MonoBehaviour:
     isDead: 0
     isPriority: 0
     isInvisible: 0
-    colorPlayer: {r: 0, g: 0.66176474, b: 0.004563858, a: 1}
+    colorPlayer: {r: 0, g: 0.4574384, b: 0.8113208, a: 1}
     indexJoystick: 0
     indexPlayer: 0
     pointsCurrent: 0
@@ -916,19 +971,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee83ac1505743b4479ca6d395b7dee1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointsOnLevelEnd: 1000
+  pointsOnLevelEnd: 200
   pointsOnReviveHit: 10
   pointsOnReviveFull: 100
   pointsOnEnemyHit: 1
-  pointsOnEnemyKill: 50
-  pointsPerLevelSpeedMove: 200
-  pointsPerLevelBaseDamage: 200
-  pointsPerLevelMaxHP: 200
+  pointsOnEnemyKill: 5
+  pointsPerLevelSpeedMove: 100
+  pointsPerLevelBaseDamage: 100
+  pointsPerLevelMaxHP: 100
   pointsPerLevelRevive: 100
   pointsToThrow: 100
-  pointsPerWeaponLevel: 200
-  pointsPerAbilityLevel: 200
-  pointsPerInGameLevelHealth: 100
+  pointsPerWeaponLevel: 100
+  pointsPerAbilityLevel: 100
+  pointsPerInGameLevelHealth: 50
 --- !u!114 &114933500951180624
 MonoBehaviour:
   m_ObjectHideFlags: 1

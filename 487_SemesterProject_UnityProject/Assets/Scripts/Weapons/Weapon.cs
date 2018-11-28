@@ -8,29 +8,7 @@ using UnityEngine.UI;
 public class Weapon : Interactable
 {
     // TODO create a weapon controller that has reference to the player object, then move all scripts from the controllermultiplayer over
-
-    public class CachedRenderer
-    {
-        public Renderer renderer;
-        List<Material> materials = new List<Material>();
-
-        public CachedRenderer(Renderer newRenderer)
-        {
-            renderer = newRenderer;
-            materials = renderer.materials.ToList();
-        }
-
-        public void SetMaterial(Material material)
-        {
-            renderer.materials = new Material[1] { material };
-        }
-
-        public void ResetMaterials()
-        {
-            renderer.materials = materials.ToArray();
-        }
-    }
-
+    
 
     [Header("Weapon Settings")]
     public int weaponID = -1;
@@ -119,7 +97,7 @@ public class Weapon : Interactable
     {
         if (!isReloading && Time.time > nextAttack)
         {
-            nextAttack = Time.time + delayAttack;
+            nextAttackAlternate = Time.time + delayAttack;
             AttackAlternate();
 
             if (clipMax != -1)

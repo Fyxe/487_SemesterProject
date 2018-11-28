@@ -5,20 +5,20 @@ using UnityEngine;
 public class Bullet : Projectile
 {
     [Header("Settings")]
-    public int damage;
+    public int damage;   
 
     [Header("References")]
     public WeaponRanged weaponFiredFrom;
     // CACHE Player
 
     public override void OnHit(Collider hit)
-    {
+    {        
         base.OnHit(hit);
         Damageable damageableHit = hit.gameObject.GetComponentInParent<Damageable>();
         if (damageableHit != null)
         {
             bool killed = damageableHit.Hurt(damage);
-            Debug.Log("hit enemy: "+damageableHit.gameObject.name+" with health: "+damageableHit.hpCurrent);
+            //Debug.Log("hit enemy: "+damageableHit.gameObject.name+" with health: "+damageableHit.hpCurrent);
             if (damageableHit is AI && weaponFiredFrom.controllerCurrent.attachedPlayer != null)
             {
                 if (killed)
@@ -30,8 +30,9 @@ public class Bullet : Projectile
                 {
                     weaponFiredFrom.controllerCurrent.attachedPlayer.pointsCurrent += PointsManager.instance.pointsOnEnemyHit;
                 }
-            }
-            DestroyThisObject();
+                LevelManager.instance.SpawnOnEnemyHit(damageableHit.transform.position + Vector3.up);
+            }            
         }
+        DestroyThisObject();
     }
 }

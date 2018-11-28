@@ -18,6 +18,7 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     public float radiusInteract = 2f;
     public bool replaceCurrentWeaponOnPickup = true;
     public bool swapToNonBaseWeaponOnThrow = true;
+    public LayerMask layerMaskToShoot;
 
     [Header("References")]
     public Sprite spriteHealthFull;
@@ -33,7 +34,7 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     public List<PlayerAttributes> allPlayerAttributes = new List<PlayerAttributes>();
 
 
-    public int playersInGame
+    public int playersAliveInGame
     {
         get 
         {
@@ -41,6 +42,21 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
             foreach(var i in allPlayerAttributes)
             {
                 if (i.isSpawned && !i.isDead)
+                {
+                    retInt++;
+                }
+            }
+            return retInt;
+        }
+    }
+    public int playersInGame
+    {
+        get
+        {
+            int retInt = 0;
+            foreach (var i in allPlayerAttributes)
+            {
+                if (i.isSpawned)
                 {
                     retInt++;
                 }

@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_hpMax: 0
   m_hpCurrent: 0
   isDead: 0
-  team: 0
+  team: 1
   invertAxis1Z: 0
   delaySwapWeapon: 0.1
   delayUseAbility: 0.1

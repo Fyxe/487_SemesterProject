@@ -227,11 +227,9 @@ public class AI : Damageable
     }
 
     private void OnTriggerEnter(Collider col)
-    {
-        Debug.Log(GetComponentInParent<Weapon>());
+    {        
         if (col.gameObject.layer == 8 && !col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null && !playersInRange.Contains(cachedPlayer))
-        {
-            Debug.Log("Collider: "+col.name);
+        {            
             playersInRange.Add(cachedPlayer);
         }
     }

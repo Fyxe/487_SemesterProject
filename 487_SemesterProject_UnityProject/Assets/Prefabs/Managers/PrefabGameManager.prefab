@@ -645,14 +645,14 @@ MonoBehaviour:
   - {fileID: 114924703100487726, guid: 0bece21a170dd7a4bbaf07c3de157468, type: 2}
   - {fileID: 114429671755288488, guid: 7677c7e9f0661a34589c35b768e7ed5a, type: 2}
   - {fileID: 114583831844532430, guid: bc0d99a2b82aa3f499fb2024929f2e5d, type: 2}
-  - {fileID: 114022490769371160, guid: f59eb62c7ca776d4cb1e899747875936, type: 2}
+  - {fileID: 114038615867824374, guid: f59eb62c7ca776d4cb1e899747875936, type: 2}
   - {fileID: 114292931949442972, guid: 86cec54f6528fed4790dbdd7e8fb2aba, type: 2}
   allUnlockedWeapons:
   - {fileID: 114697854136788232, guid: cd0a65b2fc8c84d469a1396b7b24f332, type: 2}
   - {fileID: 114924703100487726, guid: 0bece21a170dd7a4bbaf07c3de157468, type: 2}
   - {fileID: 114429671755288488, guid: 7677c7e9f0661a34589c35b768e7ed5a, type: 2}
   - {fileID: 114583831844532430, guid: bc0d99a2b82aa3f499fb2024929f2e5d, type: 2}
-  - {fileID: 114022490769371160, guid: f59eb62c7ca776d4cb1e899747875936, type: 2}
+  - {fileID: 114038615867824374, guid: f59eb62c7ca776d4cb1e899747875936, type: 2}
   - {fileID: 114292931949442972, guid: 86cec54f6528fed4790dbdd7e8fb2aba, type: 2}
   allAbilities: []
   allUnlockedAbilities: []
@@ -947,8 +947,7 @@ MonoBehaviour:
   - objectPrefab: {fileID: 114888474019746722, guid: eb215a6167f3fa74c9e310206fea2cb6,
       type: 2}
     deactivatedObjects: []
-  - objectPrefab: {fileID: 114022490769371160, guid: f59eb62c7ca776d4cb1e899747875936,
-      type: 2}
+  - objectPrefab: {fileID: 0}
     deactivatedObjects: []
   - objectPrefab: {fileID: 114583831844532430, guid: bc0d99a2b82aa3f499fb2024929f2e5d,
       type: 2}

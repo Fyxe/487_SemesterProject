@@ -11,6 +11,8 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     public int possableMaxPlayers = 4;
     public float timeIncapacitated = 10f;
     public float timeInvulnerable = 1f;
+    public LayerMask enemyToHitLayerMask;
+
     [Tooltip("This does not include the current weapon")]
     public int weaponCount = 1;
     public float forceThrow = 500f;

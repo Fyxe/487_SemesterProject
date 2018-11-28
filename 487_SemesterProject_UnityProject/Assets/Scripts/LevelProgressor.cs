@@ -26,7 +26,7 @@ public class LevelProgressor : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
 	{
-		if (fired || col.isTrigger || ((cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) == null) || playersEntered.Contains(cachedPlayer))
+		if (fired || col.isTrigger || ((cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) == null) || playersEntered.Contains(cachedPlayer) || col.gameObject.layer != LayerMask.NameToLayer("Player"))
 		{            
             return;
 		}

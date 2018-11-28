@@ -6455,10 +6455,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 1662780412580614, guid: f59eb62c7ca776d4cb1e899747875936, type: 2}
-      propertyPath: m_Name
-      value: 4_WeaponMeleeFork
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f59eb62c7ca776d4cb1e899747875936, type: 2}
   m_IsPrefabAsset: 0
@@ -7056,6 +7052,11 @@ Prefab:
     - target: {fileID: 4956794724856630, guid: f182f15860f843c41a9e253041a59f4c, type: 2}
       propertyPath: m_RootOrder
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 114703930483877616, guid: f182f15860f843c41a9e253041a59f4c,
+        type: 2}
+      propertyPath: enemyToHitLayerMask.m_Bits
+      value: 256
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f182f15860f843c41a9e253041a59f4c, type: 2}

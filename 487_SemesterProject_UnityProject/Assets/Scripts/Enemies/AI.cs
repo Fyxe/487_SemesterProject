@@ -164,7 +164,7 @@ public class AI : Damageable
 
     protected virtual void Attack()
     {        
-        Collider[] cols = Physics.OverlapSphere(transform.position,attackRadius);
+        Collider[] cols = Physics.OverlapSphere(transform.position, attackRadius, PlayerManager.instance.enemyToHitLayerMask);
         List<Damageable> toHurt = new List<Damageable>();
         foreach (var i in cols)
         {

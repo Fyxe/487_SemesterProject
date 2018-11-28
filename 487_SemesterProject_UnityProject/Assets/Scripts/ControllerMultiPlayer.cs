@@ -665,7 +665,7 @@ public class ControllerMultiPlayer : Damageable
         blockAllDamage = true;
         foreach (var i in GetComponentsInChildren<Renderer>())
         {
-            i.material.color = Color.black;
+            i.material.color = colorPlayer;
         } 
         yield return new WaitForSeconds(timeInvulnerable);
         blockAllDamage = false;

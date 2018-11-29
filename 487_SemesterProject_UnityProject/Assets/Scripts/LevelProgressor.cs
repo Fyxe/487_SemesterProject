@@ -26,14 +26,14 @@ public class LevelProgressor : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
 	{
-		if (fired || col.isTrigger || ((cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) == null) || playersEntered.Contains(cachedPlayer))
+		if (fired || col.isTrigger || ((cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) == null) || playersEntered.Contains(cachedPlayer) || col.gameObject.layer != LayerMask.NameToLayer("Player"))
 		{            
             return;
 		}
 		else
 		{
 			playersEntered.Add(cachedPlayer);
-			if (playersEntered.Count == PlayerManager.instance.playersInGame)
+			if (playersEntered.Count == PlayerManager.instance.playersAliveInGame)
 			{
                 if (toDisable != null)
                 {

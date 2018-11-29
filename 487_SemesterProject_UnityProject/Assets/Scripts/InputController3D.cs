@@ -110,7 +110,7 @@ public class InputController3D : MonoBehaviour
                 directionMove *= speedMove;
             }
 
-            directionMove.y -= forceGravity * Time.deltaTime;
+            directionMove.y -= forceGravity;
 
             controllerCurrent.Move(directionMove * Time.deltaTime);
         }
@@ -121,8 +121,8 @@ public class InputController3D : MonoBehaviour
             {
                 directionMove.Normalize();
             }
-            directionMove *= speedMove * Time.deltaTime;
-            directionMove = transform.position + directionMove;            
+            directionMove *= speedMove;
+            directionMove = transform.position + directionMove * Time.deltaTime;
             
             rb.MovePosition(directionMove);
             //transform.Translate(new Vector3(axis0X, 0, axis0Z) * speedMove * Time.deltaTime, Space.World);    // Doesn't have collisions

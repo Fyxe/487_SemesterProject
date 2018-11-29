@@ -8,29 +8,7 @@ using UnityEngine.UI;
 public class Weapon : Interactable
 {
     // TODO create a weapon controller that has reference to the player object, then move all scripts from the controllermultiplayer over
-
-    public class CachedRenderer
-    {
-        public Renderer renderer;
-        List<Material> materials = new List<Material>();
-
-        public CachedRenderer(Renderer newRenderer)
-        {
-            renderer = newRenderer;
-            materials = renderer.materials.ToList();
-        }
-
-        public void SetMaterial(Material material)
-        {
-            renderer.materials = new Material[1] { material };
-        }
-
-        public void ResetMaterials()
-        {
-            renderer.materials = materials.ToArray();
-        }
-    }
-
+    
 
     [Header("Weapon Settings")]
     public int weaponID = -1;
@@ -119,7 +97,7 @@ public class Weapon : Interactable
     {
         if (!isReloading && Time.time > nextAttack)
         {
-            nextAttack = Time.time + delayAttack;
+            nextAttackAlternate = Time.time + delayAttack;
             AttackAlternate();
 
             if (clipMax != -1)
@@ -185,7 +163,7 @@ public class Weapon : Interactable
         controllerCurrent = newControllerCurrent;
         isHeld = true;
         DisableHighlight();
-        this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Interactable"));
+        this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Uninteractable"), LayerMask.NameToLayer("Interactable"));
     }
 
     public virtual void OnUnequip() // called when enqueued in unequipped weapons
@@ -194,7 +172,7 @@ public class Weapon : Interactable
         controllerCurrent = null;
         isHeld = true;
         DisableHighlight();
-        this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Interactable"));
+        this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Interactable"), LayerMask.NameToLayer("Uninteractable"));
     }
 
     public virtual void OnDrop()    // called when thrown
@@ -206,6 +184,16 @@ public class Weapon : Interactable
         EnableHighlight();
         EnableInformation();
         this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Interactable"), LayerMask.NameToLayer("Player"));
+    }
+
+    public virtual void OnKill(Damageable damageable)
+    {
+        Debug.Log("Killed dameagable: " + damageable.name);
+    }
+
+    public virtual void OnAttack()
+    {
+        // Gets called whenever you attack, even if that attack results in a kill
     }
 
     public virtual void SetToDisplay()

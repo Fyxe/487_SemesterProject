@@ -50,18 +50,20 @@ public class Projectile : PooledObject
             }
             else if (pierce)
             {
-                
-            }            
+                yield return null;
+            }
             else if (bounce)
             {
                 // TODO but in bounce mechanics here
+                yield return null;           
             }
             else
             {
                 DestroyThisObject();
-                yield break;
+                break;
             }
-        }        
+        }
+        yield break;
     }
 
     bool CheckForHit()
@@ -72,11 +74,18 @@ public class Projectile : PooledObject
         // int mask = 1 << layerMask.value; Use?
         if (Physics.Raycast(r, out h, speedMove * Time.deltaTime, layerMask.value))
         {
-            OnHit(h.collider);            
-            return true;
+            if (!h.collider.isTrigger)
+            {                
+                OnHit(h.collider);
+                return true;
+            }   
+            else
+            {                
+                return false;
+            }
         }
         else
-        {
+        {            
             return false;
         }
     }
@@ -93,7 +102,7 @@ public class Projectile : PooledObject
 
     public virtual void OnHit(Collider hit)
     {
-
+        
     }
 
     public override void OnDestroyedByPool()

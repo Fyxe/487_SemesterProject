@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,9 +18,6 @@ public class Ability : Interactable
     public float durationAttack = 1f;
     public float delayAttack = 1f;
     float nextAttack = 0f;
-    [Space]
-    public float delayAttackAlternate = 1f;
-    float nextAttackAlternate = 0f;
 
     public bool isInUse = false;
     bool isHeld = false;
@@ -42,7 +40,7 @@ public class Ability : Interactable
 
     public Rigidbody currentPlayerRB;
 
-    List<Weapon.CachedRenderer> cachedRenderers = new List<Weapon.CachedRenderer>();
+    List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
 
     [HideInInspector]
     public Rigidbody rb;
@@ -54,6 +52,7 @@ public class Ability : Interactable
     public AudioClip sound;
 
     Coroutine coroutineActivated;
+    List<Renderer> rends = new List<Renderer>();
 
     void Awake()
     {
@@ -61,11 +60,12 @@ public class Ability : Interactable
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
         foreach (var i in renderers)
         {
-            cachedRenderers.Add(new Weapon.CachedRenderer(i));
+            cachedRenderers.Add(new CachedRenderer(i));
         }
         checkerHighlight.Setup(DisableHighlight, EnableHighlight, WeaponManager.instance.rangeHighlight);
         checkerInformation.Setup(DisableInformation, EnableInformation, WeaponManager.instance.rangeInformation);        
         Initialize();
+        rends = GetComponentsInChildren<Renderer>().ToList();
     }
 
     protected virtual void Initialize()
@@ -160,6 +160,7 @@ public class Ability : Interactable
         isHeld = true;
         DisableHighlight();
         ActivateModel();
+        SetRenderers(false);
     }
 
     public virtual void OnUnequip() // called when enqueued in unequipped weapons
@@ -168,13 +169,15 @@ public class Ability : Interactable
         controllerCurrent = null;
         isHeld = true;
         DisableHighlight();
+        SetRenderers(false);
     }
 
     public virtual void OnDrop()    // called when thrown
     {
         rb.isKinematic = false;
         isHeld = false;
-        DeactivateModel();
+        ActivateModel();
+        SetRenderers(true);
     }
 
     public virtual void ActivateModel()
@@ -191,11 +194,13 @@ public class Ability : Interactable
     {
         AudioManager.instance.PlayClipLocalSpace(sound);
         isInUse = true;
+        SetRenderers(true);
     }
 
     public virtual void OnAbilityEnd()
     {
         isInUse = false;
+        SetRenderers(false);
     }
 
     IEnumerator Activated()    // TODO work on paused
@@ -212,5 +217,13 @@ public class Ability : Interactable
             StopCoroutine(coroutineActivated);
         }
         OnAbilityEnd();
+    }
+
+    public void SetRenderers(bool isEnabled)
+    {
+        foreach (var i in rends)
+        {
+            i.enabled = isEnabled;
+        }
     }
 }

@@ -22,6 +22,7 @@ TagManager:
   - NavigationIgnore
   - NavigationCamera
   - NavigationPlayer
+  - Uninteractable
   - 
   - 
   - 
@@ -36,8 +37,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - PostProcessing
   m_SortingLayers:
   - name: Default
     uniqueID: 0

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase]
 [RequireComponent(typeof(InputController3D))]
 public class ControllerMultiPlayer : Damageable
 {
@@ -220,6 +221,7 @@ public class ControllerMultiPlayer : Damageable
     Coroutine coroutineInvulnerable;
     Coroutine coroutineIncapacitate;
     Coroutine coroutineDamageMultipliyer;
+    Coroutine coroutineOnHurtDisplay;
     public List<Projector> projectors = new List<Projector>();
     bool triggerInUseRight = false;
     bool triggerInUseLeft = false;
@@ -251,12 +253,19 @@ public class ControllerMultiPlayer : Damageable
     [Header("Animation Variable(s)")]
     public bool isRunning = false;
 
+    List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
+
     void Awake()
     {
         controllerInput = GetComponent<InputController3D>();      
         controllerWeapons = GetComponent<WeaponController>();
         controllerAbilities = GetComponent<AbilityController>();
         anim = GetComponentInChildren<Animator>();
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (var i in renderers)
+        {
+            cachedRenderers.Add(new CachedRenderer(i));
+        }
     }
 
     void Update()
@@ -400,7 +409,7 @@ public class ControllerMultiPlayer : Damageable
             newMaterial.color = newAttributes.colorPlayer;
             i.material = newMaterial;
         }        
-
+        
         ui.Set(PlayerUIBox.BoxSetting.alive);
         ui.SetHealth(hpCurrent,hpMax,newAttributes.colorPlayer);
 
@@ -416,6 +425,10 @@ public class ControllerMultiPlayer : Damageable
         {
             i.material.color = colorPlayer;
         }
+        //foreach (var i in GetComponentsInChildren<Renderer>())
+        //{
+        //    i.material.color = colorPlayer;
+        //}
 
         controllerWeapons.Setup();
         controllerAbilities.Setup();
@@ -474,8 +487,7 @@ public class ControllerMultiPlayer : Damageable
                 else
                 {
                     closest.InteractWithPlayer(this);
-                }
-                Debug.Log(closest.name);
+                }                
             }
             else
             {
@@ -643,7 +655,7 @@ public class ControllerMultiPlayer : Damageable
         if (Time.time > nextDisplayInformation)
         {
             nextDisplayInformation = Time.time + delayDisplayInformation;
-            Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " displayed more HUD information.");
+            //Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " displayed more HUD information.");
 
             if (ui != null)
             {
@@ -666,13 +678,13 @@ public class ControllerMultiPlayer : Damageable
         blockAllDamage = true;
         foreach (var i in GetComponentsInChildren<Renderer>())
         {
-            i.material.color = Color.white;
+            i.material.color = colorPlayer;
         } 
         yield return new WaitForSeconds(timeInvulnerable);
         blockAllDamage = false;
         foreach (var i in GetComponentsInChildren<Renderer>())
         {
-            i.material.color = colorPlayer;
+            i.material.color = Color.white;
         } 
     }
 
@@ -710,6 +722,7 @@ public class ControllerMultiPlayer : Damageable
         countReviveCurrent *= 2;
         ui.Set(PlayerUIBox.BoxSetting.dead);
         LevelManager.instance.CheckIfAllPlayersAreDead();
+        NavMeshCameraController.instance.toFollow.Remove(this.transform);
     }
 
     void OnIncapacitate()        
@@ -729,9 +742,11 @@ public class ControllerMultiPlayer : Damageable
         AudioManager.instance.PlayClipLocalSpace(hurtSound);
         OnHurt();
 
+        int hpPrevious = hpCurrent;
+
         hpCurrent = Mathf.Clamp(hpCurrent - amount, 0, hpMax);
 
-        if (hpCurrent == 0)
+        if (hpCurrent == 0 && hpPrevious != 0)
         {
             if (coroutineIncapacitate != null)
             {
@@ -741,6 +756,30 @@ public class ControllerMultiPlayer : Damageable
             return true;
         }
         return false;
+    }
+
+    public override void OnHurt()
+    {
+        base.OnHurt();        
+        if (coroutineOnHurtDisplay != null)
+        {
+            StopCoroutine(coroutineOnHurtDisplay);
+        }
+        coroutineOnHurtDisplay = StartCoroutine(OnHurtDisplay());
+        LevelManager.instance.SpawnOnEnemyHit(transform.position + Vector3.up);
+    }
+
+    IEnumerator OnHurtDisplay()
+    {
+        foreach (var i in cachedRenderers)
+        {
+            i.SetMaterial(LevelManager.instance.enemyHurtMaterial);
+        }
+        yield return new WaitForSeconds(LevelManager.instance.enemyHurtTime);
+        foreach (var i in cachedRenderers)
+        {
+            i.ResetMaterials();
+        }
     }
 
     IEnumerator Incapacitate()

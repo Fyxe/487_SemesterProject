@@ -31,17 +31,18 @@ public class AudioManager : Singleton<AudioManager> {
     /// <param name="maxPitch">The maximum pitch of the clip.</param>
     /// <param name="minPan">The minimum left to right pan of the clip.</param>
     /// <param name="maxPan">The maximum left to right pan of the clip.</param>
-    public void PlayClipLocalSpace(AudioClip toPlay, float minVolume = 1f, float maxVolume = 1f, float minPitch = 1f, float maxPitch = 1f, float minPan = 0f, float maxPan = 0f)
+    public bool PlayClipLocalSpace(AudioClip toPlay, float minVolume = 1f, float maxVolume = 1f, float minPitch = 1f, float maxPitch = 1f, float minPan = 0f, float maxPan = 0f)
     {
         if (toPlay == null)
         {
             Debug.LogError("AudioManager cannot play a null clip in local space.");
-            return;
+            return false;
         }
         PooledObject obj = ObjectPoolingManager.instance.CreateObject(audioClipPlayer, Camera.main.transform, -1);
         obj.transform.Reset();
         AudioClipPlayer clipPlayer = obj.GetComponent<AudioClipPlayer>();        
         clipPlayer.PlaySoundRandom(toPlay,minVolume,maxVolume,minPitch,maxPitch,minPan,maxPan);
+        return true;
     }
 
     /// <summary>
@@ -55,17 +56,18 @@ public class AudioManager : Singleton<AudioManager> {
     /// <param name="maxPitch">The maximum pitch of the clip.</param>
     /// <param name="minPan">The minimum left to right pan of the clip.</param>
     /// <param name="maxPan">The maximum left to right pan of the clip.</param>
-    public void PlayClipWorldSpace(AudioClip toPlay, Vector3 position, float minVolume = 1f, float maxVolume = 1f, float minPitch = 1f, float maxPitch = 1f, float minPan = 0f, float maxPan = 0f)
+    public bool PlayClipWorldSpace(AudioClip toPlay, Vector3 position, float minVolume = 1f, float maxVolume = 1f, float minPitch = 1f, float maxPitch = 1f, float minPan = 0f, float maxPan = 0f)
     {
         if (toPlay == null)
         {
             Debug.LogError("AudioManager cannot play a null clip in the world space position " + position.ToString());
-            return;
+            return false;
         }
         PooledObject obj = ObjectPoolingManager.instance.CreateObject(audioClipPlayer);
         obj.transform.position = position;
         AudioClipPlayer clipPlayer = obj.GetComponent<AudioClipPlayer>();
         clipPlayer.PlaySoundRandom(toPlay, minVolume, maxVolume, minPitch, maxPitch, minPan, maxPan);
+        return true;
     }
 
     /// <summary>

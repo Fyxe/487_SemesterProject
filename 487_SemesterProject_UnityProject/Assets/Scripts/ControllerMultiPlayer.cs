@@ -247,7 +247,10 @@ public class ControllerMultiPlayer : Damageable
     public AudioClip hurtSound;
     public AudioClip idleOneSound;
     public AudioClip idleTwoSound;
-    
+
+    [Header("Animation Variable(s)")]
+    public bool isRunning = false;
+
     void Awake()
     {
         controllerInput = GetComponent<InputController3D>();      
@@ -402,6 +405,12 @@ public class ControllerMultiPlayer : Damageable
         ui.SetHealth(hpCurrent,hpMax,newAttributes.colorPlayer);
 
         speedMoveCurrent = speedMoveCurrent;
+
+        if (speedMoveCurrent > 0) {
+            isRunning = true;
+        } else {
+            isRunning = false;
+        }
 
         foreach (var i in GetComponentsInChildren<Renderer>())
         {

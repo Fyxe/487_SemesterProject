@@ -452,7 +452,7 @@ public class ControllerMultiPlayer : Damageable
             }
 
             if (closest != null)   
-            {
+            {                
                 //Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " interacted with " + closest.name + ".");
                 if (closest is Weapon)  // TODO override current weapon / etc.
                 {

@@ -183,7 +183,7 @@ public class Weapon : Interactable
         checkerInformation.playersInRange.Add(controllerCurrent.attachedPlayer);
         EnableHighlight();
         EnableInformation();
-        this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Interactable"), LayerMask.NameToLayer("Player"));
+        this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Interactable"), LayerMask.NameToLayer("Uninteractable"));
     }
 
     public virtual void OnKill(Damageable damageable)

@@ -264,7 +264,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4401251702767532
 Transform:
@@ -277,7 +277,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4533826219531096
 Transform:
@@ -330,7 +330,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4915307435002236
 Transform:
@@ -360,10 +360,10 @@ Transform:
   - {fileID: 4787993714140220}
   - {fileID: 4151076040385830}
   - {fileID: 4915307435002236}
-  - {fileID: 4401251702767532}
   - {fileID: 4849089217056972}
   - {fileID: 4968453321023806}
   - {fileID: 4226812323881358}
+  - {fileID: 4401251702767532}
   - {fileID: 4533826219531096}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -379,7 +379,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4956794724856630}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &82136644225441508
 AudioSource:
@@ -738,10 +738,10 @@ MonoBehaviour:
   piecesMinStart: 5
   enemySpeedMultiplier: 1
   enemyHealthModifier: 0
-  enemySpawnRateMultiplier: 1
+  enemySpawnRateMultiplier: 0.5
   enemySpeedMultiplierChange: 1
   enemyHealthModifierChange: 1
-  enemySpawnRateMultiplierChange: 1
+  enemySpawnRateMultiplierChange: -0.05
   currentLevel: 0
   currentLevelReal: 0
   piecesMaxCurrent: 0
@@ -813,6 +813,9 @@ MonoBehaviour:
   possableMaxPlayers: 4
   timeIncapacitated: 10
   timeInvulnerable: 1
+  enemyToHitLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   weaponCount: 1
   forceThrow: 500
   radiusRevive: 2

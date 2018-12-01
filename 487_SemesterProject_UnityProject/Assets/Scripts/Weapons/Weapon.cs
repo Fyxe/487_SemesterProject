@@ -172,7 +172,7 @@ public class Weapon : Interactable
         controllerCurrent = null;
         isHeld = true;
         DisableHighlight();
-        this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Interactable"), LayerMask.NameToLayer("Uninteractable"));
+        //this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Interactable"), LayerMask.NameToLayer("Uninteractable"));
     }
 
     public virtual void OnDrop()    // called when thrown

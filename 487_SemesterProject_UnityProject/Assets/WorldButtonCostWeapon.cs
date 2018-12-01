@@ -20,7 +20,7 @@ public class WorldButtonCostWeapon : WorldButtonCost
         {
             Destroy(this.gameObject);
             return;
-        }
+        }        
         prefabWeapon = newPrefabWeapon;
 
         PooledObject spawnedWeaponObject = ObjectPoolingManager.instance.CreateObject(prefabWeapon);

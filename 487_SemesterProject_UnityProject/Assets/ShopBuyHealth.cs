@@ -18,10 +18,8 @@ public class ShopBuyHealth : MonoBehaviour
     public WorldButtonCost buttonLarge;
 
     void Start()
-    {
-        buttonSmall.cost = PointsManager.instance.pointsPerInGameLevelHealth * 1 * GameplayManager.instance.currentLevel;
-        buttonMedium.cost = PointsManager.instance.pointsPerInGameLevelHealth * 2 * GameplayManager.instance.currentLevel; 
-        buttonLarge.cost = PointsManager.instance.pointsPerInGameLevelHealth * 3 * GameplayManager.instance.currentLevel; 
+    {        
+        buttonMedium.cost = PointsManager.instance.pointsPerInGameLevelHealth * 2 * GameplayManager.instance.currentLevel;         
     }
 
     public void SpawnHealth(int whichKind)

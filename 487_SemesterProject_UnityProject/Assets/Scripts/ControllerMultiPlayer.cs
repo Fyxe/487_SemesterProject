@@ -435,17 +435,17 @@ public class ControllerMultiPlayer : Damageable
             int mask = 1 << LayerMask.NameToLayer("Interactable");
             Collider[] cols = Physics.OverlapSphere(transform.position, radiusInteract, mask);
 
-            Interactable cachedInteractalbe = null;
+            Interactable cachedInteractable = null;
             Interactable closest = null;
             float dist = float.MaxValue;
             foreach (var i in cols)
             {
-                if (!i.isTrigger && (cachedInteractalbe = i.GetComponentInParent<Interactable>()) != null && cachedInteractalbe != this)
+                if (!i.isTrigger && (cachedInteractable = i.GetComponentInParent<Interactable>()) != null && cachedInteractable != this)
                 {
                     float newDist = Vector3.Distance(transform.position, i.transform.position);
                     if (newDist < dist)
                     {
-                        closest = cachedInteractalbe;
+                        closest = cachedInteractable;
                         dist = newDist;
                     }
                 }
@@ -453,6 +453,7 @@ public class ControllerMultiPlayer : Damageable
 
             if (closest != null)   
             {
+                Debug.Log(closest.name);
                 //Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " interacted with " + closest.name + ".");
                 if (closest is Weapon)  // TODO override current weapon / etc.
                 {

@@ -27,7 +27,7 @@ public class AI : Damageable
     
     public float timeElapsedInState = 0;
 
-    public Transform target;
+    public ControllerMultiPlayer target;
     
     public NavMeshAgent agent;
     ControllerMultiPlayer cachedPlayer;
@@ -98,7 +98,7 @@ public class AI : Damageable
     {
         if (target != null)
         {
-            agent.destination = target.position;
+            agent.destination = target.transform.position;
         }        
         else
         {
@@ -123,7 +123,7 @@ public class AI : Damageable
 
     protected virtual void UpdateTarget()
     {
-        Transform targetPriority = LevelManager.instance.GetTargetPriority();
+        ControllerMultiPlayer targetPriority = LevelManager.instance.GetTargetPriority();
         if (targetPriority != null)
         {
             target = targetPriority;
@@ -148,7 +148,7 @@ public class AI : Damageable
             if (newDist < dist)
             {
                 dist = newDist;
-                target = i.transform;
+                target = i;
             }
         }        
     }

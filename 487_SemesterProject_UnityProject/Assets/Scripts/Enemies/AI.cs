@@ -20,7 +20,8 @@ public class AI : Damageable
     public int pointsOnDeath = 10;
     float nextUpdateTarget = 0;
     public float delayAttack = 1f;
-    float nextAttack = 0f;    
+    float nextAttack = 0f;
+    int defaultHealth = 0;
 
     [Header("Enemy References")]
     public State stateCurrent;
@@ -47,6 +48,7 @@ public class AI : Damageable
 
     void Awake()
     {
+        defaultHealth = hpMax;
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         timeElapsedInState = 0;
@@ -245,6 +247,8 @@ public class AI : Damageable
     public override void OnCreatedByPool()
     {
         base.OnCreatedByPool();
+        hpMax = defaultHealth;
         playersInRange.Clear();
     }
+    
 }

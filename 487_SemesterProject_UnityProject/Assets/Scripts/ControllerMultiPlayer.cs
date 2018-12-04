@@ -554,10 +554,6 @@ public class ControllerMultiPlayer : Damageable
         {
             nextAttack = Time.time + delayAttack;
             controllerWeapons.AttemptAttack(damageBase, damageMultiplier);
-            if (anim != null)
-            {
-                anim.SetTrigger("attack");
-            }
         }
     }
 
@@ -571,10 +567,6 @@ public class ControllerMultiPlayer : Damageable
         {
             nextAttackAlternate = Time.time + delayAttackAlternate;
             controllerWeapons.AttemptAttackAlternate();
-            if (anim != null)
-            {
-                anim.SetTrigger("attack");
-            }
         }
     }
 

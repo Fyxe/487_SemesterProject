@@ -50,7 +50,7 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
     [HideInInspector]
     public LevelPiece startPiece;
     
-    public void GenerateLevel()
+    public bool GenerateLevel()
     {        
         List<LevelPiece> placedPieces = new List<LevelPiece>();
         switch (type)
@@ -70,10 +70,12 @@ public class LevelGenerationManager : Singleton<LevelGenerationManager>
         if (placedPieces != null && placedPieces.Count > 0)
         {
             StartCoroutine(LevelGenHelper(placedPieces));
+            return true;
         }
         else
         {
             // failed            
+            return false;
         }
     }
 

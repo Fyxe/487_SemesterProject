@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UI;
 
 public class GameLevelManager : LevelManager
@@ -94,6 +96,7 @@ public class GameLevelManager : LevelManager
 
         yield return new WaitForSeconds(endWaitDelay);
         ScreenManager.instance.ScreenSet(screenEnd, false, false);
+
     }
 
     public void CallbackEndGame()
@@ -110,8 +113,14 @@ public class GameLevelManager : LevelManager
                 generator.countToSpawnMax = GameplayManager.instance.piecesMaxCurrent;
                 generator.countToSpawnMin = GameplayManager.instance.piecesMinCurrent;
             }
-            generator.GenerateLevel();
-            StartCoroutine(WaitAfterFocused());
+            if (generator.GenerateLevel())
+            {
+                StartCoroutine(WaitAfterFocused());
+            }
+            else
+            {
+                LoadSceneManager.instance.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }           
     }
 

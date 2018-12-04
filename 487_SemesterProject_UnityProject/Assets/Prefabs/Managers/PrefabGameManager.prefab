@@ -815,7 +815,7 @@ MonoBehaviour:
   timeInvulnerable: 1
   enemyToHitLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   weaponCount: 1
   forceThrow: 500
   radiusRevive: 2
@@ -868,7 +868,7 @@ MonoBehaviour:
     speedMoveCurrent: 0
     damageBaseCurrent: 0
     countReviveCurrent: 0
-    prefabController: {fileID: 1627638013716986, guid: 5b7599cf3f739d74b90a2ef2de175a25,
+    prefabController: {fileID: 1396421191157442, guid: fb9d38e57a2d7a4438407fcd9d29801b,
       type: 2}
     abilityCurrentID: 0
     weaponCurrentID: 0
@@ -906,7 +906,7 @@ MonoBehaviour:
     speedMoveCurrent: 0
     damageBaseCurrent: 0
     countReviveCurrent: 0
-    prefabController: {fileID: 1396421191157442, guid: fb9d38e57a2d7a4438407fcd9d29801b,
+    prefabController: {fileID: 1627638013716986, guid: 5b7599cf3f739d74b90a2ef2de175a25,
       type: 2}
     abilityCurrentID: 0
     weaponCurrentID: 0

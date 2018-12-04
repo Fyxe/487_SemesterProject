@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114473578030747148}
   - component: {fileID: 54227617970055526}
   - component: {fileID: 135582994465578294}
+  - component: {fileID: 95736341513312426}
   m_Layer: 9
   m_Name: BasicFollowAI
   m_TagString: Untagged
@@ -263,6 +264,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &95736341513312426
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1171559148677630}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 765750d46c9484603a1b8233daf6609c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114473578030747148
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -12,6 +12,8 @@ public class ShopManager : LevelManager
     public List<Transform> locationsPositions = new List<Transform>();
     public AudioClip shopBackground;
 
+    PlayerAttributes a;
+
     protected override void OnFocused()
     {
         base.OnFocused();

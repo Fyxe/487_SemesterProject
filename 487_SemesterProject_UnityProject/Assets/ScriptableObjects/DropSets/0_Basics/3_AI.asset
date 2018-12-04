@@ -15,6 +15,6 @@ MonoBehaviour:
   dropSetsAdded: 
   allDrops:
   - drop: {fileID: 1171559148677630, guid: c8ddfe067c448b04797d99b587ff4426, type: 2}
-    weight: 1
+    weight: 5
   - drop: {fileID: 1004064247750052, guid: 21737dd9366659443addfd673b0b42bf, type: 2}
     weight: 1

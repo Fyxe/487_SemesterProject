@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class AI : Damageable
 {
     [Header("Enemy Settings")]
-    public int aiID = -1;    
+    public int aiID = -1;
     public string aiName;
     public string aiDescription;
     public float attackRadius = 1f;
@@ -22,14 +22,15 @@ public class AI : Damageable
     public float delayAttack = 1f;
     float nextAttack = 0f;
     int defaultHealth = 0;
+    public float distanceAwayFromPlayer;
 
     [Header("Enemy References")]
     public State stateCurrent;
-    
+
     public float timeElapsedInState = 0;
 
     public ControllerMultiPlayer target;
-    
+
     public NavMeshAgent agent;
     ControllerMultiPlayer cachedPlayer;
     Coroutine coroutineOnHurtDisplay;
@@ -66,13 +67,13 @@ public class AI : Damageable
             agent.speed = speedMove * GameplayManager.instance.enemySpeedMultiplier;
             timeElapsedInState += Time.deltaTime;
             agent.enabled = true;
-            stateCurrent.UpdateState(this);               
+            stateCurrent.UpdateState(this);
         }
         else
         {
             agent.enabled = false;
         }
-        
+
     }
 
     public bool CheckIfCountDownElapsed(float duration)
@@ -92,7 +93,7 @@ public class AI : Damageable
         if (newState != null)
         {
             OnExitState();
-            stateCurrent = newState;            
+            stateCurrent = newState;
         }
     }
 
@@ -101,7 +102,7 @@ public class AI : Damageable
         if (target != null)
         {
             agent.destination = target.transform.position;
-        }        
+        }
         else
         {
             Debug.LogWarning("AI has no target to follow.");
@@ -152,20 +153,20 @@ public class AI : Damageable
                 dist = newDist;
                 target = i;
             }
-        }        
+        }
     }
 
     public void AttemptAttack()
-    {        
+    {
         if (Time.time > nextAttack)
-        {            
+        {
             nextAttack = Time.time + delayAttack;
             Attack();
         }
     }
 
     protected virtual void Attack()
-    {        
+    {
         Collider[] cols = Physics.OverlapSphere(transform.position, attackRadius, PlayerManager.instance.enemyToHitLayerMask);
         List<Damageable> toHurt = new List<Damageable>();
         foreach (var i in cols)
@@ -173,10 +174,10 @@ public class AI : Damageable
             //Debug.Log((cachedDamageable = i.GetComponentInParent<Damageable>()) != null);
             //Debug.Log(!toHurt.Contains(cachedDamageable));
             //Debug.Log(cachedDamageable.team != team);
-            
-            if (!i.isTrigger 
-                && (cachedDamageable = i.GetComponentInParent<Damageable>()) != null 
-                && !toHurt.Contains(cachedDamageable) 
+
+            if (!i.isTrigger
+                && (cachedDamageable = i.GetComponentInParent<Damageable>()) != null
+                && !toHurt.Contains(cachedDamageable)
                 && cachedDamageable.team != team)
             {
                 toHurt.Add(cachedDamageable);
@@ -211,7 +212,7 @@ public class AI : Damageable
 
     public override void OnDeath()
     {
-        base.OnDeath();        
+        base.OnDeath();
         ProgressionManager.instance.scoreCurrentInLevel += pointsOnDeath;
         if (GameLevelManager.instance is GameLevelManager)
         {
@@ -229,9 +230,9 @@ public class AI : Damageable
     }
 
     private void OnTriggerEnter(Collider col)
-    {        
+    {
         if (col.gameObject.layer == 8 && !col.isTrigger && (cachedPlayer = col.GetComponentInParent<ControllerMultiPlayer>()) != null && !playersInRange.Contains(cachedPlayer))
-        {            
+        {
             playersInRange.Add(cachedPlayer);
         }
     }
@@ -250,5 +251,5 @@ public class AI : Damageable
         hpMax = defaultHealth;
         playersInRange.Clear();
     }
-    
+
 }

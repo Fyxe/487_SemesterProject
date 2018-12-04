@@ -556,7 +556,7 @@ public class ControllerMultiPlayer : Damageable
             controllerWeapons.AttemptAttack(damageBase, damageMultiplier);
             if (anim != null)
             {
-                anim.SetTrigger("attack");
+                //anim.SetTrigger("attack");
             }
         }
     }

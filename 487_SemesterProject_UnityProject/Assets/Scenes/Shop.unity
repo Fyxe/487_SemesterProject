@@ -8929,9 +8929,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 25
       objectReference: {fileID: 0}
-    - target: {fileID: 1004064247750052, guid: 21737dd9366659443addfd673b0b42bf, type: 2}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 114887714345439318, guid: 21737dd9366659443addfd673b0b42bf,
+        type: 2}
+      propertyPath: attackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114887714345439318, guid: 21737dd9366659443addfd673b0b42bf,
+        type: 2}
+      propertyPath: distanceAwayFromPlayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21737dd9366659443addfd673b0b42bf, type: 2}

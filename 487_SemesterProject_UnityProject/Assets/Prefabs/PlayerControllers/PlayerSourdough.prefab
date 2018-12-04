@@ -1463,10 +1463,10 @@ MonoBehaviour:
   damageMultiplier: 1
   hasBouncingShots: 0
   attackRateMultiplier: 1
-  deathSound: {fileID: 8300000, guid: a0e1d59ace045436c840039389fbf2b6, type: 3}
-  hurtSound: {fileID: 8300000, guid: ffc77adea4fdf49ff8bcd6e27bcfd58f, type: 3}
-  idleOneSound: {fileID: 8300000, guid: deb186e27f24d4136832ae4104c54e3c, type: 3}
-  idleTwoSound: {fileID: 8300000, guid: e99d9e8d87b2345deb7fefaebb4e49d6, type: 3}
+  deathSound: {fileID: 8300000, guid: 1f23404124a834d868b795ec7cbe6521, type: 3}
+  hurtSound: {fileID: 8300000, guid: a996b93eecbc848c09260a25a2f59119, type: 3}
+  idleOneSound: {fileID: 8300000, guid: 4baeca7ce56034d3b89495adf167cd77, type: 3}
+  idleTwoSound: {fileID: 8300000, guid: 378de9865d8694df2878c9072a38953c, type: 3}
   isRunning: 0
 --- !u!119 &119406491593928502
 Projector:

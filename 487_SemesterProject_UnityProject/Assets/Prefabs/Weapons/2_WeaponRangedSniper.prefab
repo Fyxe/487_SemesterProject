@@ -416,6 +416,7 @@ MonoBehaviour:
   amountOfBulletsPerShot: 1
   spread: 0.02
   knockbackForce: 0
+  isPiercing: 1
   shotPosition: {fileID: 4086522421623432}
   shot: {fileID: 8300000, guid: 865d9696c2ced4aeb95b38a66f9c3d1f, type: 3}
   muzzleFlash: {fileID: 198640582343526406}

@@ -13,6 +13,7 @@ public class WeaponRanged : Weapon
     public int amountOfBulletsPerShot;
     public float spread;
     public float knockbackForce;
+    public bool isPiercing;
 
     [Header("References")]
     public Transform shotPosition;

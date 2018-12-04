@@ -33,6 +33,9 @@ public class Bullet : Projectile
                 LevelManager.instance.SpawnOnEnemyHit(damageableHit.transform.position + Vector3.up);
             }            
         }
-        DestroyThisObject();
+        if (!weaponFiredFrom.isPiercing)
+        {
+            DestroyThisObject();
+        }
     }
 }

@@ -290,7 +290,7 @@ MonoBehaviour:
   attackRadius: 1
   aiSprite: {fileID: 0}
   damage: 1
-  speedMove: 1
+  speedMove: 1.5
   radiusPlayerDetection: 2
   delayUpdateTarget: 0.1
   pointsOnHit: 0

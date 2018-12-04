@@ -42,7 +42,7 @@ public class AI : Damageable
     public AudioClip hurtSound;
     public AudioClip attackSound;
 
-    Damageable cachedDamageable;
+    protected Damageable cachedDamageable;
 
     List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
 

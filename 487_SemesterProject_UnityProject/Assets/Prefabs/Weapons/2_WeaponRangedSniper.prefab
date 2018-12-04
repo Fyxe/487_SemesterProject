@@ -402,7 +402,7 @@ MonoBehaviour:
   rangeAttack: 2
   clipCurrent: 5
   clipMax: 5
-  timeReload: 2
+  timeReload: 0
   isReloading: 0
   controllerCurrent: {fileID: 0}
   rb: {fileID: 0}

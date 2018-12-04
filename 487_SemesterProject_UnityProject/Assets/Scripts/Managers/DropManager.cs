@@ -8,7 +8,7 @@ public class DropManager : Singleton<DropManager>
 
     [Header("References")]
     public DropSet dropSetWeapons;
-     public DropSet dropSetWeaponsInstantiated;
+    [HideInInspector] public DropSet dropSetWeaponsInstantiated;
 
     public DropSet dropSetAbilities;
     [HideInInspector] public DropSet dropSetAbilitiesInstantiated;

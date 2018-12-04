@@ -347,6 +347,7 @@ public class WeaponController : MonoBehaviour
         {
             if (weaponsInInventory > 0)
             {
+                Debug.Log("Weapons in inventory: " + weaponsInInventory);
                 int index = 0;
                 for (int i = 0; i < weaponsUnequipped.Count; i++)
                 {

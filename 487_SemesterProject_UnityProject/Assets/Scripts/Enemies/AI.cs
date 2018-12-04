@@ -20,14 +20,15 @@ public class AI : Damageable
     public int pointsOnDeath = 10;
     float nextUpdateTarget = 0;
     public float delayAttack = 1f;
-    float nextAttack = 0f;    
+    float nextAttack = 0f;
+    int defaultHealth = 0;
 
     [Header("Enemy References")]
     public State stateCurrent;
     
     public float timeElapsedInState = 0;
 
-    public Transform target;
+    public ControllerMultiPlayer target;
     
     public NavMeshAgent agent;
     ControllerMultiPlayer cachedPlayer;
@@ -47,6 +48,7 @@ public class AI : Damageable
 
     void Awake()
     {
+        defaultHealth = hpMax;
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         timeElapsedInState = 0;
@@ -98,7 +100,7 @@ public class AI : Damageable
     {
         if (target != null)
         {
-            agent.destination = target.position;
+            agent.destination = target.transform.position;
         }        
         else
         {
@@ -123,7 +125,7 @@ public class AI : Damageable
 
     protected virtual void UpdateTarget()
     {
-        Transform targetPriority = LevelManager.instance.GetTargetPriority();
+        ControllerMultiPlayer targetPriority = LevelManager.instance.GetTargetPriority();
         if (targetPriority != null)
         {
             target = targetPriority;
@@ -148,7 +150,7 @@ public class AI : Damageable
             if (newDist < dist)
             {
                 dist = newDist;
-                target = i.transform;
+                target = i;
             }
         }        
     }
@@ -245,6 +247,8 @@ public class AI : Damageable
     public override void OnCreatedByPool()
     {
         base.OnCreatedByPool();
+        hpMax = defaultHealth;
         playersInRange.Clear();
     }
+    
 }

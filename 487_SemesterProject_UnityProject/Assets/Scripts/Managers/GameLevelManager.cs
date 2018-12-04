@@ -51,7 +51,7 @@ public class GameLevelManager : LevelManager
             {
                 EndLevel(false);
             }
-
+            
             // TODO check if algorithm makes sense?
             AI prefabAIToSpawn = DropManager.instance.GetDrop(Thing.ai).GetComponent<AI>();
             if ((!allAI.ContainsKey(prefabAIToSpawn) || (allAI.ContainsKey(prefabAIToSpawn) && allAI[prefabAIToSpawn].Count < setEnemies)) && Time.time > nextSpawn)
@@ -230,7 +230,7 @@ public class GameLevelManager : LevelManager
             {
                 allAI.Add(prefabToSpawn,new List<AI> { spawnedAI });
             }
-            spawnedAI.hpMax = GameplayManager.instance.enemyHealthModifier;
+            spawnedAI.hpMax += GameplayManager.instance.enemyHealthModifier;
             spawnedAI.hpCurrent = spawnedAI.hpMax;
             return true;
         }

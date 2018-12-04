@@ -1121,6 +1121,7 @@ MonoBehaviour:
   hurtSound: {fileID: 0}
   idleOneSound: {fileID: 0}
   idleTwoSound: {fileID: 0}
+  isRunning: 0
 --- !u!114 &114297633389141560
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -250,8 +250,11 @@ public class ControllerMultiPlayer : Damageable
     public AudioClip idleOneSound;
     public AudioClip idleTwoSound;
 
+    [Header("Animation Variable(s)")]
+    public bool isRunning = false;
+
     List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
-    
+
     void Awake()
     {
         controllerInput = GetComponent<InputController3D>();      
@@ -284,7 +287,7 @@ public class ControllerMultiPlayer : Damageable
 
         
         float distance = Vector3.Distance(Camera.main.transform.position, 
-            Camera.main.transform.parent.position);
+        Camera.main.transform.parent.position);
         Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(0.95f, 0.95f, distance));
         Vector3 botLeft = Camera.main.ViewportToWorldPoint(new Vector3(0.05f, 0.05f, distance));
         
@@ -412,6 +415,17 @@ public class ControllerMultiPlayer : Damageable
 
         speedMoveCurrent = speedMoveCurrent;
 
+        if (speedMoveCurrent > 0) {
+            isRunning = true;
+        } else {
+            isRunning = false;
+        }
+        anim.SetBool("isRunning", isRunning);
+
+        foreach (var i in GetComponentsInChildren<Renderer>())
+        {
+            i.material.color = colorPlayer;
+        }
         //foreach (var i in GetComponentsInChildren<Renderer>())
         //{
         //    i.material.color = colorPlayer;
@@ -701,6 +715,8 @@ public class ControllerMultiPlayer : Damageable
         state = PlayerState.alive;
         hpCurrent = 1;
         SetInvulnerable(PlayerManager.instance.timeInvulnerable);
+        SetRagdoll(true);
+        GetComponent<Animator>().enabled = true;
     }
 
     public override void OnDeath()
@@ -710,6 +726,8 @@ public class ControllerMultiPlayer : Damageable
         ui.Set(PlayerUIBox.BoxSetting.dead);
         LevelManager.instance.CheckIfAllPlayersAreDead();
         NavMeshCameraController.instance.toFollow.Remove(this.transform);
+        SetRagdoll(false);
+        GetComponent<Animator>().enabled = false;
     }
 
     void OnIncapacitate()        
@@ -717,6 +735,15 @@ public class ControllerMultiPlayer : Damageable
         ui.imageReviveCount.fillAmount = 0;
         ui.imageReviveTimer.fillAmount = 1;
         revivesRemaining = 0;        
+    }
+
+    void SetRagdoll (bool value)
+    {
+        Rigidbody[] bodies = GetComponentsInChildren<Rigidbody>();
+        foreach (Rigidbody rb in bodies)
+        {
+            rb.isKinematic = value;
+        }
     }
 
     public override bool Hurt(int amount)

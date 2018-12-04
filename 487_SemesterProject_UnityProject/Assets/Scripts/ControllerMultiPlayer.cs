@@ -420,6 +420,7 @@ public class ControllerMultiPlayer : Damageable
         } else {
             isRunning = false;
         }
+        anim.SetBool("isRunning", isRunning);
 
         foreach (var i in GetComponentsInChildren<Renderer>())
         {
@@ -720,7 +721,6 @@ public class ControllerMultiPlayer : Damageable
 
     public override void OnDeath()
     {
-        anim.SetBool("isDead", true);
         AudioManager.instance.PlayClipLocalSpace(deathSound);
         countReviveCurrent *= 2;
         ui.Set(PlayerUIBox.BoxSetting.dead);

@@ -45,6 +45,10 @@ public class ShopManager : LevelManager
     {
         base.SpawnPlayer(newAttributes);        
         PlayerManager.instance.GetAttributeOfPlayer(newAttributes.indexPlayer).isDead = false;
+        if (newAttributes.hpCurrent == 0)
+        {
+            newAttributes.hpCurrent++;
+        }
         AudioManager.instance.PlayClipLocalLooped(shopBackground);
     }
     

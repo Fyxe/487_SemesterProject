@@ -188,7 +188,7 @@ public class Weapon : Interactable
 
     public virtual void OnKill(Damageable damageable)
     {
-        Debug.Log("Killed dameagable: " + damageable.name);
+        
     }
 
     public virtual void OnAttack()

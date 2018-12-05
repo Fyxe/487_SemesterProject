@@ -351,5 +351,10 @@ public class LevelManager : Singleton<LevelManager>
         enemyHitSystem.transform.position = position;
         enemyHitSystem.Emit(Random.Range(6,12));
     }
+
+    public void CallbackPlayButtonClick()
+    {
+        GameManager.instance.PlayButtonClick();
+    }
 }
 

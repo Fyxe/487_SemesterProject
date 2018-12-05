@@ -738,12 +738,12 @@ MonoBehaviour:
   piecesMinIncrease: 2
   piecesMaxStart: 5
   piecesMinStart: 5
-  enemySpeedMultiplier: 1
+  enemySpeedMultiplier: 0
   enemyHealthModifier: 0
-  enemySpawnRateMultiplier: 0.5
-  enemySpeedMultiplierChange: 1
+  enemySpawnRate: 1
+  enemySpeedMultiplierChange: 0.25
   enemyHealthModifierChange: 1
-  enemySpawnRateMultiplierChange: -0.05
+  enemySpawnRateChange: -0.1
   currentLevel: 0
   currentLevelReal: 0
   piecesMaxCurrent: 0
@@ -826,7 +826,7 @@ MonoBehaviour:
   swapToNonBaseWeaponOnThrow: 1
   layerMaskToShoot:
     serializedVersion: 2
-    m_Bits: 513
+    m_Bits: 8705
   spriteHealthFull: {fileID: 21300000, guid: 26f91e46dc80c5f48bc4b9eb00bf9c89, type: 3}
   spriteHealthEmpty: {fileID: 21300000, guid: 3785da64ba8fd6242b2455269ea12f06, type: 3}
   materialZero: {fileID: 13400000, guid: ee3dc06e382d45b4cb00ae1852073ed3, type: 2}

@@ -44,32 +44,44 @@ public class ProgressionManager : Singleton<ProgressionManager>
         List<LevelPiece> tempListLevelPieceGeneral = new List<LevelPiece>();
         foreach (var i in allBaskets)
         {
-            foreach (var j in i.dropSetWeapons.allDrops)
+            if (i.dropSetWeapons != null)
             {
-                if (((cachedWeapon = j.drop.GetComponent<Weapon>()) != null) && !tempListWeapon.Contains(cachedWeapon))
+                foreach (var j in i.dropSetWeapons.allDrops)
                 {
-                    tempListWeapon.Add(cachedWeapon);
+                    if (((cachedWeapon = j.drop.GetComponent<Weapon>()) != null) && !tempListWeapon.Contains(cachedWeapon))
+                    {
+                        tempListWeapon.Add(cachedWeapon);
+                    }
                 }
             }
-            foreach (var j in i.dropSetAbilities.allDrops)
+            if (i.dropSetAbilities != null)
             {
-                if (((cachedAbility = j.drop.GetComponent<Ability>()) != null) && !tempListAbility.Contains(cachedAbility))
+                foreach (var j in i.dropSetAbilities.allDrops)
                 {
-                    tempListAbility.Add(cachedAbility);
+                    if (((cachedAbility = j.drop.GetComponent<Ability>()) != null) && !tempListAbility.Contains(cachedAbility))
+                    {
+                        tempListAbility.Add(cachedAbility);
+                    }
                 }
             }
-            foreach (var j in i.dropSetAIs.allDrops)
+            if (i.dropSetAIs != null)
             {
-                if (((cachedAI = j.drop.GetComponent<AI>()) != null) && !tempListAI.Contains(cachedAI))
+                foreach (var j in i.dropSetAIs.allDrops)
                 {
-                    tempListAI.Add(cachedAI);
+                    if (((cachedAI = j.drop.GetComponent<AI>()) != null) && !tempListAI.Contains(cachedAI))
+                    {
+                        tempListAI.Add(cachedAI);
+                    }
                 }
             }
-            foreach (var j in i.dropSetLevelPiecesGeneral.allDrops)
+            if (i.dropSetLevelPiecesGeneral != null)
             {
-                if (((cachedLevelPiece = j.drop.GetComponent<LevelPiece>()) != null) && !tempListLevelPieceGeneral.Contains(cachedLevelPiece))
+                foreach (var j in i.dropSetLevelPiecesGeneral.allDrops)
                 {
-                    tempListLevelPieceGeneral.Add(cachedLevelPiece);
+                    if (((cachedLevelPiece = j.drop.GetComponent<LevelPiece>()) != null) && !tempListLevelPieceGeneral.Contains(cachedLevelPiece))
+                    {
+                        tempListLevelPieceGeneral.Add(cachedLevelPiece);
+                    }
                 }
             }
         }

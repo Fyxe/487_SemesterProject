@@ -36,7 +36,10 @@ public class DropSet : ScriptableObject {
 
     public void CombineWith(DropSet toAdd)
     {
-        dropSetsAdded.Add(toAdd.dropSetID);
-        allDrops.AddRange(toAdd.allDrops);
+        if (toAdd != null)
+        {
+            dropSetsAdded.Add(toAdd.dropSetID);
+            allDrops.AddRange(toAdd.allDrops);
+        }
     }
 }

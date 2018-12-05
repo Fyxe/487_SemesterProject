@@ -214,7 +214,7 @@ public class GameLevelManager : LevelManager
     {
         if (piecesToSpawnIn.Count == 0)
         {
-            Debug.LogError("No pieces to spawn enemy in.");
+            //Debug.LogError("No pieces to spawn enemy in.");
             return false;
         }
         int index = Random.Range(0,piecesToSpawnIn.Count);

@@ -637,9 +637,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745f12dc072cc3c408900831f028a07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlockAllBasketsAtStart: 0
+  unlockAllBasketsAtStart: 1
   scoreOnLevelCompletion: 1000
-  allBaskets: []
+  allBaskets:
+  - {fileID: 11400000, guid: 0088031050f045f4e9760104c9c4606a, type: 2}
+  - {fileID: 11400000, guid: a163a788d9973884798936c04627eb40, type: 2}
+  - {fileID: 11400000, guid: cb2a9d7612f081a4e85bce56c665572d, type: 2}
+  - {fileID: 11400000, guid: 23292d70952ea594db0f5d3dd085ea19, type: 2}
+  - {fileID: 11400000, guid: 1f3b5c0cea2d13b4a84f9c6df3f4509a, type: 2}
   allWeapons:
   - {fileID: 114697854136788232, guid: cd0a65b2fc8c84d469a1396b7b24f332, type: 2}
   - {fileID: 114924703100487726, guid: 0bece21a170dd7a4bbaf07c3de157468, type: 2}
@@ -980,13 +985,13 @@ MonoBehaviour:
   pointsOnReviveFull: 100
   pointsOnEnemyHit: 1
   pointsOnEnemyKill: 5
-  pointsPerLevelSpeedMove: 100
-  pointsPerLevelBaseDamage: 100
-  pointsPerLevelMaxHP: 100
-  pointsPerLevelRevive: 100
+  pointsPerLevelSpeedMove: 80
+  pointsPerLevelBaseDamage: 80
+  pointsPerLevelMaxHP: 80
+  pointsPerLevelRevive: 80
   pointsToThrow: 100
-  pointsPerWeaponLevel: 100
-  pointsPerAbilityLevel: 100
+  pointsPerWeaponLevel: 80
+  pointsPerAbilityLevel: 80
   pointsPerInGameLevelHealth: 50
 --- !u!114 &114933500951180624
 MonoBehaviour:

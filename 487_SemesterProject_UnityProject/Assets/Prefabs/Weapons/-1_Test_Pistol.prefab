@@ -540,7 +540,7 @@ MonoBehaviour:
   weaponID: -1
   weaponName: Pistol
   weaponDescription: '?'
-  rarity: 4
+  rarity: 1
   weaponSprite: {fileID: 0}
   baseCost: 0
   upgradeID: -1

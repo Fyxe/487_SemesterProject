@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55cc892b9e797ec4e8c64002d47dfa43, type: 3}
+  m_Name: 201_UncommonWeapons
+  m_EditorClassIdentifier: 
+  dropSetID: 201
+  dropSetsAdded: 
+  allDrops:
+  - drop: {fileID: 1391807120025398, guid: ff734eaa2a5250746bd7b962479a9112, type: 2}
+    weight: 20
+  - drop: {fileID: 1840243461925634, guid: 0dac0016582118a41ad89852c5383158, type: 2}
+    weight: 20
+  - drop: {fileID: 1472613140989300, guid: e6ecb1cecb840a647be9e0935b6b8282, type: 2}
+    weight: 20
+  - drop: {fileID: 1662780412580614, guid: 4f17bea4c0006414dbba07398a19584f, type: 2}
+    weight: 20
+  - drop: {fileID: 1662780412580614, guid: 5a6f1eacfdff52d40b81f1fab1a654f6, type: 2}
+    weight: 20
+  - drop: {fileID: 1000907250675060, guid: 7fd2e6dc29ea66848a82386ba6cdfec1, type: 2}
+    weight: 20
+  - drop: {fileID: 1069324323038396, guid: c7d493e4bc1dca1448ce328d6402161b, type: 2}
+    weight: 20

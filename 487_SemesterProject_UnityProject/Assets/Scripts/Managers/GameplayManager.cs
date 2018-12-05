@@ -67,6 +67,10 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
         }
         else
         {
+            if (PlayerManager.instance.playersInGame >= 2)
+            {
+                IncreaseDifficulty();
+            }
             IncreaseDifficulty();
             LoadSceneManager.instance.LoadScene("InLevel");
         }

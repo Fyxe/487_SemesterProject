@@ -31,13 +31,13 @@ public class Bullet : Projectile
             if (weaponFiredFrom.isExplosive)
             {
                 Collider[] cols = Physics.OverlapSphere(transform.position, weaponFiredFrom.explosionRadius, PlayerManager.instance.layerMaskToShoot);
-                Debug.Log("Explosion hi size: " + cols.Length);
+                //Debug.Log("Explosion hi size: " + cols.Length);
                 foreach (Collider col in cols)
                 {
                     Damageable damageable = col.GetComponentInParent<Damageable>();
                     if (damageable != null && damageable.team == 0)
                     {
-                        Debug.Log("damageable exists!");
+                        //Debug.Log("damageable exists!");
                         bool damageableKilled = damageable.Hurt(damage);
 
                         if (damageable is AI && weaponFiredFrom.controllerCurrent.attachedPlayer != null)
@@ -74,7 +74,7 @@ public class Bullet : Projectile
         }
         else
         {
-            Debug.Log("Hit a not damageable: " + hit.gameObject);
+            //Debug.Log("Hit a not damageable: " + hit.gameObject);
         }
         if (!weaponFiredFrom.isPiercing || damageableHit == null)
         {

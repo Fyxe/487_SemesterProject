@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55cc892b9e797ec4e8c64002d47dfa43, type: 3}
+  m_Name: 204_LegendaryWeapons
+  m_EditorClassIdentifier: 
+  dropSetID: 203
+  dropSetsAdded: 
+  allDrops:
+  - drop: {fileID: 1391807120025398, guid: d9249ff960c8fe34bafe4308cdb3f982, type: 2}
+    weight: 1
+  - drop: {fileID: 1840243461925634, guid: 32a462ca5cf029c4cbdfd3b2a5e4af38, type: 2}
+    weight: 1
+  - drop: {fileID: 1472613140989300, guid: 0d17aadac935b19449ceada94ac35af3, type: 2}
+    weight: 1
+  - drop: {fileID: 1662780412580614, guid: 0451f86d5c305a845a525f19f3664ccc, type: 2}
+    weight: 1
+  - drop: {fileID: 1662780412580614, guid: 6ba5a3b7655ffc64aba476f59bbdf28f, type: 2}
+    weight: 1
+  - drop: {fileID: 1000907250675060, guid: 6df29b079d770d1418ff2050403103b3, type: 2}
+    weight: 1
+  - drop: {fileID: 1069324323038396, guid: cf00d84adf402b144bda54392df9c957, type: 2}
+    weight: 1

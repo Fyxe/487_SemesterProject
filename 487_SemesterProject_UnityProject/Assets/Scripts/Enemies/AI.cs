@@ -226,6 +226,16 @@ public class AI : Damageable
         {
             i.ResetMaterials();
         }
+        int r = Random.Range(0, 100);
+        if (r > 89)
+        {
+            GameObject spawn = Instantiate(DropManager.instance.GetDrop(Thing.weapon));
+            spawn.transform.position = this.transform.position + Vector3.up * 10f;            
+        }
+        else
+        {           
+
+        }
         DestroyThisObject();
     }
 

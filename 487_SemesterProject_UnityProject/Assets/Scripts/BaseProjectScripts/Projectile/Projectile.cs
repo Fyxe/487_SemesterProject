@@ -81,7 +81,7 @@ public class Projectile : PooledObject
             }   
             else
             {
-                Debug.Log("Its a TRIGGER: " + h.collider.gameObject.name);
+                //Debug.Log("Its a TRIGGER: " + h.collider.gameObject.name);
                 return false;
             }
         }

@@ -39,6 +39,7 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
     public void StartGame()
     {
         currentLevel = 0;
+        currentLevelReal = 0;
         ResetDifficulty();
         currentLevel++;
         LoadSceneManager.instance.LoadScene("Shop");    // TODO tutorial
@@ -54,6 +55,8 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
         }
         ProgressionManager.instance.OnGameEnd();
         PlayerManager.instance.ResetAllPlayers();
+        currentLevel = 0;
+        currentLevelReal = 0;
         LoadSceneManager.instance.LoadScene("Menu");
     }
 
@@ -97,8 +100,7 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
     }
 
     public void ResetDifficulty()
-    {
-        currentLevel = 0;
+    {        
         piecesMaxCurrent = piecesMaxStart;
         piecesMinCurrent = piecesMinStart;
 

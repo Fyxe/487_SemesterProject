@@ -1196,7 +1196,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147548983
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
@@ -1465,8 +1465,8 @@ MonoBehaviour:
   attackRateMultiplier: 1
   deathSound: {fileID: 8300000, guid: bcec3316ddd5249b1852ae8297919249, type: 3}
   hurtSound: {fileID: 8300000, guid: 989dc7076241a4f0a880f35f7a0f9ce3, type: 3}
-  idleOneSound: {fileID: 8300000, guid: dcca3fd54bc294b9fb746880a8456fd6, type: 3}
-  idleTwoSound: {fileID: 8300000, guid: 3d480005d2d3348e48ed3812f3420574, type: 3}
+  reviveSound: {fileID: 8300000, guid: 3d480005d2d3348e48ed3812f3420574, type: 3}
+  spawnSound: {fileID: 8300000, guid: 3d480005d2d3348e48ed3812f3420574, type: 3}
   isRunning: 0
 --- !u!119 &119219563219909506
 Projector:

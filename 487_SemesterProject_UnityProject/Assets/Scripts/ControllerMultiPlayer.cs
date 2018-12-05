@@ -247,8 +247,8 @@ public class ControllerMultiPlayer : Damageable
 
     public AudioClip deathSound;
     public AudioClip hurtSound;
-    public AudioClip idleOneSound;
-    public AudioClip idleTwoSound;
+    public AudioClip reviveSound;
+    public AudioClip spawnSound;
 
     [Header("Animation Variable(s)")]
     public bool isRunning = false;
@@ -395,6 +395,7 @@ public class ControllerMultiPlayer : Damageable
             Debug.LogError("Cannot have a joystick zero.");
             return;
         }
+        AudioManager.instance.PlayClipLocalSpace(spawnSound);
         this.name = "[J" + newAttributes.indexJoystick.ToString() + ":P" + newAttributes.indexPlayer.ToString() + "]Controller";
 
         attributes = newAttributes;
@@ -703,6 +704,7 @@ public class ControllerMultiPlayer : Damageable
 
     public void Revive()
     {
+        AudioManager.instance.PlayClipLocalSpace(reviveSound);
         countReviveCurrent *= 2;
         revivesRemaining = 0;
         StopCoroutine(coroutineIncapacitate);
@@ -726,6 +728,7 @@ public class ControllerMultiPlayer : Damageable
 
     void OnIncapacitate()        
     {
+        AudioManager.instance.PlayClipLocalSpace(deathSound);
         ui.imageReviveCount.fillAmount = 0;
         ui.imageReviveTimer.fillAmount = 1;
         revivesRemaining = 0;        
@@ -775,6 +778,7 @@ public class ControllerMultiPlayer : Damageable
         }
         coroutineOnHurtDisplay = StartCoroutine(OnHurtDisplay());
         LevelManager.instance.SpawnOnEnemyHit(transform.position + Vector3.up);
+        AudioManager.instance.PlayClipLocalSpace(hurtSound);
     }
 
     IEnumerator OnHurtDisplay()

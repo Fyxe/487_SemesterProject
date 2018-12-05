@@ -335,10 +335,12 @@ MonoBehaviour:
   isDead: 0
   team: 0
   aiID: -1
-  aiName: 
-  aiDescription: 
+  aiName: Moldie
+  aiDescription: The moldie is a very simple enemy, typical, run of the mill infected
+    moldy zombie bread. Just don't let it touch you. Who knows where that mold came
+    from.
   attackRadius: 1
-  aiSprite: {fileID: 0}
+  aiSprite: {fileID: 21300000, guid: ae28bd0bcbd09714abad3fdfd29b5d6b, type: 3}
   damage: 1
   speedMove: 2
   radiusPlayerDetection: 2

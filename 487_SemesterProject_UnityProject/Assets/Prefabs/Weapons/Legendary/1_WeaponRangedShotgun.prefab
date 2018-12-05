@@ -625,8 +625,10 @@ MonoBehaviour:
     deactivatedObjects: []
   weaponID: 1
   weaponName: Shotgun
-  weaponDescription: 
-  rarity: 3
+  weaponDescription: When you're backed into a corner and it's all or muffin, use
+    the shotgun to blow the enemy away. Very useful up close. This weapon is of the
+    LEGENDARY rarity.
+  rarity: 5
   weaponSprite: {fileID: 21300000, guid: 0a5f4916aa215b6409c49eeee03ae5f5, type: 3}
   baseCost: 0
   upgradeID: -1

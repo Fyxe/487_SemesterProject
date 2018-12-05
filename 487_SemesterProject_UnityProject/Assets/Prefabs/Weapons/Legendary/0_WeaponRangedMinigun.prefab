@@ -611,9 +611,11 @@ MonoBehaviour:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
   weaponID: 0
-  weaponName: Minigun
-  weaponDescription: 
-  rarity: 3
+  weaponName: Assault Rifle
+  weaponDescription: Stop loafing around and pick one of these bad boys up! With a
+    high fire rate and a decent amount of damage, you can never go wrong with the
+    assault rifle. This weapon is of the LEGENDARY rarity.
+  rarity: 5
   weaponSprite: {fileID: 21300000, guid: 74237003ab38a35428f644cf551ad440, type: 3}
   baseCost: 0
   upgradeID: -1

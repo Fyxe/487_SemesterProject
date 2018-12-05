@@ -293,10 +293,13 @@ MonoBehaviour:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
   abilityID: 0
-  abilityName: '?'
-  abilityDescription: '?'
+  abilityName: Honey Hulk
+  abilityDescription: Lather yourself up in some sweet sweet honey. This allows any
+    bread to become so sweet the enemies won't be able to resist you! the extra layer
+    of gooey goodness prevents any damage while in use as well. Perfect for distracting
+    the enemy!
   rarity: 1
-  abilitySprite: {fileID: 0}
+  abilitySprite: {fileID: 21300000, guid: 179e5eb37823db74bb4c5fc63a82c613, type: 3}
   baseCost: 0
   durationAttack: 2
   delayAttack: 5

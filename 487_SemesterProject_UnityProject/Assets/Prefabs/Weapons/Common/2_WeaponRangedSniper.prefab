@@ -439,8 +439,10 @@ MonoBehaviour:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
   weaponID: 2
-  weaponName: Sniper
-  weaponDescription: 
+  weaponName: Sniper Rifle
+  weaponDescription: With bullets that pierce armor and bread alike, naan shall survive
+    this beast of a weapon. It's powerful shots will plow through everything in its
+    path, dealing damage along the way. This weapon is of the common rarity.
   rarity: 1
   weaponSprite: {fileID: 21300000, guid: 0bb00efa8e71674459db1b6aef690e90, type: 3}
   baseCost: 0

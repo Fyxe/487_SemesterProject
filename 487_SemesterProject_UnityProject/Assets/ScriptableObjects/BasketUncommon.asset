@@ -15,7 +15,7 @@ MonoBehaviour:
   basketCost: 100
   basketName: Basket
   basketDescription: A convenient place for storing bread.
-  basketSprite: {fileID: 0}
+  basketSprite: {fileID: 21300000, guid: ec8c97ed57635f145b6469dbb980a004, type: 3}
   dropSetWeapons: {fileID: 11400000, guid: 7a4b13e44314bf548ae3b5a455dca0b3, type: 2}
   dropSetAIs: {fileID: 0}
   dropSetAbilities: {fileID: 0}

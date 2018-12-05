@@ -452,8 +452,10 @@ MonoBehaviour:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
   weaponID: 6
-  weaponName: Bomb
-  weaponDescription: 
+  weaponName: Bread Bomb
+  weaponDescription: Hungry for a Hot Dog? No? How about a loaded stick of dynamite
+    with a bit of mustard on the top? Your enemies won't be able to complain when
+    they are on the ground in pieces. This weapon is of the uncommon rarity.
   rarity: 2
   weaponSprite: {fileID: 21300000, guid: 92ff3a0e9d01a044eadc6ea7f213783e, type: 3}
   baseCost: 0

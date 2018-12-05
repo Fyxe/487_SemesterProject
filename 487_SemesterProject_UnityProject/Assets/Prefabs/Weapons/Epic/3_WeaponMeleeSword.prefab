@@ -594,8 +594,9 @@ MonoBehaviour:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
   weaponID: 3
-  weaponName: Sword
-  weaponDescription: 
+  weaponName: Excalorie, The Bread Sword
+  weaponDescription: With a quick slash, the holy grains in this blade shall smite
+    thine breademies. This weapon is of the epic rarity.
   rarity: 4
   weaponSprite: {fileID: 21300000, guid: 4d48df8f24a50994c9c84bdef462d8ec, type: 3}
   baseCost: 0

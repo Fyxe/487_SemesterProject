@@ -568,9 +568,11 @@ MonoBehaviour:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
   weaponID: 5
-  weaponName: Hammer
-  weaponDescription: 
-  rarity: 3
+  weaponName: Moldnir, The Bread Hammer
+  weaponDescription: A weapon handed down by Moldin to his son, Brehor. Smash your
+    enemies with this massive hammer to feel its almighty Flour.  This weapon is of
+    the LEGENDARY rarity.
+  rarity: 5
   weaponSprite: {fileID: 21300000, guid: 4918942124badb54cad72e0c98983130, type: 3}
   baseCost: 0
   upgradeID: -1

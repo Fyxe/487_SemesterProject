@@ -482,9 +482,10 @@ MonoBehaviour:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
   weaponID: 4
-  weaponName: Fork
-  weaponDescription: 
-  rarity: 3
+  weaponName: Fondue Fork
+  weaponDescription: This lance-like fork is great for fancy parties and stabbing
+    the un-bread. Nothing can beat its reach. This weapon is of the LEGENDARY rarity.
+  rarity: 5
   weaponSprite: {fileID: 21300000, guid: 0eb5c5d2a723fc24d946b482ad93fdb2, type: 3}
   baseCost: 0
   upgradeID: -1

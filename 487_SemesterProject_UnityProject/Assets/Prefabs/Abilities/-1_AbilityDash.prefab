@@ -306,10 +306,11 @@ MonoBehaviour:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
   abilityID: -1
-  abilityName: '?'
-  abilityDescription: '?'
+  abilityName: Butter Boost
+  abilityDescription: Every adventurer's bread and butter ability. Helps you dash
+    out of any sticky situation.
   rarity: 1
-  abilitySprite: {fileID: 0}
+  abilitySprite: {fileID: 21300000, guid: ae5f88ea22b05184db487362e3dda465, type: 3}
   baseCost: 0
   durationAttack: 0.35
   delayAttack: 1

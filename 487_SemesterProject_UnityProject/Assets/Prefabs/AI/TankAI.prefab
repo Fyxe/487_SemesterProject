@@ -284,10 +284,11 @@ MonoBehaviour:
   isDead: 0
   team: 0
   aiID: -1
-  aiName: 
-  aiDescription: 
+  aiName: Dough Boy
+  aiDescription: This enemy is an absolute loaf. He moves slow and steady, but he's
+    got a quite a bit of health. Try and kill him before there's too many to handle.
   attackRadius: 2
-  aiSprite: {fileID: 0}
+  aiSprite: {fileID: 21300000, guid: a882de0f920159149bc7afa753052e4f, type: 3}
   damage: 1
   speedMove: 1.25
   radiusPlayerDetection: 2

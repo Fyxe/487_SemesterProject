@@ -280,10 +280,12 @@ MonoBehaviour:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
   abilityID: 2
-  abilityName: '?'
-  abilityDescription: '?'
+  abilityName: Stealth Syrup
+  abilityDescription: This stick solution will make you as stealthy as a pancake.
+    No enemy will be able to see through your guise as you walk right past them. You
+    might be a little sticky afterwards though...
   rarity: 1
-  abilitySprite: {fileID: 0}
+  abilitySprite: {fileID: 21300000, guid: 71b8564a3e98d97408304a2d8e8535c9, type: 3}
   baseCost: 0
   durationAttack: 10
   delayAttack: 1

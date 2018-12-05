@@ -263,14 +263,15 @@ MonoBehaviour:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
   abilityID: -1
-  abilityName: '?'
-  abilityDescription: '?'
+  abilityName: Sugar Rush
+  abilityDescription: This packet of sugar is sure to give you and your teammates
+    a sweet advantage in the battlefield. It gives you and allies nearby a damage
+    buff that'll make the enemies fear for their moldy lives.
   rarity: 1
-  abilitySprite: {fileID: 0}
+  abilitySprite: {fileID: 21300000, guid: 3b74175bb2718184da1c8581eb86f9f2, type: 3}
   baseCost: 0
   durationAttack: 1
   delayAttack: 1
-  delayAttackAlternate: 1
   isInUse: 0
   controllerCurrent: {fileID: 0}
   currentPlayerRB: {fileID: 0}

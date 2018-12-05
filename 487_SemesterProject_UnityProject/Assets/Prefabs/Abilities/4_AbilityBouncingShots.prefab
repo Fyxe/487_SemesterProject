@@ -306,10 +306,11 @@ MonoBehaviour:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
   abilityID: -1
-  abilityName: '?'
-  abilityDescription: '?'
+  abilityName: Relish Ricochet
+  abilityDescription: This ability gives your bullets the bounciness of pickles! Send
+    your bullets flying across the room and relish in your victory!
   rarity: 1
-  abilitySprite: {fileID: 0}
+  abilitySprite: {fileID: 21300000, guid: 96fe54116f82bdf409bc2442c83092f5, type: 3}
   baseCost: 0
   durationAttack: 1
   delayAttack: 1

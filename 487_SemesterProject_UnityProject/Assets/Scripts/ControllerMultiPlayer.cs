@@ -608,10 +608,7 @@ public class ControllerMultiPlayer : Damageable
             nextUseAbility = Time.time + delayUseAbility;
             if (controllerAbilities.AttemptAttack())
             {                
-                if (anim != null)
-                {
-                    anim.SetTrigger("useAbility");
-                }
+                
             }            
         }        
     }
@@ -625,10 +622,7 @@ public class ControllerMultiPlayer : Damageable
             if (pointsCurrent > 0)
             {
                 Debug.Log("Joy" + indexJoystick.ToString() + "_Player" + indexPlayer.ToString() + " threw points.");
-                if (anim != null)
-                {
-                    anim.SetTrigger("throwPoints");
-                }
+                
 
                 PooledObject spawnedPointsObject = ObjectPoolingManager.instance.CreateObject(PlayerManager.instance.prefabMoney);
                 PickupStats spawnedPoints = spawnedPointsObject.GetComponent<PickupStats>();

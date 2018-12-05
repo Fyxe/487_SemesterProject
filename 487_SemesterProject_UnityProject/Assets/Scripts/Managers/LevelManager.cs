@@ -60,6 +60,15 @@ public class LevelManager : Singleton<LevelManager>
         AudioManager.instance.PlayClipLocalLooped(backgroundMusic);
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            Debug.Log("here");
+            allControllers[0].Revive();
+        }
+    }
+
     IEnumerator WaitUntilFocused()
     {
         while (SceneManager.GetActiveScene().name == "LoadingScene")

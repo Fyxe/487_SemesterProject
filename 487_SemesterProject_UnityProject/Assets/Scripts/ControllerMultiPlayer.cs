@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(InputController3D))]
 public class ControllerMultiPlayer : Damageable
 {
-
+    private List<Vector3> cache = new List<Vector3>();
     public override int hpCurrent
     {
         get
@@ -245,15 +245,21 @@ public class ControllerMultiPlayer : Damageable
 
     }
 
+    [Header("Sound")]
     public AudioClip deathSound;
     public AudioClip hurtSound;
-    public AudioClip idleOneSound;
-    public AudioClip idleTwoSound;
+    public AudioClip reviveSound;
+    public AudioClip spawnSound;
 
     [Header("Animation Variable(s)")]
     public bool isRunning = false;
+    public bool isReviving = false;
 
     List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
+    Collider[] rigColliders;
+    Rigidbody[] rigRigidbodies;
+
+    public List<Rigidbody> rigidbodies;
 
     void Awake()
     {
@@ -266,10 +272,28 @@ public class ControllerMultiPlayer : Damageable
         {
             cachedRenderers.Add(new CachedRenderer(i));
         }
+        rigidbodies[0].isKinematic = false;
+        rigidbodies[0].detectCollisions = true;
+        for (int i = 1; i < rigidbodies.Count; i++)
+        {
+            rigidbodies[i].isKinematic = true;
+            rigidbodies[i].detectCollisions = false;
+        }
     }
 
     void Update()
     {        
+        //animation that plays when toon is killed
+        if (isDead)
+        {
+            transform.Rotate(Vector3.right * -180 * Time.deltaTime);
+        }
+        if (isReviving)
+        {
+            transform.Rotate(Vector3.right * 180 * Time.deltaTime);
+        }
+        //end animation
+
 
         if (!isControlled)
         {
@@ -312,12 +336,16 @@ public class ControllerMultiPlayer : Damageable
         }
         
         controllerInput.SetAxis(movementAxis0.x, movementAxis0.z, movementAxis1.x, movementAxis1.z);
-        
 
         if (Mathf.Abs(Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Horizontal")) + 
             Mathf.Abs(Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Vertical")) > 0)
         {
             AttemptAttack(damageBaseCurrent,damageMultiplier);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            HurtToDeath();
         }
 
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 0"))
@@ -389,7 +417,10 @@ public class ControllerMultiPlayer : Damageable
     }
 
     public void Setup(PlayerAttributes newAttributes, PlayerUIBox newUI)
-    {        
+    {
+
+        AudioManager.instance.PlayClipLocalSpace(spawnSound);
+
         if (newAttributes.indexJoystick == 0)
         {
             Debug.LogError("Cannot have a joystick zero.");
@@ -715,35 +746,62 @@ public class ControllerMultiPlayer : Damageable
         state = PlayerState.alive;
         hpCurrent = 1;
         SetInvulnerable(PlayerManager.instance.timeInvulnerable);
-        SetRagdoll(true);
-        GetComponent<Animator>().enabled = true;
+        anim.enabled = true;
+
+        //for (int i = 0; i < rigidbodies.Count; i++)
+        //{
+        //    rigidbodies[i].position = cache[i];
+        //    Debug.Log(cache[i]);
+        //}
+        AudioManager.instance.PlayClipLocalSpace(reviveSound);
+        isReviving = true;
+        StartCoroutine(RezAnim());
     }
 
     public override void OnDeath()
     {
-        AudioManager.instance.PlayClipLocalSpace(deathSound);
         countReviveCurrent *= 2;
         ui.Set(PlayerUIBox.BoxSetting.dead);
         LevelManager.instance.CheckIfAllPlayersAreDead();
         NavMeshCameraController.instance.toFollow.Remove(this.transform);
-        SetRagdoll(false);
-        GetComponent<Animator>().enabled = false;
     }
 
     void OnIncapacitate()        
     {
+        AudioManager.instance.PlayClipLocalSpace(deathSound);
         ui.imageReviveCount.fillAmount = 0;
         ui.imageReviveTimer.fillAmount = 1;
-        revivesRemaining = 0;        
+        revivesRemaining = 0;
+        //for (int i = 0; i < rigidbodies.Count; i++)
+        //{
+        //    Debug.Log(rigidbodies[i].name);
+        //    cache.Add(rigidbodies[i].position);
+        //}
+        isDead = true;
+        StartCoroutine(KillAnim());
+
     }
 
     void SetRagdoll (bool value)
     {
-        Rigidbody[] bodies = GetComponentsInChildren<Rigidbody>();
-        foreach (Rigidbody rb in bodies)
-        {
-            rb.isKinematic = value;
-        }
+        //rigidbodies[0].isKinematic = !value;
+        //rigidbodies[0].detectCollisions = value;
+        //for (int i = 1; i < rigidbodies.Count; i++)
+        //{
+        //    rigidbodies[i].isKinematic = value;
+        //    rigidbodies[i].detectCollisions = !value;
+        //}
+    }
+
+    IEnumerator KillAnim ()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isDead = false;
+    }
+    IEnumerator RezAnim ()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isReviving = false;
     }
 
     public override bool Hurt(int amount)
@@ -753,7 +811,6 @@ public class ControllerMultiPlayer : Damageable
             return false;
         }
 
-        AudioManager.instance.PlayClipLocalSpace(hurtSound);
         OnHurt();
 
         int hpPrevious = hpCurrent;
@@ -781,6 +838,7 @@ public class ControllerMultiPlayer : Damageable
         }
         coroutineOnHurtDisplay = StartCoroutine(OnHurtDisplay());
         LevelManager.instance.SpawnOnEnemyHit(transform.position + Vector3.up);
+        AudioManager.instance.PlayClipLocalSpace(hurtSound);
     }
 
     IEnumerator OnHurtDisplay()
@@ -798,6 +856,7 @@ public class ControllerMultiPlayer : Damageable
 
     IEnumerator Incapacitate()
     {
+        AudioManager.instance.PlayClipLocalSpace(deathSound);
         state = PlayerState.incapacitated;
         OnIncapacitate();        
         float currentTime = 0f;

@@ -14,14 +14,14 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
     [Space]
     public float enemySpeedMultiplier = 1f;
     public int enemyHealthModifier = 1;
-    public float enemySpawnRateMultiplier = 1f;
+    public float enemySpawnRate = 1f;
     float initialSpeed;
     int initialHealth;
     float initialSpawnRate;
     [Space]
     public float enemySpeedMultiplierChange = 1f;
     public int enemyHealthModifierChange = 1;
-    public float enemySpawnRateMultiplierChange = 1f;   
+    public float enemySpawnRateChange = -0.1f;   
 
     [Header("References")]
     public int currentLevel = 0;
@@ -33,7 +33,7 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
     {
         initialSpeed = enemySpeedMultiplier;
         initialHealth = enemyHealthModifier;
-        initialSpawnRate = enemySpawnRateMultiplier;
+        initialSpawnRate = enemySpawnRate;
     }
 
     public void StartGame()
@@ -79,7 +79,7 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
 
         enemyHealthModifier += enemyHealthModifierChange;
         enemySpeedMultiplier += enemySpeedMultiplierChange;
-        enemySpawnRateMultiplier += enemySpawnRateMultiplierChange;
+        enemySpawnRate += enemySpawnRateChange;
     }
 
     public void DecreaseDifficulty()
@@ -89,7 +89,7 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
 
         enemyHealthModifier -= enemyHealthModifierChange;
         enemySpeedMultiplier -= enemySpeedMultiplierChange;
-        enemySpawnRateMultiplier -= enemySpawnRateMultiplierChange;
+        enemySpawnRate -= enemySpawnRateChange;
     }
 
     public void ResetDifficulty()
@@ -99,6 +99,6 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
 
         enemyHealthModifier = initialHealth;
         enemySpeedMultiplier = initialSpeed;
-        enemySpawnRateMultiplier = initialSpawnRate;
+        enemySpawnRate = initialSpawnRate;
     }
 }

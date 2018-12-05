@@ -58,7 +58,7 @@ public class GameLevelManager : LevelManager
             AI prefabAIToSpawn = DropManager.instance.GetDrop(Thing.ai).GetComponent<AI>();
             if ((!allAI.ContainsKey(prefabAIToSpawn) || (allAI.ContainsKey(prefabAIToSpawn) && allAI[prefabAIToSpawn].Count < setEnemies)) && Time.time > nextSpawn)
             {
-                nextSpawn = Time.time + (delaySpawn * GameplayManager.instance.enemySpawnRateMultiplier * PlayerManager.instance.playersInGame);
+                nextSpawn = Time.time + (delaySpawn * GameplayManager.instance.enemySpawnRate * PlayerManager.instance.playersInGame);
                 SpawnEnemy(prefabAIToSpawn, PositionToSpawn.ALL);
             }
         }

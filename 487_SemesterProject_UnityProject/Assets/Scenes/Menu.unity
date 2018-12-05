@@ -6687,6 +6687,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114640308175176162, guid: f182f15860f843c41a9e253041a59f4c,
+        type: 2}
+      propertyPath: enemySpawnRateChange
+      value: -0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f182f15860f843c41a9e253041a59f4c, type: 2}
   m_IsPrefabAsset: 0

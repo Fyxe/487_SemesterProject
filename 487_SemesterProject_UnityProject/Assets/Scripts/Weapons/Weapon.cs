@@ -169,7 +169,7 @@ public class Weapon : Interactable
     public virtual void OnUnequip() // called when enqueued in unequipped weapons
     {
         rb.isKinematic = true;
-        controllerCurrent = null;
+        //
         isHeld = true;
         DisableHighlight();
         //this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Interactable"), LayerMask.NameToLayer("Uninteractable"));
@@ -177,6 +177,7 @@ public class Weapon : Interactable
 
     public virtual void OnDrop()    // called when thrown
     {
+        controllerCurrent = null;
         rb.isKinematic = false;
         isHeld = false;
         checkerHighlight.playersInRange.Add(controllerCurrent.attachedPlayer);

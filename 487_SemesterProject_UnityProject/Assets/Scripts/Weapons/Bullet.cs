@@ -9,7 +9,7 @@ public class Bullet : Projectile
 
     [Header("References")]
     public WeaponRanged weaponFiredFrom;
-    // CACHE Player
+   
 
     public override void OnHit(Collider hit)
     {        

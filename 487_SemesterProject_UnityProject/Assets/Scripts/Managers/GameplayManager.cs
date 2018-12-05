@@ -98,6 +98,7 @@ public class GameplayManager : SingletonDDOL<GameplayManager>
 
     public void ResetDifficulty()
     {
+        currentLevel = 0;
         piecesMaxCurrent = piecesMaxStart;
         piecesMinCurrent = piecesMinStart;
 

@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4760624879582350}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ObjectFridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4509336517972476}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: fridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 4106413132480550}
   - component: {fileID: 33148372357459894}
   - component: {fileID: 23863869075421868}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: group4_group3_pCube11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 4687415200139998}
   - component: {fileID: 33455834051002584}
   - component: {fileID: 23413452289656182}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCube9_group4_group3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 4726386233753456}
   - component: {fileID: 33136619749698458}
   - component: {fileID: 23339808477938234}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: group4_group3_pCube10
   m_TagString: Untagged
   m_Icon: {fileID: 0}

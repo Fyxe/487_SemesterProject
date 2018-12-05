@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4900198293867628}
   - component: {fileID: 33170932967344206}
   - component: {fileID: 23485903788008790}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4904293455962630}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: displayCase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4712053935517218}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ObjectDisplayCase
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4937565642623678}
   - component: {fileID: 33371941404081752}
   - component: {fileID: 23910948157942432}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4568483202766822}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ObjectWineBottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4613998661893968}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: wineBottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

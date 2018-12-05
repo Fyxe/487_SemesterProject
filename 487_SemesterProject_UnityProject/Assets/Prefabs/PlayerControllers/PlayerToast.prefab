@@ -1989,9 +1989,10 @@ MonoBehaviour:
   attackRateMultiplier: 1
   deathSound: {fileID: 8300000, guid: 5961ab1f20c544a619efc52ec29ae6d2, type: 3}
   hurtSound: {fileID: 8300000, guid: e195d3e6595e542de8cc28e544755941, type: 3}
-  idleOneSound: {fileID: 8300000, guid: 53cc08be9a52b4852ab2ce24c365feeb, type: 3}
-  idleTwoSound: {fileID: 8300000, guid: a4c6acca450434f789771e58c88f0871, type: 3}
+  reviveSound: {fileID: 8300000, guid: 53cc08be9a52b4852ab2ce24c365feeb, type: 3}
+  spawnSound: {fileID: 8300000, guid: a4c6acca450434f789771e58c88f0871, type: 3}
   isRunning: 0
+  isReviving: 0
   rigidbodies:
   - {fileID: 54953760275504412}
   - {fileID: 54711838548505508}

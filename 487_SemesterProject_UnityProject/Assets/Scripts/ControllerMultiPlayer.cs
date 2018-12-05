@@ -245,10 +245,11 @@ public class ControllerMultiPlayer : Damageable
 
     }
 
+    [Header("Sound")]
     public AudioClip deathSound;
     public AudioClip hurtSound;
-    public AudioClip idleOneSound;
-    public AudioClip idleTwoSound;
+    public AudioClip reviveSound;
+    public AudioClip spawnSound;
 
     [Header("Animation Variable(s)")]
     public bool isRunning = false;
@@ -282,7 +283,7 @@ public class ControllerMultiPlayer : Damageable
 
     void Update()
     {        
-
+        //animation that plays when toon is killed
         if (isDead)
         {
             transform.Rotate(Vector3.right * -180 * Time.deltaTime);
@@ -291,6 +292,8 @@ public class ControllerMultiPlayer : Damageable
         {
             transform.Rotate(Vector3.right * 180 * Time.deltaTime);
         }
+        //end animation
+
 
         if (!isControlled)
         {
@@ -415,7 +418,8 @@ public class ControllerMultiPlayer : Damageable
 
     public void Setup(PlayerAttributes newAttributes, PlayerUIBox newUI)
     {
-       
+
+        AudioManager.instance.PlayClipLocalSpace(spawnSound);
 
         if (newAttributes.indexJoystick == 0)
         {
@@ -741,14 +745,13 @@ public class ControllerMultiPlayer : Damageable
         //    rigidbodies[i].position = cache[i];
         //    Debug.Log(cache[i]);
         //}
-
+        AudioManager.instance.PlayClipLocalSpace(reviveSound);
         isReviving = true;
         StartCoroutine(RezAnim());
     }
 
     public override void OnDeath()
     {
-        AudioManager.instance.PlayClipLocalSpace(deathSound);
         countReviveCurrent *= 2;
         ui.Set(PlayerUIBox.BoxSetting.dead);
         LevelManager.instance.CheckIfAllPlayersAreDead();
@@ -757,6 +760,7 @@ public class ControllerMultiPlayer : Damageable
 
     void OnIncapacitate()        
     {
+        AudioManager.instance.PlayClipLocalSpace(deathSound);
         ui.imageReviveCount.fillAmount = 0;
         ui.imageReviveTimer.fillAmount = 1;
         revivesRemaining = 0;
@@ -799,7 +803,6 @@ public class ControllerMultiPlayer : Damageable
             return false;
         }
 
-        AudioManager.instance.PlayClipLocalSpace(hurtSound);
         OnHurt();
 
         int hpPrevious = hpCurrent;
@@ -827,6 +830,7 @@ public class ControllerMultiPlayer : Damageable
         }
         coroutineOnHurtDisplay = StartCoroutine(OnHurtDisplay());
         LevelManager.instance.SpawnOnEnemyHit(transform.position + Vector3.up);
+        AudioManager.instance.PlayClipLocalSpace(hurtSound);
     }
 
     IEnumerator OnHurtDisplay()
@@ -844,6 +848,7 @@ public class ControllerMultiPlayer : Damageable
 
     IEnumerator Incapacitate()
     {
+        AudioManager.instance.PlayClipLocalSpace(deathSound);
         state = PlayerState.incapacitated;
         OnIncapacitate();        
         float currentTime = 0f;

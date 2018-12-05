@@ -2039,9 +2039,10 @@ MonoBehaviour:
   attackRateMultiplier: 1
   deathSound: {fileID: 8300000, guid: 1f23404124a834d868b795ec7cbe6521, type: 3}
   hurtSound: {fileID: 8300000, guid: a996b93eecbc848c09260a25a2f59119, type: 3}
-  idleOneSound: {fileID: 8300000, guid: 4baeca7ce56034d3b89495adf167cd77, type: 3}
-  idleTwoSound: {fileID: 8300000, guid: 378de9865d8694df2878c9072a38953c, type: 3}
+  reviveSound: {fileID: 8300000, guid: 4baeca7ce56034d3b89495adf167cd77, type: 3}
+  spawnSound: {fileID: 8300000, guid: 378de9865d8694df2878c9072a38953c, type: 3}
   isRunning: 0
+  isReviving: 0
   rigidbodies:
   - {fileID: 54005634516013120}
   - {fileID: 54026420203601724}

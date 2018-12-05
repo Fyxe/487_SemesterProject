@@ -568,7 +568,7 @@ MonoBehaviour:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
   weaponID: 5
-  weaponName: '?'
+  weaponName: Hammer
   weaponDescription: '?'
   rarity: 4
   weaponSprite: {fileID: 0}

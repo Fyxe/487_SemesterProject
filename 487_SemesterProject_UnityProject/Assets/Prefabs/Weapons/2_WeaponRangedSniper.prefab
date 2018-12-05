@@ -424,7 +424,7 @@ MonoBehaviour:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
   weaponID: 2
-  weaponName: '?'
+  weaponName: Sniper
   weaponDescription: '?'
   rarity: 3
   weaponSprite: {fileID: 0}

@@ -611,8 +611,8 @@ MonoBehaviour:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
   weaponID: 0
-  weaponName: '?'
-  weaponDescription: '?'
+  weaponName: Minigun
+  weaponDescription: Dumb
   rarity: 4
   weaponSprite: {fileID: 0}
   baseCost: 0

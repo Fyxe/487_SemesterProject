@@ -482,7 +482,7 @@ MonoBehaviour:
     objectPrefab: {fileID: 0}
     deactivatedObjects: []
   weaponID: 4
-  weaponName: '?'
+  weaponName: Fork
   weaponDescription: '?'
   rarity: 3
   weaponSprite: {fileID: 0}

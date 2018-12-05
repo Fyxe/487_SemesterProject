@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(InputController3D))]
 public class ControllerMultiPlayer : Damageable
 {
-
+    private List<Vector3> cache = new List<Vector3>();
     public override int hpCurrent
     {
         get
@@ -258,6 +258,7 @@ public class ControllerMultiPlayer : Damageable
     Rigidbody[] rigRigidbodies;
 
     public List<Rigidbody> rigidbodies;
+    bool _value = false;
 
     void Awake()
     {
@@ -328,6 +329,11 @@ public class ControllerMultiPlayer : Damageable
             Mathf.Abs(Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Vertical")) > 0)
         {
             AttemptAttack(damageBaseCurrent,damageMultiplier);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            HurtToDeath();
         }
 
         if (Input.GetKeyDown("joystick " + indexJoystick.ToString() + " button 0"))
@@ -717,8 +723,17 @@ public class ControllerMultiPlayer : Damageable
         state = PlayerState.alive;
         hpCurrent = 1;
         SetInvulnerable(PlayerManager.instance.timeInvulnerable);
+        anim.enabled = true;
+
         SetRagdoll(true);
-        GetComponent<Animator>().enabled = true;
+
+        for (int i = 0; i < rigidbodies.Count; i++)
+        {
+            rigidbodies[i].position = cache[i];
+            Debug.Log(cache[i]);
+        }
+
+        cache.Clear();
     }
 
     public override void OnDeath()
@@ -735,6 +750,11 @@ public class ControllerMultiPlayer : Damageable
         ui.imageReviveCount.fillAmount = 0;
         ui.imageReviveTimer.fillAmount = 1;
         revivesRemaining = 0;
+        for (int i = 0; i < rigidbodies.Count; i++)
+        {
+            Debug.Log(rigidbodies[i].name);
+            cache.Add(rigidbodies[i].position);
+        }
         SetRagdoll(false);
     }
 

@@ -28,6 +28,15 @@ public class ShopManager : LevelManager
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("here");
+            allControllers[0].Revive();
+        }
+    }
+
     public override void EndLevel(bool isVictory)
     {
         isPlaying = false;

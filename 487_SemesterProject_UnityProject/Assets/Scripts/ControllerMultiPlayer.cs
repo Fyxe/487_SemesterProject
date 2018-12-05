@@ -395,6 +395,7 @@ public class ControllerMultiPlayer : Damageable
             Debug.LogError("Cannot have a joystick zero.");
             return;
         }
+        PlayerManager.instance.GetAttributeOfPlayer(indexPlayer).isDead = false;
         AudioManager.instance.PlayClipLocalSpace(spawnSound);
         this.name = "[J" + newAttributes.indexJoystick.ToString() + ":P" + newAttributes.indexPlayer.ToString() + "]Controller";
 
@@ -712,6 +713,7 @@ public class ControllerMultiPlayer : Damageable
         hpCurrent = 1;
         SetInvulnerable(PlayerManager.instance.timeInvulnerable);        
         GetComponent<Animator>().enabled = true;
+        PlayerManager.instance.GetAttributeOfPlayer(indexPlayer).isDead = false;
         rb.isKinematic = false;
     }
 

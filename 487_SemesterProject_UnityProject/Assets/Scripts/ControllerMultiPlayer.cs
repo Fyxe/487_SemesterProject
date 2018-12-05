@@ -252,13 +252,13 @@ public class ControllerMultiPlayer : Damageable
 
     [Header("Animation Variable(s)")]
     public bool isRunning = false;
+    public bool isReviving = false;
 
     List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
     Collider[] rigColliders;
     Rigidbody[] rigRigidbodies;
 
     public List<Rigidbody> rigidbodies;
-    bool _value = false;
 
     void Awake()
     {
@@ -282,6 +282,15 @@ public class ControllerMultiPlayer : Damageable
 
     void Update()
     {        
+
+        if (isDead)
+        {
+            transform.Rotate(Vector3.right * -180 * Time.deltaTime);
+        }
+        if (isReviving)
+        {
+            transform.Rotate(Vector3.right * 180 * Time.deltaTime);
+        }
 
         if (!isControlled)
         {
@@ -405,7 +414,9 @@ public class ControllerMultiPlayer : Damageable
     }
 
     public void Setup(PlayerAttributes newAttributes, PlayerUIBox newUI)
-    {        
+    {
+       
+
         if (newAttributes.indexJoystick == 0)
         {
             Debug.LogError("Cannot have a joystick zero.");
@@ -725,15 +736,14 @@ public class ControllerMultiPlayer : Damageable
         SetInvulnerable(PlayerManager.instance.timeInvulnerable);
         anim.enabled = true;
 
-        SetRagdoll(true);
+        //for (int i = 0; i < rigidbodies.Count; i++)
+        //{
+        //    rigidbodies[i].position = cache[i];
+        //    Debug.Log(cache[i]);
+        //}
 
-        for (int i = 0; i < rigidbodies.Count; i++)
-        {
-            rigidbodies[i].position = cache[i];
-            Debug.Log(cache[i]);
-        }
-
-        cache.Clear();
+        isReviving = true;
+        StartCoroutine(RezAnim());
     }
 
     public override void OnDeath()
@@ -750,23 +760,36 @@ public class ControllerMultiPlayer : Damageable
         ui.imageReviveCount.fillAmount = 0;
         ui.imageReviveTimer.fillAmount = 1;
         revivesRemaining = 0;
-        for (int i = 0; i < rigidbodies.Count; i++)
-        {
-            Debug.Log(rigidbodies[i].name);
-            cache.Add(rigidbodies[i].position);
-        }
-        SetRagdoll(false);
+        //for (int i = 0; i < rigidbodies.Count; i++)
+        //{
+        //    Debug.Log(rigidbodies[i].name);
+        //    cache.Add(rigidbodies[i].position);
+        //}
+        isDead = true;
+        StartCoroutine(KillAnim());
+
     }
 
     void SetRagdoll (bool value)
     {
-        rigidbodies[0].isKinematic = !value;
-        rigidbodies[0].detectCollisions = value;
-        for (int i = 1; i < rigidbodies.Count; i++)
-        {
-            rigidbodies[i].isKinematic = value;
-            rigidbodies[i].detectCollisions = !value;
-        }
+        //rigidbodies[0].isKinematic = !value;
+        //rigidbodies[0].detectCollisions = value;
+        //for (int i = 1; i < rigidbodies.Count; i++)
+        //{
+        //    rigidbodies[i].isKinematic = value;
+        //    rigidbodies[i].detectCollisions = !value;
+        //}
+    }
+
+    IEnumerator KillAnim ()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isDead = false;
+    }
+    IEnumerator RezAnim ()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isReviving = false;
     }
 
     public override bool Hurt(int amount)

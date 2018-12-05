@@ -6067,9 +6067,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 4238709345033002, guid: 7677c7e9f0661a34589c35b768e7ed5a, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
+    - target: {fileID: 4172125531105370, guid: 7677c7e9f0661a34589c35b768e7ed5a, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4796493948131660, guid: 7677c7e9f0661a34589c35b768e7ed5a, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4776185093469224, guid: 7677c7e9f0661a34589c35b768e7ed5a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.672
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7677c7e9f0661a34589c35b768e7ed5a, type: 2}
@@ -12894,11 +12902,6 @@ Prefab:
     - target: {fileID: 4230442270143794, guid: c7d493e4bc1dca1448ce328d6402161b, type: 2}
       propertyPath: m_RootOrder
       value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114414346876612724, guid: c7d493e4bc1dca1448ce328d6402161b,
-        type: 2}
-      propertyPath: damage
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7d493e4bc1dca1448ce328d6402161b, type: 2}

@@ -9,12 +9,21 @@ public class Bullet : Projectile
 
     [Header("References")]
     public WeaponRanged weaponFiredFrom;
+    public PooledObject onHitParticleSystem;
+    PooledObject cachedParticleSystem;
    
 
     public override void OnHit(Collider hit)
-    {        
+    {
         base.OnHit(hit);
         Damageable damageableHit = hit.gameObject.GetComponentInParent<Damageable>();
+
+        if (onHitParticleSystem != null)
+        {
+            cachedParticleSystem = ObjectPoolingManager.instance.CreateObject(onHitParticleSystem);
+            cachedParticleSystem.transform.position = transform.position;
+        }
+
         if (damageableHit != null)
         {
             bool killed = damageableHit.Hurt(damage);
@@ -62,6 +71,10 @@ public class Bullet : Projectile
                 }
                 LevelManager.instance.SpawnOnEnemyHit(damageableHit.transform.position + Vector3.up);
             }            
+        }
+        else
+        {
+            Debug.Log("Hit a not damageable: " + hit.gameObject);
         }
         if (!weaponFiredFrom.isPiercing || damageableHit == null)
         {

@@ -177,7 +177,6 @@ public class Weapon : Interactable
 
     public virtual void OnDrop()    // called when thrown
     {
-        controllerCurrent = null;
         rb.isKinematic = false;
         isHeld = false;
         checkerHighlight.playersInRange.Add(controllerCurrent.attachedPlayer);
@@ -185,6 +184,7 @@ public class Weapon : Interactable
         EnableHighlight();
         EnableInformation();
         this.gameObject.ReplaceLayer(LayerMask.NameToLayer("Interactable"), LayerMask.NameToLayer("Uninteractable"));
+        controllerCurrent = null;
     }
 
     public virtual void OnKill(Damageable damageable)

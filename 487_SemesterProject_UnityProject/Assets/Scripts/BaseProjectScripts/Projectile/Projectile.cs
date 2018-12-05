@@ -75,17 +75,18 @@ public class Projectile : PooledObject
         if (Physics.Raycast(r, out h, speedMove * Time.deltaTime, layerMask.value))
         {
             if (!h.collider.isTrigger)
-            {                
+            {
                 OnHit(h.collider);
                 return true;
             }   
             else
-            {                
+            {
+                Debug.Log("Its a TRIGGER: " + h.collider.gameObject.name);
                 return false;
             }
         }
         else
-        {            
+        {
             return false;
         }
     }

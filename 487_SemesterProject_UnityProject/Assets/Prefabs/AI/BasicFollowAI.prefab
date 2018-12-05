@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 195013324590690414}
   - component: {fileID: 114473578030747148}
   - component: {fileID: 54227617970055526}
-  - component: {fileID: 135582994465578294}
   - component: {fileID: 95736341513312426}
   m_Layer: 9
   m_Name: BasicFollowAI
@@ -103,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1171559148677630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -11.04, y: 0, z: 6.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4894905936855716}
@@ -315,6 +314,7 @@ MonoBehaviour:
   pointsOnHit: 0
   pointsOnDeath: 10
   delayAttack: 1
+  distanceAwayFromPlayer: 0
   stateCurrent: {fileID: 11400000, guid: f9bfbb14b0b4469479dea63ad7f215e0, type: 2}
   timeElapsedInState: 0
   target: {fileID: 0}
@@ -323,18 +323,6 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: 4b9ba271b97b14a20ac7424e8c4cb3c2, type: 3}
   hurtSound: {fileID: 8300000, guid: c90a5bd63109040a09c7db6bd6ac181f, type: 3}
   attackSound: {fileID: 8300000, guid: 73fe2834c956d49ac9cdd1b9206f44c1, type: 3}
---- !u!135 &135582994465578294
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1171559148677630}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.6
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!136 &136139974267727548
 CapsuleCollider:
   m_ObjectHideFlags: 1

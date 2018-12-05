@@ -214,7 +214,7 @@ MonoBehaviour:
   layerMaskLevelCollision:
     serializedVersion: 2
     m_Bits: 2048
-  type: 2
+  type: 1
   combinationSkew: 0.8
   spawnAtConnected: 0
   spawnAtUnconnected: 1

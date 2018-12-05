@@ -1,17 +1,42 @@
 fileFormatVersion: 2
-guid: ea1574bdb9106da4ca8799963836a3d1
+guid: eb67cf2b6e6314c94817845a41bc6d7b
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: default
-    400000: //RootNode
-    400002: default
-    2100000: defaultMat
-    2300000: default
-    3300000: default
-    4300000: default
-    2186277476908879412: ImportLogs
+    100000: joint1
+    100002: joint2
+    100004: joint3
+    100006: joint4
+    100008: pelvis
+    100010: russianSourdough:Mesh
+    100012: //RootNode
+    100014: spine1
+    100016: spine2
+    100018: spine3
+    100020: spine4
+    100022: spine5
+    100024: spine6
+    100026: spine7
+    100028: spine8
+    400000: joint1
+    400002: joint2
+    400004: joint3
+    400006: joint4
+    400008: pelvis
+    400010: russianSourdough:Mesh
+    400012: //RootNode
+    400014: spine1
+    400016: spine2
+    400018: spine3
+    400020: spine4
+    400022: spine5
+    400024: spine6
+    400026: spine7
+    400028: spine8
+    2100000: lambert1
+    4300000: russianSourdough:Mesh
+    9500000: //RootNode
+    13700000: russianSourdough:Mesh
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -62,9 +87,9 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    useFileScale: 0
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -84,12 +109,11 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

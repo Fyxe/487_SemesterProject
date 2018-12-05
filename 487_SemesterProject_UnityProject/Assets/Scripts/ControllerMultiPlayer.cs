@@ -254,6 +254,10 @@ public class ControllerMultiPlayer : Damageable
     public bool isRunning = false;
 
     List<CachedRenderer> cachedRenderers = new List<CachedRenderer>();
+    Collider[] rigColliders;
+    Rigidbody[] rigRigidbodies;
+
+    public List<Rigidbody> rigidbodies;
 
     void Awake()
     {
@@ -265,6 +269,13 @@ public class ControllerMultiPlayer : Damageable
         foreach (var i in renderers)
         {
             cachedRenderers.Add(new CachedRenderer(i));
+        }
+        rigidbodies[0].isKinematic = false;
+        rigidbodies[0].detectCollisions = true;
+        for (int i = 1; i < rigidbodies.Count; i++)
+        {
+            rigidbodies[i].isKinematic = true;
+            rigidbodies[i].detectCollisions = false;
         }
     }
 
@@ -312,7 +323,6 @@ public class ControllerMultiPlayer : Damageable
         }
         
         controllerInput.SetAxis(movementAxis0.x, movementAxis0.z, movementAxis1.x, movementAxis1.z);
-        
 
         if (Mathf.Abs(Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Horizontal")) + 
             Mathf.Abs(Input.GetAxis("J" + indexJoystick.ToString() + "_Axis1Vertical")) > 0)
@@ -718,23 +728,24 @@ public class ControllerMultiPlayer : Damageable
         ui.Set(PlayerUIBox.BoxSetting.dead);
         LevelManager.instance.CheckIfAllPlayersAreDead();
         NavMeshCameraController.instance.toFollow.Remove(this.transform);
-        SetRagdoll(false);
-        GetComponent<Animator>().enabled = false;
     }
 
     void OnIncapacitate()        
     {
         ui.imageReviveCount.fillAmount = 0;
         ui.imageReviveTimer.fillAmount = 1;
-        revivesRemaining = 0;        
+        revivesRemaining = 0;
+        SetRagdoll(false);
     }
 
     void SetRagdoll (bool value)
     {
-        Rigidbody[] bodies = GetComponentsInChildren<Rigidbody>();
-        foreach (Rigidbody rb in bodies)
+        rigidbodies[0].isKinematic = !value;
+        rigidbodies[0].detectCollisions = value;
+        for (int i = 1; i < rigidbodies.Count; i++)
         {
-            rb.isKinematic = value;
+            rigidbodies[i].isKinematic = value;
+            rigidbodies[i].detectCollisions = !value;
         }
     }
 

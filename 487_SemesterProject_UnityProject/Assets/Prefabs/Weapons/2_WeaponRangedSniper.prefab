@@ -70,7 +70,8 @@ GameObject:
   - component: {fileID: 4366776528734962}
   - component: {fileID: 33012913904436676}
   - component: {fileID: 23885524663353342}
-  m_Layer: 0
+  - component: {fileID: 64068562213379898}
+  m_Layer: 10
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +86,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4059105483847840}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sniperRifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +168,7 @@ Transform:
   m_GameObject: {fileID: 1632407380065790}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.387, z: 0.67199993}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0.75}
   m_Children:
   - {fileID: 4366776528734962}
   m_Father: {fileID: 4298807184745930}
@@ -383,6 +384,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &64068562213379898
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1503086713807198}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 299ac2ff4824e4243859b12e5a2612ac, type: 3}
 --- !u!65 &65382922709265520
 BoxCollider:
   m_ObjectHideFlags: 1

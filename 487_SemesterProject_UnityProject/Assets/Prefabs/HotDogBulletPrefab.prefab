@@ -84,8 +84,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4274260818304394}
-  - component: {fileID: 198826224342390106}
-  - component: {fileID: 199812195369126520}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -485,3 +483,5 @@ MonoBehaviour:
   trail: {fileID: 96589821272493042}
   damage: 0
   weaponFiredFrom: {fileID: 0}
+  onHitParticleSystem: {fileID: 114917526066108664, guid: a8cc1f582fd335347b19ad7a819b5819,
+    type: 2}

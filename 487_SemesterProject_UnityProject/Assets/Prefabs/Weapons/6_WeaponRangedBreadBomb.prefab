@@ -38,7 +38,8 @@ GameObject:
   - component: {fileID: 4424512583820190}
   - component: {fileID: 33877805688954180}
   - component: {fileID: 23415132722202198}
-  m_Layer: 0
+  - component: {fileID: 64221904385572928}
+  m_Layer: 10
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4686431701638798}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: breadBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,6 +384,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &64221904385572928
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196449561561600}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 4ed442c9e5ed6d54e8e797ebc0277d1e, type: 3}
 --- !u!65 &65097175515756816
 BoxCollider:
   m_ObjectHideFlags: 1

@@ -316,6 +316,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 340280304}
     m_Modifications:
+    - target: {fileID: 114301704695106416, guid: 1d3deb11aeb7d934e953e3dfffccf97e,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 224070273883966856, guid: 1d3deb11aeb7d934e953e3dfffccf97e,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -450,6 +455,31 @@ Prefab:
         type: 2}
       propertyPath: m_Colors.m_PressedColor.b
       value: 0.8301887
+      objectReference: {fileID: 0}
+    - target: {fileID: 114301704695106416, guid: 1d3deb11aeb7d934e953e3dfffccf97e,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114301704695106416, guid: 1d3deb11aeb7d934e953e3dfffccf97e,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114301704695106416, guid: 1d3deb11aeb7d934e953e3dfffccf97e,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1440193601}
+    - target: {fileID: 114301704695106416, guid: 1d3deb11aeb7d934e953e3dfffccf97e,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CallbackPlayButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 114301704695106416, guid: 1d3deb11aeb7d934e953e3dfffccf97e,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d3deb11aeb7d934e953e3dfffccf97e, type: 2}
@@ -1519,6 +1549,17 @@ MonoBehaviour:
           m_StringArgument: Shop
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1440193601}
+        m_MethodName: CallbackPlayButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Shop
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &289482067
@@ -1633,6 +1674,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 2009488813}
     m_Modifications:
+    - target: {fileID: 114491469062689418, guid: 5f65235a81b22894c90e313e22875d82,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 224437137229012002, guid: 5f65235a81b22894c90e313e22875d82,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -1767,6 +1813,31 @@ Prefab:
         type: 2}
       propertyPath: m_Colors.m_PressedColor.b
       value: 0.8301887
+      objectReference: {fileID: 0}
+    - target: {fileID: 114491469062689418, guid: 5f65235a81b22894c90e313e22875d82,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114491469062689418, guid: 5f65235a81b22894c90e313e22875d82,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114491469062689418, guid: 5f65235a81b22894c90e313e22875d82,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1440193601}
+    - target: {fileID: 114491469062689418, guid: 5f65235a81b22894c90e313e22875d82,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CallbackPlayButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 114491469062689418, guid: 5f65235a81b22894c90e313e22875d82,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f65235a81b22894c90e313e22875d82, type: 2}
@@ -1857,6 +1928,17 @@ MonoBehaviour:
           m_StringArgument: Shop
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1440193601}
+        m_MethodName: CallbackPlayButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Shop
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &300511063
@@ -1900,6 +1982,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 2073169285}
     m_Modifications:
+    - target: {fileID: 114492060823336450, guid: e7f573ad3f73a7547b712c109595a889,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 224940549205639350, guid: e7f573ad3f73a7547b712c109595a889,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -2034,6 +2121,31 @@ Prefab:
         type: 2}
       propertyPath: m_Colors.m_PressedColor.b
       value: 0.8301887
+      objectReference: {fileID: 0}
+    - target: {fileID: 114492060823336450, guid: e7f573ad3f73a7547b712c109595a889,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114492060823336450, guid: e7f573ad3f73a7547b712c109595a889,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114492060823336450, guid: e7f573ad3f73a7547b712c109595a889,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1440193601}
+    - target: {fileID: 114492060823336450, guid: e7f573ad3f73a7547b712c109595a889,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CallbackPlayButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 114492060823336450, guid: e7f573ad3f73a7547b712c109595a889,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7f573ad3f73a7547b712c109595a889, type: 2}
@@ -3004,6 +3116,17 @@ MonoBehaviour:
           m_StringArgument: Shop
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1440193601}
+        m_MethodName: CallbackPlayButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Shop
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &561515796
@@ -3362,7 +3485,7 @@ RectTransform:
   - {fileID: 1936651880}
   - {fileID: 1274660987}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3550,7 +3673,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &769018654
 GameObject:
@@ -4237,6 +4360,17 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 1936651882}
           m_ObjectArgumentAssemblyTypeName: UI.ScreenBase, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Shop
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1440193601}
+        m_MethodName: CallbackPlayButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Shop
@@ -6013,7 +6147,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1460565620
 GameObject:
@@ -6246,6 +6380,17 @@ MonoBehaviour:
           m_StringArgument: Shop
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1440193601}
+        m_MethodName: CallbackPlayButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Shop
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1496692223
@@ -6289,6 +6434,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 532571358}
     m_Modifications:
+    - target: {fileID: 114785322403059956, guid: 2c967809466b8214fb09a15585de94ce,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 224286399789987914, guid: 2c967809466b8214fb09a15585de94ce,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -6424,8 +6574,79 @@ Prefab:
       propertyPath: m_Colors.m_PressedColor.b
       value: 0.8301887
       objectReference: {fileID: 0}
+    - target: {fileID: 114785322403059956, guid: 2c967809466b8214fb09a15585de94ce,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114785322403059956, guid: 2c967809466b8214fb09a15585de94ce,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114785322403059956, guid: 2c967809466b8214fb09a15585de94ce,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1440193601}
+    - target: {fileID: 114785322403059956, guid: 2c967809466b8214fb09a15585de94ce,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CallbackPlayButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 114785322403059956, guid: 2c967809466b8214fb09a15585de94ce,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c967809466b8214fb09a15585de94ce, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!1001 &1530468960
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4204580846112596, guid: 7e5c0811a64b2694f8d33f054b691ebc, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204580846112596, guid: 7e5c0811a64b2694f8d33f054b691ebc, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204580846112596, guid: 7e5c0811a64b2694f8d33f054b691ebc, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204580846112596, guid: 7e5c0811a64b2694f8d33f054b691ebc, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204580846112596, guid: 7e5c0811a64b2694f8d33f054b691ebc, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204580846112596, guid: 7e5c0811a64b2694f8d33f054b691ebc, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204580846112596, guid: 7e5c0811a64b2694f8d33f054b691ebc, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204580846112596, guid: 7e5c0811a64b2694f8d33f054b691ebc, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003471360744626, guid: 7e5c0811a64b2694f8d33f054b691ebc, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7e5c0811a64b2694f8d33f054b691ebc, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &1531587738
 Prefab:
@@ -6464,7 +6685,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4956794724856630, guid: f182f15860f843c41a9e253041a59f4c, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f182f15860f843c41a9e253041a59f4c, type: 2}
@@ -7626,6 +7847,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1440193601}
+        m_MethodName: CallbackPlayButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1809968079
@@ -8059,6 +8291,17 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 156819912}
           m_ObjectArgumentAssemblyTypeName: UI.ScreenBase, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Shop
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1440193601}
+        m_MethodName: CallbackPlayButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Shop
@@ -8948,7 +9191,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2073169284
 GameObject:
@@ -9103,6 +9346,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1440193601}
         m_MethodName: CallbackQuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Shop
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1440193601}
+        m_MethodName: CallbackPlayButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

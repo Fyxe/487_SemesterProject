@@ -14,4 +14,9 @@ public class MenuManager : MonoBehaviour
     {
         GameManager.instance.Quit();
     }
+
+    public void CallbackPlayButtonClick()
+    {
+        GameManager.instance.PlayButtonClick();
+    }
 }

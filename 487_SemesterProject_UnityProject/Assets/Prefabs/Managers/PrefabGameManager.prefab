@@ -1004,6 +1004,7 @@ MonoBehaviour:
     maxDayReached: 0
     unlockedBaskets: 
   gameStartedCorrectly: 0
+  buttonClick: {fileID: 8300000, guid: e3fb04b20a2888245b9cd957a1843949, type: 3}
 --- !u!114 &114975718039966508
 MonoBehaviour:
   m_ObjectHideFlags: 1

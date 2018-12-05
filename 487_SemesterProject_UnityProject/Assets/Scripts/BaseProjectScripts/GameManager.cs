@@ -8,6 +8,7 @@ public class GameManager : SingletonDDOL<GameManager>
     public GameData dataCurrent = new GameData ();
 
     public bool gameStartedCorrectly = false;
+    public AudioClip buttonClick;
     bool isPaused = false;
 
     protected override void Initialize()
@@ -94,5 +95,10 @@ public class GameManager : SingletonDDOL<GameManager>
     void OnApplicationQuit()
     {
         LocalDataManager.instance.SaveObjectToFile("Saves","GameData.save",dataCurrent);
+    }
+
+    public void PlayButtonClick()
+    {
+        AudioManager.instance.PlayClipLocalSpace(buttonClick);
     }
 }

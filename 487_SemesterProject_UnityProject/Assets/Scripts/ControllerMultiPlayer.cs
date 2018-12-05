@@ -710,9 +710,9 @@ public class ControllerMultiPlayer : Damageable
         StopCoroutine(coroutineIncapacitate);
         state = PlayerState.alive;
         hpCurrent = 1;
-        SetInvulnerable(PlayerManager.instance.timeInvulnerable);
-        SetRagdoll(true);
+        SetInvulnerable(PlayerManager.instance.timeInvulnerable);        
         GetComponent<Animator>().enabled = true;
+        rb.isKinematic = false;
     }
 
     public override void OnDeath()
@@ -722,7 +722,6 @@ public class ControllerMultiPlayer : Damageable
         ui.Set(PlayerUIBox.BoxSetting.dead);
         LevelManager.instance.CheckIfAllPlayersAreDead();
         NavMeshCameraController.instance.toFollow.Remove(this.transform);
-        SetRagdoll(false);
         GetComponent<Animator>().enabled = false;
     }
 
@@ -733,15 +732,7 @@ public class ControllerMultiPlayer : Damageable
         ui.imageReviveTimer.fillAmount = 1;
         revivesRemaining = 0;        
     }
-
-    void SetRagdoll (bool value)
-    {
-        Rigidbody[] bodies = GetComponentsInChildren<Rigidbody>();
-        foreach (Rigidbody rb in bodies)
-        {
-            rb.isKinematic = value;
-        }
-    }
+    
 
     public override bool Hurt(int amount)
     {

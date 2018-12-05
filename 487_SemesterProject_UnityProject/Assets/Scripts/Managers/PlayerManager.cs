@@ -34,7 +34,7 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
     public PickupStats prefabMoney;
     //[SerializeField]List<PlayerAttributes> m_allPlayerAttributes = new List<PlayerAttributes>();  // TODO make get set for spawned player attributes
     public List<PlayerAttributes> allPlayerAttributes = new List<PlayerAttributes>();
-
+    public int a;
 
     public int playersAliveInGame
     {
@@ -48,6 +48,7 @@ public class PlayerManager : SingletonDDOL<PlayerManager>
                     retInt++;
                 }
             }
+            a = retInt;
             return retInt;
         }
     }

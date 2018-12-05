@@ -720,6 +720,7 @@ public class ControllerMultiPlayer : Damageable
         AudioManager.instance.PlayClipLocalSpace(deathSound);
         countReviveCurrent *= 2;
         ui.Set(PlayerUIBox.BoxSetting.dead);
+        PlayerManager.instance.GetAttributeOfPlayer(indexPlayer).isDead = true;
         LevelManager.instance.CheckIfAllPlayersAreDead();
         NavMeshCameraController.instance.toFollow.Remove(this.transform);
         GetComponent<Animator>().enabled = false;
@@ -743,7 +744,7 @@ public class ControllerMultiPlayer : Damageable
 
         AudioManager.instance.PlayClipLocalSpace(hurtSound);
         OnHurt();
-
+        
         int hpPrevious = hpCurrent;
 
         hpCurrent = Mathf.Clamp(hpCurrent - amount, 0, hpMax);

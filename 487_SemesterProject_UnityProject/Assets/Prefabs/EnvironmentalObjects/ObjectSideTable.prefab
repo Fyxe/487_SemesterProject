@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4521867353753206}
   - component: {fileID: 33818318609780832}
   - component: {fileID: 23812883407955680}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCube1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4909174465640968}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ObjectSideTable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4531229559342188}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: sideTable
   m_TagString: Untagged
   m_Icon: {fileID: 0}

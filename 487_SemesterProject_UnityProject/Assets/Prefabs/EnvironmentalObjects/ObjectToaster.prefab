@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4261054146385696}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: toaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4029279468262898}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ObjectToaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 4004529728875704}
   - component: {fileID: 33132878561176978}
   - component: {fileID: 23450960026660360}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCube1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4938534762227280}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ObjectCabinet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4578610338062662}
   - component: {fileID: 33128996985203066}
   - component: {fileID: 23221049595633398}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: cabinetback_doors_group1_polySurface3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4929712436696318}
   - component: {fileID: 33469312268259850}
   - component: {fileID: 23426589050477696}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: cabinetback_doors_group1_polySurface4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 4800138554356304}
   - component: {fileID: 33884615213854406}
   - component: {fileID: 23918643315158606}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: cabinetback_group1_handles_polySurface3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4265173309509292}
   - component: {fileID: 33067147654671518}
   - component: {fileID: 23293573250368304}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: cabinetback_group1_handles_polySurface4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4741186309198944}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: cabinet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 4115837299227164}
   - component: {fileID: 33767538372637338}
   - component: {fileID: 23453335593258292}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: cabinetback_pCube12
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4553702771846224}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: wineGlass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4516303729112284}
   - component: {fileID: 33980189524022266}
   - component: {fileID: 23525912920973982}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4369863092214736}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ObjectWineGlass
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -33,7 +33,7 @@ public class Damageable : PooledObject
     }
     [Space]
     public bool isDead = false;
-    [Space]
+    [Space] // Team 0 is enemy, Team 1 is players
     public int team;
 
     public virtual bool Hurt(int amount)

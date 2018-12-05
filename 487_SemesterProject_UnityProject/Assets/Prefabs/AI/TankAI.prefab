@@ -280,14 +280,14 @@ MonoBehaviour:
     deactivatedObjects: []
   blockAllDamage: 0
   blockAllHealing: 0
-  m_hpMax: 10
+  m_hpMax: 5
   m_hpCurrent: 0
   isDead: 0
   team: 0
   aiID: -1
   aiName: 
   aiDescription: 
-  attackRadius: 1
+  attackRadius: 2
   aiSprite: {fileID: 0}
   damage: 1
   speedMove: 1.25
@@ -296,6 +296,7 @@ MonoBehaviour:
   pointsOnHit: 0
   pointsOnDeath: 10
   delayAttack: 1
+  distanceAwayFromPlayer: 1
   stateCurrent: {fileID: 11400000, guid: f9bfbb14b0b4469479dea63ad7f215e0, type: 2}
   timeElapsedInState: 0
   target: {fileID: 0}

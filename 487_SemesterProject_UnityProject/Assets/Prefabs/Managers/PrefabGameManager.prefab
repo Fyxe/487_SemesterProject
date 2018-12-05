@@ -647,6 +647,7 @@ MonoBehaviour:
   - {fileID: 114583831844532430, guid: bc0d99a2b82aa3f499fb2024929f2e5d, type: 2}
   - {fileID: 114038615867824374, guid: f59eb62c7ca776d4cb1e899747875936, type: 2}
   - {fileID: 114292931949442972, guid: 86cec54f6528fed4790dbdd7e8fb2aba, type: 2}
+  - {fileID: 114414346876612724, guid: c7d493e4bc1dca1448ce328d6402161b, type: 2}
   allUnlockedWeapons:
   - {fileID: 114697854136788232, guid: cd0a65b2fc8c84d469a1396b7b24f332, type: 2}
   - {fileID: 114924703100487726, guid: 0bece21a170dd7a4bbaf07c3de157468, type: 2}
@@ -654,6 +655,7 @@ MonoBehaviour:
   - {fileID: 114583831844532430, guid: bc0d99a2b82aa3f499fb2024929f2e5d, type: 2}
   - {fileID: 114038615867824374, guid: f59eb62c7ca776d4cb1e899747875936, type: 2}
   - {fileID: 114292931949442972, guid: 86cec54f6528fed4790dbdd7e8fb2aba, type: 2}
+  - {fileID: 114414346876612724, guid: c7d493e4bc1dca1448ce328d6402161b, type: 2}
   allAbilities: []
   allUnlockedAbilities: []
   allAI: []

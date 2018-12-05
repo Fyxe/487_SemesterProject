@@ -14,6 +14,8 @@ public class WeaponRanged : Weapon
     public float spread;
     public float knockbackForce;
     public bool isPiercing;
+    public bool isExplosive;
+    public float explosionRadius;
 
     [Header("References")]
     public Transform shotPosition;
@@ -39,6 +41,7 @@ public class WeaponRanged : Weapon
             spawnedBullet.bounce = controllerCurrent.attachedPlayer.hasBouncingShots;
             spawnedBullet.weaponFiredFrom = this;
             spawnedBullet.transform.position = shotPosition.transform.position;
+            spawnedBullet.transform.rotation = shotPosition.transform.rotation;
             Vector3 newDirection = shotPosition.transform.forward;
             Vector3 randomSpread = new Vector3(Random.Range(-spread, spread), 0f);
             newDirection += transform.TransformDirection(randomSpread);            

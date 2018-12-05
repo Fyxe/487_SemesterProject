@@ -685,7 +685,7 @@ MonoBehaviour:
   baseCost: 0
   upgradeID: -1
   damage: 1
-  delayAttack: 0.05
+  delayAttack: 0.15
   delayAttackAlternate: 1
   speedAttack: 40
   rangeAttack: 2
